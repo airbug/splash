@@ -4,11 +4,14 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
-  , port = process.env.PORT || 3000;
+  , port = process.env.PORT || 8000
+  , db = require('./db.js').db;
+
+var routes = {};
+var site = routes.site = require('./routes/site.js');
+var betaSignUp = routes.betaSignUp = require('./routes/betaSignUp.js');
 
 var app = express();
 
@@ -19,7 +22,7 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
-  app.use(express.methodOverride());
+  app.use(express.methodOverride()); // for put and delete support for html 4 and older
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -28,14 +31,10 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-
-var betaSignupDBClient = new BetaSignupDBClient('localhost', 27017);
-
 // Routes 
-
-app.get('/', routes.index);
-app.get('/home', routes.index);
-app.post('beta-signup', routes.betaSignup);
+app.get('/', site.index);
+app.get('/home', site.index);
+app.post('/beta-signup', betaSignUp.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

@@ -3,3 +3,35 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  form(method='post', action='beta-signup', id='betaSignUpForm)
+    fieldset
+      legend Plugin Wishlist:
+      label GitHub:
+        input(type='checkbox', name='github',         value='true')
+      label Jira:
+        input(type='checkbox', name='jira',           value='true')
+      label Zendesk:
+        input(type='checkbox', name='zendesk',        value='true')
+      label Pivotal Tracker:
+        input(type='checkbox', name='pivotaltracker', value='true')
+      label Asana:
+        input(type='checkbox', name='asana',          value='true')
+      label Dropbox:
+        input(type='checkbox', name='dropbox',        value='true')
+      label Evernote:
+        input(type='checkbox', name='evernote',       value='true')
+      label Facebook:
+        input(type='checkbox', name='facebook',       value='true')
+      label Twitter:
+        input(type='checkbox', name='twitter',        value='true')
+      label Email:
+        input(type='checkbox', name='email',          value='true')
+      label Texteditors:
+        input(type='checkbox', name='texteditor',     value='true')
+      label Other:
+        input(type='text', name='other')
+    fieldset
+      legend Email:
+      input(type='text', name='emailAddress')
+
+    button(onClick="postXMLDoc(parseForm(document.getElementById('betaSignUpForm')))") Submit
