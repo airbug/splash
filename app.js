@@ -22,7 +22,7 @@ app.configure(function(){
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
-  app.use(express.methodOverride()); // for put and delete support for html 4 and older
+  app.use(express.methodOverride()); // put and delete support for html 4 and older
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -36,6 +36,20 @@ app.get('/', site.index);
 app.get('/home', site.index);
 app.post('/beta-signup', betaSignUp.create);
 
+// Graceful Shutdown
+process.on('SIGTERM', function () {
+  console.log("Server Closing");
+  app.close();
+});
+
+app.on('close', function () {
+  console.log("Server Closed");
+  db.connection.close();
+});
+
+// Create Server
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
+
+
