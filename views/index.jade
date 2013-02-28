@@ -1,37 +1,48 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  form(method='post', action='beta-signup', id='betaSignUpForm)
-    fieldset
-      legend Plugin Wishlist:
-      label GitHub:
-        input(type='checkbox', name='github',         value='true')
-      label Jira:
-        input(type='checkbox', name='jira',           value='true')
-      label Zendesk:
-        input(type='checkbox', name='zendesk',        value='true')
-      label Pivotal Tracker:
-        input(type='checkbox', name='pivotaltracker', value='true')
-      label Asana:
-        input(type='checkbox', name='asana',          value='true')
-      label Dropbox:
-        input(type='checkbox', name='dropbox',        value='true')
-      label Evernote:
-        input(type='checkbox', name='evernote',       value='true')
-      label Facebook:
-        input(type='checkbox', name='facebook',       value='true')
-      label Twitter:
-        input(type='checkbox', name='twitter',        value='true')
-      label Email:
-        input(type='checkbox', name='email',          value='true')
-      label Texteditors:
-        input(type='checkbox', name='texteditor',     value='true')
-      label Other:
-        input(type='text', name='other')
-    fieldset
-      legend Email:
-      input(type='text', name='emailAddress')
-
-    button(onClick="postXMLDoc(parseForm(document.getElementById('betaSignUpForm')))") Submit
+  div(id="loading-page")
+    div(class="row-fluid")
+      div(class="span8 offset2")
+        div(class="airbug-loader-container")
+          img(class="loader", src="/images/ajax-loader.gif", alt="loading...")
+  div(id="explainer-page")    
+    div(class="row-fluid")
+      div(class="span8 offset2")
+        div(class="logo-container")
+          img(class="logo", src="/images/airbug-logo-large.png", alt="airbug", onload="Loader.loaded();")
+        div(class="marketing-container")
+          p(class="marketing") Marketing content goes here (video once it's done)
+        div(class="beta-signup-button-container")
+          button(id="beta-signup-button", class="btn btn-large btn-info") Signup for the beta
+  div(id="beta-signup-page")
+    div(class="row-fluid")
+      div(class="span8 offset2")
+        div(class="instructions-container")
+          p(class="instructions-text") Select the three tools you use the most
+        div(class="bug-swarm-container")
+          div(id="airbug-zendesk-container", class="airbug-container")
+            img(id="airbug-zendesk-image", src="/images/airbug-zendesk.png", alt="Zendesk")
+          div(id="airbug-salesforce-container", class="airbug-container")
+            img(id="airbug-salesforce-image", src="/images/airbug-salesforce.png", alt="Salesforce")
+          div(id="airbug-jira-container", class="airbug-container")
+            img(id="airbug-jira-image", src="/images/airbug-jira.png", alt="JIRA")
+          div(id="airbug-uservoice-container", class="airbug-container")
+            img(id="airbug-uservoice-image", src="/images/airbug-uservoice.png", alt="User Voice")
+          div(id="airbug-basecamp-container", class="airbug-container")
+            img(id="airbug-basecamp-image", src="/images/airbug-basecamp.png", alt="Basecamp")
+          div(id="airbug-bitbucket-container", class="airbug-container")
+            img(id="airbug-bitbucket-image", src="/images/airbug-bitbucket.png", alt="bitbucket")
+          div(id="airbug-github-container", class="airbug-container")
+            img(id="airbug-github-image", src="/images/airbug-github.png", alt="github")
+          div(id="airbug-pivotaltracker-container", class="airbug-container")
+            img(id="airbug-pivotaltracker-image", src="/images/airbug-pivotaltracker.png", alt="Pivotal Tracker")
+          div(id="airbug-other-container", class="airbug-container")
+            img(id="airbug-other-image", src="/images/airbug-other.png", alt="Other")
+        div(class="arrow-container")
+          img(class="arrow", src="/images/arrow.png", alt="drag and drop the airbugs to the bug jar");
+        div(class="bugjar-container")
+          img(class="bugjar-image", src="/images/bugjar.png")
+          div(id="landing-space-1")
+          div(id="landing-space-2")
+          div(id="landing-space-3")

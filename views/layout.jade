@@ -2,7 +2,60 @@ doctype 5
 html
   head
     title= title
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel='stylesheet', href='/stylesheets/style.css')
-    script (type='text/javascript', src='/javascripts/ajax.js')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.min.css')
+    script
+        var Loader = {
+            numLoadedItems: 0,
+            appLoaded: false,
+            loadListeners: [],
+            addLoadedListener: function(listener) {
+                Loader.loadListeners.push(listener);
+            },
+            notifyLoadedListeners: function() {
+                Loader.loadListeners.forEach(function(listener) {
+                    listener();
+                });
+            },
+            loaded: function() {
+                Loader.numLoadedItems++;
+                if (Loader.numLoadedItems >= 3 && !Loader.appLoaded) {
+                    Loader.appLoaded = true;
+                    Loader.notifyLoadedListeners();
+                }
+            }
+        };
   body
-    block content
+    div(class="app-container")
+      block content
+      div(id="feedback-container", class="feedback-container-collapse")
+        div(id="feedback-edge-container", class="feedback-edge-container")
+          div(class="feedback-airbug-container")
+            img(class="feedback-airbug-image", src="/images/airbug-feedback-pull.png", onload="Loader.loaded();")
+          div(class="feedback-tab-container")
+            div(id="feedback-tab", class="btn btn-large")
+              img(class="feedback-tab-image", src="/images/feedback-tab.png", onload="Loader.loaded();")
+        div(class="feedback-form-container")
+          form(method="post", action="feedback", id="feedbackForm")
+            fieldset
+              label What else would you like to see on this page?
+              input(type="text", name="whatElse", class="input-xxlarge")
+            fieldset
+              label What's the number 1 reason that is stopping you from signing up for the beta?
+              input(type="text", name="stoppingSignup", class="input-xxlarge")
+            fieldset
+              label What's your biggest concern about this product or service?
+              input(type="text", name="biggestConcern", class="input-xxlarge")
+            fieldset
+              label Is there anything that is confusing on this page?
+              input(type="text", name="anythingConfusing", class="input-xxlarge")
+            fieldset
+              label What can we help you solve?
+              input(type="text", name="helpSolve", class="input-xxlarge")
+            button(class="btn btn-info", type="button", onClick="postXMLDoc(parseForm(document.getElementById('feedbackForm'))); return false;") Submit
+            button(class="btn", type="button", onClick="closeFeedbackPanel(); return false;") Cancel
+    script(type="text/javascript", src="/javascripts/jquery-1.9.1.min.js")
+    script(type="text/javascript", src="/javascripts/bootstrap.min.js")
+    script(type="text/javascript", src="/javascripts/airbug-beta.js")

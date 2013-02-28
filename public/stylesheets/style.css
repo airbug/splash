@@ -1,8 +1,380 @@
+html {
+    height: 100%;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 100px;
+    padding-right: 100px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
+}
+
+.btn {
+    margin-right: 10px;
+}
+.app-container {
+    min-width: 728px;
+    position: relative;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    border: solid 1px #CCCCCC;
+    background: #f4f5f5;
+    background: -moz-linear-gradient(top,  #f4f5f5 0%, #f4f5f5 70%, #abcecb 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f5f5), color-stop(70%,#f4f5f5), color-stop(100%,#abcecb));
+    background: -webkit-linear-gradient(top,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
+    background: -o-linear-gradient(top,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
+    background: -ms-linear-gradient(top,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
+    background: linear-gradient(to bottom,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f5f5', endColorstr='#abcecb',GradientType=0 );
+}
+
+.loader {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
+
+.logo-container {
+    position: relative;
+    margin-top: 130px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 130px;
+}
+
+.logo {
+    display: block;
+    position: absolute;
+    width: 300px;
+    height: 130px;
+    top: 0px;
+    left: 0px;
+}
+
+.marketing-container {
+    padding-top: 100px;
+}
+
+.marketing {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.beta-signup-button-container {
+    padding-top: 60px;
+}
+
+#beta-signup-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#explainer-page {
+    display: none;
+}
+
+
+/* Feedback
+********************************************/
+
+
+/*.feedback-container {
+    display: block;
+    position: absolute;
+    top: 150px;
+    right: 0px;
+    width: 200px;
+    height: 200px;
+}*/
+
+#feedback-container {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 500px;
+    right: 0px;
+    top: 50px;
+    border-radius: 6px;
+    border: solid 1px #CCCCCC;
+    background-color: #FFFFFF;
+}
+
+.feedback-container-expand {
+    left: 200px;
+    -webkit-transition: left 1s ease;
+    -moz-transition: left 1s ease;
+    -o-transition: left 1s ease;
+    -ms-transition: left 1s ease;
+    transition: left 1s ease;
+}
+
+.feedback-container-collapse {
+    left: 100%;
+    -webkit-transition: left 1s ease;
+    -moz-transition: left 1s ease;
+    -o-transition: left 1s ease;
+    -ms-transition: left 1s ease;
+    transition: left 1s ease;
+}
+
+.feedback-form-container {
+    padding-left: 30px;
+    padding-top: 30px;
+}
+
+.feedback-edge-container {
+    display: block;
+    position: absolute;
+    left: -200px;
+    top: 50px;
+    width: 200px;
+    height: 200px;
+}
+
+.feedback-form-container {
+    width: 600px;
+
+}
+
+.feedback-airbug-container {
+    display: block;
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+}
+
+.feedback-tab-container {
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 150px;
+    right: 0px;
+    top: 0px;
+}
+
+#feedback-tab {
+    display: block;
+    width: 18px;
+    height: 128px;
+    padding: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -moz-border-top-right-radius: 0px;
+    -moz-border-bottom-right-radius: 0px;
+    cursor: pointer;
+    background-color: #e6e6e6;
+    background-image: -moz-linear-gradient(left,#fff,#e6e6e6);
+    background-image: -webkit-gradient(linear,0 100%, 0 0, from(#fff),to(#e6e6e6));
+    background-image: -webkit-linear-gradient(left,#fff,#e6e6e6);
+    background-image: -o-linear-gradient(left,#fff,#e6e6e6);
+    background-image: linear-gradient(to right,#fff,#e6e6e6);
+    background-repeat: repeat-y;
+    border: 1px solid #ccc;
+    border-color: #e6e6e6  #bfbfbf #e6e6e6 #e6e6e6;
+    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.25) rgba(0,0,0,0.1) rgba(0,0,0,0.1);
+    border-right-color: #b3b3b3;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+}
+
+#feedback-tab:hover,
+#feedback-tab:focus {
+    background-position: -15px 0;
+    -webkit-transition: background-position 0.1s linear;
+    -moz-transition: background-position 0.1s linear;
+    -o-transition: background-position 0.1s linear;
+    transition: background-position 0.1s linear;
+}
+
+#feedback-tab:active,
+#feedback-tab:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.15), 1px 0 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.15), 1px 0 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.15), 1px 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.feedback-tab-image {
+    display: block;
+    position: absolute;
+    top: 30px;
+}
+
+
+/* Beta Signup Page
+********************************************/
+
+#beta-signup-page {
+    display: none;
+}
+
+.bug-swarm-container {
+    display: block;
+    position: absolute;
+    width: 400px;
+    height: 800px;
+    left: 0px;
+    top: 0px;
+}
+
+.airbug-container {
+    display: block;
+    position: absolute;
+    width: 75px;
+    height: 150px;
+}
+
+#airbug-zendesk-container {
+    left: 100px;
+    top: 100px;
+}
+
+#airbug-zendesk-image {
+    display: block;
+    position: absolute;
+    width: 75px;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+}
+
+#airbug-salesforce-container {
+    left: 300px;
+    top: 100px;
+}
+
+#airbug-salesforce-image {
+
+}
+
+#airbug-jira-container {
+
+}
+
+#airbug-jira-image {
+
+}
+
+#airbug-uservoice-container {
+
+}
+
+#airbug-uservoice-image {
+
+}
+
+#airbug-basecamp-container {
+
+}
+
+#airbug-basecamp-image {
+
+}
+
+#airbug-bitbucket-container {
+
+}
+
+#airbug-bitbucket-image {
+
+}
+
+#airbug-github-container {
+
+}
+
+#airbug-github-image {
+
+}
+
+#airbug-pivotaltracker-container {
+
+}
+
+#airbug-pivotaltracker-image {
+
+}
+
+#airbug-other-container {
+
+}
+
+#airbug-other-image {
+
+}
+
+.arrow-container {
+    display: block;
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    left: 500px;
+    top: 300px;
+}
+
+.arrow {
+    width: 75px;
+    height: 75px;
+}
+
+.bugjar-container {
+    display: block;
+    position: absolute;
+    width: 200px;
+    height: 300px;
+    left: 600px;
+    top: 200px;
+}
+
+.bugjar-image {
+    width: 200px;
+    height: 300px;
+}
+
+#landing-space-1 {
+    display: block;
+    position: absolute;
+    width: 75px;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+}
+
+
+#landing-space-2 {
+    display: block;
+    position: absolute;
+    width: 75px;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+}
+
+
+#landing-space-3 {
+    display: block;
+    position: absolute;
+    width: 75px;
+    height: 150px;
+    left: 0px;
+    top: 0px;
 }
