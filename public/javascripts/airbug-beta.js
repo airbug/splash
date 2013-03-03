@@ -58,25 +58,29 @@ parseToURLEncoded = function(sendForm) {
     return dataArray.join("&");
 };
 
-var goToBetaSignupPage = function() {
-    var explainerPage = $("#explainer-page");
-    var betaSignupPage = $("#beta-signup-page");
 
-    explainerPage.hide();
-    betaSignupPage.show();
-};
-
-var start = function() {
-    if (Loader.appLoaded) {
-        initializeApp();
-    } else {
-        Loader.addLoadedListener(function() {
-            initializeApp();
-        });
-    }
-};
+// Feedback Panel
+//-------------------------------------------------------------------------------
 
 var feedbackPanelOpen = false;
+var feedbackSubmitted = false;
+
+var initializeFeedbackPanel = function() {
+    var feedbackTab = $("#feedback-tab");
+    var body = $('body');
+    var feedbackContainer = $('#feedback-container');
+    var feedbackEdgeContainer = $("#feedback-edge-container");
+    var feedbackFormCancelButton = $("#feedback-form-cancel-button");
+    var feedbackFormSubmitButton = $("#feedback-form-submit-button");
+
+    feedbackTab.bind("click", handleFeedbackTabClick);
+    body.bind("click", handleBodyClick);
+    feedbackContainer.bind("click", handleFeedbackContainerClick);
+    feedbackEdgeContainer.bind("click", handleFeedbackEdgeContainerClick);
+    feedbackFormCancelButton.bind("click", handleFeedbackFormCancelButtonClick);
+    feedbackFormSubmitButton.bind("click", handleFeedbackFormSubmitButtonClick);
+};
+
 var handleFeedbackTabClick = function() {
     if (feedbackPanelOpen) {
         closeFeedbackPanel();
@@ -89,25 +93,74 @@ var handleFeedbackTabClick = function() {
 var openFeedbackPanel = function() {
     if (!feedbackPanelOpen) {
         feedbackPanelOpen = true;
-        var feedbackContainer = $('#feedback-container');
-        feedbackContainer.removeClass('feedback-container-collapse');
-        feedbackContainer.addClass('feedback-container-expand');
-
-       //TODO BRN: After the completion of the animation, change the feedback pulling airbug to be the proud airbug
+        animateFeedbackPanelOpen();
    }
+};
+
+var animateFeedbackPanelOpen = function() {
+
+    //TODO BRN: Add some sort of check here for supported css transitions. If they're supported, then use css
+    // transitions, otherwise use jquery to animate.
+
+    var pageContainer = $("#page-container");
+    pageContainer.removeClass("page-container-fadein");
+    pageContainer.addClass("page-container-fadeout");
+    var feedbackContainer = $("#feedback-container");
+    feedbackContainer.removeClass("feedback-container-collapse");
+    feedbackContainer.addClass("feedback-container-expand");
+    var feedbackAirbugPull1 = $("#feedback-airbug-pull-1");
+    feedbackAirbugPull1.removeClass("feedback-airbug-pull-1-collapsed");
+    feedbackAirbugPull1.removeClass("feedback-airbug-pull-1-collapse");
+    feedbackAirbugPull1.addClass("feedback-airbug-pull-1-expanded");
+    feedbackAirbugPull1.addClass("feedback-airbug-pull-1-expand");
+    var feedbackAirbugPull2 = $("#feedback-airbug-pull-2");
+    feedbackAirbugPull2.removeClass("feedback-airbug-pull-2-collapse");
+    feedbackAirbugPull2.addClass("feedback-airbug-pull-2-expand");
+    var feedbackAirbugPull3 = $("#feedback-airbug-pull-3");
+    feedbackAirbugPull3.removeClass("feedback-airbug-pull-3-collapse");
+    feedbackAirbugPull3.removeClass("feedback-airbug-pull-3-collapsed");
+    feedbackAirbugPull3.addClass("feedback-airbug-pull-3-expand");
+    feedbackAirbugPull3.addClass("feedback-airbug-pull-3-expanded");
+
+    //TODO BRN: Hide the thank you airbug
 };
 
 var closeFeedbackPanel = function() {
     if (feedbackPanelOpen) {
         feedbackPanelOpen = false;
-        var feedbackContainer = $('#feedback-container');
-        feedbackContainer.removeClass('feedback-container-expand');
-        feedbackContainer.addClass('feedback-container-collapse');
-
-        //TODO BRN: After the completion of the animation,
-        // If the user submitted feedback change the feedback pulling airbug to be the thanks you sign airbug
-        // If the user did not submit feedback change the feedback airbug to the pulling airbug
+        animateFeedbackPanelClose();
     }
+};
+
+var animateFeedbackPanelClose = function() {
+
+    //TODO BRN: Add some sort of check here for supported css transitions. If they're supported, then use css
+    // transitions, otherwise use jquery to animate.
+
+    var pageContainer = $('#page-container');
+    pageContainer.removeClass('page-container-fadeout');
+    pageContainer.addClass('page-container-fadein');
+    var feedbackContainer = $('#feedback-container');
+    feedbackContainer.removeClass('feedback-container-expand');
+    feedbackContainer.addClass('feedback-container-collapse');
+    var feedbackAirbugPull1 = $("#feedback-airbug-pull-1");
+    feedbackAirbugPull1.removeClass("feedback-airbug-pull-1-expandeded");
+    feedbackAirbugPull1.removeClass("feedback-airbug-pull-1-expand");
+    if (feedbackSubmitted) {
+        feedbackAirbugPull1.addClass("feedback-airbug-pull-1-thankyou");
+        //TODO BRN: Show the thank you airbug
+    } else {
+        feedbackAirbugPull1.addClass("feedback-airbug-pull-1-collapsed");
+        feedbackAirbugPull1.addClass("feedback-airbug-pull-1-collapse");
+    }
+    var feedbackAirbugPull2 = $("#feedback-airbug-pull-2");
+    feedbackAirbugPull2.removeClass("feedback-airbug-pull-2-expand");
+    feedbackAirbugPull2.addClass("feedback-airbug-pull-2-collapse");
+    var feedbackAirbugPull3 = $("#feedback-airbug-pull-3");
+    feedbackAirbugPull3.removeClass("feedback-airbug-pull-3-expand");
+    feedbackAirbugPull3.removeClass("feedback-airbug-pull-3-expanded");
+    feedbackAirbugPull3.addClass("feedback-airbug-pull-3-collapse");
+    feedbackAirbugPull3.addClass("feedback-airbug-pull-3-collapsed");
 };
 
 var handleBodyClick = function(event) {
@@ -126,23 +179,157 @@ var handleFeedbackEdgeContainerClick = function(event) {
     }
 };
 
-var initializeApp = function() {
+var handleFeedbackFormCancelButtonClick = function(event) {
+    event.preventDefault();
+    closeFeedbackPanel();
+    return false;
+};
+
+var handleFeedbackFormSubmitButtonClick = function(event) {
+    event.preventDefault();
+
+    var feedbackFormData = getFeedbackFormData();
+    validateFeedbackForm(feedbackFormData, function(error) {
+        if (!error) {
+            submitFeedbackForm(feedbackFormData);
+            closeFeedbackPanel();
+        } else {
+            showFeedbackFormError(error);
+        }
+    });
+    return false;
+};
+
+var getFeedbackFormData = function() {
+
+    //TODO BRN: Parse the data from the feedback form.
+
+    return {};
+};
+
+var showFeedbackFormError = function(error) {
+
+};
+
+var submitFeedbackForm = function(feedbackFormData) {
+
+    //TODO BRN: Submit the feedback form to the server.
+    //postXMLDoc(parseForm(document.getElementById('feedback-form')));
+
+    feedbackSubmitted = true;
+};
+
+var validateFeedbackForm = function(feedbackFormData, callback) {
+    //TODO BRN: Validate the feedback form data
+    callback();
+};
+
+
+// Explainer page
+//-------------------------------------------------------------------------------
+
+var initializeExplainerPage = function() {
     var betaSignupButton = $("#beta-signup-button");
-    var explainerPage = $("#explainer-page");
-    var loadingPage = $("#loading-page");
-    var feedbackTab = $("#feedback-tab");
-    var body = $('body');
-    var feedbackContainer = $('#feedback-container');
-    var feedbackEdgeContainer = $("#feedback-edge-container");
     betaSignupButton.bind("click", function(event) {
         goToBetaSignupPage();
     });
-    feedbackTab.bind("click", handleFeedbackTabClick);
-    body.bind("click", handleBodyClick);
-    feedbackContainer.bind("click", handleFeedbackContainerClick);
-    feedbackEdgeContainer.bind("click", handleFeedbackEdgeContainerClick);
+};
+
+var goToExplainerPage = function(){
+    initializeExplainerPage();
+    var explainerPage = $("#explainer-page");
+    var loadingPage = $("#loading-page");
     explainerPage.show();
     loadingPage.hide();
+};
+
+
+// Beta Signup Page
+//-------------------------------------------------------------------------------
+
+var goToBetaSignupPage = function() {
+    initializeBetaSignupPage();
+    var explainerPage = $("#explainer-page");
+    var betaSignupPage = $("#beta-signup-page");
+    explainerPage.hide();
+    betaSignupPage.show();
+};
+
+var initializeBetaSignupPage = function() {
+
+    $(
+        "#airbug-basecamp-container," +
+        "#airbug-bitbucket-container," +
+        "#airbug-github-container," +
+        "#airbug-jira-container," +
+        "#airbug-other-container," +
+        "#airbug-pivotaltracker-container," +
+        "#airbug-salesforce-container," +
+        "#airbug-uservoice-container," +
+        "#airbug-zendesk-container"
+    ).each(function() {
+        var target = $(this);
+        target.bind("touchstart mousedown", function(event) {
+            handleAirbugDragStart(event, target);
+        });
+    });
+
+};
+
+var dragTarget = null;
+var boundingOffsets = null;
+var dragStartOffsets = null;
+var handleAirbugDragStart = function(event, target) {
+    event.preventDefault();
+    dragTarget = target;
+    var dragTargetOffsets = dragTarget.offset();
+    dragStartOffsets = {
+        left: event.clientX - dragTargetOffsets.left,
+        top: event.clientY - dragTargetOffsets.top
+    };
+    boundingOffsets = $("#bug-swarm-container").offset();
+    var body = $('body');
+    body.bind("touchmove mousemove", handleAirbugDragMove);
+    body.bind("touchend mouseup", handleAirbugDragEnd);
+    dragTarget.removeClass("airbug-container-released");
+};
+
+var handleAirbugDragMove = function(event) {
+    var x = event.clientX - boundingOffsets.left - dragStartOffsets.left;
+    var y = event.clientY - boundingOffsets.top - dragStartOffsets.top;
+
+    //TODO BRN: Add an animation that has the bug follow your cursor.
+
+    dragTarget.css("left", x + "px");
+    dragTarget.css("top", y + "px");
+};
+
+var handleAirbugDragEnd = function(event) {
+    var body = $('body');
+    body.unbind("touchmove mousemove", handleAirbugDragMove);
+    body.unbind("touchend mouseup", handleAirbugDragEnd);
+    dragTarget.css("left", "");
+    dragTarget.css("top", "");
+    dragTarget.addClass("airbug-container-released");
+};
+
+
+// App Code
+//-------------------------------------------------------------------------------
+
+var start = function() {
+    if (Loader.appLoaded) {
+        initializeApp();
+    } else {
+        Loader.addLoadedListener(function() {
+            initializeApp();
+        });
+    }
+};
+
+var initializeApp = function() {
+    initializeFeedbackPanel();
+    goToExplainerPage();
 };
 
 start();
