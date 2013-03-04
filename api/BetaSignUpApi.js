@@ -26,10 +26,6 @@ var BetaSignUpApi = {
     createBetaSignUp: function(data, callback) {
         //TODO BRN: Add validation of params
 
-        for(var property in data){
-            console.log(property + ' : ' + data[property]);
-        }
-
         var betaSignUp = {
             company: data.company,
             companySize: data.companySize,
