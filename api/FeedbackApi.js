@@ -25,12 +25,6 @@ var FeedbackApi = {
     createFeedback: function(data, callback) {
         //TODO BRN: Add validation of params
 
-        //TEST
-        console.log("createFeedback api call");
-        for(var property in data){
-            console.log(property + ' : ' + data[property]);
-        }
-
         var feedback = {
             anythingConfusing: data.anythingConfusing,
             biggestConcern: data.biggestConcern,
