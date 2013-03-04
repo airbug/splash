@@ -50,7 +50,7 @@ var FeedbackApi = {
     },
 
     findAllFeedbacks: function(callback) {
-        var query = DeedbackModel.find();
+        var query = FeedbackModel.find();
         query.exec(function(error, feedbacks) {
             callback(error, feedbacks);
         });
