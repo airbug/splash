@@ -1,17 +1,22 @@
+//-------------------------------------------------------------------------------
+// Common Modules
+//-------------------------------------------------------------------------------
 
-/**
- * Module dependencies.
- */
+var express = require('express');
+var http = require('http');
+var path = require('path');
+var port = process.env.PORT || 8000;
+var mongoose = require('mongoose');
 
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-  , port = process.env.PORT || 8000
-  , db = require('./db.js').db;
+var BetaSignUpApi = require('./api/betaSignUpApi.js');
+var FeedbackApi = require('./api/FeedbackApi.js');
 
-var routes = {};
-var site = routes.site = require('./routes/site.js');
-var betaSignUp = routes.betaSignUp = require('./routes/betaSignUp.js');
+
+//-------------------------------------------------------------------------------
+// Create Application
+//-------------------------------------------------------------------------------
+
+mongoose.connect('mongodb://localhost/airbug');
 
 var app = express();
 
@@ -31,10 +36,64 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-// Routes 
-app.get('/', site.index);
-app.get('/home', site.index);
-app.post('/beta-signup', betaSignUp.create);
+
+//-------------------------------------------------------------------------------
+// Routes
+//-------------------------------------------------------------------------------
+
+app.get('/', function(req, res){
+    res.render('index', { title: 'airbug' });
+    res.end();
+});
+app.post('/api/beta-sign-up', function(req, res){
+    for(var property in req.body){
+        console.log(property + ' : ' + req.body[property]);
+    }
+
+    var betaSignUpData = req.body;
+
+    BetaSignUpApi.createBetaSignUp(betaSignUpData, function(error, betaSignUp) {
+        var result = {
+            success: false
+        };
+        if (error){
+            console.log(new Error('betaSignUp failed to save'));
+            result.error = error.message;
+        } else {
+            console.log('betaSignUp saved successfully: ' + betaSignUp.toString());
+            result.success = true;
+        }
+        res.send(JSON.stringify(result));
+        res.end();
+    });
+});
+app.post('/api/feedback', function(req, res) {
+    for(var property in req.body){
+        console.log(property + ' : ' + req.body[property]);
+    }
+
+    var feedbackData = req.body;
+
+    FeedbackApi.createFeedback(feedbackData, function(error, feedback) {
+        var result = {
+            success: false
+        };
+        if (error){
+            console.log(new Error('feedback failed to save'));
+            result.error = error.message;
+        } else {
+            console.log('feedback saved successfully: ' + feedback.toString());
+            result.success = true;
+        }
+        res.send(JSON.stringify(result));
+        res.end();
+    });
+});
+
+
+//-------------------------------------------------------------------------------
+// Routes
+//-------------------------------------------------------------------------------
 
 // Graceful Shutdown
 process.on('SIGTERM', function () {

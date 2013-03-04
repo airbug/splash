@@ -19,7 +19,7 @@ a {
     margin-right: 10px;
 }
 
-.app-container {
+#app-container {
     min-width: 726px;
     position: relative;
     display: block;
@@ -52,7 +52,7 @@ a {
 }
 
 .page-container-fadeout {
-    opacity: 0.4;
+    opacity: 0.3;
     -webkit-transition: opacity 1s linear;
     -moz-transition: opacity 1s linear;
     -o-transition: opacity 1s linear;
@@ -60,53 +60,110 @@ a {
     transition: opacity 1s linear;
 }
 
-.loader {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
-}
-
-.logo-container {
-    position: relative;
-    margin-top: 130px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 300px;
-    height: 130px;
-}
-
-.logo {
-    display: block;
-    position: absolute;
-    width: 300px;
-    height: 130px;
-    top: 0px;
-    left: 0px;
-}
-
-.marketing-container {
-    padding-top: 100px;
-}
-
-.marketing {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.beta-signup-button-container {
-    padding-top: 60px;
-}
-
-#beta-signup-button {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#explainer-page {
+.page {
     display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.page-slide-hide {
+    visibility: hidden;
+    -webkit-transition: visibility 0.5s step-end;
+    -moz-transition: visibility 0.5s step-end;
+    -o-transition: visibility 0.5s step-end;
+    -ms-transition: visibility 0.5s step-end;
+    transition: visibility 0.5s step-end;
+    -webkit-animation: page-slide-hide-animation 0.5s linear;
+    -moz-animation: page-slide-hide-animation 0.5s linear;
+    -ms-animation: page-slide-hide-animation 0.5s linear;
+    -o-animation: page-slide-hide-animation 0.5s linear;
+    animation: page-slide-hide-animation 0.5s linear;
+}
+
+@-webkit-keyframes page-slide-hide-animation {
+    0% { top:0; }
+    100% { top:-100%; }
+}
+
+@-moz-keyframes page-slide-hide-animation {
+    0% { top:0; }
+    100% { top:-100%; }
+}
+
+@-ms-keyframes page-slide-hide-animation {
+     0% { top:0; }
+    100% { top:-100%; }
+}
+
+@-o-keyframes page-slide-hide-animation {
+    0% { top:0; }
+    100% { top:-100%; }
+}
+
+@keyframes page-slide-hide-animation {
+    0% { top:0; }
+    100% { top:-100%; }
+}
+
+.page-slide-show {
+    top: 0;
+    -webkit-animation: page-slide-show-animation 0.5s linear;
+    -moz-animation: page-slide-show-animation 0.5s linear;
+    -ms-animation: page-slide-show-animation 0.5s linear;
+    -o-animation: page-slide-show-animation 0.5s linear;
+    animation: page-slide-show-animation 0.5s linear;
+}
+
+@-webkit-keyframes page-slide-show-animation {
+    0% { top: 100%; }
+    100% { top: 0%; }
+}
+
+@-moz-keyframes page-slide-show-animation {
+    0% { top: 100%; }
+    100% { top: 0; }
+}
+
+@-ms-keyframes page-slide-show-animation {
+     0% { top: 100%; }
+    100% { top: 0; }
+}
+
+@-o-keyframes page-slide-show-animation {
+    0% { top: 100%; }
+    100% { top: 0; }
+}
+
+@keyframes page-slide-show-animation {
+    0% { top: 100%; }
+    100% { top: 0; }
+}
+
+
+/* Drag and Drop Code
+********************************************/
+
+.grab {
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: -ms-grab;
+    cursor: -o-grab;
+}
+
+.grabbing {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: -ms-grabbing;
+    cursor: -o-grabbing;
+}
+
+.drag-released {
+    -webkit-transition: left 1s linear, top 1s linear;
+    -moz-transition: left 1s linear, top 1s linear;
+    -o-transition: left 1s linear, top 1s linear;
+    -ms-transition: left 1s linear, top 1s linear;
+    transition: left 1s linear, top 1s linear;
 }
 
 
@@ -194,41 +251,43 @@ a {
     top: 0;
 }
 
-.feedback-airbug-pull-1-expanded {
+.feedback-airbug-hide {
     visibility: hidden;
 }
 
-.feedback-airbug-pull-1-collapsed {
+.feedback-airbug-show {
     visibility: visible;
 }
 
-.feedback-airbug-pull-1-thankyou {
-    visibility: hidden;
+#feedback-airbug-thankyou-image {
+    width: 82px;
 }
 
-.feedback-airbug-pull-2 {
-    visibility: hidden;
+#feedback-thankyou-message {
+    position: absolute;
+    display: block;
+    top: 99px;
+    width: 80px;
+    height: 40px;
+    border-left: solid 3px #000000;
+    border-right: solid 3px #000000;
+    border-top: solid 5px #000000;
+    border-bottom: solid 5px #000000;
+    border-radius: 7px;
+    background: #FFFFFF;
+    text-align: center;
+    line-height: 38px;
+    color: #333333;
+    font-size: 16px;
 }
 
-.feedback-airbug-pull-3-expanded {
+.feedback-airbug-show-after-collapse {
     visibility: visible;
-}
-
-.feedback-airbug-pull-3-collapsed {
-    visibility: hidden;
-}
-
-.feedback-airbug-pull-1-expand {
-    visibility: hidden;
-}
-
-.feedback-airbug-pull-1-collapse {
-    visibility: visible;
-    -webkit-transition: visibility 1s step-end 0s;
-    -moz-transition: visibility 1s step-end 0s;
-    -o-transition: visibility 1s step-end 0s;
-    -ms-transition: visibility 1s step-end 0s;
-    transition: visibility 1s step-end 0s;
+    -webkit-transition: visibility 1s step-end;
+    -moz-transition: visibility 1s step-end;
+    -o-transition: visibility 1s step-end;
+    -ms-transition: visibility 1s step-end;
+    transition: visibility 1s step-end;
 }
 
 .feedback-airbug-pull-2-expand {
@@ -254,10 +313,6 @@ a {
     -o-transition: visibility 1s step-end 0s;
     -ms-transition: visibility 1s step-end 0s;
     transition: visibility 1s step-end 0s;
-}
-
-.feedback-airbug-pull-3-collapse {
-    visibility: hidden;
 }
 
 @-webkit-keyframes airbug-pull-2-expand-animation {
@@ -365,15 +420,80 @@ a {
     top: 30px;
 }
 
-
-/* Beta Signup Page
-********************************************/
-
-#beta-signup-page {
-    display: none;
+#interference-container {
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 0px;
+    height: 0px;
 }
 
-.beta-signup-container {
+/* Loading Page
+********************************************/
+
+#loading-page {
+    display: block;
+}
+
+.loader {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
+
+
+/* Explainer Page
+********************************************/
+
+.logo-container {
+    position: relative;
+    margin-top: 130px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 130px;
+}
+
+.logo {
+    display: block;
+    position: absolute;
+    width: 300px;
+    height: 130px;
+    top: 0px;
+    left: 0px;
+}
+
+.marketing-container {
+    padding-top: 100px;
+}
+
+.marketing {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.beta-sign-up-button-container {
+    padding-top: 60px;
+}
+
+#beta-sign-up-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Beta Sign Up Page
+********************************************/
+
+#beta-sign-up-page {
+   
+}
+
+.beta-sign-up-container {
     display: block;
     position: relative;
     margin-left: auto;
@@ -381,12 +501,21 @@ a {
     width: 724px;
 }
 
-.instructions-container {
+#instructions-container {
     position: absolute;
     width: 250px;
-    top: 450px;
+    top: 420px;
     left: 235px;
     text-align:center
+}
+
+.hide-instructions {
+    opacity: 0;
+    -webkit-transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -ms-transition: opacity 1s linear;
+    transition: opacity 1s linear;
 }
 
 #bug-swarm-container {
@@ -403,18 +532,8 @@ a {
     position: absolute;
     width: 126px;
     height: 157px;
-    cursor: -webkit-grab;
 }
 
-.airbug-container-released {
-    -webkit-transition: left 1s linear, top 1s linear;
-    -moz-transition: left 1s linear, top 1s linear;
-    -o-transition: left 1s linear, top 1s linear;
-    -ms-transition: left 1s linear, top 1s linear;
-    transition: left 1s linear, top 1s linear;
-}
-
-/* cubic-bezier(.25, 3, .75, -2)*/
 @-webkit-keyframes airbug-fly-animation {
     0% { -webkit-transform:rotate(-4deg); }
     100% { -webkit-transform:rotate(4deg); }
@@ -422,25 +541,21 @@ a {
 
 @-moz-keyframes airbug-fly-animation {
     0% { -moz-transform:rotate(-4deg); }
-    50% { -moz-transform:rotate(0deg); }
     100% { -moz-transform:rotate(4deg); }
 }
 
 @-ms-keyframes airbug-fly-animation {
      0% { -ms-transform:rotate(-4deg); }
-    50% { -ms-transform:rotate(0deg); }
     100% { -ms-transform:rotate(4deg); }
 }
 
 @-o-keyframes airbug-fly-animation {
     0% { -o-transform:rotate(-4deg); }
-    50% { -o-transform:rotate(0deg); }
     100% { -o-transform:rotate(4deg); }
 }
 
 @keyframes airbug-fly-animation {
     0% { transform:rotate(-4deg); }
-    50% { transform:rotate(0deg); }
     100% { transform:rotate(4deg); }
 }
 
@@ -451,15 +566,23 @@ a {
 
 #airbug-zendesk-image {
     -webkit-animation: airbug-fly-animation 1.5s ease-in-out 0s infinite alternate both;
+    -moz-animation: airbug-fly-animation 1.5s ease-in-out 0s infinite alternate both;
+    -ms-animation: airbug-fly-animation 1.5s ease-in-out 0s infinite alternate both;
+    -o-animation: airbug-fly-animation 1.5s ease-in-out 0s infinite alternate both;
+    animation: airbug-fly-animation 1.5s ease-in-out 0s infinite alternate both;
 }
 
 #airbug-salesforce-container {
     left: 280px;
-    top: 70px;
+    top: 30px;
 }
 
 #airbug-salesforce-image {
     -webkit-animation: airbug-fly-animation 1.5s ease-in-out 0.2s infinite alternate both;
+    -moz-animation: airbug-fly-animation 1.5s ease-in-out 0.2s infinite alternate both;
+    -ms-animation: airbug-fly-animation 1.5s ease-in-out 0.2s infinite alternate both;
+    -o-animation: airbug-fly-animation 1.5s ease-in-out 0.2s infinite alternate both;
+    animation: airbug-fly-animation 1.5s ease-in-out 0.2s infinite alternate both;
 }
 
 #airbug-jira-container {
@@ -469,15 +592,23 @@ a {
 
 #airbug-jira-image {
     -webkit-animation: airbug-fly-animation 2s ease-in-out 0.4s infinite alternate both;
+    -moz-animation: airbug-fly-animation 2s ease-in-out 0.4s infinite alternate both;
+    -ms-animation: airbug-fly-animation 2s ease-in-out 0.4s infinite alternate both;
+    -o-animation: airbug-fly-animation 2s ease-in-out 0.4s infinite alternate both;
+    animation: airbug-fly-animation 2s ease-in-out 0.4s infinite alternate both;
 }
 
 #airbug-uservoice-container {
     left: 420px;
-    top: 50px;
+    top: 60px;
 }
 
 #airbug-uservoice-image {
     -webkit-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -moz-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -ms-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -o-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
 }
 
 #airbug-basecamp-container {
@@ -487,24 +618,36 @@ a {
 
 #airbug-basecamp-image {
     -webkit-animation: airbug-fly-animation 1.2s ease-in-out 0.6s infinite alternate both;
+    -moz-animation: airbug-fly-animation 1.2s ease-in-out 0.6s infinite alternate both;
+    -ms-animation: airbug-fly-animation 1.2s ease-in-out 0.6s infinite alternate both;
+    -o-animation: airbug-fly-animation 1.2s ease-in-out 0.6s infinite alternate both;
+    animation: airbug-fly-animation 1.2s ease-in-out 0.6s infinite alternate both;
 }
 
 #airbug-bitbucket-container {
    left: 550px;
-   top: 250px;
+   top: 210px;
 }
 
 #airbug-bitbucket-image {
     -webkit-animation: airbug-fly-animation 1.8s ease-in-out 0.2s infinite alternate both;
+    -moz-animation: airbug-fly-animation 1.8s ease-in-out 0.2s infinite alternate both;
+    -ms-animation: airbug-fly-animation 1.8s ease-in-out 0.2s infinite alternate both;
+    -o-animation: airbug-fly-animation 1.8s ease-in-out 0.2s infinite alternate both;
+    animation: airbug-fly-animation 1.8s ease-in-out 0.2s infinite alternate both;
 }
 
 #airbug-github-container {
     left: 520px;
-    top: 420px;
+    top: 370px;
 }
 
 #airbug-github-image {
     -webkit-animation: airbug-fly-animation 2.0s ease-in-out 0s infinite alternate both;
+    -moz-animation: airbug-fly-animation 2.0s ease-in-out 0s infinite alternate both;
+    -ms-animation: airbug-fly-animation 2.0s ease-in-out 0s infinite alternate both;
+    -o-animation: airbug-fly-animation 2.0s ease-in-out 0s infinite alternate both;
+    animation: airbug-fly-animation 2.0s ease-in-out 0s infinite alternate both;
 }
 
 #airbug-pivotaltracker-container {
@@ -514,15 +657,23 @@ a {
 
 #airbug-pivotaltracker-image {
     -webkit-animation: airbug-fly-animation 1.9s ease-in-out 0.3s infinite alternate both;
+    -moz-animation: airbug-fly-animation 1.9s ease-in-out 0.3s infinite alternate both;
+    -ms-animation: airbug-fly-animation 1.9s ease-in-out 0.3s infinite alternate both;
+    -o-animation: airbug-fly-animation 1.9s ease-in-out 0.3s infinite alternate both;
+    animation: airbug-fly-animation 1.9s ease-in-out 0.3s infinite alternate both;
 }
 
 #airbug-other-container {
-    left: 10px;
-    top: 10px;
+    left: 560px;
+    top: 560px;
 }
 
 #airbug-other-image {
     -webkit-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -moz-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -ms-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -o-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
 }
 
 .arrow-container {
@@ -531,7 +682,7 @@ a {
     width: 75px;
     height: 75px;
     left: 325px;
-    top: 230px;
+    top: 220px;
 }
 
 .arrow {
@@ -539,13 +690,13 @@ a {
     height: 75px;
 }
 
-.airbug-jar-container {
+#airbug-jar-container {
     display: block;
     position: absolute;
     width: 274px;
     height: 427px;
     left: 225px;
-    top: 330px;
+    top: 300px;
 }
 
 .airbug-jar-image {
@@ -553,31 +704,98 @@ a {
     height: 427px;
 }
 
-#landing-space-1 {
+.airbug-jar-hotspot {
     display: block;
     position: absolute;
-    width: 75px;
-    height: 150px;
-    left: 0px;
+    width: 126px;
+    height: 157px;
+}
+
+#airbug-jar-hotspot-1 {
+    left: 20px;
+    top: 40px;
+}
+
+#airbug-jar-hotspot-2 {
+    left: 130px;
+    top: 160px;
+}
+
+#airbug-jar-hotspot-3 {
+    left: 10px;
+    top: 240px;
+}
+
+#popup-container {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
     top: 0px;
+    left: 0px;
+}
+
+#beta-sign-up-popup {
+    width: 600px;
+    height: 400px;
+    display: block;
+    position: relative;
+    top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #FFFFFF;
+    border-left: solid 3px #000000;
+    border-right: solid 3px #000000;
+    border-top: solid 5px #000000;
+    border-bottom: solid 5px #000000;
+    border-radius: 7px;
 }
 
 
-#landing-space-2 {
+/* Thank You Page
+********************************************/
+
+.thank-you-container {
     display: block;
-    position: absolute;
-    width: 75px;
-    height: 150px;
-    left: 0px;
-    top: 0px;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
 }
 
-
-#landing-space-3 {
+#thank-you-airbug {
     display: block;
+    position: relative;
+    width: 256px;
+    height: 240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#thank-you-airbug-image {
     position: absolute;
-    width: 75px;
-    height: 150px;
-    left: 0px;
-    top: 0px;
+    display: block;
+    width: 82px;
+    height: 98px;
+    left: 87px;
+}
+
+#thank-you-message {
+    position: absolute;
+    display: block;
+    top: 97px;
+    width: 250px;
+    height: 130px;
+    border-left: solid 3px #000000;
+    border-right: solid 3px #000000;
+    border-top: solid 5px #000000;
+    border-bottom: solid 5px #000000;
+    border-radius: 7px;
+    background: #FFFFFF;
+    text-align: center;
+    line-height: 38px;
+    color: #333333;
+    font-size: 20px;
 }
