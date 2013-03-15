@@ -1,7 +1,19 @@
 //-------------------------------------------------------------------------------
+// Annotations
+//-------------------------------------------------------------------------------
+
+//@Package('splash')
+
+//@Export('BetaSignUpModel')
+
+//@Require('splash.BetaSignUpModel')
+
+
+//-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
+var bugpack = require('bugpack').context();
 var mongoose = require('mongoose');
 
 
@@ -26,4 +38,4 @@ var BetaSignUpModel = mongoose.model("BetaSignUp", BetaSignUpSchema);
 // Exports
 //-------------------------------------------------------------------------------
 
-module.exports = BetaSignUpModel;
+bugpack.export('splash.BetaSignUpModel', BetaSignUpModel);

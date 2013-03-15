@@ -22,6 +22,8 @@ var targetTask = buildbug.targetTask;
 //-------------------------------------------------------------------------------
 
 var aws         = enableModule("aws");
+var bugpack     = enableModule('bugpack');
+var bugunit     = enableModule('bugunit');
 var core        = enableModule('core');
 var nodejs      = enableModule('nodejs');
 
@@ -39,6 +41,7 @@ buildProperties({
             "start": "node ./lib/app"
         },
         "dependencies": {
+            "bugpack": 'https://s3.amazonaws.com/airbug/bugpack-0.0.4.tgz',
             "express": "3.1.0",
             "jade": "*",
             "mongodb": ">=1.2.11",
@@ -46,7 +49,21 @@ buildProperties({
         }
     },
     sourcePaths: [
+        '../bugjs/projects/annotate/js/src',
+        '../bugjs/projects/aws/js/src',
+        '../bugjs/projects/bugjs/js/src',
+        '../bugjs/projects/bugboil/js/src',
+        '../bugjs/projects/bugflow/js/src',
+        '../bugjs/projects/bugfs/js/src',
+        '../bugjs/projects/bugtrace/js/src',
+        '../bugunit/projects/bugunit/js/src',
         './projects/splash/js/src'
+    ],
+    scriptPaths: [
+        "../bugunit/projects/bugunit/js/scripts"
+    ],
+    testPaths: [
+        "../bugjs/projects/bugjs/js/test"
     ],
     staticPaths: [
         './projects/splash/static'
@@ -95,10 +112,32 @@ buildTarget('local').buildFlow(
                 resourcePaths: buildProject.getProperty("resourcePaths")
             }
         }),
+        targetTask('generateBugPackRegistry', {
+            init: function(task, buildProject, properties) {
+                var nodePackage = nodejs.findNodePackage(
+                    buildProject.getProperty("packageJson.name"),
+                    buildProject.getProperty("packageJson.version")
+                );
+                task.updateProperties({
+                    sourceRoot: nodePackage.getBuildPath()
+                });
+            }
+        }),
         targetTask('packNodePackage', {
             properties: {
                 packageName: buildProject.getProperty("packageJson.name"),
                 packageVersion: buildProject.getProperty("packageJson.version")
+            }
+        }),
+        targetTask('startNodeModuleTests', {
+            init: function(task, buildProject, properties) {
+                var packedNodePackage = nodejs.findPackedNodePackage(
+                    buildProject.getProperty("packageJson.name"),
+                    buildProject.getProperty("packageJson.version")
+                );
+                task.updateProperties({
+                    modulePath: packedNodePackage.getFilePath()
+                });
             }
         }),
         targetTask("s3EnsureBucket", {
@@ -143,10 +182,32 @@ buildTarget('prod').buildFlow(
                 resourcePaths: buildProject.getProperty("resourcePaths")
             }
         }),
+        targetTask('generateBugPackRegistry', {
+            init: function(task, buildProject, properties) {
+                var nodePackage = nodejs.findNodePackage(
+                    buildProject.getProperty("packageJson.name"),
+                    buildProject.getProperty("packageJson.version")
+                );
+                task.updateProperties({
+                    sourceRoot: nodePackage.getBuildPath()
+                });
+            }
+        }),
         targetTask('packNodePackage', {
             properties: {
                 packageName: buildProject.getProperty("packageJson.name"),
                 packageVersion: buildProject.getProperty("packageJson.version")
+            }
+        }),
+        targetTask('startNodeModuleTests', {
+            init: function(task, buildProject, properties) {
+                var packedNodePackage = nodejs.findPackedNodePackage(
+                    buildProject.getProperty("packageJson.name"),
+                    buildProject.getProperty("packageJson.version")
+                );
+                task.updateProperties({
+                    modulePath: packedNodePackage.getFilePath()
+                });
             }
         }),
         targetTask("s3EnsureBucket", {

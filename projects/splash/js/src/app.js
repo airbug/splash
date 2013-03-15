@@ -1,35 +1,55 @@
 //-------------------------------------------------------------------------------
+// Annotations
+//-------------------------------------------------------------------------------
+
+//@Package('splash')
+
+//@Export('app')
+
+//@Require('splash.BetaSignupApi')
+//@Require('splash.FeedbackApi')
+
+
+//-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
+var bugpack = require('bugpack').context(module);
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var port = process.env.PORT || 8000;
 var mongoose = require('mongoose');
 
-var BetaSignUpApi = require('./api/betaSignUpApi.js');
-var FeedbackApi = require('./api/FeedbackApi.js');
+
+//-------------------------------------------------------------------------------
+// BugPack
+//-------------------------------------------------------------------------------
+
+var BugFs =         bugpack.require('bugfs.BugFs');
+var BetaSignUpApi = bugpack.require('splash.BetaSignUpApi');
+var FeedbackApi =   bugpack.require('splash.FeedbackApi');
 
 
 //-------------------------------------------------------------------------------
 // Create Application
 //-------------------------------------------------------------------------------
 
-mongoose.connect('mongodb://localhost/airbug');
+var config = JSON.parse(BugFs.readFileSync(path.resolve(__dirname, '../config.json'), 'utf8'));
+
+mongoose.connect('mongodb://' + config.mongoDbIp + '/airbug');
 
 var app = express();
 
 app.configure(function(){
-  app.set('port', port);
-  app.set('views', __dirname + '/views');
+  app.set('port', config.port);
+  app.set('views', path.resolve(__dirname, '../resources/views'));
   app.set('view engine', 'jade');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride()); // put and delete support for html 4 and older
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, '../static')));
 });
 
 app.configure('development', function(){
