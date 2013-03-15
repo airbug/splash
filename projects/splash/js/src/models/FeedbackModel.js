@@ -1,7 +1,19 @@
 //-------------------------------------------------------------------------------
+// Annotations
+//-------------------------------------------------------------------------------
+
+//@Package('splash')
+
+//@Export('FeedbackModel')
+
+//@Require('splash.FeedbackModel')
+
+
+//-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
+var bugpack = require('bugpack').context();
 var mongoose = require('mongoose');
 
 
@@ -25,4 +37,4 @@ var FeedbackModel = mongoose.model("Feedback", FeedbackSchema);
 // Exports
 //-------------------------------------------------------------------------------
 
-module.exports = FeedbackModel;
+bugpack.export('splash.FeedbackModel', FeedbackModel);

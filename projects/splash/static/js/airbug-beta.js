@@ -253,16 +253,31 @@ AirBug.prototype = {
         var _this = this;
         var element = this.element;
         element.bind("touchstart mousedown", function(event) {
-            _this.handleDragStart(event);
+            _this.handleInteractionStart(event);
         });
+        element.addClass("grab");
     },
-    handleDragStart: function(event) {
+    handleInteractionStart: function(event) {
         event.preventDefault();
         DragManager.startDrag(this, event.clientX, event.clientY);
+    },
+    startDrag: function() {
         AirbugJar.removeAirbug(this);
+        var element = this.element;
+        //NOTE BRN: There seems to be a bug here where the cursor is not changed immediately when the mouse is down
+        //https://bugs.webkit.org/show_bug.cgi?id=53341
+
+        element.removeClass("grab");
+        element.removeClass("drag-released");
+        element.addClass("grabbing");
     },
     releaseDrag: function() {
-
+        var element = this.element;
+        element.css("left", "");
+        element.css("top", "");
+        element.addClass("drag-released");
+        element.addClass("grab");
+        element.removeClass("grabbing");
     }
 };
 
@@ -329,23 +344,26 @@ var AirbugJar = {
             var airbug = AirbugJar.containedAirbugs[i];
             var element = airbug.element;
             if (i === 0) {
+                DragManager.createDragProxy("hotspot1", $("#airbug-jar-hotspot-1"), airbug);
                 element.css("left", "245px");
                 element.css("top", "340px");
             } else if (i === 1) {
+                DragManager.createDragProxy("hotspot2", $("#airbug-jar-hotspot-2"), airbug);
                 element.css("left", "355px");
                 element.css("top", "460px");
             } else {
+                DragManager.createDragProxy("hotspot3", $("#airbug-jar-hotspot-3"), airbug);
                 element.css("left", "235px");
                 element.css("top", "540px");
             }
         }
     },
-    initializeDragTarget: function() {
+    startDrag: function() {
         var targetElement = AirbugJar.element;
         targetElement.bind("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
         targetElement.addClass("grabbing");
     },
-    uninitializeDragTarget: function() {
+    releaseDrag: function() {
         var targetElement = AirbugJar.element;
         targetElement.unbind("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
         targetElement.removeClass("grabbing");
@@ -383,14 +401,10 @@ var BetaSignUpModal = {
     getFormData: function() {
         var formDataArray = $('#beta-sign-up-form').serializeArray();
         var betaSignUpData = {};
-
-        //TEST
-        console.log(formDataArray);
         formDataArray.forEach(function(formEntry) {
             betaSignUpData[formEntry.name] = formEntry.value;
         });
         betaSignUpData.wishList = AirbugJar.getAirbugNames();
-
         return betaSignUpData;
     },
 
@@ -398,7 +412,6 @@ var BetaSignUpModal = {
         sendApiRequest("/api/beta-sign-up", formData, function(error, result) {
             //TODO BRN: Handle errors
         });
-        feedbackSubmitted = true;
     },
 
     validateForm: function(formData, callback) {
@@ -417,13 +430,7 @@ var BetaSignUpModal = {
     },
     handleSubmitButtonClick: function(event) {
         event.preventDefault();
-
         var formData = BetaSignUpModal.getFormData();
-
-        //TEST
-        console.log("beta signup modal");
-        console.log(formData);
-
         BetaSignUpModal.validateForm(formData, function(error) {
             if (!error) {
                 BetaSignUpModal.submitForm(formData);
@@ -435,12 +442,47 @@ var BetaSignUpModal = {
         });
         return false;
     }
-
 };
 
 
 // Drag Manager
 //-------------------------------------------------------------------------------
+
+var DragProxy = function(name, element, draggableObject) {
+    this.name = name;
+    this.element = element;
+    this.draggableObject = draggableObject;
+};
+DragProxy.prototype = {
+    setup: function() {
+        DragManager.registerDraggableObject(this);
+    },
+    initializeDragProxy: function() {
+        var _this = this;
+        this._handle = function(event) {
+            _this.handleInteractionStart(event);
+        };
+        this.element.bind("touchstart mousedown", this._handle);
+        this.element.addClass("grab");
+    },
+    uninitializeDragProxy: function() {
+        this.element.unbind("touchstart mousedown", this._handle);
+        this.element.removeClass("grab");
+        this.element.removeClass("grabbing");
+    },
+    startDrag: function() {
+        this.element.addClass("grabbing");
+        this.element.removeClass("grab");
+    },
+    releaseDrag: function() {
+        this.element.addClass("grab");
+        this.element.removeClass("grabbing");
+    },
+    handleInteractionStart: function(event) {
+        event.preventDefault();
+        DragManager.startDrag(this.draggableObject, event.clientX, event.clientY);
+    }
+};
 
 var DragManager = {
     draggingObject: null,
@@ -448,12 +490,22 @@ var DragManager = {
     dragStartOffsets: null,
     draggableObjects: [],
     dragTargets: [],
+    dragProxies: [],
+
+    createDragProxy: function(name, element, draggableObject) {
+        var dragProxy = new DragProxy(name, element, draggableObject);
+        DragManager.registerDragProxy(dragProxy);
+    },
     registerDraggableObject: function(draggableObject) {
         DragManager.draggableObjects.push(draggableObject);
         draggableObject.initializeDraggableObject();
     },
     registerDragTarget: function(dragTarget) {
         DragManager.dragTargets.push(dragTarget);
+    },
+    registerDragProxy: function(dragProxy) {
+        DragManager.dragProxies.push(dragProxy);
+        dragProxy.initializeDragProxy();
     },
     startDrag: function(draggableObject, startX, startY) {
         DragManager.draggingObject = draggableObject;
@@ -469,15 +521,12 @@ var DragManager = {
         body.bind("touchend mouseup", DragManager.handleDragRelease);
 
         DragManager.dragTargets.forEach(function(dragTarget) {
-            dragTarget.initializeDragTarget();
+            dragTarget.startDrag();
         });
-
-        //NOTE BRN: There seems to be a bug here where the cursor is not changed immediately when the mouse is down
-        //https://bugs.webkit.org/show_bug.cgi?id=53341
-
-        draggableElement.removeClass("grab");
-        draggableElement.removeClass("drag-released");
-        draggableElement.addClass("grabbing");
+        DragManager.dragProxies.forEach(function(dragProxy) {
+            dragProxy.startDrag();
+        });
+        draggableObject.startDrag();
     },
     moveDrag: function(clientX, clientY) {
         var x = clientX - DragManager.boundingOffsets.left - DragManager.dragStartOffsets.left;
@@ -492,23 +541,38 @@ var DragManager = {
         body.unbind("touchend mouseup", DragManager.handleDragRelease);
 
         DragManager.dragTargets.forEach(function(dragTarget) {
-            dragTarget.uninitializeDragTarget();
+            dragTarget.releaseDrag();
+        });
+        DragManager.dragProxies.forEach(function(dragProxy) {
+            dragProxy.releaseDrag();
         });
 
         DragManager.draggingObject.releaseDrag();
-        var draggingElement = DragManager.draggingObject.element;
-        draggingElement.css("left", "");
-        draggingElement.css("top", "");
-        draggingElement.addClass("drag-released");
-        draggingElement.addClass("grab");
-        draggingElement.removeClass("grabbing");
 
         DragManager.dragStartOffsets = null;
         DragManager.draggingObject = null;
         DragManager.boundingOffsets = null;
     },
     clearProxies: function() {
-
+        DragManager.dragProxies.forEach(function(dragProxy) {
+            dragProxy.uninitializeDragProxy();
+        });
+        DragManager.dragProxies = [];
+    },
+    indexOf: function(dragProxy) {
+        for (var i = 0, size = DragManager.dragProxies.length; i < size; i++) {
+            var dragProxyAt = DragManager.dragProxies[i];
+            if (dragProxyAt.name === dragProxy.name) {
+                return i;
+            }
+        }
+    },
+    removeProxy: function(dragProxy) {
+        var index = DragManager.indexOf(dragProxy);
+        if (index > -1) {
+            DragManager.dragProxies.splice(index, 1);
+            dragProxy.uninitializeDragProxy();
+        }
     },
 
 
