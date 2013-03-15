@@ -1,8 +1,26 @@
 //-------------------------------------------------------------------------------
+// Annotations
+//-------------------------------------------------------------------------------
+
+//@Package('splash')
+
+//@Export('BetaSignUpApi')
+
+//@Require('splash.BetaSignUpModel')
+
+
+//-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
-var BetaSignUpModel = require('../models/BetaSignUpModel.js');
+var bugpack = require('bugpack').context();
+
+
+//-------------------------------------------------------------------------------
+// BugPack
+//-------------------------------------------------------------------------------
+
+var BetaSignUpModel =   bugpack.require('splash.BetaSignUpModel');
 
 
 //-------------------------------------------------------------------------------
@@ -25,10 +43,6 @@ var BetaSignUpApi = {
      */
     createBetaSignUp: function(data, callback) {
         //TODO BRN: Add validation of params
-
-        for(var property in data){
-            console.log(property + ' : ' + data[property]);
-        }
 
         var betaSignUp = {
             company: data.company,
@@ -59,7 +73,7 @@ var BetaSignUpApi = {
 
 
 //-------------------------------------------------------------------------------
-// Export
+// Exports
 //-------------------------------------------------------------------------------
 
-module.exports = BetaSignUpApi;
+bugpack.export('splash.BetaSignUpApi', BetaSignUpApi);

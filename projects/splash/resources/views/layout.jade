@@ -3,10 +3,10 @@ html
   head
     title= title
     meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1")
-    link(rel="stylesheet", href="/stylesheets/style.css")
-    link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
-    link(rel="stylesheet", href="/stylesheets/bootstrap-responsive.min.css")
-    link(rel="icon", type="image/png", href="/images/airbug-micro.png")
+    link(rel="stylesheet", href="/css/style.css")
+    link(rel="stylesheet", href="/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/css/bootstrap-responsive.min.css")
+    link(rel="icon", type="image/png", href="/img/airbug-icon.png")
     script
         var Loader = {
             numLoadedItems: 0,
@@ -35,15 +35,15 @@ html
       div(id="feedback-container", class="feedback-container-collapse")
         div(id="feedback-edge-container", class="feedback-edge-container")
           div(class="feedback-airbug-container")
-            img(id="feedback-airbug-pull-1", class="feedback-airbug-image feedback-airbug-show", src="/images/airbug-pull-1.png", onload="Loader.loaded();")
-            img(id="feedback-airbug-pull-2", class="feedback-airbug-image feedback-airbug-hide", src="/images/airbug-pull-2.png", onload="Loader.loaded();")
-            img(id="feedback-airbug-pull-3", class="feedback-airbug-image feedback-airbug-hide", src="/images/airbug-pull-3.png", onload="Loader.loaded();")
+            img(id="feedback-airbug-pull-1", class="feedback-airbug-image feedback-airbug-show", src="/img/airbug-pull-1.png", onload="Loader.loaded();")
+            img(id="feedback-airbug-pull-2", class="feedback-airbug-image feedback-airbug-hide", src="/img/airbug-pull-2.png", onload="Loader.loaded();")
+            img(id="feedback-airbug-pull-3", class="feedback-airbug-image feedback-airbug-hide", src="/img/airbug-pull-3.png", onload="Loader.loaded();")
             div(id="feedback-airbug-thankyou", class="feedback-airbug-hide")
-              img(id="feedback-airbug-thankyou-image", class="feedback-airbug-image", src="/images/airbug-carry.png", onload="Loader.loaded();")
+              img(id="feedback-airbug-thankyou-image", class="feedback-airbug-image", src="/img/airbug-carry.png", onload="Loader.loaded();")
               div(id="feedback-thankyou-message") Thank You
           div(class="feedback-tab-container")
             div(id="feedback-tab", class="btn btn-large")
-              img(class="feedback-tab-image", src="/images/feedback-tab.png", onload="Loader.loaded();")
+              img(class="feedback-tab-image", src="/img/feedback-tab.png", onload="Loader.loaded();")
         div(class="feedback-form-container")
           form(method="post", action="feedback", id="feedback-form")
             fieldset
@@ -63,6 +63,6 @@ html
               input(type="text", name="helpSolve", class="input-feedback")
             button(id="feedback-form-submit-button", class="btn btn-info", type="button") Submit
             button(id="feedback-form-cancel-button", class="btn", type="button") Cancel
-    script(type="text/javascript", src="/javascripts/jquery-1.9.1.min.js")
-    script(type="text/javascript", src="/javascripts/bootstrap.min.js")
-    script(type="text/javascript", src="/javascripts/airbug-beta.js")
+    script(type="text/javascript", src="/js/jquery-1.9.1.min.js")
+    script(type="text/javascript", src="/js/bootstrap.min.js")
+    script(type="text/javascript", src="/js/airbug-beta.js")

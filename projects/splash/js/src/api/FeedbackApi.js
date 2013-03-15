@@ -1,8 +1,26 @@
 //-------------------------------------------------------------------------------
+// Annotations
+//-------------------------------------------------------------------------------
+
+//@Package('splash')
+
+//@Export('FeedbackApi')
+
+//@Require('splash.FeedbackModel')
+
+
+//-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
-var FeedbackModel = require('../models/FeedbackModel.js');
+var bugpack = require('bugpack').context();
+
+
+//-------------------------------------------------------------------------------
+// BugPack
+//-------------------------------------------------------------------------------
+
+var FeedbackModel =   bugpack.require('splash.FeedbackModel');
 
 
 //-------------------------------------------------------------------------------
@@ -24,12 +42,6 @@ var FeedbackApi = {
      */
     createFeedback: function(data, callback) {
         //TODO BRN: Add validation of params
-
-        //TEST
-        console.log("createFeedback api call");
-        for(var property in data){
-            console.log(property + ' : ' + data[property]);
-        }
 
         var feedback = {
             anythingConfusing: data.anythingConfusing,
@@ -59,7 +71,7 @@ var FeedbackApi = {
 
 
 //-------------------------------------------------------------------------------
-// Export
+// Exports
 //-------------------------------------------------------------------------------
 
-module.exports = FeedbackApi;
+bugpack.export('splash.FeedbackApi', FeedbackApi);

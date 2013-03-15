@@ -24,7 +24,8 @@ a {
     position: relative;
     display: block;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #page-container {
@@ -466,13 +467,50 @@ a {
 }
 
 .marketing-container {
-    padding-top: 100px;
+    padding-top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.marketing {
+.marketing-tagline {
     display: block;
+    width: 480px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.marketing-subpoints {
+    display: block;
+    position: relative;
+    width: 724px;
+    height: 200px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.marketing-subpoint1 {
+    position: absolute;
+    display: block;
+    width: 220px;
+    left: 0px;
+    top: 20px;
+}
+
+.marketing-subpoint2 {
+    position: absolute;
+    display: block;
+    width: 220px;
+    left: 250px;
+    top: 20px;
+}
+
+.marketing-subpoint3 {
+    position: absolute;
+    display: block;
+    width: 220px;
+    left: 500px;
+    top: 20px;
 }
 
 .beta-sign-up-button-container {
