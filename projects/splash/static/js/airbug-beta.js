@@ -1,4 +1,35 @@
+//-------------------------------------------------------------------------------
+// Annotations
+//-------------------------------------------------------------------------------
+
+//@Package('splash')
+
+//@Export('SplashPage')
+
+//@Require('Class')
+
+
+//-------------------------------------------------------------------------------
+// Common Modules
+//-------------------------------------------------------------------------------
+
+var bugpack = require('bugpack').context();
+
+
+//-------------------------------------------------------------------------------
+// BugPack
+//-------------------------------------------------------------------------------
+
+var Class =         bugpack.require('Class');
+
+
+//-------------------------------------------------------------------------------
+// Declare Class
+//-------------------------------------------------------------------------------
+
 //TODO BRN: Update the objects in this file to use our class model from bugjs
+
+
 
 var sendApiRequest = function(endpoint, dataObject, callback) {
     $.ajax({
@@ -25,6 +56,30 @@ var sendApiRequest = function(endpoint, dataObject, callback) {
             callback(null, result);
         }
     });
+};
+
+
+// Tracking Code
+//-------------------------------------------------------------------------------
+
+var Tracker = {
+    trackAppLoad: function() {
+        Tracker.track("App", "Load");
+    },
+    trackGoalComplete: function(goalName) {
+        Tracker.track("Goal", "Complete", goalName);
+    },
+    trackPageView: function(pageId) {
+        Tracker.track("Page", "View", pageId);
+    },
+    track: function(category, action, label, value, nonInteraction) {
+        if (_appConfig.production) {
+            _gaq.push(['_trackEvent', category, action, label, nonInteraction]);
+        } else {
+            console.log("TackingEvent - category:" + category + " action:" + action +
+                " label:" + label + " nonInteraction:" + nonInteraction);
+        }
+    }
 };
 
 
@@ -185,7 +240,7 @@ var getFeedbackFormData = function() {
         feedbackData[formEntry.name] = formEntry.value;
     });
 
-    feedbackData.currentPage = currentPage;
+    feedbackData.currentPage = PageManager.currentPage.pageName;
     return feedbackData;
 };
 
@@ -194,6 +249,7 @@ var showFeedbackFormError = function(error) {
 };
 
 var submitFeedbackForm = function(feedbackFormData) {
+    Tracker.trackGoalComplete("FeedbackSubmitted");
     sendApiRequest("/api/feedback", feedbackFormData, function(error, result) {
         //TODO BRN: Handle errors
     });
@@ -206,39 +262,59 @@ var validateFeedbackForm = function(feedbackFormData, callback) {
 };
 
 
-var currentPage = "loadingPage";
+var PageManager = {
+    currentPage: null,
+    goToPage: function(page) {
+        if (page) {
+            page.initialize();
+            page.activate();
+            PageManager.currentPage = page;
+            Tracker.trackPageView(page.pageName);
+        }
+    }
+};
+
 
 // Explainer page
 //-------------------------------------------------------------------------------
 
-var initializeExplainerPage = function() {
-    var betaSignUpButton = $("#beta-sign-up-button");
-    betaSignUpButton.bind("click", function(event) {
-        goToBetaSignUpPage();
-    });
-};
+var ExplainerPage = {
+    pageName: "explainerPage",
+    initialize: function() {
+        var betaSignUpButton = $("#beta-sign-up-button");
+        betaSignUpButton.bind("click", function(event) {
+            PageManager.goToPage(BetaSignUpPage);
+        });
 
-var goToExplainerPage = function(){
-    initializeExplainerPage();
-    var explainerPage = $("#explainer-page");
-    var loadingPage = $("#loading-page");
-    explainerPage.show();
-    loadingPage.hide();
-    currentPage = "explainerPage";
+    },
+    activate: function() {
+        var explainerPage = $("#explainer-page");
+        var loadingPage = $("#loading-page");
+        explainerPage.show();
+        loadingPage.hide();
+    }
 };
 
 
 // Beta SignUp Page
 //-------------------------------------------------------------------------------
 
-var goToBetaSignUpPage = function() {
-    initializeBetaSignUpPage();
-    var explainerPage = $("#explainer-page");
-    var betaSignUpPage = $("#beta-sign-up-page");
-    explainerPage.addClass("page-slide-hide");
-    betaSignUpPage.show();
-    betaSignUpPage.addClass("page-slide-show");
-    currentPage = "betaSignUpPage";
+var BetaSignUpPage = {
+    pageName: "betaSignUpPage",
+    initialize: function() {
+        airbugs.forEach(function(airbug) {
+            airbug.setup();
+        });
+        DragManager.registerDragTarget(AirbugJar);
+        BetaSignUpModal.initialize();
+    },
+    activate: function() {
+        var explainerPage = $("#explainer-page");
+        var betaSignUpPage = $("#beta-sign-up-page");
+        explainerPage.addClass("page-slide-hide");
+        betaSignUpPage.show();
+        betaSignUpPage.addClass("page-slide-show");
+    }
 };
 
 var AirBug = function(name, element) {
@@ -292,13 +368,6 @@ var airbugs = [
     new AirBug("uservoice", $("#airbug-uservoice-container")),
     new AirBug("zendesk", $("#airbug-zendesk-container"))
 ];
-var initializeBetaSignUpPage = function() {
-    airbugs.forEach(function(airbug) {
-        airbug.setup();
-    });
-    DragManager.registerDragTarget(AirbugJar);
-    BetaSignUpModal.initialize();
-};
 
 var AirbugJar = {
     element: $("#airbug-jar-container"),
@@ -409,6 +478,7 @@ var BetaSignUpModal = {
     },
 
     submitForm: function(formData) {
+        Tracker.trackGoalComplete("SignedUpForBeta");
         sendApiRequest("/api/beta-sign-up", formData, function(error, result) {
             //TODO BRN: Handle errors
         });
@@ -435,7 +505,7 @@ var BetaSignUpModal = {
             if (!error) {
                 BetaSignUpModal.submitForm(formData);
                 BetaSignUpModal.hide();
-                goToThankYouPage();
+                PageManager.goToPage(ThankYouPage);
             } else {
                 BetaSignUpModal.showFormError(error);
             }
@@ -593,19 +663,20 @@ var DragManager = {
 // Thank You Page
 //-------------------------------------------------------------------------------
 
-var goToThankYouPage = function() {
-    initializeThankYouPage();
-    var betaSignUpPage = $("#beta-sign-up-page");
-    var thankYouPage = $("#thank-you-page");
-    betaSignUpPage.addClass("page-slide-hide");
-    thankYouPage.show();
-    thankYouPage.addClass("page-slide-show");
-    currentPage = "thankYouPage";
+var ThankYouPage = {
+    pageName: "thankYouPage",
+    initialize: function() {
+
+    },
+    activate: function() {
+        var betaSignUpPage = $("#beta-sign-up-page");
+        var thankYouPage = $("#thank-you-page");
+        betaSignUpPage.addClass("page-slide-hide");
+        thankYouPage.show();
+        thankYouPage.addClass("page-slide-show");
+    }
 };
 
-var initializeThankYouPage = function() {
-
-};
 
 // App Code
 //-------------------------------------------------------------------------------
@@ -621,8 +692,9 @@ var start = function() {
 };
 
 var initializeApp = function() {
+    Tracker.trackAppLoad();
     initializeFeedbackPanel();
-    goToExplainerPage();
+    PageManager.goToPage(ExplainerPage);
 };
 
 start();

@@ -35,7 +35,7 @@ var nodejs      = enableModule('nodejs');
 buildProperties({
     packageJson: {
         "name": "splash",
-        "version": "0.0.1",
+        "version": "0.0.3",
         "private": true,
         "scripts": {
             "start": "node ./lib/app"
@@ -66,7 +66,9 @@ buildProperties({
         "../bugjs/projects/bugjs/js/test"
     ],
     staticPaths: [
-        './projects/splash/static'
+        './projects/splash/static',
+        '../bugpack/projects/bugpack-client/js/src',
+        '../bugjs/projects/bugjs/js/src'
     ],
     resourcePaths: [
         './projects/splash/resources'
@@ -119,7 +121,8 @@ buildTarget('local').buildFlow(
                     buildProject.getProperty("packageJson.version")
                 );
                 task.updateProperties({
-                    sourceRoot: nodePackage.getBuildPath()
+                    sourceRoot: nodePackage.getBuildPath(),
+                    ignore: ["static"]
                 });
             }
         }),
@@ -129,7 +132,7 @@ buildTarget('local').buildFlow(
                 packageVersion: buildProject.getProperty("packageJson.version")
             }
         }),
-        targetTask('startNodeModuleTests', {
+        /*targetTask('startNodeModuleTests', {
             init: function(task, buildProject, properties) {
                 var packedNodePackage = nodejs.findPackedNodePackage(
                     buildProject.getProperty("packageJson.name"),
@@ -139,7 +142,7 @@ buildTarget('local').buildFlow(
                     modulePath: packedNodePackage.getFilePath()
                 });
             }
-        }),
+        }),*/
         targetTask("s3EnsureBucket", {
             properties: {
                 bucket: buildProject.getProperty("local-bucket")
@@ -189,7 +192,8 @@ buildTarget('prod').buildFlow(
                     buildProject.getProperty("packageJson.version")
                 );
                 task.updateProperties({
-                    sourceRoot: nodePackage.getBuildPath()
+                    sourceRoot: nodePackage.getBuildPath(),
+                    ignore: ["static"]
                 });
             }
         }),
