@@ -50,7 +50,6 @@ buildProperties({
     },
     sourcePaths: [
         '../bugjs/projects/annotate/js/src',
-        '../bugjs/projects/aws/js/src',
         '../bugjs/projects/bugjs/js/src',
         '../bugjs/projects/bugboil/js/src',
         '../bugjs/projects/bugflow/js/src',
@@ -68,7 +67,8 @@ buildProperties({
     staticPaths: [
         './projects/splash/static',
         '../bugpack/projects/bugpack-client/js/src',
-        '../bugjs/projects/bugjs/js/src'
+        '../bugjs/projects/bugjs/js/src',
+        '../sonarbug/projects/sonarbugclient/js/src'
     ],
     resourcePaths: [
         './projects/splash/resources'

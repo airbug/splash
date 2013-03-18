@@ -7,6 +7,7 @@
 //@Export('SplashPage')
 
 //@Require('Class')
+//@Require('sonarbug.SonarBugClient')
 
 
 //-------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ var bugpack = require('bugpack').context();
 //-------------------------------------------------------------------------------
 
 var Class =         bugpack.require('Class');
-
+var SonarBugClient = bugpack.require('sonarbugclient.SonarBugClient');
 
 //-------------------------------------------------------------------------------
 // Declare Class
@@ -64,24 +65,29 @@ var sendApiRequest = function(endpoint, dataObject, callback) {
 
 var Tracker = {
     trackAppLoad: function() {
-        Tracker.track("App", "Load");
+        Tracker.trackGA("App", "Load");
+        Tracker.trackSB("appLoad", null);
     },
     trackGoalComplete: function(goalName) {
-        Tracker.track("Goal", "Complete", goalName);
+        Tracker.trackGA("Goal", "Complete", goalName);
+        Tracker.trackSB("goalComplete", {goalName: goalName});
     },
     trackPageView: function(pageId) {
-        Tracker.track("Page", "View", pageId);
+        Tracker.trackGA("Page", "View", pageId);
+        Tracker.trackSB("pageView", {pageId: pageId});
     },
-    track: function(category, action, label, value, nonInteraction) {
+    trackGA: function(category, action, label, value, nonInteraction) {
         if (_appConfig.production) {
             _gaq.push(['_trackEvent', category, action, label, nonInteraction]);
         } else {
             console.log("TackingEvent - category:" + category + " action:" + action +
                 " label:" + label + " nonInteraction:" + nonInteraction);
         }
+    },
+    trackSB: function(eventName, data){
+        SonarBugClient.track(eventName, data);
     }
 };
-
 
 // Feedback Panel
 //-------------------------------------------------------------------------------
@@ -681,17 +687,26 @@ var ThankYouPage = {
 // App Code
 //-------------------------------------------------------------------------------
 
+var configureApp = function(callback){
+    SonarBugClient.configure("http://localhost:3000", function(error){
+        callback(error);
+    });
+};
+
 var start = function() {
-    if (Loader.appLoaded) {
-        initializeApp();
-    } else {
-        Loader.addLoadedListener(function() {
+    configureApp(function(error){
+        if (Loader.appLoaded) {
             initializeApp();
-        });
-    }
+        } else {
+            Loader.addLoadedListener(function() {
+                initializeApp();
+            });
+        }
+    });
 };
 
 var initializeApp = function() {
+    SonarBugClient.startTracking();
     Tracker.trackAppLoad();
     initializeFeedbackPanel();
     PageManager.goToPage(ExplainerPage);
