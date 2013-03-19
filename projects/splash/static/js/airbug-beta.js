@@ -20,7 +20,7 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =         bugpack.require('Class');
+var Class   = bugpack.require('Class');
 
 
 //-------------------------------------------------------------------------------
@@ -372,6 +372,7 @@ var airbugs = [
 var AirbugJar = {
     element: $("#airbug-jar-container"),
     containedAirbugs: [],
+    previouslyContainedAirbugs: [],
     getAirbugNames: function() {
         var names = [];
         AirbugJar.containedAirbugs.forEach(function(airbug) {
@@ -446,8 +447,43 @@ var AirbugJar = {
             DragManager.releaseDrag();
             AirbugJar.addAirbug(draggingObject);
         }
+    },
+    handleRemovalOfFinalBug: function(event) {
+        if (AirbugJar.getCount() < 3) {
+            ResubmitButton.hide()
+            Arrow.show();
+            AirbugJar.previouslyContainedAirbugs.forEach(function(airbug){
+               airbug.element.off("touchend mouseup", AirbugJar.handleRemovalOfFinalBug);
+            });
+            AirbugJar.previouslyContainedAirbugs = [];
+        }
     }
 };
+
+var Arrow = {
+    element: $(".arrow-container"),
+    activate: function(){
+        Arrow.element.on('click', function(){
+            BetaSignUpModal.element.modal('show');
+        });
+    },
+    hide: function(){
+        Arrow.element.hide();
+    },
+    show: function(){
+        Arrow.element.show();
+    }
+};
+
+var ResubmitButton = {
+    element: $("#resubmit-button-container").hide(),
+    show: function(){
+        ResubmitButton.element.show();
+    },
+    hide: function(){
+        ResubmitButton.element.hide();
+    }
+}
 
 var BetaSignUpModal = {
     element: $("#beta-sign-up-modal"),
@@ -458,6 +494,9 @@ var BetaSignUpModal = {
             var betaSignUpCancelButton = $("#beta-sign-up-form-cancel-button");
             betaSignUpSubmitButton.on("click", BetaSignUpModal.handleSubmitButtonClick);
             betaSignUpCancelButton.on("click", BetaSignUpModal.handleCancelButtonClick);
+            ResubmitButton.element.on('click', function(){
+                BetaSignUpModal.element.modal('show');
+            });
         }
     },
     show: function() {
@@ -496,6 +535,13 @@ var BetaSignUpModal = {
     handleCancelButtonClick: function(event) {
         event.preventDefault();
         BetaSignUpModal.hide();
+        Arrow.hide();
+        ResubmitButton.show();
+        var currentlyContainedAirbugs = AirbugJar.containedAirbugs;
+        AirbugJar.previouslyContainedAirbugs = currentlyContainedAirbugs;
+        currentlyContainedAirbugs.forEach(function(airbug){
+           airbug.element.on("touchend mouseup", AirbugJar.handleRemovalOfFinalBug);
+        });
         return false;
     },
     handleSubmitButtonClick: function(event) {
