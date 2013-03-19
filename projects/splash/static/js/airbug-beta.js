@@ -97,15 +97,15 @@ var initializeFeedbackPanel = function() {
     var feedbackFormCancelButton = $("#feedback-form-cancel-button");
     var feedbackFormSubmitButton = $("#feedback-form-submit-button");
 
-    feedbackTab.bind("click", handleFeedbackTabClick);
-    body.bind("click", handleBodyClick);
-    feedbackContainer.bind("click", handleFeedbackContainerClick);
-    feedbackEdgeContainer.bind("click", handleFeedbackEdgeContainerClick);
-    feedbackFormCancelButton.bind("click", handleFeedbackFormCancelButtonClick);
-    feedbackFormSubmitButton.bind("click", handleFeedbackFormSubmitButtonClick);
+    feedbackTab.on("click", handleFeedbackTabClick);
+    body.on("click", handleBodyClick);
+    feedbackContainer.on("click", handleFeedbackContainerClick);
+    feedbackEdgeContainer.on("click", handleFeedbackEdgeContainerClick);
+    feedbackFormCancelButton.on("click", handleFeedbackFormCancelButtonClick);
+    feedbackFormSubmitButton.on("click", handleFeedbackFormSubmitButtonClick);
 };
 
-var handleFeedbackTabClick = function() {
+var handleFeedbackTabClick = function(event) {
     if (feedbackPanelOpen) {
         closeFeedbackPanel();
     } else {
@@ -282,7 +282,7 @@ var ExplainerPage = {
     pageName: "explainerPage",
     initialize: function() {
         var betaSignUpButton = $("#beta-sign-up-button");
-        betaSignUpButton.bind("click", function(event) {
+        betaSignUpButton.on("click", function(event) {
             PageManager.goToPage(BetaSignUpPage);
         });
 
@@ -328,7 +328,7 @@ AirBug.prototype = {
     initializeDraggableObject: function() {
         var _this = this;
         var element = this.element;
-        element.bind("touchstart mousedown", function(event) {
+        element.on("touchstart mousedown", function(event) {
             _this.handleInteractionStart(event);
         });
         element.addClass("grab");
@@ -429,12 +429,12 @@ var AirbugJar = {
     },
     startDrag: function() {
         var targetElement = AirbugJar.element;
-        targetElement.bind("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
+        targetElement.on("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
         targetElement.addClass("grabbing");
     },
     releaseDrag: function() {
         var targetElement = AirbugJar.element;
-        targetElement.unbind("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
+        targetElement.off("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
         targetElement.removeClass("grabbing");
     },
     handleDragReleaseOnTarget: function(event) {
@@ -456,8 +456,8 @@ var BetaSignUpModal = {
             BetaSignUpModal.initialized = true;
             var betaSignUpSubmitButton = $("#beta-sign-up-form-submit-button");
             var betaSignUpCancelButton = $("#beta-sign-up-form-cancel-button");
-            betaSignUpSubmitButton.bind("click", BetaSignUpModal.handleSubmitButtonClick);
-            betaSignUpCancelButton.bind("click", BetaSignUpModal.handleCancelButtonClick);
+            betaSignUpSubmitButton.on("click", BetaSignUpModal.handleSubmitButtonClick);
+            betaSignUpCancelButton.on("click", BetaSignUpModal.handleCancelButtonClick);
         }
     },
     show: function() {
@@ -532,11 +532,11 @@ DragProxy.prototype = {
         this._handle = function(event) {
             _this.handleInteractionStart(event);
         };
-        this.element.bind("touchstart mousedown", this._handle);
+        this.element.on("touchstart mousedown", this._handle);
         this.element.addClass("grab");
     },
     uninitializeDragProxy: function() {
-        this.element.unbind("touchstart mousedown", this._handle);
+        this.element.off("touchstart mousedown", this._handle);
         this.element.removeClass("grab");
         this.element.removeClass("grabbing");
     },
@@ -587,8 +587,8 @@ var DragManager = {
         };
         DragManager.boundingOffsets = draggableElement.parent().offset();
         var body = $('body');
-        body.bind("touchmove mousemove", DragManager.handleDragMove);
-        body.bind("touchend mouseup", DragManager.handleDragRelease);
+        body.on("touchmove mousemove", DragManager.handleDragMove);
+        body.on("touchend mouseup", DragManager.handleDragRelease);
 
         DragManager.dragTargets.forEach(function(dragTarget) {
             dragTarget.startDrag();
@@ -607,8 +607,8 @@ var DragManager = {
     },
     releaseDrag: function() {
         var body = $('body');
-        body.unbind("touchmove mousemove", DragManager.handleDragMove);
-        body.unbind("touchend mouseup", DragManager.handleDragRelease);
+        body.off("touchmove mousemove", DragManager.handleDragMove);
+        body.off("touchend mouseup", DragManager.handleDragRelease);
 
         DragManager.dragTargets.forEach(function(dragTarget) {
             dragTarget.releaseDrag();
