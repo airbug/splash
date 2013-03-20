@@ -6,8 +6,10 @@ html
     link(rel="stylesheet", href="/css/style.css")
     link(rel="stylesheet", href="/css/bootstrap.min.css")
     link(rel="stylesheet", href="/css/bootstrap-responsive.min.css")
-    link(rel="icon", type="image/png", href="/img/airbug-icon.png")
     script
+        var _appConfig = {
+            production: "#{production}"
+        };
         var Loader = {
             numLoadedItems: 0,
             appLoaded: false,
@@ -28,6 +30,18 @@ html
                 }
             }
         };
+        var _gaq = _gaq || [];
+        if (_appConfig.production) {
+            _gaq.push(['_setAccount', 'UA-39328558-1']);
+            _gaq.push(['_setDomainName', 'airbug.com']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        }
   body
     div(id="app-container")
       block content
@@ -65,4 +79,11 @@ html
             button(id="feedback-form-cancel-button", class="btn", type="button") Cancel
     script(type="text/javascript", src="/js/jquery-1.9.1.min.js")
     script(type="text/javascript", src="/js/bootstrap.min.js")
+    script(type="text/javascript", src="/BugPackKey.js")
+    script(type="text/javascript", src="/BugPackPackage.js")
+    script(type="text/javascript", src="/BugPackRegistry.js")
+    script(type="text/javascript", src="/BugPackContext.js")
+    script(type="text/javascript", src="/BugPackApi.js")
+    script(type="text/javascript", src="/TypeUtil.js")
+    script(type="text/javascript", src="/Class.js")
     script(type="text/javascript", src="/js/airbug-beta.js")

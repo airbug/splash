@@ -26,12 +26,6 @@ a {
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-}
-
-#page-container {
-    position: relative;
-    display: block;
-    height: 100%;
     border: solid 1px #CCCCCC;
     background: #f4f5f5;
     background: -moz-linear-gradient(top,  #f4f5f5 0%, #f4f5f5 70%, #abcecb 100%);
@@ -41,6 +35,12 @@ a {
     background: -ms-linear-gradient(top,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
     background: linear-gradient(to bottom,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f5f5', endColorstr='#abcecb',GradientType=0 );
+}
+
+#page-container {
+    position: relative;
+    display: block;
+    height: 100%;
 }
 
 .page-container-fadein {
@@ -235,6 +235,7 @@ a {
     top: 50px;
     width: 135px;
     height: 150px;
+    cursor: pointer;
 }
 
 .feedback-airbug-container {
@@ -468,8 +469,8 @@ a {
 
 .marketing-container {
     padding-top: 50px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .marketing-tagline {
@@ -482,7 +483,7 @@ a {
 .marketing-subpoints {
     display: block;
     position: relative;
-    width: 724px;
+    width: 704px;
     height: 200px;
     margin-top: 30px;
     margin-left: auto;
@@ -492,24 +493,24 @@ a {
 .marketing-subpoint1 {
     position: absolute;
     display: block;
-    width: 220px;
-    left: 0px;
+    width: 200px;
+    left: 2px;
     top: 20px;
 }
 
 .marketing-subpoint2 {
     position: absolute;
     display: block;
-    width: 220px;
-    left: 250px;
+    width: 240px;
+    left: 232px;
     top: 20px;
 }
 
 .marketing-subpoint3 {
     position: absolute;
     display: block;
-    width: 220px;
-    left: 500px;
+    width: 200px;
+    left: 502px;
     top: 20px;
 }
 
@@ -521,6 +522,7 @@ a {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 20px;
 }
 
 
@@ -721,11 +723,25 @@ a {
     height: 75px;
     left: 325px;
     top: 220px;
+    z-index: 1;
 }
 
 .arrow {
     width: 75px;
     height: 75px;
+}
+
+#continue-sign-up-button-container {
+    display: none;
+    position: absolute;
+    left: 273px;
+    top: 239px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#continue-sign-up-button {
+    
 }
 
 #airbug-jar-container {

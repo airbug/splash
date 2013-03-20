@@ -35,7 +35,7 @@ var nodejs      = enableModule('nodejs');
 buildProperties({
     packageJson: {
         "name": "splash",
-        "version": "0.0.1",
+        "version": "0.0.3",
         "private": true,
         "scripts": {
             "start": "node ./lib/app"
@@ -50,7 +50,6 @@ buildProperties({
     },
     sourcePaths: [
         '../bugjs/projects/annotate/js/src',
-        '../bugjs/projects/aws/js/src',
         '../bugjs/projects/bugjs/js/src',
         '../bugjs/projects/bugboil/js/src',
         '../bugjs/projects/bugflow/js/src',
@@ -66,7 +65,9 @@ buildProperties({
         "../bugjs/projects/bugjs/js/test"
     ],
     staticPaths: [
-        './projects/splash/static'
+        './projects/splash/static',
+        '../bugpack/projects/bugpack-client/js/src',
+        '../bugjs/projects/bugjs/js/src'
     ],
     resourcePaths: [
         './projects/splash/resources'
@@ -119,7 +120,8 @@ buildTarget('local').buildFlow(
                     buildProject.getProperty("packageJson.version")
                 );
                 task.updateProperties({
-                    sourceRoot: nodePackage.getBuildPath()
+                    sourceRoot: nodePackage.getBuildPath(),
+                    ignore: ["static"]
                 });
             }
         }),
@@ -189,7 +191,8 @@ buildTarget('prod').buildFlow(
                     buildProject.getProperty("packageJson.version")
                 );
                 task.updateProperties({
-                    sourceRoot: nodePackage.getBuildPath()
+                    sourceRoot: nodePackage.getBuildPath(),
+                    ignore: ["static"]
                 });
             }
         }),

@@ -1,4 +1,35 @@
+//-------------------------------------------------------------------------------
+// Annotations
+//-------------------------------------------------------------------------------
+
+//@Package('splash')
+
+//@Export('SplashPage')
+
+//@Require('Class')
+
+
+//-------------------------------------------------------------------------------
+// Common Modules
+//-------------------------------------------------------------------------------
+
+var bugpack = require('bugpack').context();
+
+
+//-------------------------------------------------------------------------------
+// BugPack
+//-------------------------------------------------------------------------------
+
+var Class   = bugpack.require('Class');
+
+
+//-------------------------------------------------------------------------------
+// Declare Class
+//-------------------------------------------------------------------------------
+
 //TODO BRN: Update the objects in this file to use our class model from bugjs
+
+
 
 var sendApiRequest = function(endpoint, dataObject, callback) {
     $.ajax({
@@ -28,6 +59,30 @@ var sendApiRequest = function(endpoint, dataObject, callback) {
 };
 
 
+// Tracking Code
+//-------------------------------------------------------------------------------
+
+var Tracker = {
+    trackAppLoad: function() {
+        Tracker.track("App", "Load");
+    },
+    trackGoalComplete: function(goalName) {
+        Tracker.track("Goal", "Complete", goalName);
+    },
+    trackPageView: function(pageId) {
+        Tracker.track("Page", "View", pageId);
+    },
+    track: function(category, action, label, value, nonInteraction) {
+        if (_appConfig.production) {
+            _gaq.push(['_trackEvent', category, action, label, nonInteraction]);
+        } else {
+            console.log("TackingEvent - category:" + category + " action:" + action +
+                " label:" + label + " nonInteraction:" + nonInteraction);
+        }
+    }
+};
+
+
 // Feedback Panel
 //-------------------------------------------------------------------------------
 
@@ -42,15 +97,15 @@ var initializeFeedbackPanel = function() {
     var feedbackFormCancelButton = $("#feedback-form-cancel-button");
     var feedbackFormSubmitButton = $("#feedback-form-submit-button");
 
-    feedbackTab.bind("click", handleFeedbackTabClick);
-    body.bind("click", handleBodyClick);
-    feedbackContainer.bind("click", handleFeedbackContainerClick);
-    feedbackEdgeContainer.bind("click", handleFeedbackEdgeContainerClick);
-    feedbackFormCancelButton.bind("click", handleFeedbackFormCancelButtonClick);
-    feedbackFormSubmitButton.bind("click", handleFeedbackFormSubmitButtonClick);
+    feedbackTab.on("click", handleFeedbackTabClick);
+    body.on("click", handleBodyClick);
+    feedbackContainer.on("click", handleFeedbackContainerClick);
+    feedbackEdgeContainer.on("click", handleFeedbackEdgeContainerClick);
+    feedbackFormCancelButton.on("click", handleFeedbackFormCancelButtonClick);
+    feedbackFormSubmitButton.on("click", handleFeedbackFormSubmitButtonClick);
 };
 
-var handleFeedbackTabClick = function() {
+var handleFeedbackTabClick = function(event) {
     if (feedbackPanelOpen) {
         closeFeedbackPanel();
     } else {
@@ -153,6 +208,8 @@ var handleFeedbackContainerClick = function(event) {
 var handleFeedbackEdgeContainerClick = function(event) {
     if (feedbackPanelOpen) {
         closeFeedbackPanel();
+    } else {
+        openFeedbackPanel();
     }
 };
 
@@ -185,7 +242,7 @@ var getFeedbackFormData = function() {
         feedbackData[formEntry.name] = formEntry.value;
     });
 
-    feedbackData.currentPage = currentPage;
+    feedbackData.currentPage = PageManager.currentPage.pageName;
     return feedbackData;
 };
 
@@ -194,6 +251,7 @@ var showFeedbackFormError = function(error) {
 };
 
 var submitFeedbackForm = function(feedbackFormData) {
+    Tracker.trackGoalComplete("FeedbackSubmitted");
     sendApiRequest("/api/feedback", feedbackFormData, function(error, result) {
         //TODO BRN: Handle errors
     });
@@ -206,39 +264,59 @@ var validateFeedbackForm = function(feedbackFormData, callback) {
 };
 
 
-var currentPage = "loadingPage";
+var PageManager = {
+    currentPage: null,
+    goToPage: function(page) {
+        if (page) {
+            page.initialize();
+            page.activate();
+            PageManager.currentPage = page;
+            Tracker.trackPageView(page.pageName);
+        }
+    }
+};
+
 
 // Explainer page
 //-------------------------------------------------------------------------------
 
-var initializeExplainerPage = function() {
-    var betaSignUpButton = $("#beta-sign-up-button");
-    betaSignUpButton.bind("click", function(event) {
-        goToBetaSignUpPage();
-    });
-};
+var ExplainerPage = {
+    pageName: "explainerPage",
+    initialize: function() {
+        var betaSignUpButton = $("#beta-sign-up-button");
+        betaSignUpButton.on("click", function(event) {
+            PageManager.goToPage(BetaSignUpPage);
+        });
 
-var goToExplainerPage = function(){
-    initializeExplainerPage();
-    var explainerPage = $("#explainer-page");
-    var loadingPage = $("#loading-page");
-    explainerPage.show();
-    loadingPage.hide();
-    currentPage = "explainerPage";
+    },
+    activate: function() {
+        var explainerPage = $("#explainer-page");
+        var loadingPage = $("#loading-page");
+        explainerPage.show();
+        loadingPage.hide();
+    }
 };
 
 
 // Beta SignUp Page
 //-------------------------------------------------------------------------------
 
-var goToBetaSignUpPage = function() {
-    initializeBetaSignUpPage();
-    var explainerPage = $("#explainer-page");
-    var betaSignUpPage = $("#beta-sign-up-page");
-    explainerPage.addClass("page-slide-hide");
-    betaSignUpPage.show();
-    betaSignUpPage.addClass("page-slide-show");
-    currentPage = "betaSignUpPage";
+var BetaSignUpPage = {
+    pageName: "betaSignUpPage",
+    initialize: function() {
+        airbugs.forEach(function(airbug) {
+            airbug.setup();
+        });
+        DragManager.registerDragTarget(AirbugJar);
+        BetaSignUpModal.initialize();
+    },
+    activate: function() {
+        var explainerPage = $("#explainer-page");
+        var betaSignUpPage = $("#beta-sign-up-page");
+        explainerPage.addClass("page-slide-hide");
+        betaSignUpPage.show();
+        betaSignUpPage.addClass("page-slide-show");
+    }
 };
 
 var AirBug = function(name, element) {
@@ -252,7 +330,7 @@ AirBug.prototype = {
     initializeDraggableObject: function() {
         var _this = this;
         var element = this.element;
-        element.bind("touchstart mousedown", function(event) {
+        element.on("touchstart mousedown", function(event) {
             _this.handleInteractionStart(event);
         });
         element.addClass("grab");
@@ -292,17 +370,11 @@ var airbugs = [
     new AirBug("uservoice", $("#airbug-uservoice-container")),
     new AirBug("zendesk", $("#airbug-zendesk-container"))
 ];
-var initializeBetaSignUpPage = function() {
-    airbugs.forEach(function(airbug) {
-        airbug.setup();
-    });
-    DragManager.registerDragTarget(AirbugJar);
-    BetaSignUpModal.initialize();
-};
 
 var AirbugJar = {
     element: $("#airbug-jar-container"),
     containedAirbugs: [],
+    previouslyContainedAirbugs: [],
     getAirbugNames: function() {
         var names = [];
         AirbugJar.containedAirbugs.forEach(function(airbug) {
@@ -360,12 +432,12 @@ var AirbugJar = {
     },
     startDrag: function() {
         var targetElement = AirbugJar.element;
-        targetElement.bind("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
+        targetElement.on("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
         targetElement.addClass("grabbing");
     },
     releaseDrag: function() {
         var targetElement = AirbugJar.element;
-        targetElement.unbind("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
+        targetElement.off("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
         targetElement.removeClass("grabbing");
     },
     handleDragReleaseOnTarget: function(event) {
@@ -377,8 +449,44 @@ var AirbugJar = {
             DragManager.releaseDrag();
             AirbugJar.addAirbug(draggingObject);
         }
+    },
+    handleRemovalOfFinalBug: function(event) {
+        if (AirbugJar.getCount() < 3) {
+            ContinueSignUpButton.hide();
+            Arrow.show();
+            AirbugJar.previouslyContainedAirbugs.forEach(function(airbug){
+               airbug.element.off("touchend mouseup", AirbugJar.handleRemovalOfFinalBug);
+            });
+            AirbugJar.previouslyContainedAirbugs = [];
+        }
     }
 };
+
+var Arrow = {
+    element: $(".arrow-container"),
+    activate: function(){
+        Arrow.element.on('click', function(){
+            BetaSignUpModal.element.modal('show');
+            Arrow.element.css("cursor", "pointer");
+        });
+    },
+    hide: function(){
+        Arrow.element.hide();
+    },
+    show: function(){
+        Arrow.element.show();
+    }
+};
+
+var ContinueSignUpButton = {
+    element: $("#continue-sign-up-button-container"),
+    show: function(){
+        ContinueSignUpButton.element.show();
+    },
+    hide: function(){
+        ContinueSignUpButton.element.hide();
+    }
+}
 
 var BetaSignUpModal = {
     element: $("#beta-sign-up-modal"),
@@ -387,8 +495,13 @@ var BetaSignUpModal = {
             BetaSignUpModal.initialized = true;
             var betaSignUpSubmitButton = $("#beta-sign-up-form-submit-button");
             var betaSignUpCancelButton = $("#beta-sign-up-form-cancel-button");
-            betaSignUpSubmitButton.bind("click", BetaSignUpModal.handleSubmitButtonClick);
-            betaSignUpCancelButton.bind("click", BetaSignUpModal.handleCancelButtonClick);
+            var betaSignUpCloseButton  = $(".modal-header .close");
+            betaSignUpSubmitButton.on("click", BetaSignUpModal.handleSubmitButtonClick);
+            betaSignUpCancelButton.on("click", BetaSignUpModal.handleCancelButtonClick);
+            betaSignUpCloseButton.on("click", BetaSignUpModal.handleCancelButtonClick);
+            ContinueSignUpButton.element.on("click", function(){
+                BetaSignUpModal.element.modal('show');
+            });
         }
     },
     show: function() {
@@ -409,6 +522,7 @@ var BetaSignUpModal = {
     },
 
     submitForm: function(formData) {
+        Tracker.trackGoalComplete("SignedUpForBeta");
         sendApiRequest("/api/beta-sign-up", formData, function(error, result) {
             //TODO BRN: Handle errors
         });
@@ -426,6 +540,13 @@ var BetaSignUpModal = {
     handleCancelButtonClick: function(event) {
         event.preventDefault();
         BetaSignUpModal.hide();
+        Arrow.hide();
+        ContinueSignUpButton.show();
+        var currentlyContainedAirbugs = AirbugJar.containedAirbugs;
+        AirbugJar.previouslyContainedAirbugs = currentlyContainedAirbugs;
+        currentlyContainedAirbugs.forEach(function(airbug){
+           airbug.element.on("touchend mouseup", AirbugJar.handleRemovalOfFinalBug);
+        });
         return false;
     },
     handleSubmitButtonClick: function(event) {
@@ -435,7 +556,7 @@ var BetaSignUpModal = {
             if (!error) {
                 BetaSignUpModal.submitForm(formData);
                 BetaSignUpModal.hide();
-                goToThankYouPage();
+                PageManager.goToPage(ThankYouPage);
             } else {
                 BetaSignUpModal.showFormError(error);
             }
@@ -462,11 +583,11 @@ DragProxy.prototype = {
         this._handle = function(event) {
             _this.handleInteractionStart(event);
         };
-        this.element.bind("touchstart mousedown", this._handle);
+        this.element.on("touchstart mousedown", this._handle);
         this.element.addClass("grab");
     },
     uninitializeDragProxy: function() {
-        this.element.unbind("touchstart mousedown", this._handle);
+        this.element.off("touchstart mousedown", this._handle);
         this.element.removeClass("grab");
         this.element.removeClass("grabbing");
     },
@@ -517,8 +638,8 @@ var DragManager = {
         };
         DragManager.boundingOffsets = draggableElement.parent().offset();
         var body = $('body');
-        body.bind("touchmove mousemove", DragManager.handleDragMove);
-        body.bind("touchend mouseup", DragManager.handleDragRelease);
+        body.on("touchmove mousemove", DragManager.handleDragMove);
+        body.on("touchend mouseup", DragManager.handleDragRelease);
 
         DragManager.dragTargets.forEach(function(dragTarget) {
             dragTarget.startDrag();
@@ -537,8 +658,8 @@ var DragManager = {
     },
     releaseDrag: function() {
         var body = $('body');
-        body.unbind("touchmove mousemove", DragManager.handleDragMove);
-        body.unbind("touchend mouseup", DragManager.handleDragRelease);
+        body.off("touchmove mousemove", DragManager.handleDragMove);
+        body.off("touchend mouseup", DragManager.handleDragRelease);
 
         DragManager.dragTargets.forEach(function(dragTarget) {
             dragTarget.releaseDrag();
@@ -593,19 +714,20 @@ var DragManager = {
 // Thank You Page
 //-------------------------------------------------------------------------------
 
-var goToThankYouPage = function() {
-    initializeThankYouPage();
-    var betaSignUpPage = $("#beta-sign-up-page");
-    var thankYouPage = $("#thank-you-page");
-    betaSignUpPage.addClass("page-slide-hide");
-    thankYouPage.show();
-    thankYouPage.addClass("page-slide-show");
-    currentPage = "thankYouPage";
+var ThankYouPage = {
+    pageName: "thankYouPage",
+    initialize: function() {
+
+    },
+    activate: function() {
+        var betaSignUpPage = $("#beta-sign-up-page");
+        var thankYouPage = $("#thank-you-page");
+        betaSignUpPage.addClass("page-slide-hide");
+        thankYouPage.show();
+        thankYouPage.addClass("page-slide-show");
+    }
 };
 
-var initializeThankYouPage = function() {
-
-};
 
 // App Code
 //-------------------------------------------------------------------------------
@@ -621,8 +743,9 @@ var start = function() {
 };
 
 var initializeApp = function() {
+    Tracker.trackAppLoad();
     initializeFeedbackPanel();
-    goToExplainerPage();
+    PageManager.goToPage(ExplainerPage);
 };
 
 start();
