@@ -465,6 +465,7 @@ var Arrow = {
     activate: function(){
         Arrow.element.on('click', function(){
             BetaSignUpModal.element.modal('show');
+            Arrow.element.css("cursor", "pointer");
         });
     },
     hide: function(){
@@ -492,9 +493,11 @@ var BetaSignUpModal = {
             BetaSignUpModal.initialized = true;
             var betaSignUpSubmitButton = $("#beta-sign-up-form-submit-button");
             var betaSignUpCancelButton = $("#beta-sign-up-form-cancel-button");
+            var betaSignUpCloseButton  = $(".modal-header .close");
             betaSignUpSubmitButton.on("click", BetaSignUpModal.handleSubmitButtonClick);
             betaSignUpCancelButton.on("click", BetaSignUpModal.handleCancelButtonClick);
-            ResubmitButton.element.on('click', function(){
+            betaSignUpCloseButton.on("click", BetaSignUpModal.handleCancelButtonClick);
+            ResubmitButton.element.on("click", function(){
                 BetaSignUpModal.element.modal('show');
             });
         }
