@@ -131,7 +131,7 @@ buildTarget('local').buildFlow(
                 packageVersion: buildProject.getProperty("packageJson.version")
             }
         }),
-        /*targetTask('startNodeModuleTests', {
+        targetTask('startNodeModuleTests', {
             init: function(task, buildProject, properties) {
                 var packedNodePackage = nodejs.findPackedNodePackage(
                     buildProject.getProperty("packageJson.name"),
@@ -141,7 +141,7 @@ buildTarget('local').buildFlow(
                     modulePath: packedNodePackage.getFilePath()
                 });
             }
-        }),*/
+        }),
         targetTask("s3EnsureBucket", {
             properties: {
                 bucket: buildProject.getProperty("local-bucket")
