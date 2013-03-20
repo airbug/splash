@@ -805,6 +805,11 @@ a {
     border-radius: 7px;
 }
 
+.validation {
+    display: inline-block;
+    margin: 10px;
+}
+
 
 /* Thank You Page
 ********************************************/
