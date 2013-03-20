@@ -452,7 +452,7 @@ var AirbugJar = {
     },
     handleRemovalOfFinalBug: function(event) {
         if (AirbugJar.getCount() < 3) {
-            ResubmitButton.hide()
+            ContinueSignUpButton.hide();
             Arrow.show();
             AirbugJar.previouslyContainedAirbugs.forEach(function(airbug){
                airbug.element.off("touchend mouseup", AirbugJar.handleRemovalOfFinalBug);
@@ -478,13 +478,13 @@ var Arrow = {
     }
 };
 
-var ResubmitButton = {
-    element: $("#resubmit-button-container").hide(),
+var ContinueSignUpButton = {
+    element: $("#continue-sign-up-button-container").hide(),
     show: function(){
-        ResubmitButton.element.show();
+        ContinueSignUpButton.element.show();
     },
     hide: function(){
-        ResubmitButton.element.hide();
+        ContinueSignUpButton.element.hide();
     }
 }
 
@@ -499,7 +499,7 @@ var BetaSignUpModal = {
             betaSignUpSubmitButton.on("click", BetaSignUpModal.handleSubmitButtonClick);
             betaSignUpCancelButton.on("click", BetaSignUpModal.handleCancelButtonClick);
             betaSignUpCloseButton.on("click", BetaSignUpModal.handleCancelButtonClick);
-            ResubmitButton.element.on("click", function(){
+            ContinueSignUpButton.element.on("click", function(){
                 BetaSignUpModal.element.modal('show');
             });
         }
@@ -541,7 +541,7 @@ var BetaSignUpModal = {
         event.preventDefault();
         BetaSignUpModal.hide();
         Arrow.hide();
-        ResubmitButton.show();
+        ContinueSignUpButton.show();
         var currentlyContainedAirbugs = AirbugJar.containedAirbugs;
         AirbugJar.previouslyContainedAirbugs = currentlyContainedAirbugs;
         currentlyContainedAirbugs.forEach(function(airbug){
