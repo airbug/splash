@@ -479,7 +479,7 @@ var Arrow = {
 };
 
 var ContinueSignUpButton = {
-    element: $("#continue-sign-up-button-container").hide(),
+    element: $("#continue-sign-up-button-container"),
     show: function(){
         ContinueSignUpButton.element.show();
     },

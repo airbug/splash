@@ -731,16 +731,16 @@ a {
     height: 75px;
 }
 
-#resubmit-button-container {
-    display: block;
+#continue-sign-up-button-container {
+    display: none;
     position: absolute;
-    left: 305px;
+    left: 273px;
     top: 239px;
     z-index: 1;
     cursor: pointer;
 }
 
-#resubmit-button {
+#continue-sign-up-button {
     
 }
 
