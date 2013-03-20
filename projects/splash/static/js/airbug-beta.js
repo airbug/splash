@@ -208,6 +208,8 @@ var handleFeedbackContainerClick = function(event) {
 var handleFeedbackEdgeContainerClick = function(event) {
     if (feedbackPanelOpen) {
         closeFeedbackPanel();
+    } else {
+        openFeedbackPanel();
     }
 };
 
