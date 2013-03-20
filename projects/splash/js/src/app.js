@@ -34,7 +34,14 @@ var FeedbackApi =   bugpack.require('splash.FeedbackApi');
 // Create Application
 //-------------------------------------------------------------------------------
 
-var config = JSON.parse(BugFs.readFileSync(path.resolve(__dirname, '../config.json'), 'utf8'));
+var configPath = path.resolve(__dirname, '../config.json');
+var config = {
+    port: 8000,
+    mongoDbIp: "localhost"
+};
+if (BugFs.existsSync(configPath)) {
+    config = JSON.parse(BugFs.readFileSync(configPath, 'utf8'));
+}
 
 mongoose.connect('mongodb://' + config.mongoDbIp + '/airbug');
 
@@ -44,12 +51,12 @@ app.configure(function(){
   app.set('port', config.port);
   app.set('views', path.resolve(__dirname, '../resources/views'));
   app.set('view engine', 'jade');
-  app.use(express.favicon());
+  app.use(express.favicon(path.resolve(__dirname, '../static/img/airbug-icon.png')));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride()); // put and delete support for html 4 and older
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, '../static')));
+  app.use(express.static(path.resolve(__dirname, '../static')));
 });
 
 app.configure('development', function(){
@@ -62,7 +69,10 @@ app.configure('development', function(){
 //-------------------------------------------------------------------------------
 
 app.get('/', function(req, res){
-    res.render('index', { title: 'airbug' });
+    res.render('index', {
+        title: 'airbug',
+        production: config.production
+    });
     res.end();
 });
 app.post('/api/beta-sign-up', function(req, res){
