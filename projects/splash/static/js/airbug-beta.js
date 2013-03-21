@@ -396,7 +396,6 @@ var AirbugJar = {
     addAirbug: function(airbug) {
         AirbugJar.containedAirbugs.push(airbug);
         AirbugJar.renderAirbugs();
-
         if (AirbugJar.getCount() >= 3 ) {
             setTimeout(function() {
                 BetaSignUpModal.show();
@@ -564,6 +563,8 @@ var BetaSignUpModal = {
     handleSubmitButtonClick: function(event) {
         event.preventDefault();
         var formData = BetaSignUpModal.getFormData();
+        $('#name+.validation').removeClass("invalid");
+        $('#email+.validation').removeClass("invalid");
         BetaSignUpModal.validateForm(formData, function(error) {
             if (!error) {
                 BetaSignUpModal.submitForm(formData);
