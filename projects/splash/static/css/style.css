@@ -810,7 +810,7 @@ a {
     margin: 10px;
 }
 
-.required.invalid {
+.validation.invalid {
     color: red;
 }
 

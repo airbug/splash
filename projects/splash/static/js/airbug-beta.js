@@ -557,6 +557,8 @@ var BetaSignUpModal = {
         currentlyContainedAirbugs.forEach(function(airbug){
            airbug.element.on("touchend mouseup", AirbugJar.handleRemovalOfFinalBug);
         });
+        $('#name+.validation').removeClass("invalid");
+        $('#email+.validation').removeClass("invalid");
         return false;
     },
     handleSubmitButtonClick: function(event) {
