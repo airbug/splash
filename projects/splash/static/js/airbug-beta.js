@@ -400,6 +400,7 @@ var AirbugJar = {
         if (AirbugJar.getCount() >= 3 ) {
             setTimeout(function() {
                 BetaSignUpModal.show();
+                // Make airbugs ungrabbable
             }, 1200)
         }
     },
@@ -529,8 +530,17 @@ var BetaSignUpModal = {
     },
 
     validateForm: function(formData, callback) {
-        //TODO BRN: Validate the feedback form data
-        callback();
+        var formDataArray = $('#beta-sign-up-form').serializeArray();
+        var error = null;
+        formDataArray.forEach(function(formEntry){
+            var name = formEntry.name;
+            var value = formEntry.value;
+            if((name === 'name' && value === '') || (name === 'email' && value === '')){
+                $('#' + name + '+.validation').addClass("invalid");
+                error = new Error("Required fields have not been filled in");
+            }
+        });
+        callback(error);
     },
 
     showFormError: function(error) {
