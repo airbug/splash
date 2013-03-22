@@ -399,10 +399,17 @@ var AirbugJar = {
         AirbugJar.containedAirbugs.push(airbug);
         AirbugJar.renderAirbugs();
         if (AirbugJar.getCount() >= 3 ) {
-            setTimeout(function() {
-                BetaSignUpModal.show();
-                // Make airbugs ungrabbable
-            }, 1200)
+            if(airbug === otherAirBug){
+                $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleSubmitButtonClick);
+                $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleCancelButtonClick);
+                $("#other-airbug-form-submit-button").on('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
+                $("#other-airbug-form-cancel-button").on('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
+            } else {
+                setTimeout(function() {
+                    BetaSignUpModal.show();
+                    // Make airbugs ungrabbable
+                }, 1200)
+            }
         }
     },
     removeAirbug: function(airbug) {
@@ -472,27 +479,49 @@ var OtherAirBugForm = {
     show: function(){
         $("#other-airbug-form-submit-button").on('click', OtherAirBugForm.handleSubmitButtonClick);
         $("#other-airbug-form-cancel-button").on('click', OtherAirBugForm.handleCancelButtonClick);
+        $('#other-airbug-form-container input').keyup(function(e) {
+            if(e.keyCode == 13) {
+                OtherAirBugForm.handleSubmitButtonClick(e);
+            } else {
+                var inputValue = $('#other-airbug-form-container input').val();
+                $('#other-airbug-faux-form input').attr('placeholder', inputValue);
+            }
+        });
         OtherAirBugForm.element.show()
     },
     hide: function(){OtherAirBugForm.element.hide()},
     handleSubmitButtonClick: function(event){
         var otherAirbug = otherAirbug;
-        event.preventDefault();
-        var formEntry = $('#other-airbug-form').serializeArray()[0];
-        if(formEntry.value !== ''){ //hasClass Empty
-            otherAirBug.name += ': ' + formEntry.value;
-            $('#other-airbug-faux-form input').attr('placeholder', formEntry.value);
+        var inputValue = $('#other-airbug-form-container input').val();
+        if(inputValue !== ''){
+            otherAirBug.name += ': ' + inputValue;
             OtherAirBugForm.hide();
         } else {
             OtherAirBugForm.hide();
         }
-
     },
     handleCancelButtonClick: function(event){
-        event.preventDefault();
         OtherAirBugForm.hide();
+    },
+    handleFinalBugSubmitButtonClick: function(event){
+        OtherAirBugForm.handleSubmitButtonClick();
+        setTimeout(function() {
+            BetaSignUpModal.show();
+            // Make airbugs ungrabbable
+        }, 1200)
+        $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
+        $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
+    },
+    handleFinalBugCancelButtonClick: function(event){
+        OtherAirBugForm.handleCancelButtonClick();
+        setTimeout(function() {
+            BetaSignUpModal.show();
+            // Make airbugs ungrabbable
+        }, 1200)
+        $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
+        $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
     }
-}
+};
 
 var Arrow = {
     element: $(".arrow-container"),
@@ -518,7 +547,7 @@ var ContinueSignUpButton = {
     hide: function(){
         ContinueSignUpButton.element.hide();
     }
-}
+};
 
 var BetaSignUpModal = {
     element: $("#beta-sign-up-modal"),
@@ -772,7 +801,6 @@ var ThankYouPage = {
         thankYouPage.addClass("page-slide-show");
     }
 };
-
 
 // App Code
 //-------------------------------------------------------------------------------
