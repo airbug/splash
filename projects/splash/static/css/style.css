@@ -716,6 +716,43 @@ a {
     animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
 }
 
+#airbug-other-container #other-airbug-faux-form {
+    position: absolute;
+    margin-top: 100px;
+    left: 0;
+    top: 0;
+    -webkit-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -moz-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -ms-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    -o-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+    animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
+}
+
+#airbug-other-container #other-airbug-faux-form .control-group, #airbug-other-container .controls {
+    margin: none;
+    padding: none;
+}
+
+#airbug-other-container #other-airbug-faux-form input {
+    width: 90px;
+    margin-top: 6px;
+    margin-left: 10px;
+}
+
+#other-airbug-form-container {
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+    top: 350px;
+    left: 590px;
+}
+
+#other-airbug-form-container input {
+    width: 135px;
+}
+
 .arrow-container {
     display: block;
     position: absolute;
@@ -741,7 +778,7 @@ a {
 }
 
 #continue-sign-up-button {
-    
+
 }
 
 #airbug-jar-container {

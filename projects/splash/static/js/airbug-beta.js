@@ -359,12 +359,14 @@ AirBug.prototype = {
     }
 };
 
+var otherAirBug = new AirBug("other", $("#airbug-other-container"));
+
 var airbugs = [
     new AirBug("basecamp", $("#airbug-basecamp-container")),
     new AirBug("bitbucket", $("#airbug-bitbucket-container")),
     new AirBug("github", $("#airbug-github-container")),
     new AirBug("jira", $("#airbug-jira-container")),
-    new AirBug("other", $("#airbug-other-container")),
+    otherAirBug,
     new AirBug("pivotaltracker", $("#airbug-pivotaltracker-container")),
     new AirBug("salesforce", $("#airbug-salesforce-container")),
     new AirBug("uservoice", $("#airbug-uservoice-container")),
@@ -448,6 +450,9 @@ var AirbugJar = {
             var draggingObject = DragManager.draggingObject;
             DragManager.releaseDrag();
             AirbugJar.addAirbug(draggingObject);
+            if (draggingObject === otherAirBug) {
+                OtherAirBugForm.show();
+            }
         }
     },
     handleRemovalOfFinalBug: function(event) {
@@ -461,6 +466,33 @@ var AirbugJar = {
         }
     }
 };
+
+var OtherAirBugForm = {
+    element: $('#other-airbug-form-container'),
+    show: function(){
+        $("#other-airbug-form-submit-button").on('click', OtherAirBugForm.handleSubmitButtonClick);
+        $("#other-airbug-form-cancel-button").on('click', OtherAirBugForm.handleCancelButtonClick);
+        OtherAirBugForm.element.show()
+    },
+    hide: function(){OtherAirBugForm.element.hide()},
+    handleSubmitButtonClick: function(event){
+        var otherAirbug = otherAirbug;
+        event.preventDefault();
+        var formEntry = $('#other-airbug-form').serializeArray()[0];
+        if(formEntry.value !== ''){ //hasClass Empty
+            otherAirBug.name += ': ' + formEntry.value;
+            $('#other-airbug-faux-form input').attr('placeholder', formEntry.value);
+            OtherAirBugForm.hide();
+        } else {
+            OtherAirBugForm.hide();
+        }
+
+    },
+    handleCancelButtonClick: function(event){
+        event.preventDefault();
+        OtherAirBugForm.hide();
+    }
+}
 
 var Arrow = {
     element: $(".arrow-container"),
