@@ -567,6 +567,8 @@ var BetaSignUpModal = {
     },
     show: function() {
         BetaSignUpModal.element.modal('show');
+        Arrow.hide();
+        ContinueSignUpButton.show();
     },
     hide: function() {
         BetaSignUpModal.element.modal('hide');
@@ -610,8 +612,6 @@ var BetaSignUpModal = {
     handleCancelButtonClick: function(event) {
         event.preventDefault();
         BetaSignUpModal.hide();
-        Arrow.hide();
-        ContinueSignUpButton.show();
         var currentlyContainedAirbugs = AirbugJar.containedAirbugs;
         AirbugJar.previouslyContainedAirbugs = currentlyContainedAirbugs;
         currentlyContainedAirbugs.forEach(function(airbug){
