@@ -533,6 +533,16 @@ a {
    
 }
 
+
+a#home {
+    
+}
+
+
+a#home:before {
+    
+}
+
 .beta-sign-up-container {
     display: block;
     position: relative;

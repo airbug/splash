@@ -292,8 +292,10 @@ var ExplainerPage = {
     activate: function() {
         var explainerPage = $("#explainer-page");
         var loadingPage = $("#loading-page");
-        explainerPage.show();
         loadingPage.hide();
+        explainerPage.removeClass("page-slide-show");
+        explainerPage.removeClass("page-slide-hide");
+        explainerPage.show();
     }
 };
 
@@ -309,11 +311,21 @@ var BetaSignUpPage = {
         });
         DragManager.registerDragTarget(AirbugJar);
         BetaSignUpModal.initialize();
+        $('a#home').on('click', function(event){
+            var explainerPage = $("#explainer-page");
+            var betaSignUpPage = $("#beta-sign-up-page");
+            betaSignUpPage.removeClass("page-slide-show");
+            betaSignUpPage.addClass("page-slide-hide");
+            PageManager.goToPage(ExplainerPage);
+            explainerPage.addClass("page-slide-show");
+        });
     },
     activate: function() {
         var explainerPage = $("#explainer-page");
         var betaSignUpPage = $("#beta-sign-up-page");
         explainerPage.addClass("page-slide-hide");
+        betaSignUpPage.removeClass("page-slide-show");
+        betaSignUpPage.removeClass("page-slide-hide");
         betaSignUpPage.show();
         betaSignUpPage.addClass("page-slide-show");
     }
