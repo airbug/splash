@@ -909,3 +909,41 @@ a#home:before {
     color: #333333;
     font-size: 20px;
 }
+
+/* 404 Page
+********************************************/
+
+.wrapper-404 {
+    position: relative;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;        
+}
+
+#logo-404 {
+    display: block;
+    position: absolute;
+    width: 250px;
+    height: 150px;
+    top: 40px;
+    left: 225px;
+}
+
+#message-404 {
+    position: absolute;
+    display: block;
+    text-align: center;
+    line-height: 38px;
+    width:700px;
+    color: #333333;
+    font-size: 20px;
+    top: 180px;
+}
+
+#jar-404 {
+    display: block;
+    position: absolute;
+    width: 700px;
+    height: 500px;
+    top: 290px;   
+}

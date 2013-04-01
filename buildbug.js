@@ -35,7 +35,7 @@ var nodejs      = enableModule('nodejs');
 buildProperties({
     packageJson: {
         "name": "splash",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "private": true,
         "scripts": {
             "start": "node ./lib/app"

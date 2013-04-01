@@ -299,6 +299,21 @@ var ExplainerPage = {
     }
 };
 
+// 404 page
+//-------------------------------------------------------------------------------
+
+var Four04Page = {
+    pageName: "four04Page",
+    initialize: function() {
+    },
+    activate: function() {
+        var four04Page = $("#four04-page");
+        var loadingPage = $("#loading-page");
+        loadingPage.hide();
+        four04Page.show();
+    }
+};
+
 
 // Beta SignUp Page
 //-------------------------------------------------------------------------------
@@ -830,7 +845,11 @@ var start = function() {
 var initializeApp = function() {
     Tracker.trackAppLoad();
     initializeFeedbackPanel();
-    PageManager.goToPage(ExplainerPage);
+    if (firstPage === "explainerPage") {
+        PageManager.goToPage(ExplainerPage);      
+    } else if (firstPage === "four04Page") {
+        PageManager.goToPage(Four04Page);
+    }
 };
 
 start();

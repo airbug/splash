@@ -12,6 +12,7 @@ html
         };
         var Loader = {
             numLoadedItems: 0,
+            numExpectedLoadedItems: 0,
             appLoaded: false,
             loadListeners: [],
             addLoadedListener: function(listener) {
@@ -24,7 +25,7 @@ html
             },
             loaded: function() {
                 Loader.numLoadedItems++;
-                if (Loader.numLoadedItems >= 6 && !Loader.appLoaded) {
+                if (Loader.numLoadedItems >= Loader.numExpectedLoadedItems && !Loader.appLoaded) {
                     Loader.appLoaded = true;
                     Loader.notifyLoadedListeners();
                 }

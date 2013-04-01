@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  script
+      var firstPage="explainerPage";
+      Loader.numExpectedLoadedItems = 6;
   div(id="page-container")
     div(id="loading-page", class="page")
       div(class="row-fluid")
