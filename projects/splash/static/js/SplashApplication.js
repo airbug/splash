@@ -4,9 +4,10 @@
 
 //@Package('splash')
 
-//@Export('SplashPage')
+//@Export('SplashApplication')
+//@Autoload
 
-//@Require('Class')
+//@Require('splitbug.SplitBug')
 
 
 //-------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class   = bugpack.require('Class');
+var SplitBug   = bugpack.require('splitbug.SplitBug');
 
 
 //-------------------------------------------------------------------------------
@@ -28,7 +29,39 @@ var Class   = bugpack.require('Class');
 //-------------------------------------------------------------------------------
 
 //TODO BRN: Update the objects in this file to use our class model from bugjs
+var SplashApplication = {
 
+    /**
+     *
+     */
+    start: function() {
+        SplitBug.configure({}, function(error) {
+            if (error) {
+                console.log(error);
+            }
+            if (Loader.appLoaded) {
+                SplashApplication.initialize();
+            } else {
+                Loader.addLoadedListener(function() {
+                    SplashApplication.initialize();
+                });
+            }
+        });
+    },
+
+    /**
+     *
+     */
+    initialize: function() {
+        Tracker.trackAppLoad();
+        initializeFeedbackPanel();
+        if (firstPage === "explainerPage") {
+            PageManager.goToPage(ExplainerPage);
+        } else if (firstPage === "four04Page") {
+            PageManager.goToPage(Four04Page);
+        }
+    }
+};
 
 
 var sendApiRequest = function(endpoint, dataObject, callback) {
@@ -283,6 +316,18 @@ var PageManager = {
 var ExplainerPage = {
     pageName: "explainerPage",
     initialize: function() {
+
+        var marketingTaglineHeader = $("#marketing-tagline-header");
+        SplitBug.splitTest({
+            name: "alternate-tag-line",
+            controlFunction: function() {
+                marketingTaglineHeader.html("Unite and motivate your team's cross-platform collaboration");
+            },
+            testFunction: function() {
+                marketingTaglineHeader.html("Collaborative chat for developers");
+            }
+        });
+
         var betaSignUpButton = $("#beta-sign-up-button");
         betaSignUpButton.on("click", function(event) {
             PageManager.goToPage(BetaSignUpPage);
@@ -829,27 +874,9 @@ var ThankYouPage = {
     }
 };
 
-// App Code
+
+//-------------------------------------------------------------------------------
+// Exports
 //-------------------------------------------------------------------------------
 
-var start = function() {
-    if (Loader.appLoaded) {
-        initializeApp();
-    } else {
-        Loader.addLoadedListener(function() {
-            initializeApp();
-        });
-    }
-};
-
-var initializeApp = function() {
-    Tracker.trackAppLoad();
-    initializeFeedbackPanel();
-    if (firstPage === "explainerPage") {
-        PageManager.goToPage(ExplainerPage);      
-    } else if (firstPage === "four04Page") {
-        PageManager.goToPage(Four04Page);
-    }
-};
-
-start();
+bugpack.export('splash.SplashApplication', SplashApplication);
