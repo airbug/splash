@@ -6,13 +6,13 @@ html
     link(rel="stylesheet", href="/css/style.css")
     link(rel="stylesheet", href="/css/bootstrap.min.css")
     link(rel="stylesheet", href="/css/bootstrap-responsive.min.css")
-    link(rel="icon", type="image/png", href="/img/airbug-icon.png")
     script
         var _appConfig = {
             production: "#{production}"
         };
         var Loader = {
             numLoadedItems: 0,
+            numExpectedLoadedItems: 0,
             appLoaded: false,
             loadListeners: [],
             addLoadedListener: function(listener) {
@@ -25,7 +25,7 @@ html
             },
             loaded: function() {
                 Loader.numLoadedItems++;
-                if (Loader.numLoadedItems >= 6 && !Loader.appLoaded) {
+                if (Loader.numLoadedItems >= Loader.numExpectedLoadedItems && !Loader.appLoaded) {
                     Loader.appLoaded = true;
                     Loader.notifyLoadedListeners();
                 }
@@ -83,10 +83,10 @@ html
     script(type="text/javascript", src="/js/socket.io.js")
     script(type="text/javascript", src="/BugPackKey.js")
     script(type="text/javascript", src="/BugPackPackage.js")
+    script(type="text/javascript", src="/BugPackSource.js")
+    script(type="text/javascript", src="/BugPackRegistryEntry.js")
     script(type="text/javascript", src="/BugPackRegistry.js")
+    script(type="text/javascript", src="/BugPackRegistryFile.js")
     script(type="text/javascript", src="/BugPackContext.js")
     script(type="text/javascript", src="/BugPackApi.js")
-    script(type="text/javascript", src="/TypeUtil.js")
-    script(type="text/javascript", src="/Class.js")
-    script(type="text/javascript", src="/SonarBugClient.js")
-    script(type="text/javascript", src="/js/airbug-beta.js")
+    script(type="text/javascript", src="/js/splash-application-loader.js")

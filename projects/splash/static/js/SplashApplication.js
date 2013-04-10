@@ -4,10 +4,13 @@
 
 //@Package('splash')
 
-//@Export('SplashPage')
+//@Export('SplashApplication')
+//@Autoload
 
+//@Require('bugflow.BugFlow')
 //@Require('Class')
-//@Require('sonarbug.SonarBugClient')
+//@Require('sonarbugclient.SonarBugClient')
+//@Require('splitbug.SplitBug')
 
 
 //-------------------------------------------------------------------------------
@@ -21,15 +24,66 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =         bugpack.require('Class');
-var SonarBugClient = bugpack.require('sonarbugclient.SonarBugClient');
+var BugFlow         = bugpack.require('bugflow.BugFlow');
+var Class           = bugpack.require('Class');
+var SonarBugClient  = bugpack.require('sonarbugclient.SonarBugClient');
+var SplitBug        = bugpack.require('splitbug.SplitBug');
+
+var $parallel       = BugFlow.$parallel;
+var $task           = BugFlow.$task;
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
 //TODO BRN: Update the objects in this file to use our class model from bugjs
+var SplashApplication = {
 
+    /**
+     *
+     */
+    start: function() {
+        $parallel([
+            $task(function(flow){
+                SonarBugClient.configure("http://sonarbug.com:80/api", function(error){
+                    if(!error){
+                        console.log('SonarBugClient configured');
+                        flow.complete();
+                    } else {
+                        flow.complete(error);
+                    }
+                });
+            }),
+            $task(function(flow){
+                SplitBug.configure({}, function(error) {
+                    flow.complete(error);
+                });
+            })
+        ]).execute(function(){
+            if (Loader.appLoaded) {
+                SplashApplication.initialize();
+            } else {
+                Loader.addLoadedListener(function() {
+                    SplashApplication.initialize();
+                });
+            }
+        });
+    },
+
+    /**
+     *
+     */
+    initialize: function() {
+        SonarBugClient.startTracking();
+        Tracker.trackAppLoad();
+        initializeFeedbackPanel();
+        if (firstPage === "explainerPage") {
+            PageManager.goToPage(ExplainerPage);
+        } else if (firstPage === "four04Page") {
+            PageManager.goToPage(Four04Page);
+        }
+    }
+};
 
 
 var sendApiRequest = function(endpoint, dataObject, callback) {
@@ -103,15 +157,15 @@ var initializeFeedbackPanel = function() {
     var feedbackFormCancelButton = $("#feedback-form-cancel-button");
     var feedbackFormSubmitButton = $("#feedback-form-submit-button");
 
-    feedbackTab.bind("click", handleFeedbackTabClick);
-    body.bind("click", handleBodyClick);
-    feedbackContainer.bind("click", handleFeedbackContainerClick);
-    feedbackEdgeContainer.bind("click", handleFeedbackEdgeContainerClick);
-    feedbackFormCancelButton.bind("click", handleFeedbackFormCancelButtonClick);
-    feedbackFormSubmitButton.bind("click", handleFeedbackFormSubmitButtonClick);
+    feedbackTab.on("click", handleFeedbackTabClick);
+    body.on("click", handleBodyClick);
+    feedbackContainer.on("click", handleFeedbackContainerClick);
+    feedbackEdgeContainer.on("click", handleFeedbackEdgeContainerClick);
+    feedbackFormCancelButton.on("click", handleFeedbackFormCancelButtonClick);
+    feedbackFormSubmitButton.on("click", handleFeedbackFormSubmitButtonClick);
 };
 
-var handleFeedbackTabClick = function() {
+var handleFeedbackTabClick = function(event) {
     if (feedbackPanelOpen) {
         closeFeedbackPanel();
     } else {
@@ -214,6 +268,8 @@ var handleFeedbackContainerClick = function(event) {
 var handleFeedbackEdgeContainerClick = function(event) {
     if (feedbackPanelOpen) {
         closeFeedbackPanel();
+    } else {
+        openFeedbackPanel();
     }
 };
 
@@ -287,8 +343,20 @@ var PageManager = {
 var ExplainerPage = {
     pageName: "explainerPage",
     initialize: function() {
+
+        var marketingTaglineHeader = $("#marketing-tagline-header");
+        SplitBug.splitTest({
+            name: "alternate-tag-line",
+            controlFunction: function() {
+                marketingTaglineHeader.html("Unite and motivate your team's cross-platform collaboration");
+            },
+            testFunction: function() {
+                marketingTaglineHeader.html("Collaborative chat for developers");
+            }
+        });
+
         var betaSignUpButton = $("#beta-sign-up-button");
-        betaSignUpButton.bind("click", function(event) {
+        betaSignUpButton.on("click", function(event) {
             PageManager.goToPage(BetaSignUpPage);
         });
 
@@ -296,8 +364,25 @@ var ExplainerPage = {
     activate: function() {
         var explainerPage = $("#explainer-page");
         var loadingPage = $("#loading-page");
-        explainerPage.show();
         loadingPage.hide();
+        explainerPage.removeClass("page-slide-show");
+        explainerPage.removeClass("page-slide-hide");
+        explainerPage.show();
+    }
+};
+
+// 404 page
+//-------------------------------------------------------------------------------
+
+var Four04Page = {
+    pageName: "four04Page",
+    initialize: function() {
+    },
+    activate: function() {
+        var four04Page = $("#four04-page");
+        var loadingPage = $("#loading-page");
+        loadingPage.hide();
+        four04Page.show();
     }
 };
 
@@ -313,11 +398,21 @@ var BetaSignUpPage = {
         });
         DragManager.registerDragTarget(AirbugJar);
         BetaSignUpModal.initialize();
+        $('a#home').on('click', function(event){
+            var explainerPage = $("#explainer-page");
+            var betaSignUpPage = $("#beta-sign-up-page");
+            betaSignUpPage.removeClass("page-slide-show");
+            betaSignUpPage.addClass("page-slide-hide");
+            PageManager.goToPage(ExplainerPage);
+            explainerPage.addClass("page-slide-show");
+        });
     },
     activate: function() {
         var explainerPage = $("#explainer-page");
         var betaSignUpPage = $("#beta-sign-up-page");
         explainerPage.addClass("page-slide-hide");
+        betaSignUpPage.removeClass("page-slide-show");
+        betaSignUpPage.removeClass("page-slide-hide");
         betaSignUpPage.show();
         betaSignUpPage.addClass("page-slide-show");
     }
@@ -334,7 +429,7 @@ AirBug.prototype = {
     initializeDraggableObject: function() {
         var _this = this;
         var element = this.element;
-        element.bind("touchstart mousedown", function(event) {
+        element.on("touchstart mousedown", function(event) {
             _this.handleInteractionStart(event);
         });
         element.addClass("grab");
@@ -363,12 +458,14 @@ AirBug.prototype = {
     }
 };
 
+var otherAirBug = new AirBug("other", $("#airbug-other-container"));
+
 var airbugs = [
     new AirBug("basecamp", $("#airbug-basecamp-container")),
     new AirBug("bitbucket", $("#airbug-bitbucket-container")),
     new AirBug("github", $("#airbug-github-container")),
     new AirBug("jira", $("#airbug-jira-container")),
-    new AirBug("other", $("#airbug-other-container")),
+    otherAirBug,
     new AirBug("pivotaltracker", $("#airbug-pivotaltracker-container")),
     new AirBug("salesforce", $("#airbug-salesforce-container")),
     new AirBug("uservoice", $("#airbug-uservoice-container")),
@@ -378,6 +475,7 @@ var airbugs = [
 var AirbugJar = {
     element: $("#airbug-jar-container"),
     containedAirbugs: [],
+    previouslyContainedAirbugs: [],
     getAirbugNames: function() {
         var names = [];
         AirbugJar.containedAirbugs.forEach(function(airbug) {
@@ -399,11 +497,18 @@ var AirbugJar = {
     addAirbug: function(airbug) {
         AirbugJar.containedAirbugs.push(airbug);
         AirbugJar.renderAirbugs();
-
         if (AirbugJar.getCount() >= 3 ) {
-            setTimeout(function() {
-                BetaSignUpModal.show();
-            }, 1200)
+            if(airbug === otherAirBug){
+                $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleSubmitButtonClick);
+                $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleCancelButtonClick);
+                $("#other-airbug-form-submit-button").on('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
+                $("#other-airbug-form-cancel-button").on('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
+            } else {
+                setTimeout(function() {
+                    BetaSignUpModal.show();
+                    // Make airbugs ungrabbable
+                }, 1200)
+            }
         }
     },
     removeAirbug: function(airbug) {
@@ -435,12 +540,12 @@ var AirbugJar = {
     },
     startDrag: function() {
         var targetElement = AirbugJar.element;
-        targetElement.bind("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
+        targetElement.on("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
         targetElement.addClass("grabbing");
     },
     releaseDrag: function() {
         var targetElement = AirbugJar.element;
-        targetElement.unbind("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
+        targetElement.off("touchend mouseup", AirbugJar.handleDragReleaseOnTarget);
         targetElement.removeClass("grabbing");
     },
     handleDragReleaseOnTarget: function(event) {
@@ -451,7 +556,95 @@ var AirbugJar = {
             var draggingObject = DragManager.draggingObject;
             DragManager.releaseDrag();
             AirbugJar.addAirbug(draggingObject);
+            if (draggingObject === otherAirBug) {
+                OtherAirBugForm.show();
+            }
         }
+    },
+    handleRemovalOfFinalBug: function(event) {
+        if (AirbugJar.getCount() < 3) {
+            ContinueSignUpButton.hide();
+            Arrow.show();
+            AirbugJar.previouslyContainedAirbugs.forEach(function(airbug){
+               airbug.element.off("touchend mouseup", AirbugJar.handleRemovalOfFinalBug);
+            });
+            AirbugJar.previouslyContainedAirbugs = [];
+        }
+    }
+};
+
+var OtherAirBugForm = {
+    element: $('#other-airbug-form-container'),
+    show: function(){
+        $("#other-airbug-form-submit-button").on('click', OtherAirBugForm.handleSubmitButtonClick);
+        $("#other-airbug-form-cancel-button").on('click', OtherAirBugForm.handleCancelButtonClick);
+        $('#other-airbug-form-container input').keyup(function(e) {
+            if(e.keyCode == 13) {
+                OtherAirBugForm.handleSubmitButtonClick(e);
+            } else {
+                var inputValue = $('#other-airbug-form-container input').val();
+                $('#other-airbug-faux-form input').attr('placeholder', inputValue);
+            }
+        });
+        OtherAirBugForm.element.show()
+    },
+    hide: function(){OtherAirBugForm.element.hide()},
+    handleSubmitButtonClick: function(event){
+        var otherAirbug = otherAirbug;
+        var inputValue = $('#other-airbug-form-container input').val();
+        if(inputValue !== ''){
+            otherAirBug.name += ': ' + inputValue;
+            OtherAirBugForm.hide();
+        } else {
+            OtherAirBugForm.hide();
+        }
+    },
+    handleCancelButtonClick: function(event){
+        OtherAirBugForm.hide();
+    },
+    handleFinalBugSubmitButtonClick: function(event){
+        OtherAirBugForm.handleSubmitButtonClick();
+        setTimeout(function() {
+            BetaSignUpModal.show();
+            // Make airbugs ungrabbable
+        }, 1200)
+        $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
+        $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
+    },
+    handleFinalBugCancelButtonClick: function(event){
+        OtherAirBugForm.handleCancelButtonClick();
+        setTimeout(function() {
+            BetaSignUpModal.show();
+            // Make airbugs ungrabbable
+        }, 1200)
+        $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
+        $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
+    }
+};
+
+var Arrow = {
+    element: $(".arrow-container"),
+    activate: function(){
+        Arrow.element.on('click', function(){
+            BetaSignUpModal.element.modal('show');
+            Arrow.element.css("cursor", "pointer");
+        });
+    },
+    hide: function(){
+        Arrow.element.hide();
+    },
+    show: function(){
+        Arrow.element.show();
+    }
+};
+
+var ContinueSignUpButton = {
+    element: $("#continue-sign-up-button-container"),
+    show: function(){
+        ContinueSignUpButton.element.show();
+    },
+    hide: function(){
+        ContinueSignUpButton.element.hide();
     }
 };
 
@@ -462,12 +655,19 @@ var BetaSignUpModal = {
             BetaSignUpModal.initialized = true;
             var betaSignUpSubmitButton = $("#beta-sign-up-form-submit-button");
             var betaSignUpCancelButton = $("#beta-sign-up-form-cancel-button");
-            betaSignUpSubmitButton.bind("click", BetaSignUpModal.handleSubmitButtonClick);
-            betaSignUpCancelButton.bind("click", BetaSignUpModal.handleCancelButtonClick);
+            var betaSignUpCloseButton  = $(".modal-header .close");
+            betaSignUpSubmitButton.on("click", BetaSignUpModal.handleSubmitButtonClick);
+            betaSignUpCancelButton.on("click", BetaSignUpModal.handleCancelButtonClick);
+            betaSignUpCloseButton.on("click", BetaSignUpModal.handleCancelButtonClick);
+            ContinueSignUpButton.element.on("click", function(){
+                BetaSignUpModal.element.modal('show');
+            });
         }
     },
     show: function() {
         BetaSignUpModal.element.modal('show');
+        Arrow.hide();
+        ContinueSignUpButton.show();
     },
     hide: function() {
         BetaSignUpModal.element.modal('hide');
@@ -491,8 +691,17 @@ var BetaSignUpModal = {
     },
 
     validateForm: function(formData, callback) {
-        //TODO BRN: Validate the feedback form data
-        callback();
+        var formDataArray = $('#beta-sign-up-form').serializeArray();
+        var error = null;
+        formDataArray.forEach(function(formEntry){
+            var name = formEntry.name;
+            var value = formEntry.value;
+            if((name === 'name' && value === '') || (name === 'email' && value === '')){
+                $('#' + name + '+.validation').addClass("invalid");
+                error = new Error("Required fields have not been filled in");
+            }
+        });
+        callback(error);
     },
 
     showFormError: function(error) {
@@ -502,11 +711,20 @@ var BetaSignUpModal = {
     handleCancelButtonClick: function(event) {
         event.preventDefault();
         BetaSignUpModal.hide();
+        var currentlyContainedAirbugs = AirbugJar.containedAirbugs;
+        AirbugJar.previouslyContainedAirbugs = currentlyContainedAirbugs;
+        currentlyContainedAirbugs.forEach(function(airbug){
+           airbug.element.on("touchend mouseup", AirbugJar.handleRemovalOfFinalBug);
+        });
+        $('#name+.validation').removeClass("invalid");
+        $('#email+.validation').removeClass("invalid");
         return false;
     },
     handleSubmitButtonClick: function(event) {
         event.preventDefault();
         var formData = BetaSignUpModal.getFormData();
+        $('#name+.validation').removeClass("invalid");
+        $('#email+.validation').removeClass("invalid");
         BetaSignUpModal.validateForm(formData, function(error) {
             if (!error) {
                 BetaSignUpModal.submitForm(formData);
@@ -538,11 +756,11 @@ DragProxy.prototype = {
         this._handle = function(event) {
             _this.handleInteractionStart(event);
         };
-        this.element.bind("touchstart mousedown", this._handle);
+        this.element.on("touchstart mousedown", this._handle);
         this.element.addClass("grab");
     },
     uninitializeDragProxy: function() {
-        this.element.unbind("touchstart mousedown", this._handle);
+        this.element.off("touchstart mousedown", this._handle);
         this.element.removeClass("grab");
         this.element.removeClass("grabbing");
     },
@@ -593,8 +811,8 @@ var DragManager = {
         };
         DragManager.boundingOffsets = draggableElement.parent().offset();
         var body = $('body');
-        body.bind("touchmove mousemove", DragManager.handleDragMove);
-        body.bind("touchend mouseup", DragManager.handleDragRelease);
+        body.on("touchmove mousemove", DragManager.handleDragMove);
+        body.on("touchend mouseup", DragManager.handleDragRelease);
 
         DragManager.dragTargets.forEach(function(dragTarget) {
             dragTarget.startDrag();
@@ -613,8 +831,8 @@ var DragManager = {
     },
     releaseDrag: function() {
         var body = $('body');
-        body.unbind("touchmove mousemove", DragManager.handleDragMove);
-        body.unbind("touchend mouseup", DragManager.handleDragRelease);
+        body.off("touchmove mousemove", DragManager.handleDragMove);
+        body.off("touchend mouseup", DragManager.handleDragRelease);
 
         DragManager.dragTargets.forEach(function(dragTarget) {
             dragTarget.releaseDrag();
@@ -684,32 +902,8 @@ var ThankYouPage = {
 };
 
 
-// App Code
+//-------------------------------------------------------------------------------
+// Exports
 //-------------------------------------------------------------------------------
 
-var configureApp = function(callback){
-    SonarBugClient.configure("http://localhost:3000", function(error){
-        callback(error);
-    });
-};
-
-var start = function() {
-    configureApp(function(error){
-        if (Loader.appLoaded) {
-            initializeApp();
-        } else {
-            Loader.addLoadedListener(function() {
-                initializeApp();
-            });
-        }
-    });
-};
-
-var initializeApp = function() {
-    SonarBugClient.startTracking();
-    Tracker.trackAppLoad();
-    initializeFeedbackPanel();
-    PageManager.goToPage(ExplainerPage);
-};
-
-start();
+bugpack.export('splash.SplashApplication', SplashApplication);
