@@ -67,7 +67,10 @@ buildProperties({
     ],
     staticPaths: [
         '../bugjs/projects/bugjs/js/src',
+        '../bugjs/projects/bugflow/js/src',
+        '../bugjs/projects/bugtrace/js/src',
         '../bugpack/projects/bugpack-client/js/src',
+        '../sonarbug/projects/sonarbugclient/js/src',
         '../sonarbug/projects/splitbug/js/src',
         '../sonarbug/projects/splitbugclient/js/src',
         './projects/splash/static'

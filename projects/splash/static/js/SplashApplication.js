@@ -7,6 +7,9 @@
 //@Export('SplashApplication')
 //@Autoload
 
+//@Require('bugflow.BugFlow')
+//@Require('Class')
+//@Require('sonarbugclient.SonarBugClient')
 //@Require('splitbug.SplitBug')
 
 
@@ -21,8 +24,13 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var SplitBug   = bugpack.require('splitbug.SplitBug');
+var BugFlow         = bugpack.require('bugflow.BugFlow');
+var Class           = bugpack.require('Class');
+var SonarBugClient  = bugpack.require('sonarbugclient.SonarBugClient');
+var SplitBug        = bugpack.require('splitbug.SplitBug');
 
+var $parallel       = BugFlow.$parallel;
+var $task           = BugFlow.$task;
 
 //-------------------------------------------------------------------------------
 // Declare Class
@@ -35,10 +43,23 @@ var SplashApplication = {
      *
      */
     start: function() {
-        SplitBug.configure({}, function(error) {
-            if (error) {
-                console.log(error);
-            }
+        $parallel([
+            $task(function(flow){
+                SonarBugClient.configure("http://sonarbug.com:80/api", function(error){
+                    if(!error){
+                        console.log('SonarBugClient configured');
+                        flow.complete();
+                    } else {
+                        flow.complete(error);
+                    }
+                });
+            }),
+            $task(function(flow){
+                SplitBug.configure({}, function(error) {
+                    flow.complete(error);
+                });
+            })
+        ]).execute(function(){
             if (Loader.appLoaded) {
                 SplashApplication.initialize();
             } else {
@@ -53,6 +74,7 @@ var SplashApplication = {
      *
      */
     initialize: function() {
+        SonarBugClient.startTracking();
         Tracker.trackAppLoad();
         initializeFeedbackPanel();
         if (firstPage === "explainerPage") {
@@ -97,24 +119,29 @@ var sendApiRequest = function(endpoint, dataObject, callback) {
 
 var Tracker = {
     trackAppLoad: function() {
-        Tracker.track("App", "Load");
+        Tracker.trackGA("App", "Load");
+        Tracker.trackSB("appLoad", null);
     },
     trackGoalComplete: function(goalName) {
-        Tracker.track("Goal", "Complete", goalName);
+        Tracker.trackGA("Goal", "Complete", goalName);
+        Tracker.trackSB("goalComplete", {goalName: goalName});
     },
     trackPageView: function(pageId) {
-        Tracker.track("Page", "View", pageId);
+        Tracker.trackGA("Page", "View", pageId);
+        Tracker.trackSB("pageView", {pageId: pageId});
     },
-    track: function(category, action, label, value, nonInteraction) {
+    trackGA: function(category, action, label, value, nonInteraction) {
         if (_appConfig.production) {
             _gaq.push(['_trackEvent', category, action, label, nonInteraction]);
         } else {
             console.log("TackingEvent - category:" + category + " action:" + action +
                 " label:" + label + " nonInteraction:" + nonInteraction);
         }
+    },
+    trackSB: function(eventName, data){
+        SonarBugClient.track(eventName, data);
     }
 };
-
 
 // Feedback Panel
 //-------------------------------------------------------------------------------
