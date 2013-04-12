@@ -7,8 +7,8 @@
 //@Export('SplashApplication')
 //@Autoload
 
-//@Require('bugflow.BugFlow')
 //@Require('Class')
+//@Require('bugflow.BugFlow')
 //@Require('sonarbugclient.SonarBugClient')
 //@Require('splitbug.SplitBug')
 
@@ -24,13 +24,19 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var BugFlow         = bugpack.require('bugflow.BugFlow');
 var Class           = bugpack.require('Class');
+var BugFlow         = bugpack.require('bugflow.BugFlow');
 var SonarBugClient  = bugpack.require('sonarbugclient.SonarBugClient');
 var SplitBug        = bugpack.require('splitbug.SplitBug');
 
+
+//-------------------------------------------------------------------------------
+// Simplify References
+//-------------------------------------------------------------------------------
+
 var $parallel       = BugFlow.$parallel;
 var $task           = BugFlow.$task;
+
 
 //-------------------------------------------------------------------------------
 // Declare Class
@@ -46,13 +52,15 @@ var SplashApplication = {
         $parallel([
             $task(function(flow){
                 SonarBugClient.configure("http://sonarbug.com:80/api", function(error){
-                    if(!error){
+                    if (!error) {
                         console.log('SonarBugClient configured');
-                        flow.complete();
                     } else {
-                        flow.complete(error);
+                        console.error(error);
                     }
                 });
+
+                //NOTE BRN: We complete this flow immediately because we don't need to wait for sonarbug to configure before calling the track method
+                flow.complete();
             }),
             $task(function(flow){
                 SplitBug.configure({}, function(error) {
