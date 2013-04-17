@@ -51,7 +51,7 @@ var SplashApplication = {
     start: function() {
         $parallel([
             $task(function(flow){
-                SonarBugClient.configure("http://sonarbug.com:80/api", function(error){
+                SonarBugClient.configure("http://sonarbug.com:80/socket-api", function(error){
                     if (!error) {
                         console.log('SonarBugClient configured');
                     } else {
