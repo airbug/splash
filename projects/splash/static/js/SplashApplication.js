@@ -406,7 +406,7 @@ var BetaSignUpPage = {
         });
         DragManager.registerDragTarget(AirbugJar);
         BetaSignUpModal.initialize();
-        $('a#home').on('click', function(event){
+        $('#nav-pull-down-tab').on('click', function(event){
             var explainerPage = $("#explainer-page");
             var betaSignUpPage = $("#beta-sign-up-page");
             betaSignUpPage.removeClass("page-slide-show");
