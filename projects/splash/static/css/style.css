@@ -533,6 +533,36 @@ a {
    border-top: 1px;
 }
 
+    /* Beta Sign Up Page Navigation
+    ********************************************/
+
+.arrow-container {
+    display: block;
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    left: 325px;
+    top: 220px;
+    z-index: 1;
+}
+
+.arrow {
+    width: 75px;
+    height: 75px;
+}
+
+#continue-sign-up-button-container {
+    display: none;
+    position: absolute;
+    left: 273px;
+    top: 239px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#continue-sign-up-button {
+
+}
 
 .nav-pull-down-tab-container {
     display: block;
@@ -755,6 +785,10 @@ a {
     animation: airbug-fly-animation 1.9s ease-in-out 0.3s infinite alternate both;
 }
 
+
+/* OtherAirbug and OtherAirbug Forms
+********************************************/
+
 #airbug-other-container {
     left: 560px;
     top: 560px;
@@ -803,6 +837,10 @@ a {
     width: 160px;
 }
 
+#other-airbug-form-container input.warning {
+    color: red;
+}
+
 #other-airbug-form-container .btn {
     
 }
@@ -821,33 +859,8 @@ a {
     right: -7px;
 }
 
-.arrow-container {
-    display: block;
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    left: 325px;
-    top: 220px;
-    z-index: 1;
-}
-
-.arrow {
-    width: 75px;
-    height: 75px;
-}
-
-#continue-sign-up-button-container {
-    display: none;
-    position: absolute;
-    left: 273px;
-    top: 239px;
-    z-index: 1;
-    cursor: pointer;
-}
-
-#continue-sign-up-button {
-
-}
+/* AirbugJar
+********************************************/
 
 #airbug-jar-container {
     display: block;

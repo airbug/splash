@@ -478,6 +478,9 @@ AirBug.prototype = {
         element.addClass("drag-released");
         element.addClass("grab");
         element.removeClass("grabbing");
+    },
+    isOtherAirbug: function() {
+        return false;
     }
 };
 
@@ -540,6 +543,7 @@ var AirbugJar = {
         if(airbug.isOtherAirbug()){
             airbug.element.fadeOut(1200);
         }
+        OtherAirBugForm.removeWarning();
     },
     renderAirbugs: function() {
         DragManager.clearProxies();
@@ -601,10 +605,7 @@ var OtherAirBugForm = {
     initialize: function(){
         $("#other-airbug-form-submit-button").on('click', OtherAirBugForm.handleSubmitButtonClick);
         $("#other-airbug-form-cancel-button").on('click', OtherAirBugForm.handleCancelButtonClick);
-        $("#other-airbug-form-container input").on('click', function(){
-            $('#other-airbug-form-container .btn').show();
-            $('#other-airbug-form-cancel-button').show();
-        });
+        $("#other-airbug-form-container input").on('click', OtherAirBugForm.handleInputFieldClick);
         $('#other-airbug-form-container input').keyup(function(e) {
             if(e.keyCode == 13) {
                 OtherAirBugForm.handleSubmitButtonClick(e);
@@ -615,22 +616,22 @@ var OtherAirBugForm = {
         });
     },
     hide: function(){OtherAirBugForm.element.hide()},
+    handleInputFieldClick: function(){
+        OtherAirBugForm.removeWarning();
+        $('#other-airbug-form-container .btn').show();
+        $('#other-airbug-form-cancel-button').show();
+    },
     handleSubmitButtonClick: function(event){
-        var count = OtherAirBugForm.count += 1;
-        var inputValue = $('#other-airbug-form-container input').val();
-        var otherAirbugHtml = "<div id='airbug-other-" + count + "-container', class='airbug-container'><img id='airbug-other-image', class='airbug-image', src='/img/airbug-service-swarm-other.png', alt='Other'/><div class='other-airbug-faux-form'><div class='control-group'><label class='control-label', for='other'><div class='controls'><input type='text', id='other', name='other', placeholder='Other Tools' /></div></div></div></div>";
-        $('#bug-swarm-container').append(otherAirbugHtml);
-        var otherAirbug = new AirBug('other: ' + inputValue, $("#airbug-other-" + count + "-container"));
-        otherAirbug.isOtherAirbug = function(){return true};
-        $("#airbug-other-" + count + "-container .other-airbug-faux-form input").val(inputValue);
         if (AirbugJar.getCount() < 3) {
-            var instructionsContainer = $("#instructions-container");
+            var instructionsContainer   = $("#instructions-container");
+            var otherAirbug             = OtherAirBugForm.createOtherAirbug();
             instructionsContainer.addClass("hide-instructions");
             AirbugJar.addAirbug(otherAirbug);
+            $('#other-airbug-form-container input').val('');
+        } else {
+            OtherAirBugForm.addWarning();
         }
-        $('#other-airbug-form-container input').val('');
-        $('#other-airbug-form-container .btn').hide();
-        $('#other-airbug-form-cancel-button').hide();
+        OtherAirBugForm.hideButtons();
     },
     handleCancelButtonClick: function(event){
         $('#other-airbug-form-container input').val('');
@@ -654,6 +655,31 @@ var OtherAirBugForm = {
         }, 1200)
         $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
         $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
+    },
+    removeWarning: function(){
+        $('#other-airbug-form-container input').removeClass('warning');
+        $('#other-airbug-form-container input').val('');
+    },
+    addWarning: function(){
+        $('#other-airbug-form-container input').val('Too many bugs in the jar!');
+        $('#other-airbug-form-container input').addClass('warning');
+    },
+    hideButtons: function(){
+        $('#other-airbug-form-container .btn').hide();
+        $('#other-airbug-form-cancel-button').hide();
+    },
+    /*
+     * @return {AirBug}
+     **/
+    createOtherAirbug: function(){
+        var count                   = OtherAirBugForm.count += 1;
+        var inputValue              = $('#other-airbug-form-container input').val();
+        var otherAirbugHtml         = "<div id='airbug-other-" + count + "-container', class='airbug-container'><img id='airbug-other-image', class='airbug-image', src='/img/airbug-service-swarm-other.png', alt='Other'/><div class='other-airbug-faux-form'><div class='control-group'><label class='control-label', for='other'><div class='controls'><input type='text', id='other', name='other', placeholder='Other Tools' /></div></div></div></div>";
+        $('#bug-swarm-container').append(otherAirbugHtml);
+        var otherAirbug             = new AirBug('other: ' + inputValue, $("#airbug-other-" + count + "-container"));
+        otherAirbug.isOtherAirbug = function(){return true};
+        $("#airbug-other-" + count + "-container .other-airbug-faux-form input").val(inputValue);
+        return otherAirbug;
     }
 };
 
