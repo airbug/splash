@@ -768,7 +768,7 @@ a {
     animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
 }
 
-#airbug-other-container #other-airbug-faux-form {
+.other-airbug-faux-form, #other-airbug-form-container {
     position: absolute;
     margin-top: 100px;
     left: 0;
@@ -780,29 +780,45 @@ a {
     animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
 }
 
-#airbug-other-container #other-airbug-faux-form .control-group, #airbug-other-container .controls {
+.other-airbug-faux-form .control-group, #airbug-other-container .controls {
     margin: none;
     padding: none;
 }
 
-#airbug-other-container #other-airbug-faux-form input {
+.other-airbug-faux-form input {
     width: 90px;
-    margin-top: 6px;
+    margin-top: 12px;
     margin-left: 10px;
 }
 
 #other-airbug-form-container {
-    display: none;
     position: absolute;
     margin: 0;
     padding: 0;
-    z-index: 3;
-    top: 55px;
-    left: 110px;
+    top: 106px;
+    left: 5px;
 }
 
 #other-airbug-form-container input {
-    width: 135px;
+    width: 160px;
+}
+
+#other-airbug-form-container .btn {
+    
+}
+
+#other-airbug-form-submit-button {
+    display: none;
+    position: absolute;
+    left: 50px;
+    top: 50px;
+}
+
+#other-airbug-form-cancel-button {
+    display: none;
+    position: absolute;
+    top: -2px;
+    right: -7px;
 }
 
 .arrow-container {

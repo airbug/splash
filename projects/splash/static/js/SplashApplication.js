@@ -9,6 +9,7 @@
 
 //@Require('Class')
 //@Require('bugflow.BugFlow')
+//@Require('List')
 //@Require('sonarbugclient.SonarBugClient')
 //@Require('splitbug.SplitBug')
 
@@ -26,6 +27,7 @@ var bugpack = require('bugpack').context();
 
 var Class           = bugpack.require('Class');
 var BugFlow         = bugpack.require('bugflow.BugFlow');
+var List            = bugpack.require('List');
 var SonarBugClient  = bugpack.require('sonarbugclient.SonarBugClient');
 var SplitBug        = bugpack.require('splitbug.SplitBug');
 
@@ -406,6 +408,7 @@ var BetaSignUpPage = {
         });
         DragManager.registerDragTarget(AirbugJar);
         BetaSignUpModal.initialize();
+        OtherAirBugForm.initialize();
         $('#nav-pull-down-tab').on('click', function(event){
             var explainerPage = $("#explainer-page");
             var betaSignUpPage = $("#beta-sign-up-page");
@@ -434,13 +437,25 @@ AirBug.prototype = {
     setup: function() {
         DragManager.registerDraggableObject(this);
     },
+    teardown: function() {
+        DragManager.deregisterDraggableObject(this);
+    },
     initializeDraggableObject: function() {
+        this.activateDrag();
+    },
+    activateDrag: function(){
         var _this = this;
         var element = this.element;
         element.on("touchstart mousedown", function(event) {
             _this.handleInteractionStart(event);
         });
         element.addClass("grab");
+    },
+    deactivateDrag: function(){
+        var _this = this;
+        var element = this.element;
+        element.off("touchstart mousedown");
+        element.removeClass("grab");
     },
     handleInteractionStart: function(event) {
         event.preventDefault();
@@ -466,19 +481,16 @@ AirBug.prototype = {
     }
 };
 
-var otherAirBug = new AirBug("other", $("#airbug-other-container"));
-
 var airbugs = [
     new AirBug("basecamp", $("#airbug-basecamp-container")),
     new AirBug("bitbucket", $("#airbug-bitbucket-container")),
     new AirBug("github", $("#airbug-github-container")),
     new AirBug("jira", $("#airbug-jira-container")),
-    otherAirBug,
     new AirBug("pivotaltracker", $("#airbug-pivotaltracker-container")),
     new AirBug("salesforce", $("#airbug-salesforce-container")),
     new AirBug("uservoice", $("#airbug-uservoice-container")),
     new AirBug("zendesk", $("#airbug-zendesk-container"))
-];
+]; // For other airbug see below
 
 var AirbugJar = {
     element: $("#airbug-jar-container"),
@@ -525,6 +537,9 @@ var AirbugJar = {
             AirbugJar.containedAirbugs.splice(index, 1);
             AirbugJar.renderAirbugs();
         }
+        if(airbug.isOtherAirbug()){
+            airbug.element.fadeOut(1200);
+        }
     },
     renderAirbugs: function() {
         DragManager.clearProxies();
@@ -564,9 +579,6 @@ var AirbugJar = {
             var draggingObject = DragManager.draggingObject;
             DragManager.releaseDrag();
             AirbugJar.addAirbug(draggingObject);
-            if (draggingObject === otherAirBug) {
-                OtherAirBugForm.show();
-            }
         }
     },
     handleRemovalOfFinalBug: function(event) {
@@ -581,11 +593,18 @@ var AirbugJar = {
     }
 };
 
+var otherAirBug = new AirBug("other", $("#airbug-other-container"));
+
 var OtherAirBugForm = {
+    count: 0,
     element: $('#other-airbug-form-container'),
-    show: function(){
+    initialize: function(){
         $("#other-airbug-form-submit-button").on('click', OtherAirBugForm.handleSubmitButtonClick);
         $("#other-airbug-form-cancel-button").on('click', OtherAirBugForm.handleCancelButtonClick);
+        $("#other-airbug-form-container input").on('click', function(){
+            $('#other-airbug-form-container .btn').show();
+            $('#other-airbug-form-cancel-button').show();
+        });
         $('#other-airbug-form-container input').keyup(function(e) {
             if(e.keyCode == 13) {
                 OtherAirBugForm.handleSubmitButtonClick(e);
@@ -594,21 +613,29 @@ var OtherAirBugForm = {
                 $('#other-airbug-faux-form input').attr('placeholder', inputValue);
             }
         });
-        OtherAirBugForm.element.show()
     },
     hide: function(){OtherAirBugForm.element.hide()},
     handleSubmitButtonClick: function(event){
-        var otherAirbug = otherAirbug;
+        var count = OtherAirBugForm.count += 1;
         var inputValue = $('#other-airbug-form-container input').val();
-        if(inputValue !== ''){
-            otherAirBug.name += ': ' + inputValue;
-            OtherAirBugForm.hide();
-        } else {
-            OtherAirBugForm.hide();
+        var otherAirbugHtml = "<div id='airbug-other-" + count + "-container', class='airbug-container'><img id='airbug-other-image', class='airbug-image', src='/img/airbug-service-swarm-other.png', alt='Other'/><div class='other-airbug-faux-form'><div class='control-group'><label class='control-label', for='other'><div class='controls'><input type='text', id='other', name='other', placeholder='Other Tools' /></div></div></div></div>";
+        $('#bug-swarm-container').append(otherAirbugHtml);
+        var otherAirbug = new AirBug('other: ' + inputValue, $("#airbug-other-" + count + "-container"));
+        otherAirbug.isOtherAirbug = function(){return true};
+        $("#airbug-other-" + count + "-container .other-airbug-faux-form input").val(inputValue);
+        if (AirbugJar.getCount() < 3) {
+            var instructionsContainer = $("#instructions-container");
+            instructionsContainer.addClass("hide-instructions");
+            AirbugJar.addAirbug(otherAirbug);
         }
+        $('#other-airbug-form-container input').val('');
+        $('#other-airbug-form-container .btn').hide();
+        $('#other-airbug-form-cancel-button').hide();
     },
     handleCancelButtonClick: function(event){
-        OtherAirBugForm.hide();
+        $('#other-airbug-form-container input').val('');
+        $('#other-airbug-form-container .btn').hide();
+        $('#other-airbug-form-cancel-button').hide();
     },
     handleFinalBugSubmitButtonClick: function(event){
         OtherAirBugForm.handleSubmitButtonClick();
@@ -790,7 +817,7 @@ var DragManager = {
     draggingObject: null,
     boundingOffsets: null,
     dragStartOffsets: null,
-    draggableObjects: [],
+    draggableObjects: new List(),
     dragTargets: [],
     dragProxies: [],
 
@@ -799,8 +826,12 @@ var DragManager = {
         DragManager.registerDragProxy(dragProxy);
     },
     registerDraggableObject: function(draggableObject) {
-        DragManager.draggableObjects.push(draggableObject);
+        DragManager.draggableObjects.add(draggableObject);
         draggableObject.initializeDraggableObject();
+    },
+    deregisterDraggableObject: function(draggableObject) {
+        DragManager.draggableObjects.remove(draggableObject);
+        draggableObject.deactivateDraggableObject();
     },
     registerDragTarget: function(dragTarget) {
         DragManager.dragTargets.push(dragTarget);
