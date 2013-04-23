@@ -509,6 +509,32 @@ var AirbugJar = {
     getCount: function() {
         return AirbugJar.containedAirbugs.length;
     },
+    /*
+     * @return {boolean}
+     **/
+    isFull: function() {
+        if (AirbugJar.getCount() >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    /*
+     * @return {boolean}
+     **/
+    isNotFull: function() {
+        return !AirbugJar.isFull();
+    },
+    /*
+     * @return {boolean}
+     **/
+    isEmpty: function(){
+        if (AirbugJar.getCount() === 0) {
+            return true;
+        } else {
+            return false;
+        }
+    },
     indexOf: function(airbug) {
         for (var i = 0, size = AirbugJar.containedAirbugs.length; i < size; i++) {
             var airbugAt = AirbugJar.containedAirbugs[i];
@@ -520,18 +546,11 @@ var AirbugJar = {
     addAirbug: function(airbug) {
         AirbugJar.containedAirbugs.push(airbug);
         AirbugJar.renderAirbugs();
-        if (AirbugJar.getCount() >= 3 ) {
-            if(airbug === otherAirBug){
-                $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleSubmitButtonClick);
-                $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleCancelButtonClick);
-                $("#other-airbug-form-submit-button").on('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
-                $("#other-airbug-form-cancel-button").on('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
-            } else {
-                setTimeout(function() {
-                    BetaSignUpModal.show();
-                    // Make airbugs ungrabbable
-                }, 1200)
-            }
+        if (AirbugJar.isFull()) {
+            setTimeout(function() {
+                BetaSignUpModal.show();
+                // Make airbugs ungrabbable
+            }, 1200)
         }
     },
     removeAirbug: function(airbug) {
@@ -576,7 +595,7 @@ var AirbugJar = {
         targetElement.removeClass("grabbing");
     },
     handleDragReleaseOnTarget: function(event) {
-        if (AirbugJar.getCount() < 3) {
+        if (AirbugJar.isNotFull()) {
             var instructionsContainer = $("#instructions-container");
             instructionsContainer.addClass("hide-instructions");
             event.stopPropagation();
@@ -586,7 +605,7 @@ var AirbugJar = {
         }
     },
     handleRemovalOfFinalBug: function(event) {
-        if (AirbugJar.getCount() < 3) {
+        if (AirbugJar.isNotFull()) {
             ContinueSignUpButton.hide();
             Arrow.show();
             AirbugJar.previouslyContainedAirbugs.forEach(function(airbug){
@@ -609,6 +628,9 @@ var OtherAirBugForm = {
         $('#other-airbug-form-container input').keyup(function(e) {
             if(e.keyCode == 13) {
                 OtherAirBugForm.handleSubmitButtonClick(e);
+                if (AirbugJar.isNotFull()) {
+                    OtherAirBugForm.showButtons();
+                }
             } else {
                 var inputValue = $('#other-airbug-form-container input').val();
                 $('#other-airbug-faux-form input').attr('placeholder', inputValue);
@@ -618,11 +640,10 @@ var OtherAirBugForm = {
     hide: function(){OtherAirBugForm.element.hide()},
     handleInputFieldClick: function(){
         OtherAirBugForm.removeWarning();
-        $('#other-airbug-form-container .btn').show();
-        $('#other-airbug-form-cancel-button').show();
+        OtherAirBugForm.showButtons();
     },
     handleSubmitButtonClick: function(event){
-        if (AirbugJar.getCount() < 3) {
+        if (AirbugJar.isNotFull()) {
             var instructionsContainer   = $("#instructions-container");
             var otherAirbug             = OtherAirBugForm.createOtherAirbug();
             instructionsContainer.addClass("hide-instructions");
@@ -638,24 +659,6 @@ var OtherAirBugForm = {
         $('#other-airbug-form-container .btn').hide();
         $('#other-airbug-form-cancel-button').hide();
     },
-    handleFinalBugSubmitButtonClick: function(event){
-        OtherAirBugForm.handleSubmitButtonClick();
-        setTimeout(function() {
-            BetaSignUpModal.show();
-            // Make airbugs ungrabbable
-        }, 1200)
-        $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
-        $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
-    },
-    handleFinalBugCancelButtonClick: function(event){
-        OtherAirBugForm.handleCancelButtonClick();
-        setTimeout(function() {
-            BetaSignUpModal.show();
-            // Make airbugs ungrabbable
-        }, 1200)
-        $("#other-airbug-form-submit-button").off('click', OtherAirBugForm.handleFinalBugSubmitButtonClick);
-        $("#other-airbug-form-cancel-button").off('click', OtherAirBugForm.handleFinalBugCancelButtonClick);
-    },
     removeWarning: function(){
         $('#other-airbug-form-container input').removeClass('warning');
         $('#other-airbug-form-container input').val('');
@@ -668,13 +671,17 @@ var OtherAirBugForm = {
         $('#other-airbug-form-container .btn').hide();
         $('#other-airbug-form-cancel-button').hide();
     },
+    showButtons: function(){
+        $('#other-airbug-form-container .btn').show();
+        $('#other-airbug-form-cancel-button').show();
+    },
     /*
      * @return {AirBug}
      **/
     createOtherAirbug: function(){
         var count                   = OtherAirBugForm.count += 1;
         var inputValue              = $('#other-airbug-form-container input').val();
-        var otherAirbugHtml         = "<div id='airbug-other-" + count + "-container', class='airbug-container'><img id='airbug-other-image', class='airbug-image', src='/img/airbug-service-swarm-other.png', alt='Other'/><div class='other-airbug-faux-form'><div class='control-group'><label class='control-label', for='other'><div class='controls'><input type='text', id='other', name='other', placeholder='Other Tools' /></div></div></div></div>";
+        var otherAirbugHtml         = "<div id='airbug-other-" + count + "-container', class='airbug-container airbug-other-container'><img id='airbug-other-image', class='airbug-image', src='/img/airbug-service-swarm-other.png', alt='Other'/><div class='other-airbug-faux-form'><div class='control-group'><label class='control-label', for='other'><div class='controls'><input type='text', id='other', name='other', placeholder='Other Tools' /></div></div></div></div>";
         $('#bug-swarm-container').append(otherAirbugHtml);
         var otherAirbug             = new AirBug('other: ' + inputValue, $("#airbug-other-" + count + "-container"));
         otherAirbug.isOtherAirbug = function(){return true};

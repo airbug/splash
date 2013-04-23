@@ -786,15 +786,12 @@ a {
 }
 
 
-/* OtherAirbug and OtherAirbug Forms
-********************************************/
+    /* OtherAirbug and OtherAirbug Forms
+    ********************************************/
 
-#airbug-other-container {
+#airbug-other-container, .airbug-other-container {
     left: 560px;
     top: 560px;
-}
-
-#airbug-other-image {
     -webkit-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
     -moz-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
     -ms-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
@@ -802,16 +799,20 @@ a {
     animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
 }
 
-.other-airbug-faux-form, #other-airbug-form-container {
+#airbug-writein-image {
+    width: auto;
+    height: 103px;
+}
+
+#airbug-other-image {
+    
+}
+
+.other-airbug-faux-form {
     position: absolute;
     margin-top: 100px;
     left: 0;
     top: 0;
-    -webkit-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
-    -moz-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
-    -ms-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
-    -o-animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
-    animation: airbug-fly-animation 2.5s ease-in-out 0s infinite alternate both;
 }
 
 .other-airbug-faux-form .control-group, #airbug-other-container .controls {
@@ -829,8 +830,17 @@ a {
     position: absolute;
     margin: 0;
     padding: 0;
-    top: 106px;
-    left: 5px;
+    top: 100px;
+    left: -28px;
+    display: block;
+    width: 185;
+    height: 38px;
+    border-left: solid 3px #000000;
+    border-right: solid 3px #000000;
+    border-top: solid 5px #000000;
+    border-bottom: solid 5px #000000;
+    border-radius: 7px;
+    background: #FFFFFF;
 }
 
 #other-airbug-form-container input {
@@ -855,8 +865,8 @@ a {
 #other-airbug-form-cancel-button {
     display: none;
     position: absolute;
-    top: -2px;
-    right: -7px;
+    top: 0;
+    right: 0;
 }
 
 /* AirbugJar
