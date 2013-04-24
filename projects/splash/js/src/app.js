@@ -48,6 +48,10 @@ mongoose.connect('mongodb://' + config.mongoDbIp + '/airbug');
 var app = express();
 
 app.configure(function(){
+    app.use(function (req, res, next) {
+        res.removeHeader("X-Powered-By");
+        next();
+    });
     app.set('port', config.port);
     app.set('views', path.resolve(__dirname, '../resources/views'));
     app.set('view engine', 'jade');

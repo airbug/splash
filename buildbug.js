@@ -63,7 +63,8 @@ buildProperties({
         "../bugunit/projects/bugunit/js/scripts"
     ],
     testPaths: [
-        "../bugjs/projects/bugjs/js/test"
+        "../bugjs/projects/bugjs/js/test",
+        "../bugjs/projects/bugtrace/js/test"
     ],
     staticPaths: [
         '../bugjs/projects/bugjs/js/src',
