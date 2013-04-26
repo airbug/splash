@@ -833,7 +833,7 @@ a {
     top: 100px;
     left: -28px;
     display: block;
-    width: 185;
+    width: 175px;
     height: 38px;
     border-left: solid 3px #000000;
     border-right: solid 3px #000000;
@@ -843,8 +843,16 @@ a {
     background: #FFFFFF;
 }
 
+#other-airbug-form-container.with-buttons {
+    width: 199px;
+}
+
 #other-airbug-form-container input {
     width: 160px;
+}
+
+#other-airbug-form-container input.with-buttons {
+    width: 182px;
 }
 
 #other-airbug-form-container input.warning {
@@ -865,8 +873,23 @@ a {
 #other-airbug-form-cancel-button {
     display: none;
     position: absolute;
-    top: 0;
-    right: 0;
+    cursor: pointer;
+    top: 8px;
+    right: 5px;
+    margin: 0;
+    padding: 0;
+    width: 17px;
+    height: 17px;
+    border-left: solid 2px #808080;
+    border-right: solid 4px #808080;
+    border-top: solid 4px #808080;
+    border-bottom: solid 3px #808080;
+    border-radius: 18px;
+    background-color: #808080;
+    font-weight: 900;
+    font-size: 14pt;
+    color: #FFFFFF;
+    line-height: 10pt;
 }
 
 /* AirbugJar

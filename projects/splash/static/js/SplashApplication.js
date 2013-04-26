@@ -656,8 +656,7 @@ var OtherAirBugForm = {
     },
     handleCancelButtonClick: function(event){
         $('#other-airbug-form-container input').val('');
-        $('#other-airbug-form-container .btn').hide();
-        $('#other-airbug-form-cancel-button').hide();
+        OtherAirBugForm.hideButtons();
     },
     removeWarning: function(){
         $('#other-airbug-form-container input').removeClass('warning');
@@ -670,8 +669,12 @@ var OtherAirBugForm = {
     hideButtons: function(){
         $('#other-airbug-form-container .btn').hide();
         $('#other-airbug-form-cancel-button').hide();
+        $('#other-airbug-form-container input').removeClass('with-buttons');
+        $('#other-airbug-form-container').removeClass('with-buttons');
     },
     showButtons: function(){
+        $('#other-airbug-form-container').addClass('with-buttons');
+        $('#other-airbug-form-container input').addClass('with-buttons');
         $('#other-airbug-form-container .btn').show();
         $('#other-airbug-form-cancel-button').show();
     },
