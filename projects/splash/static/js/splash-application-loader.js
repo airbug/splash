@@ -2,9 +2,9 @@ var bugpackApi = require('bugpack');
 bugpackApi.loadContext("", function(error, bugpack) {
     if (!error) {
         var SplashApplication = bugpack.require('splash.SplashApplication');
-        SplashApplication.start();
+        var application = new SplashApplication();
+        application.start();
     } else {
-        console.log(error);
-        //TODO BRN: Handle error
+        console.error(error);
     }
 });

@@ -4,12 +4,11 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('Four04Page')
 
 //@Require('Class')
-//@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
+//@Require('jquery.JQuery')
+//@Require('splash.Page')
 
 
 //-------------------------------------------------------------------------------
@@ -23,16 +22,16 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class =         bugpack.require('Class');
+var JQuery =        bugpack.require('jquery.JQuery');
+var Page =          bugpack.require('splash.Page');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
+var Four04Page = Class.extend(Page, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -40,30 +39,35 @@ var SplashApplication = Class.extend(Obj, {
 
     _constructor: function() {
 
-        this._super();
+        this._super("four04Page", JQuery("#four04-page"));
 
 
         //-------------------------------------------------------------------------------
         // Declare Variables
         //-------------------------------------------------------------------------------
 
-        /**
-         * @private
-         * @type {ConfigurationScan}
-         */
-        this.configurationScan = new ConfigurationScan();
+        this.loadingPage = null;
     },
 
 
     //-------------------------------------------------------------------------------
-    // Class Methods
+    // Page Methods
     //-------------------------------------------------------------------------------
 
     /**
      *
      */
-    start: function() {
-        this.configurationScan.scan();
+    activate: function() {
+        this._super();
+        this.loadingPage.hide();
+    },
+
+    /**
+     *
+     */
+    initialize: function() {
+        this._super();
+        this.loadingPage = JQuery("#loading-page");
     }
 });
 
@@ -72,4 +76,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.Four04Page', Four04Page);

@@ -4,12 +4,11 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('ThankYouPage')
 
 //@Require('Class')
-//@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
+//@Require('jquery.JQuery')
+//@Require('splash.Page')
 
 
 //-------------------------------------------------------------------------------
@@ -23,16 +22,16 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class =         bugpack.require('Class');
+var JQuery =        bugpack.require('jquery.JQuery');
+var Page =          bugpack.require('splash.Page');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
+var ThankYouPage = Class.extend(Page, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -40,31 +39,23 @@ var SplashApplication = Class.extend(Obj, {
 
     _constructor: function() {
 
-        this._super();
+        this._super("thankYouPage", JQuery("#thank-you-page"));
 
 
         //-------------------------------------------------------------------------------
         // Declare Variables
         //-------------------------------------------------------------------------------
 
-        /**
-         * @private
-         * @type {ConfigurationScan}
-         */
-        this.configurationScan = new ConfigurationScan();
-    },
+        this.betaSignUpPage = null;
 
-
-    //-------------------------------------------------------------------------------
-    // Class Methods
-    //-------------------------------------------------------------------------------
-
-    /**
-     *
-     */
-    start: function() {
-        this.configurationScan.scan();
+        this.thankYouPage = null;
     }
+
+
+    //-------------------------------------------------------------------------------
+    // Page Methods
+    //-------------------------------------------------------------------------------
+
 });
 
 
@@ -72,4 +63,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.ThankYouPage', ThankYouPage);

@@ -4,12 +4,10 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('DragProxy')
 
 //@Require('Class')
 //@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
 
 
 //-------------------------------------------------------------------------------
@@ -23,22 +21,21 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class = bugpack.require('Class');
+var Obj =   bugpack.require('Obj');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
+var DragProxy = Class.extend(Obj, {
 
     //-------------------------------------------------------------------------------
     // Constructor
     //-------------------------------------------------------------------------------
 
-    _constructor: function() {
+    _constructor: function(name, element, draggableObject, dragManager) {
 
         this._super();
 
@@ -49,9 +46,32 @@ var SplashApplication = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {ConfigurationScan}
+         * @type {*}
          */
-        this.configurationScan = new ConfigurationScan();
+        this.draggableObject = draggableObject;
+
+        /**
+         * @private
+         * @type {DragManager}
+         */
+        this.dragManager = dragManager;
+
+        /**
+         * @private
+         * @type {Element}
+         */
+        this.element = element;
+
+        /**
+         * @private
+         * @type {string}
+         */
+        this.name = name;
+
+        var _this = this;
+        this._handle = function(event) {
+            _this.handleInteractionStart(event);
+        };
     },
 
 
@@ -59,11 +79,29 @@ var SplashApplication = Class.extend(Obj, {
     // Class Methods
     //-------------------------------------------------------------------------------
 
-    /**
-     *
-     */
-    start: function() {
-        this.configurationScan.scan();
+    setup: function() {
+        this.dragManager.registerDraggableObject(this);
+    },
+    initializeDragProxy: function() {
+        this.element.on("touchstart mousedown", this._handle);
+        this.element.addClass("grab");
+    },
+    uninitializeDragProxy: function() {
+        this.element.off("touchstart mousedown", this._handle);
+        this.element.removeClass("grab");
+        this.element.removeClass("grabbing");
+    },
+    startDrag: function() {
+        this.element.addClass("grabbing");
+        this.element.removeClass("grab");
+    },
+    releaseDrag: function() {
+        this.element.addClass("grab");
+        this.element.removeClass("grabbing");
+    },
+    handleInteractionStart: function(event) {
+        event.preventDefault();
+        this.dragManager.startDrag(this.draggableObject, event.clientX, event.clientY);
     }
 });
 
@@ -72,4 +110,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.DragProxy', DragProxy);

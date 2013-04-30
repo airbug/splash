@@ -4,12 +4,11 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('ContinueSignUpButton')
 
 //@Require('Class')
 //@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
+//@Require('jquery.JQuery')
 
 
 //-------------------------------------------------------------------------------
@@ -23,16 +22,16 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class =     bugpack.require('Class');
+var Obj =       bugpack.require('Obj');
+var JQuery =    bugpack.require('jquery.JQuery');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
+var ContinueSignUpButton = Class.extend(Obj, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -49,11 +48,10 @@ var SplashApplication = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {ConfigurationScan}
+         * @type {JQuery}
          */
-        this.configurationScan = new ConfigurationScan();
+        this.element = JQuery("#continue-sign-up-button-container");
     },
-
 
     //-------------------------------------------------------------------------------
     // Class Methods
@@ -62,8 +60,15 @@ var SplashApplication = Class.extend(Obj, {
     /**
      *
      */
-    start: function() {
-        this.configurationScan.scan();
+    show: function(){
+        this.element.show();
+    },
+
+    /**
+     *
+     */
+    hide: function(){
+        this.element.hide();
     }
 });
 
@@ -72,4 +77,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.ContinueSignUpButton', ContinueSignUpButton);

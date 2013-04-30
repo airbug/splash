@@ -4,12 +4,10 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('Tracker')
 
 //@Require('Class')
 //@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
 
 
 //-------------------------------------------------------------------------------
@@ -23,16 +21,15 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class   = bugpack.require('Class');
+var Obj     = bugpack.require('Obj');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
+var Tracker = Class.extend(Obj, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -49,9 +46,15 @@ var SplashApplication = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {ConfigurationScan}
+         * @type {Object}
          */
-        this.configurationScan = new ConfigurationScan();
+        this.config = null;
+
+        /**
+         * @private
+         * @type {SonarBugClient}
+         */
+        this.sonarBugClient = null;
     },
 
 
@@ -59,11 +62,31 @@ var SplashApplication = Class.extend(Obj, {
     // Class Methods
     //-------------------------------------------------------------------------------
 
-    /**
-     *
-     */
-    start: function() {
-        this.configurationScan.scan();
+    configure: function(config) {
+        this.config = config;
+    },
+    trackAppLoad: function() {
+        this.trackGA("App", "Load");
+        this.trackSB("appLoad", null);
+    },
+    trackGoalComplete: function(goalName) {
+        this.trackGA("Goal", "Complete", goalName);
+        this.trackSB("goalComplete", {goalName: goalName});
+    },
+    trackPageView: function(pageId) {
+        this.trackGA("Page", "View", pageId);
+        this.trackSB("pageView", {pageId: pageId});
+    },
+    trackGA: function(category, action, label, value, nonInteraction) {
+        if (this.config && this.config.production) {
+            _gaq.push(['_trackEvent', category, action, label, nonInteraction]);
+        } else {
+            console.log("TackingEvent - category:" + category + " action:" + action +
+                " label:" + label + " nonInteraction:" + nonInteraction);
+        }
+    },
+    trackSB: function(eventName, data){
+        this.sonarBugClient.track(eventName, data);
     }
 });
 
@@ -72,4 +95,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.Tracker', Tracker);

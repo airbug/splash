@@ -4,12 +4,11 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('SplashApi')
 
 //@Require('Class')
 //@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
+//@Require('jquery.JQuery')
 
 
 //-------------------------------------------------------------------------------
@@ -23,47 +22,46 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class =     bugpack.require('Class');
+var Obj =       bugpack.require('Obj');
+var JQuery =    bugpack.require('jquery.JQuery');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
-
-    //-------------------------------------------------------------------------------
-    // Constructor
-    //-------------------------------------------------------------------------------
-
-    _constructor: function() {
-
-        this._super();
-
-
-        //-------------------------------------------------------------------------------
-        // Declare Variables
-        //-------------------------------------------------------------------------------
-
-        /**
-         * @private
-         * @type {ConfigurationScan}
-         */
-        this.configurationScan = new ConfigurationScan();
-    },
-
+var SplashApi = Class.extend(Obj, {
 
     //-------------------------------------------------------------------------------
     // Class Methods
     //-------------------------------------------------------------------------------
 
-    /**
-     *
-     */
-    start: function() {
-        this.configurationScan.scan();
+    send: function(endpoint, dataObject, callback) {
+        JQuery.ajax({
+            url: endpoint,
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(dataObject),
+            processData: false,
+            type: "POST",
+            error: function(jqXHR, textStatus, errorThrown) {
+                var error = {
+                    jqXHR: jqXHR,
+                    textStatus: textStatus,
+                    errorThrown: errorThrown
+                };
+                callback(error);
+            },
+            success: function(data, textStatus, jqXHR) {
+                var result = {
+                    data: data,
+                    textStatus: textStatus,
+                    jqXHR: jqXHR
+                };
+                callback(null, result);
+            }
+        });
     }
 });
 
@@ -72,4 +70,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.SplashApi', SplashApi);

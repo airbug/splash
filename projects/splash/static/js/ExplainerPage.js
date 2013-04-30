@@ -4,12 +4,13 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('ExplainerPage')
 
 //@Require('Class')
-//@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
+//@Require('jquery.JQuery')
+//@Require('splash.Page')
+//@Require('splash.PageManager')
+//@Require('splitbug.SplitBug')
 
 
 //-------------------------------------------------------------------------------
@@ -23,16 +24,16 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class =         bugpack.require('Class');
+var JQuery =        bugpack.require('jquery.JQuery');
+var Page =          bugpack.require('splash.Page');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
+var ExplainerPage = Class.extend(Page, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -40,7 +41,7 @@ var SplashApplication = Class.extend(Obj, {
 
     _constructor: function() {
 
-        this._super();
+        this._super("explainerPage", JQuery("#explainer-page"));
 
 
         //-------------------------------------------------------------------------------
@@ -49,21 +50,54 @@ var SplashApplication = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {ConfigurationScan}
+         * @type {PageManager}
          */
-        this.configurationScan = new ConfigurationScan();
+        this.pageManager = null;
+
+        /**
+         * @private
+         * @type {SplitBug}
+         */
+        this.splitBug = null;
     },
 
 
     //-------------------------------------------------------------------------------
-    // Class Methods
+    // Page Methods
     //-------------------------------------------------------------------------------
 
     /**
      *
      */
-    start: function() {
-        this.configurationScan.scan();
+    initialize: function() {
+        this._super();
+
+        var _this = this;
+        var marketingTaglineHeader = JQuery("#marketing-tagline-header");
+        this.splitBug.splitTest({
+            name: "alternate-tag-line",
+            controlFunction: function() {
+                marketingTaglineHeader.html("Unite and motivate your team's cross-platform collaboration");
+            },
+            testFunction: function() {
+                marketingTaglineHeader.html("Collaborative chat for developers");
+            }
+        });
+
+        var betaSignUpButton = JQuery("#beta-sign-up-button");
+        betaSignUpButton.on("click", function(event) {
+            _this.pageManager.goToPage("betaSignUpPage", "slideup");
+        });
+
+    },
+
+    /**
+     *
+     */
+    activate: function(pageTransition) {
+        this._super(pageTransition);
+        var loadingPage = JQuery("#loading-page");
+        loadingPage.hide();
     }
 });
 
@@ -72,4 +106,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.ExplainerPage', ExplainerPage);

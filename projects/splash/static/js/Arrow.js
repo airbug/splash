@@ -4,12 +4,11 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('Arrow')
 
 //@Require('Class')
 //@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
+//@Require('jquery.JQuery')
 
 
 //-------------------------------------------------------------------------------
@@ -23,16 +22,16 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class =     bugpack.require('Class');
+var Obj =       bugpack.require('Obj');
+var JQuery =    bugpack.require('jquery.JQuery');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
+var Arrow = Class.extend(Obj, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -49,9 +48,9 @@ var SplashApplication = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {ConfigurationScan}
+         * @type {JQuery}
          */
-        this.configurationScan = new ConfigurationScan();
+        this.element = JQuery(".arrow-container");
     },
 
 
@@ -62,8 +61,15 @@ var SplashApplication = Class.extend(Obj, {
     /**
      *
      */
-    start: function() {
-        this.configurationScan.scan();
+    hide: function() {
+        this.element.hide();
+    },
+
+    /**
+     *
+     */
+    show: function() {
+        this.element.show();
     }
 });
 
@@ -72,4 +78,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.Arrow', Arrow);

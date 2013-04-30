@@ -4,12 +4,11 @@
 
 //@Package('splash')
 
-//@Export('SplashApplication')
-//@Autoload
+//@Export('PageManager')
 
 //@Require('Class')
+//@Require('Map')
 //@Require('Obj')
-//@Require('bugioc.ConfigurationScan')
 
 
 //-------------------------------------------------------------------------------
@@ -23,16 +22,16 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Obj =               bugpack.require('Obj');
-var ConfigurationScan = bugpack.require('bugioc.ConfigurationScan');
+var Class =     bugpack.require('Class');
+var Map =       bugpack.require('Map');
+var Obj =       bugpack.require('Obj');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var SplashApplication = Class.extend(Obj, {
+var PageManager = Class.extend(Obj, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -49,9 +48,21 @@ var SplashApplication = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {ConfigurationScan}
+         * @type {Page}
          */
-        this.configurationScan = new ConfigurationScan();
+        this.currentPage = null;
+
+        /**
+         * @private
+         * @type {Map.<string, Page>}
+         */
+        this.pages = new Map();
+
+        /**
+         * @private
+         * @type {Tracker}
+         */
+        this.tracker = null;
     },
 
 
@@ -60,10 +71,40 @@ var SplashApplication = Class.extend(Obj, {
     //-------------------------------------------------------------------------------
 
     /**
-     *
+     * @return {Page}
      */
-    start: function() {
-        this.configurationScan.scan();
+    getCurrentPage: function() {
+        return this.currentPage;
+    },
+
+
+    //-------------------------------------------------------------------------------
+    // Class Methods
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @param {string} pageName
+     * @param {string} pageTransition
+     */
+    goToPage: function(pageName, pageTransition) {
+        var page = this.pages.get(pageName);
+        if (page) {
+            var previousPage = this.currentPage;
+            if (previousPage) {
+                previousPage.deactivate(pageTransition);
+            }
+            page.activate(pageTransition);
+            this.currentPage = page;
+            this.tracker.trackPageView(page.getName());
+        }
+    },
+
+    /**
+     * @param {Page} page
+     */
+    registerPage: function(page) {
+        this.pages.put(page.getName(), page);
+        page.initialize();
     }
 });
 
@@ -72,4 +113,4 @@ var SplashApplication = Class.extend(Obj, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export("splash.SplashApplication", SplashApplication);
+bugpack.export('splash.PageManager', PageManager);

@@ -67,8 +67,14 @@ buildProperties({
         "../bugjs/projects/bugtrace/js/test"
     ],
     staticPaths: [
+        '../bugjs/external/jquery/js/src',
+        '../bugjs/external/bootstrap/js/src',
+        '../bugjs/external/bootstrap/static',
+        '../bugjs/external/socket-io/js/src',
+        '../bugjs/projects/annotate/js/src',
         '../bugjs/projects/bugjs/js/src',
         '../bugjs/projects/bugflow/js/src',
+        '../bugjs/projects/bugioc/js/src',
         '../bugjs/projects/bugtrace/js/src',
         '../bugpack/projects/bugpack-client/js/src',
         '../sonarbug/projects/sonarbugclient/js/src',
