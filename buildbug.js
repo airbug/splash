@@ -13,6 +13,7 @@ var buildProject = buildbug.buildProject;
 var buildProperties = buildbug.buildProperties;
 var buildTarget = buildbug.buildTarget;
 var enableModule = buildbug.enableModule;
+var parallel = buildbug.parallel;
 var series = buildbug.series;
 var targetTask = buildbug.targetTask;
 
@@ -35,13 +36,13 @@ var nodejs      = enableModule('nodejs');
 buildProperties({
     packageJson: {
         "name": "splash",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "private": true,
         "scripts": {
             "start": "node ./lib/app"
         },
         "dependencies": {
-            "bugpack": 'https://s3.amazonaws.com/airbug/bugpack-0.0.4.tgz',
+            "bugpack": 'https://s3.amazonaws.com/airbug/bugpack-0.0.5.tgz',
             "express": "3.1.0",
             "jade": "*",
             "mongodb": ">=1.2.11",
@@ -62,12 +63,24 @@ buildProperties({
         "../bugunit/projects/bugunit/js/scripts"
     ],
     testPaths: [
-        "../bugjs/projects/bugjs/js/test"
+        "../bugjs/projects/bugjs/js/test",
+        "../bugjs/projects/bugtrace/js/test"
     ],
     staticPaths: [
-        './projects/splash/static',
+        '../bugjs/external/jquery/js/src',
+        '../bugjs/external/bootstrap/js/src',
+        '../bugjs/external/bootstrap/static',
+        '../bugjs/external/socket-io/js/src',
+        '../bugjs/projects/annotate/js/src',
+        '../bugjs/projects/bugjs/js/src',
+        '../bugjs/projects/bugflow/js/src',
+        '../bugjs/projects/bugioc/js/src',
+        '../bugjs/projects/bugtrace/js/src',
         '../bugpack/projects/bugpack-client/js/src',
-        '../bugjs/projects/bugjs/js/src'
+        '../sonarbug/projects/sonarbugclient/js/src',
+        '../sonarbug/projects/splitbug/js/src',
+        '../sonarbug/projects/splitbugclient/js/src',
+        './projects/splash/static'
     ],
     resourcePaths: [
         './projects/splash/resources'
@@ -113,18 +126,31 @@ buildTarget('local').buildFlow(
                 resourcePaths: buildProject.getProperty("resourcePaths")
             }
         }),
-        targetTask('generateBugPackRegistry', {
-            init: function(task, buildProject, properties) {
-                var nodePackage = nodejs.findNodePackage(
-                    buildProject.getProperty("packageJson.name"),
-                    buildProject.getProperty("packageJson.version")
-                );
-                task.updateProperties({
-                    sourceRoot: nodePackage.getBuildPath(),
-                    ignore: ["static"]
-                });
-            }
-        }),
+        parallel([
+            targetTask('generateBugPackRegistry', {
+                init: function(task, buildProject, properties) {
+                    var nodePackage = nodejs.findNodePackage(
+                        buildProject.getProperty("packageJson.name"),
+                        buildProject.getProperty("packageJson.version")
+                    );
+                    task.updateProperties({
+                        sourceRoot: nodePackage.getBuildPath(),
+                        ignore: ["static"]
+                    });
+                }
+            }),
+            targetTask('generateBugPackRegistry', {
+                init: function(task, buildProject, properties) {
+                    var nodePackage = nodejs.findNodePackage(
+                        buildProject.getProperty("packageJson.name"),
+                        buildProject.getProperty("packageJson.version")
+                    );
+                    task.updateProperties({
+                        sourceRoot: nodePackage.getBuildPath().getAbsolutePath() + "/static"
+                    });
+                }
+            })
+        ]),
         targetTask('packNodePackage', {
             properties: {
                 packageName: buildProject.getProperty("packageJson.name"),

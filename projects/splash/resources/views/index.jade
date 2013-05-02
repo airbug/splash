@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  script
+      var firstPage="explainerPage";
+      Loader.numExpectedLoadedItems = 6;
   div(id="page-container")
     div(id="loading-page", class="page")
       div(class="row-fluid")
@@ -14,7 +17,7 @@ block content
             img(class="logo", src="/img/airbug-logo-large.png", alt="airbug", onload="Loader.loaded();")
           div(class="marketing-container")
             div(class="marketing-tagline")
-              h2 Unite and motivate your team’s cross-platform collaboration.
+              h2(id="marketing-tagline-header")
             div(class="marketing-subpoints")
               div(class="marketing-subpoint1")
                 h4 Enrich and streamline team communication
@@ -28,6 +31,10 @@ block content
           div(class="beta-sign-up-button-container")
             button(id="beta-sign-up-button", class="btn btn-large btn-info") Sign up for the beta
     div(id="beta-sign-up-page", class="page")
+      nav
+        div(class="nav-pull-down-tab-container")
+          div(id="nav-pull-down-tab", class="btn btn-large")
+            i(class="icon-chevron-down")
       div(class="row-fluid")
         div(class="span12")
           div(class="beta-sign-up-container")
@@ -55,12 +62,23 @@ block content
               div(id="airbug-pivotaltracker-container", class="airbug-container")
                 img(id="airbug-pivotaltracker-image", class="airbug-image", src="/img/airbug-service-swarm-pivotaltracker.png", alt="Pivotal Tracker")
               div(id="airbug-other-container", class="airbug-container")
-                img(id="airbug-other-image", class="airbug-image", src="/img/airbug-service-swarm-other.png", alt="Other")
+                img(id="airbug-writein-image", class="airbug-image", src="/img/airbug-service-swarm-writein.png", alt="Other")
+                div(id="other-airbug-form-container")
+                  div(id="other-airbug-form")
+                    div(id="other-airbug-form-cancel-button", class="", type="button") &nbsp;x
+                    div(class="control-group")
+                      label(class="control-label", for="other")
+                      div(class="controls")
+                        input(type="text", id="other", name="other", placeholder="Specify another tool here")
+                    div(class="control-group")
+                      div(class="controls")
+                        button(id="other-airbug-form-submit-button", class="btn btn-info", type="button") Submit
             div(id="airbug-jar-container")
               img(class="airbug-jar-image", src="/img/airbug-jar.png")
               div(id="airbug-jar-hotspot-1", class="airbug-jar-hotspot")
               div(id="airbug-jar-hotspot-2", class="airbug-jar-hotspot")
               div(id="airbug-jar-hotspot-3", class="airbug-jar-hotspot")
+
       div(id="beta-sign-up-modal", class="modal hide fade")
         div(class="modal-header")
           button(type="button", class="close", data-dismiss="modal", aria-hidden="true")&times;
@@ -72,18 +90,22 @@ block content
                 label(class="control-label", for="name") Name
                 div(class="controls")
                   input(type="text", id="name", name="name", placeholder="Name")
+                  div(class="validation required") * required
               div(class="control-group")
                 label(class="control-label", for="email") Email
                 div(class="controls")
                   input(type="text", id="email", name="email", placeholder="Email")
+                  div(class="validation required") * required
               div(class="control-group")
                 label(class="control-label", for="company") Company
                 div(class="controls")
                   input(type="text", id="company", name="company", placeholder="Company")
+                  div(class="validation")
               div(class="control-group")
                 label(class="control-label", for="phoneNumber") Phone Number
                 div(class="controls")
                   input(type="text", id="phoneNumber", name="phoneNumber", placeholder="Phone Number")
+                  div(class="validation")
               div(class="control-group")
                 label(class="control-label", for="companySize") CompanySize
                 div(class="controls")
@@ -92,10 +114,12 @@ block content
                     option 2 - 5 people
                     option 6 - 20 people
                     option 20+ people
+                  div(class="validation")
               div(class="control-group")
                 label(class="control-label", for="position") Position in Company
                 div(class="controls")
                   input(type="text", id="position", name="position", placeholder="Position in Company")
+                  div(class="validation")
               div(class="control-group")
                 div(class="controls")
                   button(id="beta-sign-up-form-submit-button", class="btn btn-info", type="button") Submit
