@@ -210,18 +210,31 @@ buildTarget('prod').buildFlow(
                 resourcePaths: buildProject.getProperty("resourcePaths")
             }
         }),
-        targetTask('generateBugPackRegistry', {
-            init: function(task, buildProject, properties) {
-                var nodePackage = nodejs.findNodePackage(
-                    buildProject.getProperty("packageJson.name"),
-                    buildProject.getProperty("packageJson.version")
-                );
-                task.updateProperties({
-                    sourceRoot: nodePackage.getBuildPath(),
-                    ignore: ["static"]
-                });
-            }
-        }),
+        parallel([
+            targetTask('generateBugPackRegistry', {
+                init: function(task, buildProject, properties) {
+                    var nodePackage = nodejs.findNodePackage(
+                        buildProject.getProperty("packageJson.name"),
+                        buildProject.getProperty("packageJson.version")
+                    );
+                    task.updateProperties({
+                        sourceRoot: nodePackage.getBuildPath(),
+                        ignore: ["static"]
+                    });
+                }
+            }),
+            targetTask('generateBugPackRegistry', {
+                init: function(task, buildProject, properties) {
+                    var nodePackage = nodejs.findNodePackage(
+                        buildProject.getProperty("packageJson.name"),
+                        buildProject.getProperty("packageJson.version")
+                    );
+                    task.updateProperties({
+                        sourceRoot: nodePackage.getBuildPath().getAbsolutePath() + "/static"
+                    });
+                }
+            })
+        ]),
         targetTask('packNodePackage', {
             properties: {
                 packageName: buildProject.getProperty("packageJson.name"),
