@@ -172,7 +172,7 @@ var FeedbackPanel = Class.extend(Obj, {
         this.feedbackFormCancelButton.on("click", this.handleFeedbackFormCancelButtonClick);
         this.feedbackFormSubmitButton.on("click", this.handleFeedbackFormSubmitButtonClick);
 
-        this.feedbackTab.show();
+        this.feedbackContainer.show();
     },
 
 

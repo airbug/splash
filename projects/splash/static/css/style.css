@@ -255,7 +255,7 @@ a {
 }*/
 
 #feedback-container {
-    display: block;
+    display: none;
     position: absolute;
     width: 576px;
     height: 415px;
@@ -442,7 +442,7 @@ a {
 }
 
 #feedback-tab {
-    display: none;
+    display: block;
     width: 18px;
     height: 128px;
     padding: 10px;
@@ -509,6 +509,8 @@ a {
 
 #loading-page {
     display: block;
+    visibility: visible;
+
 }
 
 .loader {
