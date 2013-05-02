@@ -48,19 +48,23 @@ mongoose.connect('mongodb://' + config.mongoDbIp + '/airbug');
 var app = express();
 
 app.configure(function(){
-  app.set('port', config.port);
-  app.set('views', path.resolve(__dirname, '../resources/views'));
-  app.set('view engine', 'jade');
-  app.use(express.favicon(path.resolve(__dirname, '../static/img/airbug-icon.png')));
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride()); // put and delete support for html 4 and older
-  app.use(app.router);
-  app.use(express.static(path.resolve(__dirname, '../static')));
+    app.use(function (req, res, next) {
+        res.removeHeader("X-Powered-By");
+        next();
+    });
+    app.set('port', config.port);
+    app.set('views', path.resolve(__dirname, '../resources/views'));
+    app.set('view engine', 'jade');
+    app.use(express.favicon(path.resolve(__dirname, '../static/img/airbug-icon.png')));
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.methodOverride()); // put and delete support for html 4 and older
+    app.use(express.static(path.resolve(__dirname, '../static')));
+    app.use(app.router);
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler());
+    app.use(express.errorHandler());
 });
 
 
@@ -119,7 +123,14 @@ app.post('/api/feedback', function(req, res) {
         res.end();
     });
 });
-
+app.all('*', function(req, res){
+  res.status(404);
+  res.render('404', {
+      title: 'airbug 404',
+      production: config.production
+  });
+  res.end();
+});
 
 //-------------------------------------------------------------------------------
 // Routes
