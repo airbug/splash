@@ -36,7 +36,7 @@ var nodejs      = enableModule('nodejs');
 buildProperties({
     packageJson: {
         "name": "splash",
-        "version": "0.0.4",
+        "version": "0.0.5",
         "private": true,
         "scripts": {
             "start": "node ./lib/app"
@@ -52,7 +52,6 @@ buildProperties({
     sourcePaths: [
         '../bugjs/projects/annotate/js/src',
         '../bugjs/projects/bugjs/js/src',
-        '../bugjs/projects/bugboil/js/src',
         '../bugjs/projects/bugflow/js/src',
         '../bugjs/projects/bugfs/js/src',
         '../bugjs/projects/bugtrace/js/src',
@@ -63,6 +62,7 @@ buildProperties({
         "../bugunit/projects/bugunit/js/scripts"
     ],
     testPaths: [
+        "../bugjs/projects/bugflow/js/test",
         "../bugjs/projects/bugjs/js/test",
         "../bugjs/projects/bugtrace/js/test"
     ],
