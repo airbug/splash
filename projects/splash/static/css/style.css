@@ -26,7 +26,8 @@ a {
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
-    border: solid 1px #CCCCCC;
+    border-left: solid 1px #CCCCCC;
+    border-right: solid 1px #CCCCCC;
     background: #f4f5f5;
     background: -moz-linear-gradient(top,  #f4f5f5 0%, #f4f5f5 70%, #abcecb 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f5f5), color-stop(70%,#f4f5f5), color-stop(100%,#abcecb));
