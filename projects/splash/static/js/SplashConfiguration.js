@@ -15,7 +15,7 @@
 //@Require('bugioc.IConfiguration')
 //@Require('bugioc.ModuleAnnotation')
 //@Require('bugioc.PropertyAnnotation')
-//@Require('sonarbugclient.SonarBugClient')
+//@Require('sonarbugclient.SonarbugClient')
 //@Require('splash.AirbugJar')
 //@Require('splash.Arrow')
 //@Require('splash.BetaSignUpModal')
@@ -31,7 +31,7 @@
 //@Require('splash.SplashController')
 //@Require('splash.ThankYouPage')
 //@Require('splash.Tracker')
-//@Require('splitbug.SplitBug')
+//@Require('splitbug.Splitbug')
 
 
 //-------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ var ConfigurationAnnotation =   bugpack.require('bugioc.ConfigurationAnnotation'
 var IConfiguration =            bugpack.require('bugioc.IConfiguration');
 var ModuleAnnotation =          bugpack.require('bugioc.ModuleAnnotation');
 var PropertyAnnotation =        bugpack.require('bugioc.PropertyAnnotation');
-var SonarBugClient =            bugpack.require('sonarbugclient.SonarBugClient');
+var SonarbugClient =            bugpack.require('sonarbugclient.SonarbugClient');
 var AirbugJar =                 bugpack.require('splash.AirbugJar');
 var Arrow =                     bugpack.require('splash.Arrow');
 var BetaSignUpModal =           bugpack.require('splash.BetaSignUpModal');
@@ -69,7 +69,7 @@ var SplashApi =                 bugpack.require('splash.SplashApi');
 var SplashController =          bugpack.require('splash.SplashController');
 var ThankYouPage =              bugpack.require('splash.ThankYouPage');
 var Tracker =                   bugpack.require('splash.Tracker');
-var SplitBug =                  bugpack.require('splitbug.SplitBug');
+var Splitbug =                  bugpack.require('splitbug.Splitbug');
 
 
 //-------------------------------------------------------------------------------
@@ -115,10 +115,10 @@ var SplashConfiguration = Class.extend(Obj, {
     //-------------------------------------------------------------------------------
 
     /**
-     *
+     * @param {function(Error)}
      */
-    initializeConfiguration: function() {
-        this._splashController.start();
+    initializeConfiguration: function(callback) {
+        this._splashController.start(callback);
     },
 
 
@@ -204,10 +204,10 @@ var SplashConfiguration = Class.extend(Obj, {
     },
 
     /**
-     * @return {SonarBugClient}
+     * @return {SonarbugClient}
      */
-    sonarBugClient: function() {
-        return SonarBugClient.getInstance();
+    sonarbugClient: function() {
+        return SonarbugClient.getInstance();
     },
 
     /**
@@ -226,10 +226,10 @@ var SplashConfiguration = Class.extend(Obj, {
     },
 
     /**
-     * @return {SplitBug}
+     * @return {Splitbug}
      */
-    splitBug: function() {
-        return SplitBug.getInstance();
+    splitbug: function() {
+        return Splitbug.getInstance();
     },
 
     /**
@@ -284,14 +284,14 @@ annotate(SplashConfiguration).with(
                 property("dragManager").ref("dragManager"),
                 property("otherAirbugForm").ref("otherAirbugForm"),
                 property("pageManager").ref("pageManager"),
-                property("splitBug").ref("splitBug")
+                property("splitbug").ref("splitbug")
             ]),
         module("continueSignUpButton"),
         module("dragManager"),
         module("explainerPage")
             .properties([
                 property("pageManager").ref("pageManager"),
-                property("splitBug").ref("splitBug")
+                property("splitbug").ref("splitbug")
             ]),
         module("feedbackPanel")
             .properties([
@@ -308,7 +308,7 @@ annotate(SplashConfiguration).with(
             .properties([
                 property("tracker").ref("tracker")
             ]),
-        module("sonarBugClient"),
+        module("sonarbugClient"),
         module("splashApi"),
         module("splashController")
             .properties([
@@ -317,16 +317,16 @@ annotate(SplashConfiguration).with(
                 property("feedbackPanel").ref("feedbackPanel"),
                 property("four04Page").ref("four04Page"),
                 property("pageManager").ref("pageManager"),
-                property("sonarBugClient").ref("sonarBugClient"),
-                property("splitBug").ref("splitBug"),
+                property("sonarbugClient").ref("sonarbugClient"),
+                property("splitbug").ref("splitbug"),
                 property("thankYouPage").ref("thankYouPage"),
                 property("tracker").ref("tracker")
             ]),
-        module("splitBug"),
+        module("splitbug"),
         module("thankYouPage"),
         module("tracker")
             .properties([
-                property("sonarBugClient").ref("sonarBugClient")
+                property("sonarbugClient").ref("sonarbugClient")
             ])
     ])
 );

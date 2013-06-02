@@ -10,7 +10,7 @@
 //@Require('jquery.JQuery')
 //@Require('splash.Page')
 //@Require('splash.PageManager')
-//@Require('splitbug.SplitBug')
+//@Require('splitbug.Splitbug')
 
 
 //-------------------------------------------------------------------------------
@@ -56,9 +56,9 @@ var ExplainerPage = Class.extend(Page, {
 
         /**
          * @private
-         * @type {SplitBug}
+         * @type {Splitbug}
          */
-        this.splitBug = null;
+        this.splitbug = null;
     },
 
 
@@ -74,7 +74,7 @@ var ExplainerPage = Class.extend(Page, {
 
         var _this = this;
         var marketingTaglineHeader = JQuery("#marketing-tagline-header");
-        this.splitBug.splitTest({
+        this.splitbug.splitTest({
             name: "alternate-tag-line",
             controlFunction: function() {
                 marketingTaglineHeader.html("Unite and motivate your team's cross-platform collaboration");

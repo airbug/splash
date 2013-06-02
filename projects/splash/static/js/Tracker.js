@@ -52,9 +52,9 @@ var Tracker = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {SonarBugClient}
+         * @type {SonarbugClient}
          */
-        this.sonarBugClient = null;
+        this.sonarbugClient = null;
     },
 
 
@@ -86,7 +86,7 @@ var Tracker = Class.extend(Obj, {
         }
     },
     trackSB: function(eventName, data){
-        this.sonarBugClient.track(eventName, data);
+        this.sonarbugClient.track(eventName, data);
     }
 });
 

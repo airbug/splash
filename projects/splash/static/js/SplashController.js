@@ -31,8 +31,9 @@ var BugFlow             = bugpack.require('bugflow.BugFlow');
 // Simplify References
 //-------------------------------------------------------------------------------
 
-var $parallel       = BugFlow.$parallel;
-var $task           = BugFlow.$task;
+var $parallel   = BugFlow.$parallel;
+var $series     = BugFlow.$series;
+var $task       = BugFlow.$task;
 
 
 //-------------------------------------------------------------------------------
@@ -86,9 +87,9 @@ var SplashController = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {SonarBugClient}
+         * @type {SonarbugClient}
          */
-        this.sonarBugClient = null;
+        this.sonarbugClient = null;
 
         /**
          * @private
@@ -105,61 +106,104 @@ var SplashController = Class.extend(Obj, {
 
 
     //-------------------------------------------------------------------------------
-    // Class Methods
+    // Public Class Methods
     //-------------------------------------------------------------------------------
 
     /**
-     *
+     * @param {function(Error)}
      */
-    start: function() {
+    start: function(callback) {
+        var _this = this;
+        $series([
+            $task(function(flow) {
+                _this.configure(function(error) {
+                    flow.complete(error);
+                });
+            }),
+            $task(function(flow) {
+                _this.initialize(function(error) {
+                    flow.complete(error);
+                })
+            })
+        ]).execute(callback);
+    },
+
+
+    //-------------------------------------------------------------------------------
+    // Private Class Methods
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     * @param {function(Error)} callback
+     */
+    configure: function(callback) {
         var _this = this;
         $parallel([
             $task(function(flow) {
+
+                //TODO BRN: This injection is pretty hacky. Should use a better mechanism for grabbing the configuration
+
                 _this.tracker.configure(_appConfig);
                 flow.complete();
             }),
             $task(function(flow){
-                _this.sonarBugClient.configure("http://sonarbug.com:80/socket-api", function(error){
+                _this.sonarbugClient.configure("http://localhost:3000", function(error){
                     if (!error) {
-                        console.log('SonarBugClient configured');
+                        console.log('SonarbugClient configured');
                     } else {
                         console.error(error);
                     }
                 });
 
                 //NOTE BRN: We complete this flow immediately because we don't need to wait for sonarbug to configure before calling the track method
+
                 flow.complete();
             }),
             $task(function(flow){
-                _this.splitBug.configure({}, function(error) {
+                _this.splitbug.configure({}, function(error) {
                     flow.complete(error);
                 });
             })
-        ]).execute(function(){
-            if (Loader.appLoaded) {
-                _this.initialize();
-            } else {
-                Loader.addLoadedListener(function() {
-                    _this.initialize();
-                });
-            }
-        });
+        ]).execute(callback);
     },
 
     /**
-     *
+     * @private
+     * @param {function(Error)}
      */
-    initialize: function() {
-        this.sonarBugClient.startTracking();
-        this.tracker.trackAppLoad();
-        this.feedbackPanel.initialize();
+    initialize: function(callback) {
+        var _this = this;
+        $series([
+            $task(function(flow) {
+                _this.sonarbugClient.startTracking();
 
-        //TODO BRN: This should be done in the SplashConfiguration through ioc instead of here.
-        this.pageManager.registerPage(this.betaSignUpPage);
-        this.pageManager.registerPage(this.explainerPage);
-        this.pageManager.registerPage(this.four04Page);
-        this.pageManager.registerPage(this.thankYouPage);
-        this.pageManager.goToPage(firstPage);
+                //TODO BRN: This should be done in the SplashConfiguration through ioc instead of here.
+
+                _this.pageManager.registerPage(_this.betaSignUpPage);
+                _this.pageManager.registerPage(_this.explainerPage);
+                _this.pageManager.registerPage(_this.four04Page);
+                _this.pageManager.registerPage(_this.thankYouPage);
+
+                //TODO BRN: This Loader is hacky. Figure out if there's a way to introduce this as a script tag.
+
+                if (Loader.appLoaded) {
+                    flow.complete();
+                } else {
+                    Loader.addLoadedListener(function() {
+                        flow.complete();
+                    });
+                }
+            }),
+            $task(function(flow) {
+                _this.tracker.trackAppLoad();
+                _this.feedbackPanel.initialize();
+
+                //TODO BRN: This firstPage variable is hacky. Figure out a better way to inject and retrieve this..
+
+                _this.pageManager.goToPage(firstPage);
+            })
+        ]).execute(callback);
     }
 });
 

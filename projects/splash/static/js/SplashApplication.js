@@ -60,10 +60,10 @@ var SplashApplication = Class.extend(Obj, {
     //-------------------------------------------------------------------------------
 
     /**
-     *
+     * @param {function(Error)}
      */
-    start: function() {
-        this.configurationScan.scan();
+    start: function(callback) {
+        this.configurationScan.scan(callback);
     }
 });
 

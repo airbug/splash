@@ -22,7 +22,7 @@ var targetTask = buildbug.targetTask;
 // Enable Modules
 //-------------------------------------------------------------------------------
 
-var aws         = enableModule("aws");
+var aws         = enableModule('aws');
 var bugpack     = enableModule('bugpack');
 var bugunit     = enableModule('bugunit');
 var core        = enableModule('core');
@@ -35,28 +35,29 @@ var nodejs      = enableModule('nodejs');
 
 buildProperties({
     packageJson: {
-        "name": "splash",
-        "version": "0.0.5",
-        "private": true,
-        "scripts": {
-            "start": "node ./lib/app"
+        name: "splash",
+        version: "0.0.5",
+        private: true,
+        scripts: {
+            start: "node ./lib/app"
         },
-        "dependencies": {
-            "bugpack": 'https://s3.amazonaws.com/airbug/bugpack-0.0.5.tgz',
-            "express": "3.1.0",
-            "jade": "*",
-            "mongodb": ">=1.2.11",
-            "mongoose": ">=3.5.6"
+        dependencies: {
+            bugpack: "https://s3.amazonaws.com/airbug/bugpack-0.0.5.tgz",
+            express: "3.1.0",
+            jade: "*",
+            mongodb: ">=1.2.11",
+            mongoose: ">=3.5.6"
         }
     },
     sourcePaths: [
-        '../bugjs/projects/annotate/js/src',
-        '../bugjs/projects/bugjs/js/src',
-        '../bugjs/projects/bugflow/js/src',
-        '../bugjs/projects/bugfs/js/src',
-        '../bugjs/projects/bugtrace/js/src',
-        '../bugunit/projects/bugunit/js/src',
-        './projects/splash/js/src'
+        "../bugjs/projects/annotate/js/src",
+        "../bugjs/projects/bugjs/js/src",
+        "../bugjs/projects/bugflow/js/src",
+        "../bugjs/projects/bugfs/js/src",
+        "../bugjs/projects/bugtrace/js/src",
+        "../bugunit/projects/bugdouble/js/src",
+        "../bugunit/projects/bugunit/js/src",
+        "./projects/splash/js/src"
     ],
     scriptPaths: [
         "../bugunit/projects/bugunit/js/scripts"
@@ -67,23 +68,24 @@ buildProperties({
         "../bugjs/projects/bugtrace/js/test"
     ],
     staticPaths: [
-        '../bugjs/external/jquery/js/src',
-        '../bugjs/external/bootstrap/js/src',
-        '../bugjs/external/bootstrap/static',
-        '../bugjs/external/socket-io/js/src',
-        '../bugjs/projects/annotate/js/src',
-        '../bugjs/projects/bugjs/js/src',
-        '../bugjs/projects/bugflow/js/src',
-        '../bugjs/projects/bugioc/js/src',
-        '../bugjs/projects/bugtrace/js/src',
-        '../bugpack/projects/bugpack-client/js/src',
-        '../sonarbug/projects/sonarbugclient/js/src',
-        '../sonarbug/projects/splitbug/js/src',
-        '../sonarbug/projects/splitbugclient/js/src',
-        './projects/splash/static'
+        "../bugjs/external/jquery/js/src",
+        "../bugjs/external/bootstrap/js/src",
+        "../bugjs/external/bootstrap/static",
+        "../bugjs/external/socket-io/js/src",
+        "../bugjs/projects/annotate/js/src",
+        "../bugjs/projects/bugflow/js/src",
+        "../bugjs/projects/bugioc/js/src",
+        "../bugjs/projects/bugjs/js/src",
+        "../bugjs/projects/bugtrace/js/src",
+        "../bugjs/projects/cookies/js/src",
+        "../bugpack/projects/bugpack-client/js/src",
+        "../sonarbug/projects/sonarbugclient/js/src",
+        "../splitbug/projects/splitbug/js/src",
+        "../splitbug/projects/splitbugclient/js/src",
+        "./projects/splash/static"
     ],
     resourcePaths: [
-        './projects/splash/resources'
+        "./projects/splash/resources"
     ]
 });
 

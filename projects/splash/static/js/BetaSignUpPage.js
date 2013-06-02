@@ -95,7 +95,7 @@ var BetaSignUpPage = Class.extend(Page, {
 
         /**
          * @private
-         * @type {SplitBug}
+         * @type {Splitbug}
          */
         this.splitbug = null;
 
