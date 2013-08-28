@@ -79,12 +79,8 @@ html
               input(type="text", name="helpSolve", class="input-feedback")
             button(id="feedback-form-submit-button", class="btn btn-info", type="button") Submit
             button(id="feedback-form-cancel-button", class="btn", type="button") Cancel
-    script(type="text/javascript", src="/BugPackKey.js")
-    script(type="text/javascript", src="/BugPackPackage.js")
-    script(type="text/javascript", src="/BugPackSource.js")
-    script(type="text/javascript", src="/BugPackRegistryEntry.js")
-    script(type="text/javascript", src="/BugPackRegistry.js")
-    script(type="text/javascript", src="/BugPackRegistryFile.js")
-    script(type="text/javascript", src="/BugPackContext.js")
-    script(type="text/javascript", src="/BugPackApi.js")
+    if production
+      script(type="text/javascript", src="https://s3.amazonaws.com/airbug/bugpack-0.0.1.min.js")
+    else
+      script(type="text/javascript", src="https://s3.amazonaws.com/airbug/bugpack-0.0.1.js")
     script(type="text/javascript", src="/js/splash-application-loader.js")

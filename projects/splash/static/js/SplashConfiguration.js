@@ -9,12 +9,12 @@
 
 //@Require('Class')
 //@Require('Obj')
-//@Require('annotate.Annotate')
 //@Require('bugioc.ArgAnnotation')
 //@Require('bugioc.ConfigurationAnnotation')
 //@Require('bugioc.IConfiguration')
 //@Require('bugioc.ModuleAnnotation')
 //@Require('bugioc.PropertyAnnotation')
+//@Require('bugmeta.BugMeta')
 //@Require('sonarbugclient.SonarbugClient')
 //@Require('splash.AirbugJar')
 //@Require('splash.Arrow')
@@ -45,42 +45,42 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =                     bugpack.require('Class');
-var Obj =                       bugpack.require('Obj');
-var Annotate =                  bugpack.require('annotate.Annotate');
-var ArgAnnotation =             bugpack.require('bugioc.ArgAnnotation');
-var ConfigurationAnnotation =   bugpack.require('bugioc.ConfigurationAnnotation');
-var IConfiguration =            bugpack.require('bugioc.IConfiguration');
-var ModuleAnnotation =          bugpack.require('bugioc.ModuleAnnotation');
-var PropertyAnnotation =        bugpack.require('bugioc.PropertyAnnotation');
-var SonarbugClient =            bugpack.require('sonarbugclient.SonarbugClient');
-var AirbugJar =                 bugpack.require('splash.AirbugJar');
-var Arrow =                     bugpack.require('splash.Arrow');
-var BetaSignUpModal =           bugpack.require('splash.BetaSignUpModal');
-var BetaSignUpPage =            bugpack.require('splash.BetaSignUpPage');
-var ContinueSignUpButton =      bugpack.require('splash.ContinueSignUpButton');
-var DragManager =               bugpack.require('splash.DragManager');
-var ExplainerPage =             bugpack.require('splash.ExplainerPage');
-var FeedbackPanel =             bugpack.require('splash.FeedbackPanel');
-var Four04Page =                bugpack.require('splash.Four04Page');
-var OtherAirbugForm =           bugpack.require('splash.OtherAirbugForm');
-var PageManager =               bugpack.require('splash.PageManager');
-var SplashApi =                 bugpack.require('splash.SplashApi');
-var SplashController =          bugpack.require('splash.SplashController');
-var ThankYouPage =              bugpack.require('splash.ThankYouPage');
-var Tracker =                   bugpack.require('splash.Tracker');
-var Splitbug =                  bugpack.require('splitbug.Splitbug');
+var Class                   = bugpack.require('Class');
+var Obj                     = bugpack.require('Obj');
+var ArgAnnotation           = bugpack.require('bugioc.ArgAnnotation');
+var ConfigurationAnnotation = bugpack.require('bugioc.ConfigurationAnnotation');
+var IConfiguration          = bugpack.require('bugioc.IConfiguration');
+var ModuleAnnotation        = bugpack.require('bugioc.ModuleAnnotation');
+var PropertyAnnotation      = bugpack.require('bugioc.PropertyAnnotation');
+var BugMeta                 = bugpack.require('bugmeta.BugMeta');
+var SonarbugClient          = bugpack.require('sonarbugclient.SonarbugClient');
+var AirbugJar               = bugpack.require('splash.AirbugJar');
+var Arrow                   = bugpack.require('splash.Arrow');
+var BetaSignUpModal         = bugpack.require('splash.BetaSignUpModal');
+var BetaSignUpPage          = bugpack.require('splash.BetaSignUpPage');
+var ContinueSignUpButton    = bugpack.require('splash.ContinueSignUpButton');
+var DragManager             = bugpack.require('splash.DragManager');
+var ExplainerPage           = bugpack.require('splash.ExplainerPage');
+var FeedbackPanel           = bugpack.require('splash.FeedbackPanel');
+var Four04Page              = bugpack.require('splash.Four04Page');
+var OtherAirbugForm         = bugpack.require('splash.OtherAirbugForm');
+var PageManager             = bugpack.require('splash.PageManager');
+var SplashApi               = bugpack.require('splash.SplashApi');
+var SplashController        = bugpack.require('splash.SplashController');
+var ThankYouPage            = bugpack.require('splash.ThankYouPage');
+var Tracker                 = bugpack.require('splash.Tracker');
+var Splitbug                = bugpack.require('splitbug.Splitbug');
 
 
 //-------------------------------------------------------------------------------
 // Simplify References
 //-------------------------------------------------------------------------------
 
-var annotate =      Annotate.annotate;
-var arg =           ArgAnnotation.arg;
-var configuration = ConfigurationAnnotation.configuration;
-var module =        ModuleAnnotation.module;
-var property =      PropertyAnnotation.property;
+var arg             = ArgAnnotation.arg;
+var bugmeta         = BugMeta.context();
+var configuration   = ConfigurationAnnotation.configuration;
+var module          = ModuleAnnotation.module;
+var property        = PropertyAnnotation.property;
 
 
 //-------------------------------------------------------------------------------
@@ -256,10 +256,10 @@ Class.implement(SplashConfiguration, IConfiguration);
 
 
 //-------------------------------------------------------------------------------
-// Annotate
+// BugMeta
 //-------------------------------------------------------------------------------
 
-annotate(SplashConfiguration).with(
+bugmeta.annotate(SplashConfiguration).with(
     configuration().modules([
         module("airbugJar")
             .properties([

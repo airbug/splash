@@ -9,9 +9,9 @@
 //@Require('Class')
 //@Require('Obj')
 //@Require('TypeUtil')
-//@Require('annotate.Annotate')
 //@Require('bugioc.AutowiredAnnotation')
 //@Require('bugioc.PropertyAnnotation')
+//@Require('bugmeta.BugMeta')
 
 
 //-------------------------------------------------------------------------------
@@ -25,21 +25,21 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =                 bugpack.require('Class');
-var Obj =                   bugpack.require('Obj');
-var TypeUtil =              bugpack.require('TypeUtil');
-var Annotate =              bugpack.require('annotate.Annotate');
-var AutowiredAnnotation =   bugpack.require('bugioc.AutowiredAnnotation');
-var PropertyAnnotation =    bugpack.require('bugioc.PropertyAnnotation');
+var Class               = bugpack.require('Class');
+var Obj                 = bugpack.require('Obj');
+var TypeUtil            = bugpack.require('TypeUtil');
+var AutowiredAnnotation = bugpack.require('bugioc.AutowiredAnnotation');
+var PropertyAnnotation  = bugpack.require('bugioc.PropertyAnnotation');
+var BugMeta             = bugpack.require('bugmeta.BugMeta');
 
 
 //-------------------------------------------------------------------------------
 // Simplify References
 //-------------------------------------------------------------------------------
 
-var annotate =  Annotate.annotate;
-var autowired = AutowiredAnnotation.autowired;
-var property =  PropertyAnnotation.property;
+var autowired   = AutowiredAnnotation.autowired;
+var bugmeta     = BugMeta.context();
+var property    = PropertyAnnotation.property;
 
 
 //-------------------------------------------------------------------------------
@@ -159,10 +159,10 @@ var Airbug = Class.extend(Obj, {
 
 
 //-------------------------------------------------------------------------------
-// Annotate
+// BugMeta
 //-------------------------------------------------------------------------------
 
-annotate(Airbug).with(
+bugmeta.annotate(Airbug).with(
     autowired().properties([
         property("airbugJar").ref("airbugJar"),
         property("dragManager").ref("dragManager")
