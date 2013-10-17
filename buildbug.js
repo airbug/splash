@@ -37,7 +37,7 @@ buildProperties({
     splash: {
         packageJson: {
             name: "splash",
-            version: "0.0.5",
+            version: "0.0.6",
             private: true,
             scripts: {
                 start: "node ./lib/app"
@@ -70,8 +70,8 @@ buildProperties({
         ],
         staticPaths: [
             "../bugjs/external/jquery/js/src",
-            "../bugjs/external/bootstrap/js/src",
-            "../bugjs/external/bootstrap/static",
+            "../bugjs/external/bootstrap3/js/src",
+            "../bugjs/external/bootstrap3/static",
             "../bugjs/external/socket-io/js/src",
             "../bugjs/projects/bugmeta/js/src",
             "../bugjs/projects/bugflow/js/src",
