@@ -148,7 +148,7 @@ var SplashController = Class.extend(Obj, {
                 flow.complete();
             }),
             $task(function(flow){
-                _this.sonarbugClient.configure("http://localhost:3000", function(error){
+                _this.sonarbugClient.configure("http://sonarbug.com:80", function(error){
                     if (!error) {
                         console.log('SonarbugClient configured');
                     } else {
