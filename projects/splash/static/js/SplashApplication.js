@@ -9,6 +9,7 @@
 
 //@Require('Class')
 //@Require('Obj')
+//@Require('bugioc.AutowiredAnnotationProcessor')
 //@Require('bugioc.AutowiredScan')
 //@Require('bugioc.ConfigurationAnnotationProcessor')
 //@Require('bugioc.ConfigurationScan')
@@ -30,6 +31,7 @@ var bugpack = require('bugpack').context();
 
 var Class                               = bugpack.require('Class');
 var Obj                                 = bugpack.require('Obj');
+var AutowiredAnnotationProcessor        = bugpack.require('bugioc.AutowiredAnnotationProcessor');
 var AutowiredScan                       = bugpack.require('bugioc.AutowiredScan');
 var ConfigurationAnnotationProcessor    = bugpack.require('bugioc.ConfigurationAnnotationProcessor');
 var ConfigurationScan                   = bugpack.require('bugioc.ConfigurationScan');
@@ -68,7 +70,7 @@ var SplashApplication = Class.extend(Obj, {
          * @type {AutowiredScan}
          * @type {ConfigurationScan}
          */
-        this.autowiredScan      = new AutowiredScan(this.iocContext);
+        this.autowiredScan      = new AutowiredScan(new AutowiredAnnotationProcessor(this.iocContext));
 
         /**
          * @private
