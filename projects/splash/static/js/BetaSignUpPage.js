@@ -107,7 +107,7 @@ var BetaSignUpPage = Class.extend(Page, {
         var _this = this;
 
         this.handleNavPullDownClick = function(event) {
-            _this.pageManager.goToPage("explainerPage", "slidedown");
+            _this.pageManager.goToPage("explainerPage", "slideright");
         };
     },
 

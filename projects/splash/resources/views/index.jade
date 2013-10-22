@@ -3,7 +3,7 @@ extends layout
 block content
   script
       var firstPage="explainerPage";
-      Loader.numExpectedLoadedItems = 6;
+      Loader.numExpectedLoadedItems = 5;
   div(id="page-container")
     div(id="loading-page", class="page")
       div(class="row-fluid")
@@ -11,25 +11,50 @@ block content
           div(class="airbug-loader-container")
             img(class="loader", src="/img/ajax-loader.gif", alt="loading...")
     div(id="explainer-page", class="page")
-      div(class="row-fluid")
-        div(class="span12")
-          div(class="logo-container")
-            img(class="logo", src="/img/airbug-logo-large.png", alt="airbug", onload="Loader.loaded();")
-          div(class="marketing-container")
-            div(class="marketing-tagline")
-              h2(id="marketing-tagline-header")
-            div(class="marketing-subpoints")
-              div(class="marketing-subpoint1")
-                h4 Enrich and streamline team communication
-                p airbug enables content from the other tools you already use to be embedded directly into your team’s conversations.
-              div(class="marketing-subpoint2")
-                h4 Easily search conversations and content
-                p Hours, days or months down the road your team’s conversations and content remain searchable, keeping everyone moving forward not endlessly scrolling backward.
-              div(class="marketing-subpoint3")
-                h4 Enable action through integration
-                p By removing barriers to communication airbug sets team collaboration free of cross platform barriers to focus on what they do best, production.
-          div(class="beta-sign-up-button-container")
-            button(id="beta-sign-up-button", class="btn btn-large btn-info") Sign up for the beta
+      div(class="navbar navbar-default navbar-fixed-top", role="navigation")
+        div(class="container")
+          div(class="navbar-header")
+            button(type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
+              span(class="icon-bar")
+              span(class="icon-bar")
+              span(class="icon-bar")
+            a(class="navbar-brand" href="#")
+              img(class="navbar-brand logo", src="/img/airbug-logo-large.png", alt="airbug", onload="Loader.loaded();")
+          div(class="navbar-collapse collapse")
+            ul(class="nav navbar-nav navbar-right")
+              li
+                a(href="http://blog.airbug.com/") blog
+              li
+                button(type="button", class="btn btn-default navbar-btn") sign up
+      div(class="row row1")
+        div(class="col-sm-4 col-sm-offset-4")
+          form(class="form-inline", role="form")
+            div(class="form-group")
+              label(class="sr-only", for="exampleInputEmail2") enter email address
+              input(type="email", class="form-control", id="EmailInput1", placeholder="Enter email")
+            button(type="submit", class="btn btn-default") sign up for beta - free!
+      div(class="row row2")
+        div(class="col-sm-6 col-sm-offset-3")
+          div(class="feature-image-1")
+            img(src="http://placekitten.com/600/400" alt="product image")
+      div(class="row row3")
+        div(class="col-sm-12")
+          h3(class="feature-title") Collaborate Asynchronously
+          h6(class="feature-emotive-description") Questions on code and features, while important don’t always require immediate attention or answers. Airbug allows you to foster efficiency by collaborating with your team, on your own time.
+            div(class="row")
+              div(class="col-sm-4")
+                h5 img goes here
+                h6 Collaborate on and markup content directly in your conversation
+                p code highlighting, image capture, and screenshot markup allows you to reference and point out issues in their place leaving fewer questions in describing a problem and more room for independent workflow
+              div(class="col-sm-4")
+                h5 img goes here
+                h6 Foster efficiency by working on your own schedule 
+                p NEED FEATURE ASSOCIATION
+              div(class="col-sm-4")
+                h5 img goes here
+                h6 Search your chat history and add markup to past images which resurface in the collaboration process
+                p scroll through previously discussed code, view comments and past history to effortlessly reference past issues?points of conflicts? and discuss solutions
+
     div(id="beta-sign-up-page", class="page")
       nav
         div(class="nav-pull-down-tab-container")

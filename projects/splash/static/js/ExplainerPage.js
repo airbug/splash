@@ -86,7 +86,7 @@ var ExplainerPage = Class.extend(Page, {
 
         var betaSignUpButton = JQuery("#beta-sign-up-button");
         betaSignUpButton.on("click", function(event) {
-            _this.pageManager.goToPage("betaSignUpPage", "slideup");
+            _this.pageManager.goToPage("betaSignUpPage", "slideleft");
         });
 
     },

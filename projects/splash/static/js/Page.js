@@ -102,10 +102,18 @@ var Page = Class.extend(Obj, {
         this.element.removeClass("page-slide-out-to-top-and-hide");
         this.element.removeClass("page-slide-in-from-top");
         this.element.removeClass("page-slide-in-from-bottom");
+        this.element.removeClass("page-slide-in-from-left");
+        this.element.removeClass("page-slide-in-from-right");
+        this.element.removeClass("page-slide-out-to-left-and-hide");
+        this.element.removeClass("page-slide-out-to-right-and-hide");
         if (pageTransition === "slidedown") {
             this.element.addClass("page-slide-in-from-top");
         } else if (pageTransition === "slideup") {
             this.element.addClass("page-slide-in-from-bottom");
+        } else if (pageTransition === "slideleft"){
+            this.element.addClass("page-slide-in-from-right")
+        } else if(pageTransition === "slideright"){
+            this.element.addClass("page-slide-in-from-left")
         }
         this.element.css("visibility", "visible");
     },
@@ -119,10 +127,18 @@ var Page = Class.extend(Obj, {
         this.element.removeClass("page-slide-out-to-top-and-hide");
         this.element.removeClass("page-slide-in-from-top");
         this.element.removeClass("page-slide-in-from-bottom");
+        this.element.removeClass("page-slide-in-from-left");
+        this.element.removeClass("page-slide-in-from-right");
+        this.element.removeClass("page-slide-out-to-left-and-hide");
+        this.element.removeClass("page-slide-out-to-right-and-hide");
         if (pageTransition === "slidedown") {
             this.element.addClass("page-slide-out-to-bottom-and-hide");
         } else if (pageTransition === "slideup") {
             this.element.addClass("page-slide-out-to-top-and-hide")
+        } else if (pageTransition === "slideleft"){
+            this.element.addClass("page-slide-out-to-left-and-hide")
+        } else if(pageTransition === "slideright"){
+            this.element.addClass("page-slide-out-to-right-and-hide")
         }
         this.element.css("visibility", "hidden");
     },
