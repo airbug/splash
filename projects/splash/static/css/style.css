@@ -49,14 +49,12 @@ p {
   background-color:   #FF8080;
 }
 
-h3.feature-title {
+.benefit-title {
   text-align: center;
-
 }
 
-h6.feature-emotive-description {
+.benefit-description {
   text-align: center;
-
 }
 
 #app-container {
@@ -801,6 +799,65 @@ h6.feature-emotive-description {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
+}
+
+.feature-example {
+    width: 350px;
+    height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
+#capture-content-chat-form {
+
+}
+
+#capture-content-start-message {
+
+}
+
+#capture-content-camera-button {
+
+}
+
+#capture-content-fake-screenshot {
+    display: none;
+}
+
+.message-wrapper {
+    padding: 5px;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(196, 196, 196);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    /*box-shadow: 2px 2px 10px #888888;*/
+}
+
+.message-sent-by {
+    color: rgb(176, 176, 176);
+    font-size: 17px;
+    font-weight: 200;
+    left: 14px;
+    position: absolute;
+    top: 9px;
+    margin: 0;
+}
+
+.message-sent-at {
+    color: rgb(210, 228, 243);
+    text-align:right;
+    line-height: 30px;
+}
+
+.message-body {
+    font-size: 15px;
+    font-weight: 200;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 
