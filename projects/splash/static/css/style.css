@@ -18,64 +18,74 @@ a {
 }
 
 p {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+
 /* Navigation
 ********************************************/
+
 .navbar-fixed-top{
     height: 100px;
 }
 
 .nav-position{
- padding-top: 28px;
+    padding-top: 28px;
 }
 
 .nav-font {
-  font-size: 1.125em;
+    font-size: 1.125em;
 }
 
 .nav-font li{
-  padding-right: 15px;
+    padding-right: 15px;
 }
 
 /* Home Page
 ********************************************/
+
 .header-tagline {
   text-align: center;
 }
 
 .row3{
-  background-color:   #abcecb;
+    background-color:   #abcecb;
 }
 
 .row5{
-  background-color:   #abcecb;
+    background-color:   #abcecb;
 }
 
 .benefit-title {
-  text-align: center;
-  font-size: 2.625em
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2.625em
 }
 
 .benefit-description {
-  text-align: center;
-  font-size: 1.250em;
-  font-weight: 300;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1.250em;
+    font-weight: 300;
 }
 
 .feature {
-  font-size:1.313em;
-  line-height: 1.1px;
-  color: rgb(42,42,42);
-  padding-left: 15px;
-  text-align:center;
+    font-size:1.313em;
+    line-height: 1.1px;
+    color: rgb(42,42,42);
+    padding-left: 15px;
+    text-align:center;
 }
 
 .feature-description{
-  font-size: .875em;
-  color: rgb(90,90,90);
-  padding-left: 15px;
-  text-align: center;
+    font-size: .875em;
+    color: rgb(90,90,90);
+    padding-left: 15px;
+    text-align: center;
 }
 
 /* Footer
@@ -849,48 +859,32 @@ p {
 
 .feature-example {
     width: 350px;
-    height: 200px;
+    height: 220px;
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
 }
 
-#capture-content-chat-form {
-    padding-top: 10px;
-}
 
-#capture-content-start-message {
-
-}
-
-#capture-content-reply-message {
-    display: none;
-}
-
-#capture-content-camera-button {
-    margin-left: 10px;
-    margin-right: 0;
-}
-
-#capture-content-fake-screenshot {
-    display: none;
-}
-
-#chat-message-input {
-    width: 280px;
-}
+/* Messages
+********************************************/
 
 .messages-container {
     position: relative;
     width: 100%;
-    height: 100px;
+    max-height: 150px;
     overflow-y: scroll;
     overflow-x: hidden;
+    -moz-transition:height 1s;
+    -webkit-transition:height 1s;
+    -o-transition:height 1s;
+    transition:height 1s;
 }
 
 .message-wrapper {
     width: 100%;
     position: relative;
+    margin-bottom: 5px;
     padding: 5px;
     background-color: rgb(255, 255, 255);
     border-color: rgb(196, 196, 196);
@@ -900,9 +894,22 @@ p {
     /*box-shadow: 2px 2px 10px #888888;*/
 }
 
-.message-image {
+.reply-message {
+    background-color: rgb(245, 253, 255);
+}
+
+.message-image-wrapper {
+    position: relative;
     margin-left: auto;
     margin-right: auto;
+    width: 150px;
+    height: 75px;
+}
+
+.message-image {
+    position: absolute;
+    top: 0px;
+    left: 25px;
     width: 100px;
     height: 75px;
 }
@@ -931,13 +938,49 @@ p {
     text-align: left;
 }
 
-.animate-up {
-    top: -100%;
-    -moz-transition:top 1s;
-    -webkit-transition:top 1s;
-    -o-transition:top 1s;
-    transition:top 1s;
+.message-image-markup-icon {
+    position: absolute;
+    left: 125px;
+    top: 0px;
 }
+
+.chat-input {
+    width: 280px;
+}
+
+.chat-form {
+    padding-top: 10px;
+}
+
+
+/* Capture Content
+********************************************/
+
+#capture-content-start-message {
+    display: none;
+}
+
+#capture-content-reply-message {
+    display: none;
+}
+
+#capture-content-camera-button {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+#capture-content-fake-screenshot {
+    display: none;
+}
+
+
+/* Image Markup
+********************************************/
+
+#image-markup-reply-message {
+    display: none;
+}
+
 
 /* Beta Sign Up Page
 ********************************************/
@@ -946,8 +989,8 @@ p {
    border-top: 1px;
 }
 
-    /* Beta Sign Up Page Navigation
-    ********************************************/
+/* Beta Sign Up Page Navigation
+********************************************/
 
 .arrow-container {
     display: block;

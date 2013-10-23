@@ -88,11 +88,8 @@ var ExplainerPage = Class.extend(Page, {
         betaSignUpButton.on("click", function(event) {
             _this.pageManager.goToPage("betaSignUpPage", "slideleft");
         });
-
-        var captureContentCameraButton = JQuery("#capture-content-camera-button");
-        captureContentCameraButton.on("click", function(event) {
-            _this.runFakeScreenShot();
-        });
+        this.initializeCaptureContent();
+        this.initializeImageMarkup();
     },
 
     /**
@@ -109,13 +106,45 @@ var ExplainerPage = Class.extend(Page, {
     // Private Methods
     //-------------------------------------------------------------------------------
 
+    // Capture Content
+    //-------------------------------------------------------------------------------
+
     /**
      * @private
      */
-    runFakeScreenShot: function() {
-        var startMessage = JQuery("#capture-content-start-message");
-        var replyMessage = JQuery("#capture-content-reply-message");
-        replyMessage.show();
+    initializeCaptureContent: function() {
+        var _this = this;
+        var captureContentChatForm = JQuery("#capture-content-chat-form");
+        captureContentChatForm.mouseover(function(event) {
+            _this.showFirstMessage();
+        });
+        var captureContentCameraButton = JQuery("#capture-content-camera-button");
+        captureContentCameraButton.on("click", function(event) {
+            _this.runCaptureContent(function() {
+
+            });
+        });
+    },
+
+    /**
+     * @private
+     * @param {function()} callback
+     */
+    runCaptureContent: function(callback) {
+        var replyMessage        = JQuery("#capture-content-reply-message");
+        var messagesContainer   = JQuery("#capture-content-messages-container");
+        this.runFakeScreenShot(function() {
+            replyMessage.show();
+            messagesContainer.animate({
+                scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
+            }, 1000);
+        });
+    },
+
+    /**
+     * @private
+     */
+    runFakeScreenShot: function(callback) {
         var fakeScreenShotContainer = JQuery("#fake-screen-shot-container");
         fakeScreenShotContainer.show();
         setTimeout(function() {
@@ -123,8 +152,48 @@ var ExplainerPage = Class.extend(Page, {
             setTimeout(function() {
                 fakeScreenShotContainer.css("opacity", 1);
                 fakeScreenShotContainer.hide();
+                callback();
             }, 600);
         }, 0);
+    },
+
+    /**
+     * @private
+     */
+    showFirstMessage: function() {
+        var startMessage        = JQuery("#capture-content-start-message");
+        startMessage.show();
+    },
+
+
+    // Image Markup
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeImageMarkup: function() {
+        var _this = this;
+        var markupButton = JQuery("#image-markup-markup-button");
+        markupButton.on("click", function(event) {
+            _this.showImageMarkupPopup();
+        });
+    },
+
+    /**
+     * @private
+     */
+    embedImageMarkupInMessage: function() {
+        /*var image = new Image();
+        img.id = "pic"
+        img.src = canvas.toDataURL();*/
+    },
+
+    /**
+     * @private
+     */
+    showImageMarkupPopup: function() {
+        //TODO BRN: Show the image markup popup
     }
 });
 
