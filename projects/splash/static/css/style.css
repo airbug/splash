@@ -18,6 +18,10 @@ a {
     margin-right: 10px;
 }
 
+p {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: .875em;
+}
 /* Navigation
 ********************************************/
 .navbar-fixed-top{
@@ -38,6 +42,10 @@ a {
 }
 
 .row3{
+  background-color:   #FF8080;
+}
+
+.row5{
   background-color:   #FF8080;
 }
 
