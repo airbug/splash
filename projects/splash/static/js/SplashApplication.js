@@ -94,7 +94,8 @@ var SplashApplication = Class.extend(Obj, {
      * @param {function(Error)} callback
      */
     start: function(callback) {
-        this.autowiredScan.scan();
+        this.autowiredScan.scanAll();
+        this.autowiredScan.scanContinuous();
         this.configurationScan.scanAll();
         this.moduleScan.scanAll();
         this.iocContext.process();
