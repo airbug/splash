@@ -21,7 +21,7 @@ block content
             div(class="form-group")
               label(class="sr-only", for="exampleInputEmail2") enter email address
               input(type="email", class="form-control", id="EmailInput1", placeholder="Enter email")
-            button(type="submit", class="btn btn-default") sign up for beta - free!
+            button(type="button", class="btn btn-default") sign up for beta - free!
       div(class="row row2")
         div(class="col-sm-6 col-sm-offset-3")
           div(class="airbug-screenshot")
@@ -33,15 +33,21 @@ block content
           div(class="row")
             div(class="col-sm-4 feature-container")
               div(id="capture-content-feature-example", class="feature-example")
-                  div(id="capture-content-start-message", class="message-wrapper")
-                    div(class="message-sent-by") Brian
-                    div(class="message-sent-at") 8:40PM
-                    div(class="message-body") Can you send me a screen shot?
+                  div(id="capture-content-messages-container", class="messages-container")
+                    div(id="capture-content-start-message", class="message-wrapper")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") Can you send me a screen shot?
+                    div(id="capture-content-reply-message", class="message-wrapper")
+                      div(class="message-sent-by") You
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") Here ya go
+                          img(src="http://placekitten.com/600/400", class="message-image")
                   div(id="capture-content-chat-form")
                     form(class="form-inline", role="form")
-                      div(class="form-group")
+                      div(id="chat-message-input", class="form-group")
                         input(type="text", class="form-control", id="chat-message", placeholder="")
-                      button(id="capture-content-camera-button", type="submit", class="btn btn-default")
+                      button(id="capture-content-camera-button", type="button", class="btn btn-default")
                         div(class="glyphicon glyphicon-camera")
               h5(class="feature") Screenshot capture
               p(class="feature-description") Easily capture and retrieve content to collaborate on in your conversation. web clipper captures the content immediately - capture content or receive from another source all within airbug- need content in order to collaborate

@@ -89,6 +89,10 @@ var ExplainerPage = Class.extend(Page, {
             _this.pageManager.goToPage("betaSignUpPage", "slideleft");
         });
 
+        var captureContentCameraButton = JQuery("#capture-content-camera-button");
+        captureContentCameraButton.on("click", function(event) {
+            _this.runFakeScreenShot();
+        });
     },
 
     /**
@@ -98,6 +102,29 @@ var ExplainerPage = Class.extend(Page, {
         this._super(pageTransition);
         var loadingPage = JQuery("#loading-page");
         loadingPage.hide();
+    },
+
+
+    //-------------------------------------------------------------------------------
+    // Private Methods
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    runFakeScreenShot: function() {
+        var startMessage = JQuery("#capture-content-start-message");
+        var replyMessage = JQuery("#capture-content-reply-message");
+        replyMessage.show();
+        var fakeScreenShotContainer = JQuery("#fake-screen-shot-container");
+        fakeScreenShotContainer.show();
+        setTimeout(function() {
+            fakeScreenShotContainer.css("opacity", 0);
+            setTimeout(function() {
+                fakeScreenShotContainer.css("opacity", 1);
+                fakeScreenShotContainer.hide();
+            }, 600);
+        }, 0);
     }
 });
 
