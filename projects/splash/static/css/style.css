@@ -26,6 +26,18 @@ p {
     height: 100px;
 }
 
+.nav-position{
+ padding-top: 28px;
+}
+
+.nav-font {
+  font-size: 1.125em;
+}
+
+.nav-font li{
+  padding-right: 15px;
+}
+
 /* Home Page
 ********************************************/
 .header-tagline {
@@ -55,11 +67,22 @@ p {
   font-size:1.313em;
   line-height: 1.1px;
   color: rgb(42,42,42);
+  padding-left: 15px;
+  text-align:center;
 }
 
 .feature-description{
   font-size: .875em;
   color: rgb(90,90,90);
+  padding-left: 15px;
+  text-align: center;
+}
+
+/* Footer
+********************************************/
+
+.footer{
+  height: 200px;
 }
 
 #app-container {
@@ -85,6 +108,7 @@ p {
     position: relative;
     display: block;
     height: 100%;
+    padding-top: 100px;
 }
 
 .page-container-fadein {
@@ -742,7 +766,7 @@ p {
 .logo {
     display: block;
     position: absolute;
-    width: 242px;
+    width: 232px;
     height: 105px;
     top: 0px;
     left: 35px;
