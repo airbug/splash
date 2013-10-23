@@ -11,21 +11,10 @@ block content
           div(class="airbug-loader-container")
             img(class="loader", src="/img/ajax-loader.gif", alt="loading...")
     div(id="explainer-page", class="page")
-      div(class="navbar navbar-default navbar-fixed-top", role="navigation")
-        div(class="container")
-          div(class="navbar-header")
-            button(type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
-              span(class="icon-bar")
-              span(class="icon-bar")
-              span(class="icon-bar")
-            a(class="navbar-brand" href="#")
-              img(class="navbar-brand logo", src="/img/airbug-logo-large.png", alt="airbug", onload="Loader.loaded();")
-          div(class="navbar-collapse collapse")
-            ul(class="nav navbar-nav navbar-right")
-              li
-                a(href="http://blog.airbug.com/") blog
-              li
-                button(type="button", class="btn btn-default navbar-btn") sign up
+      div(class="row")
+        div(class="col-sm-6 col-sm-offset-3")
+      div(class="tagline")
+        h1(class="header-tagline") Collaborative chat for developers
       div(class="row row1")
         div(class="col-sm-4 col-sm-offset-4")
           form(class="form-inline", role="form")
@@ -35,15 +24,15 @@ block content
             button(type="submit", class="btn btn-default") sign up for beta - free!
       div(class="row row2")
         div(class="col-sm-6 col-sm-offset-3")
-          div(class="feature-image-1")
-            img(src="http://placekitten.com/600/400", alt="product image")
+          div(class="airbug-screenshot")
+            img(src="http://placekitten.com/600/400" alt="product image")
       div(class="row row3")
         div(class="col-sm-12")
-          h3(class="benefit-title") Collaborate Asynchronously
-          h6(class="benefit-description") Questions on code and features, while important don’t always require immediate attention or answers. Airbug allows you to foster efficiency by collaborating with your team, on your own time.
-            div(class="row")
-              div(class="col-sm-4")
-                div(id="capture-content-feature-example", class="feature-example")
+          h1(class="benefit-title") Collaborate Asynchronously
+          h4(class="benefit-description") Questions on code and features, while important don’t always require immediate attention or answers. Airbug allows you to foster efficiency by collaborating with your team, on your own time.
+          div(class="row")
+            div(class="col-sm-4 feature-container")
+              div(id="capture-content-feature-example", class="feature-example")
                   div(id="capture-content-start-message", class="message-wrapper")
                     div(class="message-sent-by") Brian
                     div(class="message-sent-at") 8:40PM
@@ -54,50 +43,50 @@ block content
                         input(type="text", class="form-control", id="chat-message", placeholder="")
                       button(id="capture-content-camera-button", type="submit", class="btn btn-default")
                         div(class="glyphicon glyphicon-camera")
-                h6 Easy access to existing content and tools to capture new content
-                p Easily capture and retrieve content to collaborate on in your conversation. Use our screenshot plugin to grab a quick snapshot, use the web clipper to capture content on a web page,  - capture content or receive from another source all within airbug- need content in order to collaborate
-              div(class="col-sm-4")
-                h5 img goes here
-                h6 Image markup
-                p airbug allows you to markup content to point out issues and directly reference screenshots and images allowing for specific references and a more independent workflow 
-              div(class="col-sm-4")
-                h5 img goes here
-                h6 Code highlighting and annotations 
-                p highlight and comment on snippets of code ADD SOMETHING
+              h5(class="feature") Screenshot capture
+              p(class="feature-description") Easily capture and retrieve content to collaborate on in your conversation. web clipper captures the content immediately - capture content or receive from another source all within airbug- need content in order to collaborate
+            div(class="col-sm-4 feature-container")
+              div(class="feature-example")
+              h5(class="feature") Image markup
+              p(class="feature-description") airbug allows you to markup content to point out issues and directly reference screenshots and images allowing for specific references and a more independent workflow 
+            div(class="col-sm-4 feature-container")
+              div(class="feature-example")
+              h5(class="feature") Code highlighting and annotations 
+              p(class="feature-description") highlight and comment on snippets of code ADD SOMETHING
       div(class="row row4")
         div(class="col-sm-12")
-          h3(class="benefit-title") Maintain frame of reference
-          h6(class="benefit-description") Traditional chat clients require you to have a chronological coversation, as a developer this can be challenging to stop your workflow and chime in everytime a question pops up. Airbug allows you to maintain to capture the issue in place and maintain a frame of reference within each individual conversation through screencapture and forum style conversations
-            div(class="row")
-              div(class="col-sm-4")
-                div(class="feature-example")
-                h6 Forum style threaded conversations
-                p organize your chat conversations by topic and thread making it even easier to collaborate and consume information from a topic style format
-              div(class="col-sm-4")
-                div(class="feature-example")
-                h6 Directly embedded content 
-                p Embedded content keeps everyone on the same page and in one place no matter if you are an active or passive participant in the chat conversation. Viewing full images in your windown makes sure no link is left unviewed
-              div(class="col-sm-4")
-                div(class="feature-example")
-                h6 Easy snapshot capabilities
-                p capture issue in its place to maintain frame of reference for future conversations
+          h1(class="benefit-title") Maintain frame of reference
+          h4(class="benefit-description") Traditional chat clients require you to have a chronological coversation, as a developer this can be challenging to stop your workflow and chime in everytime a question pops up. Airbug allows you to maintain to capture the issue in place and maintain a frame of reference within each individual conversation through screencapture and forum style conversations
+          div(class="row")
+            div(class="col-sm-4 feature-container")
+              div(class="feature-example")
+              h5(class="feature") Forum style threaded conversations
+              p(class="feature-description") organize your chat conversations by topic and thread making it even easier to collaborate and consume information from a topic style format
+            div(class="col-sm-4 feature-container")
+              div(class="feature-example")
+              h5(class="feature") Directly embedded content 
+              p(class="feature-description") Embedded content keeps everyone on the same page and in one place no matter if you are an active or passive participant in the chat conversation. Viewing full images in your windown makes sure no link is left unviewed
+            div(class="col-sm-4 feature-container")
+              div(class="feature-example")
+              h5(class="feature") Easy snapshot capabilities
+              p(class="feature-description") capture issue in its place to maintain frame of reference for future conversations
       div(class="row row5")
         div(class="col-sm-12")
-          h3(class="benefit-title") Stay in flow
-          h6(class="benefit-description") We know it’s important for developers to reduce noise during the day, efficient and clean code requires a solid work flow with minimal distractions airbug creates an environment that allows you to keep your head down and power through code.
-            div(class="row")
-              div(class="col-sm-4")
-                div(class="feature-example")
-                h6 default to inactive mode
-                p airbug automatically puts you in &quot; do not disturb &quot;  mode unless you are actively using the client. 
-              div(class="col-sm-4")
-                div(class="feature-example")
-                h6 Tap feature and controlled settings 
-                p airug allows you to control your away settings to be as available or unavailable as you need. However that  tap feature allows you to break through barriers and get attention when it is most needed
-              div(class="col-sm-4")
-                div(class="feature-example")
-                h6 keep everything in one place
-                p have all your content in one place work with images, code and coversations all while staying in the chat client → have everything at your fingertips, easy access to content and past conversations to quickly grab it
+          h1(class="benefit-title") Stay in flow
+          h4(class="benefit-description") We know it’s important for developers to reduce noise during the day, efficient and clean code requires a solid work flow with minimal distractions airbug creates an environment that allows you to keep your head down and power through code.
+          div(class="row")
+            div(class="col-sm-4 feature-container")
+              div(class="feature-example")
+              h5(class="feature") default to inactive mode
+              p(class="feature-description") airbug automatically puts you in &quot; do not disturb &quot;  mode unless you are actively using the client. 
+            div(class="col-sm-4 feature-container")
+              div(class="feature-example")
+              h5(class="feature") Tap feature and controlled settings 
+              p(class="feature-description") airug allows you to control your away settings to be as available or unavailable as you need. However that  tap feature allows you to break through barriers and get attention when it is most needed
+            div(class="col-sm-4 feature-container")
+              div(class="feature-example")
+              h5(class="feature") keep everything in one place
+              p(class="feature-description") have all your content in one place work with images, code and coversations all while staying in the chat client → have everything at your fingertips, easy access to content and past conversations to quickly grab it
     div(id="beta-sign-up-page", class="page")
       nav
         div(class="nav-pull-down-tab-container")

@@ -45,6 +45,22 @@ html
         }
   body
     div(id="app-container")
+      div(id="fixed-navigation")
+        div(class="navbar navbar-default navbar-fixed-top", role="navigation")
+          div(class="container")
+            div(class="navbar-header")
+              button(type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
+                span(class="icon-bar")
+                span(class="icon-bar")
+                span(class="icon-bar")
+              a(class="navbar-brand" href="#")
+                img(class="navbar-brand logo", src="/img/airbug-logo-large.png", alt="airbug", onload="Loader.loaded();")
+            div(class="navbar-collapse collapse")
+              ul(class="nav navbar-nav navbar-right")
+                li
+                  a(href="http://blog.airbug.com/") blog
+                li
+                  button(type="button", class="btn btn-default navbar-btn") sign up
       block content
       div(id="interference-container")
       div(id="feedback-container", class="feedback-container-collapse")
