@@ -88,8 +88,14 @@ var ExplainerPage = Class.extend(Page, {
         betaSignUpButton.on("click", function(event) {
             _this.pageManager.goToPage("betaSignUpPage", "slideleft");
         });
+
         this.initializeCaptureContent();
         this.initializeImageMarkup();
+
+        var defaultInactiveForm = JQuery("#default-inactive-mode-feature-form");
+        defaultInactiveForm.change(function(){
+            _this.runChangeToActiveMode();
+        });
     },
 
     /**
@@ -139,6 +145,15 @@ var ExplainerPage = Class.extend(Page, {
                 scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
             }, 1000);
         });
+    },
+
+    /**
+     * @private
+     */
+
+    runChangeToActiveMode:function(){
+        var inactiveButton = JQuery("#inactive-button");
+        inactiveButton.css("background-color", "green");
     },
 
     /**
@@ -196,7 +211,6 @@ var ExplainerPage = Class.extend(Page, {
         //TODO BRN: Show the image markup popup
     }
 });
-
 
 //-------------------------------------------------------------------------------
 // Exports

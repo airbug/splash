@@ -21,6 +21,21 @@ p {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+/* Stay in flow
+********************************************/
+.inactive-button{
+    height: 24px;
+    width: 24px;
+    border-radius: 12px;
+    background-color: red;
+    display: inline-block;
+    position: relative;
+}
+
+#default-inactive-mode-feature-form {
+    height: 40px;
+}
+
 
 /* Navigation
 ********************************************/

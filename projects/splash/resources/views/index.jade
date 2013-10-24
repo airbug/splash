@@ -50,8 +50,8 @@ block content
                       input(type="text", class="form-control", id="chat-message", placeholder="")
                     button(id="capture-content-camera-button", type="button", class="btn btn-default")
                       div(class="glyphicon glyphicon-camera")
-              h5(class="feature") Screenshot capture
-              p(class="feature-description") Easily capture and retrieve content to collaborate on in your conversation. web clipper captures the content immediately - capture content or receive from another source all within airbug- need content in order to collaborate
+              h5(class="feature") content capture
+              p(class="feature-description") Capture and share content with one click. Easily grab web clippings, take screenshots and transfer code snippets into the conversation.
             div(class="col-sm-4 feature-container")
               div(id="image-markup-feature-example", class="feature-example")
                 div(id="image-markup-messages-container", class="messages-container")
@@ -71,27 +71,27 @@ block content
                     div(class="message-image-wrapper")
                       img(class="message-image")
               h5(class="feature") Image markup
-              p(class="feature-description") airbug allows you to markup content to point out issues and directly reference screenshots and images allowing for specific references and a more independent workflow 
+              p(class="feature-description") Convey ideas quickly and elaborate on concepts by adding text directly to an image, pointing out what's important with arrows, and marking up the image with the draw tool.
             div(class="col-sm-4 feature-container")
               div(class="feature-example")
               h5(class="feature") Code highlighting and annotations 
-              p(class="feature-description") highlight and comment on snippets of code ADD SOMETHING
+              p(class="feature-description") Discuss code, provide feedback and solve problems by annotating code with comments and highlighting snippets directly in the chat window.
       div(class="row row4")
         div(class="col-sm-12")
           h1(class="benefit-title") Maintain frame of reference
-          h4(class="benefit-description") Traditional chat clients require you to have a chronological coversation, as a developer this can be challenging to stop your workflow and chime in everytime a question pops up. Airbug allows you to maintain to capture the issue in place and maintain a frame of reference within each individual conversation through screencapture and forum style conversations
+          h4(class="benefit-description") Your time is valuable, Don't waste time getting up to speed or reconstructing your previous discussion. Your time is valuable get up whether in a past or more current conversation one airbug helps maintain a frame of reference to allow you to consume quickly and pick up right where you left off without wasting time getting your bearings  Airbug allows you to maintain a frame of reference within each individual conversation through screencapture and forum style conversations. easily consuer and pick up wher you left off
           div(class="row")
             div(class="col-sm-4 feature-container")
               div(class="feature-example")
-              h5(class="feature") Forum style threaded conversations
-              p(class="feature-description") organize your chat conversations by topic and thread making it even easier to collaborate and consume information from a topic style format
+              h5(class="feature") Threaded conversations
+              p(class="feature-description") Many chat clients require you to have a chronological coversation,keep topic organized use threaded conversations to easily reply and organize your chat by topic makinging it even easier to collaborate and consume information.
             div(class="col-sm-4 feature-container")
               div(class="feature-example")
-              h5(class="feature") Directly embedded content 
-              p(class="feature-description") Embedded content keeps everyone on the same page and in one place no matter if you are an active or passive participant in the chat conversation. Viewing full images in your windown makes sure no link is left unviewed
+              h5(class="feature") Directly embed content 
+              p(class="feature-description") Keep everyone on the same page by eliinating links and in one place by embedding content directly in the conversation. Easily view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
             div(class="col-sm-4 feature-container")
               div(class="feature-example")
-              h5(class="feature") Easy snapshot capabilities
+              h5(class="feature") Preserve history with snapshots
               p(class="feature-description") capture issue in its place to maintain frame of reference for future conversations
       div(class="row row5")
         div(class="col-sm-12")
@@ -99,7 +99,11 @@ block content
           h4(class="benefit-description") We know it’s important for developers to reduce noise during the day, efficient and clean code requires a solid work flow with minimal distractions airbug creates an environment that allows you to keep your head down and power through code.
           div(class="row")
             div(class="col-sm-4 feature-container")
-              div(class="feature-example")
+              div(id="default-inactive-mode-feature",class="feature-example")
+                div(class="input-group input-group")
+                  span(class="input-group-addon", id="inactive-button")
+                    div(class="inactive-button")
+                  input(type="text",id="default-inactive-mode-feature-form", class="form-control input-group", placeholder="type your message here")
               h5(class="feature") default to inactive mode
               p(class="feature-description") airbug automatically puts you in &quot; do not disturb &quot;  mode unless you are actively using the client. 
             div(class="col-sm-4 feature-container")
@@ -161,7 +165,6 @@ block content
               div(id="airbug-jar-hotspot-1", class="airbug-jar-hotspot")
               div(id="airbug-jar-hotspot-2", class="airbug-jar-hotspot")
               div(id="airbug-jar-hotspot-3", class="airbug-jar-hotspot")
-
       div(id="beta-sign-up-modal", class="modal hide fade")
         div(class="modal-header")
           button(type="button", class="close", data-dismiss="modal", aria-hidden="true")&times;
