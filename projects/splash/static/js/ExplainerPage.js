@@ -84,7 +84,7 @@ var ExplainerPage = Class.extend(Page, {
             }
         });
 
-        var betaSignUpButton = JQuery("#beta-sign-up-button-one", "beta-sign-up-button-two", "beta-sign-up-button-three");
+        var betaSignUpButtons = JQuery("#beta-sign-up-button-one, #beta-sign-up-button-two, #beta-sign-up-button-three");
         betaSignUpButtons.on("click", function(event) {
             _this.pageManager.goToPage("betaSignUpPage", "slideleft");
         });
