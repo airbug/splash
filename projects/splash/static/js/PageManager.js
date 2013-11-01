@@ -8,7 +8,8 @@
 
 //@Require('Class')
 //@Require('Map')
-//@Require('Obj')
+//@Require('EventDispatcher')
+//@Require('Event')
 
 
 //-------------------------------------------------------------------------------
@@ -24,14 +25,15 @@ var bugpack = require('bugpack').context();
 
 var Class =     bugpack.require('Class');
 var Map =       bugpack.require('Map');
-var Obj =       bugpack.require('Obj');
+var EventDispatcher =       bugpack.require('EventDispatcher');
+var Event =     bugpack.require('Event');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var PageManager = Class.extend(Obj, {
+var PageManager = Class.extend(EventDispatcher, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -96,6 +98,8 @@ var PageManager = Class.extend(Obj, {
             page.activate(pageTransition);
             this.currentPage = page;
             this.tracker.trackPageView(page.getName());
+            console.log("dispatching gotoPage event");
+            this.dispatchEvent(new Event(PageManager.EventTypes.GOTOPAGE, {currentPage: this.currentPage}));
         }
     },
 
@@ -108,6 +112,7 @@ var PageManager = Class.extend(Obj, {
     }
 });
 
+PageManager.EventTypes = {GOTOPAGE: "pageManagereventType::goToPage"} 
 
 //-------------------------------------------------------------------------------
 // Exports

@@ -4,6 +4,7 @@ block content
   script
       var firstPage="explainerPage";
       Loader.numExpectedLoadedItems = 5;
+  script
   div(id="page-container")
     div(id="loading-page", class="page")
       div(class="row-fluid")
@@ -16,111 +17,136 @@ block content
       div(class="tagline")
         h1(class="header-tagline") Collaborative chat for developers
       div(class="row row1")
-        div(class="col-sm-4 col-sm-offset-4")
+        div(class="col-sm-2 col-sm-offset-5")
           form(class="form-inline", role="form")
             div(class="form-group")
-            button(type="button", class="btn btn-default", id="beta-sign-up-button-two") sign up for beta - free!
+            button(type="button", class="btn btn-default button-font", id="beta-sign-up-button-two") sign up for beta - free!
       div(class="row row2")
         div(class="col-sm-6 col-sm-offset-3")
           div(class="airbug-screenshot")
             img(src="http://placekitten.com/600/400" alt="product image")
       div(class="row row3")
-        div(class="col-sm-12")
-          h1(class="benefit-title") Collaborate Asynchronously
-          h4(class="benefit-description") Questions on code and features, while important don’t always require immediate attention or answers. Airbug allows you to foster efficiency by collaborating with your team, on your own time.
+        div(class="col-sm-10 col-sm-offset-1")
+          div(class="benefit-container")
+            h1(class="benefit-title") Collaborate Asynchronously
+            h4(class="benefit-description") Questions on code and features, while important, do not always require immediate attention. airbug allows you to foster efficiency by collaborating with your team, on your own time.
           div(class="row")
-            div(class="col-sm-4 feature-container")
-              div(id="capture-content-feature-example", class="feature-example")
-                div(id="capture-content-messages-container", class="messages-container")
-                  div(id="capture-content-start-message", class="message-wrapper")
-                    div(class="message-sent-by") Brian
-                    div(class="message-sent-at") 8:40PM
-                    div(class="message-body") Can you send me a screen shot?
-                  div(id="capture-content-reply-message", class="message-wrapper reply-message")
-                    div(class="message-sent-by") You
-                    div(class="message-sent-at") 8:40PM
-                    div(class="message-body") Here ya go
-                    div(class="message-image-wrapper")
-                      img(src="http://placekitten.com/600/400", class="message-image")
-                div(id="capture-content-chat-form", class="chat-form")
-                  form(class="form-inline", role="form")
-                    div(id="capture-content-chat-input", class="form-group chat-input")
-                      input(type="text", class="form-control", id="chat-message", placeholder="")
-                    button(id="capture-content-camera-button", type="button", class="btn btn-default")
-                      div(class="glyphicon glyphicon-camera")
-              h5(class="feature") content capture
-              p(class="feature-description") Capture and share content with one click. Easily grab web clippings, take screenshots and transfer code snippets into the conversation.
-            div(class="col-sm-4 feature-container")
-              div(id="image-markup-feature-example", class="feature-example")
-                div(id="image-markup-messages-container", class="messages-container")
-                  div(id="image-markup-start-message", class="message-wrapper")
-                    div(class="message-sent-by") Brian
-                    div(class="message-sent-at") 8:40PM
-                    div(class="message-body") What's wrong with this image?
-                    div(class="message-image-wrapper")
-                      img(src="http://placekitten.com/600/400", class="message-image")
-                      div(class="message-image-markup-icon")
-                        button(id="image-markup-markup-button", type="button", class="btn btn-default")
-                          div(class="glyphicon glyphicon-pencil")
-                  div(id="image-markup-reply-message", class="message-wrapper reply-message")
-                    div(class="message-sent-by") You
-                    div(class="message-sent-at") 8:40PM
-                    div(class="message-body") Found the problems!
-                    div(class="message-image-wrapper")
-                      img(class="message-image")
-              h5(class="feature") Image markup
-              p(class="feature-description") Convey ideas quickly and elaborate on concepts by adding text directly to an image, pointing out what's important with arrows, and marking up the image with the draw tool.
-            div(class="col-sm-4 feature-container")
-              div(class="feature-example")
-              h5(class="feature") Code highlighting and annotations 
-              p(class="feature-description") Discuss code, provide feedback and solve problems directly in the chat window by annotating code with comments and highlighting snippets.
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(id="capture-content-feature-example", class="feature-example")
+                  div(id="capture-content-messages-container", class="messages-container")
+                    div(id="capture-content-start-message", class="message-wrapper")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") Can you send me a screen shot?
+                    div(id="capture-content-reply-message", class="message-wrapper reply-message")
+                      div(class="message-sent-by") You
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") Here ya go
+                      div(class="message-image-wrapper")
+                        img(src="http://placekitten.com/600/400", class="message-image")
+                  div(id="capture-content-chat-form", class="chat-form")
+                    form(class="form-inline", role="form")
+                      div(id="capture-content-chat-input", class="form-group chat-input")
+                        input(type="text", class="form-control", id="chat-message", placeholder="")
+                      button(id="capture-content-camera-button", type="button", class="btn btn-default")
+                        div(class="glyphicon glyphicon-camera")
+                h5(class="feature") Content capture
+                p(class="feature-description") Capture and share content with one click. Easily grab web clippings, take screenshots and transfer code snippets into the conversation.
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(id="image-markup-feature-example", class="feature-example")
+                  div(id="image-markup-messages-container", class="messages-container")
+                    div(id="image-markup-start-message", class="message-wrapper")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") What's wrong with this image?
+                      div(class="message-image-wrapper")
+                        img(src="http://placekitten.com/600/400", class="message-image")
+                        div(class="message-image-markup-icon")
+                          button(id="image-markup-markup-button", type="button", class="btn btn-default")
+                            div(class="glyphicon glyphicon-pencil")
+                    div(id="image-markup-reply-message", class="message-wrapper reply-message")
+                      div(class="message-sent-by") You
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") Found the problems!
+                      div(class="message-image-wrapper")
+                        img(class="message-image")
+                h5(class="feature") Image markup
+                p(class="feature-description") Convey ideas and elaborate on concepts by adding text directly to an image, point out what's important with arrows and markup the image with the draw tool.
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(class="feature-example")
+                h5(class="feature") Code annotations 
+                p(class="feature-description") Discuss code, provide feedback, and solve problems directly in the chat window by annotating code with comments and highlights.
 
       div(class="row row4")
-        div(class="col-sm-12")
-          h1(class="benefit-title") Maintain frame of reference
-          h4(class="benefit-description") Your time is valuable, don't waste it getting up to speed or reconstructing your previous discussion. airbug allows you to maintain and frame of reference in each individual conversation - past or present - picking up right where you left off. 
+        div(class="col-sm-10 col-sm-offset-1")
+          div(class="benefit-container")
+            h1(class="benefit-title") Maintain frame of reference
+            h4(class="benefit-description") Your time is valuable. Don't waste it getting up to speed or reconstructing your previous discussion. airbug allows you to maintain a frame of reference in each conversation whether past or present and picking up right where you left off.  
           div(class="row")
-            div(class="col-sm-4 feature-container")
-              div(class="feature-example")
-              h5(class="feature") Threaded conversations
-              p(class="feature-description") Many chat clients require you to have a chronological coversation,keep topic organized use threaded conversations to easily reply and organize your chat by topic makinging it even easier to collaborate and consume information.
-            div(class="col-sm-4 feature-container")
-              div(class="feature-example")
-              h5(class="feature") Embedded content 
-              p(class="feature-description") Keep everyone on the same page by embedding content directly in the conversation. Easily view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
-            div(class="col-sm-4 feature-container")
-              div(class="feature-example")
-              h5(class="feature") Snapshots of content
-              p(class="feature-description") Capture snapshots of content in its place to manage frame of reference for future conversations.
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(class="feature-example")
+                h5(class="feature") Threaded conversations
+                p(class="feature-description") Many chat clients require you to have a chronological conversation. airbug offers threaded conversations to organize your chat by topic making it simple to collaborate on and respond to messages.
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(class="feature-example")
+                h5(class="feature") Embedded content 
+                p(class="feature-description") Keep everyone on the same page by embedding content directly into the conversation. Effortlessly view screenshots, github issues, code snippets and other types of content typically hidden behind links.  
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(class="feature-example")
+                h5(class="feature") Snapshots of content
+                p(class="feature-description") Capture snapshots of content in the moment, establishing a frame of reference for future conversations.
       div(class="row row5")
-        div(class="col-sm-12")
-          h1(class="benefit-title") Stay in flow
-          h4(class="benefit-description") We know it’s important for developers to reduce noise during the day. Efficient and clean code requires a solid work flow with minimal distractions. Airbug creates an environment that allows you to keep your head down and turn bits.
+        div(class="col-sm-10 col-sm-offset-1")
+          div(class="benefit-container")
+            h1(class="benefit-title") Stay in flow
+            h4(class="benefit-description") We know it’s important for developers to reduce noise during the day and minimize distractions. airbug creates an environment that allows you to keep your head down and turn bits.
           div(class="row")
-            div(class="col-sm-4 feature-container")
-              div(id="default-inactive-mode-feature",class="feature-example")
-                div(class="input-group input-group")
-                  span(class="input-group-addon", id="inactive-button")
-                    div(class="inactive-button")
-                  input(type="text",id="default-inactive-mode-feature-form", class="form-control input-group", placeholder="type your message here")
-              h5(class="feature") &quot;heads down &quot; mode
-              p(class="feature-description") minimize distractions by automatically defaulting to &quot;heads down &quot mode unless you are actively using the client. Now your team members know when you are actually available to chat instead of expecting an immediate response when you are in the middle of turning bits.
-            div(class="col-sm-4 feature-container")
-              div(class="feature-example")
-              h5(class="feature") Tap feature 
-              p(class="feature-description") We understand it is important for you to keep focus and minimize distractions. However, there are times when it is imperative for your team to get a hold of you. Let your team members get your attenting using the tap feature.
-            div(class="col-sm-4 feature-container")
-              div(class="feature-example")
-              h5(class="feature") Everything at your fingertips
-              p(class="feature-description") Easily access all your content in one place. Collaborate on images, code and content from your other favroite tools all while staying in the chat client. 
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(id="default-inactive-mode-feature",class="feature-example")
+                  div(class="input-group input-group")
+                    span(class="input-group-addon", id="inactive-button")
+                      div(class="inactive-button")
+                    input(type="text",id="default-inactive-mode-feature-form", class="form-control input-group", placeholder="type your message here")
+                h5(class="feature") &quot;Heads Down &quot; mode
+                p(class="feature-description") airbug helps shield you from distractions by defaulting to &quot; heads down &quot; mode unless you are active in the client. Now your team members know when you are available to chat or when you are coding away.
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(class="feature-example")
+                h5(class="feature") Buzz feature 
+                p(class="feature-description") We understand it is important for you to keep focused.  We also realize there are times when it is imperative for your team to get a hold of you. airbug allows your team members to grab your attention using the buzz feature.
+            div(class="col-md-4")
+              div(class="feature-container")
+                div(class="feature-example")
+                h5(class="feature") Everything at your fingertips
+                p(class="feature-description") Quickly access all your content in one place. Collaborate on images, code, and content from your other favorite tools - all while staying in the chat client. 
       div(class="footer")
         div(class="row")
-          div(class="col-sm-12") this is the footer content!
-            ul
-              li
-                a(href="http://blog.airbug.com/") blog
-              li
-                button(type="button", class="btn btn-default navbar-btn", id="beta-sign-up-button-three") sign up
+          div(class="col-sm-5 col-sm-offset-1 ") 
+            h5(class="feature") About airbug
+            p(class="about-description") airbug is a new type of collaborative chat client designed specifically with developers in mind. We believe in a very simple principle: help developers collaborate without breaking their concentration.
+            p(class="about-description") Questions? Want to chat? Drop us a line at 
+              a(href="mailto:info@airbug.com", target="_blank") info@airbug.com
+
+            form(class="form-inline", role="form")
+              div(class="form-group")
+              button(type="button", class="btn btn-default button-font", id="beta-sign-up-button-two") sign up for beta - free!
+          div(class="col-sm-5 col-sm-offset-1")
+            h5(class="feature") Connect with airbug
+            div(class="social-feed-container")
+              a(href="https://twitter.com/airbug", target="_blank", class="twitter-follow-button", data-show-count="false")
+            p(class="social-text") Follow us on 
+              a(href="https://twitter.com/airbug", target="_blank") Twitter
+            div(class="social-feed-container")
+              div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false") 
+            p(class="social-text") Like us on 
+              a(href="https://www.facebook.com/integrate.airbug", target="_blank") Facebook 
     div(id="beta-sign-up-page", class="page")
       nav
         div(class="nav-pull-down-tab-container")

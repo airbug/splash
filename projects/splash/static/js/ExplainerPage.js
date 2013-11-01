@@ -13,6 +13,7 @@
 //@Require('splitbug.Splitbug')
 
 
+
 //-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
@@ -27,7 +28,7 @@ var bugpack = require('bugpack').context();
 var Class =         bugpack.require('Class');
 var JQuery =        bugpack.require('jquery.JQuery');
 var Page =          bugpack.require('splash.Page');
-
+var PageManager=    bugpack.require('splash.PageManager');
 
 //-------------------------------------------------------------------------------
 // Declare Class
@@ -96,6 +97,8 @@ var ExplainerPage = Class.extend(Page, {
         defaultInactiveForm.change(function(){
             _this.runChangeToActiveMode();
         });
+
+        this.pageManager.addEventListener(PageManager.EventTypes.GOTOPAGE, this.hearGoToPageEvent, this);
     },
 
     /**
@@ -111,7 +114,16 @@ var ExplainerPage = Class.extend(Page, {
     //-------------------------------------------------------------------------------
     // Private Methods
     //-------------------------------------------------------------------------------
-
+    hearGoToPageEvent: function(event){
+        console.log("Hearing go to page event");
+        var currentPage = event.getData().currentPage.name;
+        console.log(currentPage);
+        if (currentPage === "betaSignUpPage") {
+            JQuery('#beta-sign-up-button-one').hide();
+        } else {
+            JQuery('#beta-sign-up-button-one').show();
+        }
+    },
     // Capture Content
     //-------------------------------------------------------------------------------
 
