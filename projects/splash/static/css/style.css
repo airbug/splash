@@ -252,6 +252,7 @@ p {
 
 .page-slide-in-from-right{
     left:0;
+    top:0;
     -webkit-transition: visibility 0.5s step-end;
     -moz-transition: visibility 0.5s step-end;
     -o-transition: visibility 0.5s step-end;
