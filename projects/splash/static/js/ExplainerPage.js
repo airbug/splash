@@ -60,6 +60,13 @@ var ExplainerPage = Class.extend(Page, {
          * @type {Splitbug}
          */
         this.splitbug = null;
+
+
+        /**
+         * @private
+         * @type {number}
+         */
+        this.timerID = null;
     },
 
 
@@ -94,9 +101,11 @@ var ExplainerPage = Class.extend(Page, {
         this.initializeImageMarkup();
 
         var defaultInactiveForm = JQuery("#default-inactive-mode-feature-form");
-        defaultInactiveForm.change(function(){
+        defaultInactiveForm.keyup(function(){
             _this.runChangeToActiveMode();
+            _this.startTimerForInactiveMode();
         });
+
 
         this.pageManager.addEventListener(PageManager.EventTypes.GOTOPAGE, this.hearGoToPageEvent, this);
     },
@@ -162,10 +171,34 @@ var ExplainerPage = Class.extend(Page, {
     /**
      * @private
      */
-
-    runChangeToActiveMode:function(){
+    runChangeToActiveMode: function() {
         var inactiveButton = JQuery("#inactive-button");
         inactiveButton.css("background-color", "green");
+    },
+
+    /**
+     * @private
+     */
+    startTimerForInactiveMode: function() {
+        var _this = this;
+        if (this.timerID) {
+            clearTimeout(this.timerID);
+        }
+        
+        this.timerID = setTimeout(function() {
+            _this.timerID = null;
+            _this.runChangeToInactiveMode();
+        }, 1000);
+
+
+    },
+
+    /**
+     * @private
+     */
+    runChangeToInactiveMode: function() {
+        var inactiveButton = JQuery("#inactive-button");
+        inactiveButton.css("background-color", "red");  
     },
 
     /**
