@@ -183,10 +183,13 @@ p {
 }
 
 #page-container {
-    position: relative;
+    position: absolute;
     display: block;
     height: 100%;
-    padding-top: 100px;
+    top: 100px;
+    left: 0px;
+    width: 100%;
+        
 }
 
 .page-container-fadein {
@@ -211,16 +214,12 @@ p {
     visibility: hidden;
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 0;
+    overflow: hidden;
 }
 
 .page-slide-in-from-left{
     left:0;
-    -webkit-transition: visibility 0.5s step-end;
-    -moz-transition: visibility 0.5s step-end;
-    -o-transition: visibility 0.5s step-end;
-    -ms-transition: visibility 0.5s step-end;
-    transition: visibility 0.5s step-end;
     -webkit-animation: page-slide-in-from-left-animation 0.5s linear;
     -moz-animation: page-slide-in-from-left-animation 0.5s linear;
     -ms-animation: page-slide-in-from-left-animation 0.5s linear;
@@ -230,39 +229,34 @@ p {
 
 
 @-webkit-keyframes page-slide-in-from-left-animation {
-    0% { left:-100%; }
-    100% { left:0%; }
+    0% { left:-100%; height:auto; }
+    100% { left:0%; height:auto; }
 }
 
 @-moz-keyframes page-slide-in-from-left-animation {
-    0% { left:-100%; }
-    100% { left:0%; }
+    0% { left:-100%; height:auto; }
+    100% { left:0%; height:auto; }
 }
 
 @-ms-keyframes page-slide-in-from-left-animation {
-     0% { left:-100%; }
-    100% { left:0%; }
+     0% { left:-100%; height:auto; }
+    100% { left:0%; height:auto; }
 }
 
 @-o-keyframes page-slide-in-from-left-animation {
-    0% { left:-100%; }
-    100% { left:0%; }
+    0% { left:-100%; height:auto; }
+    100% { left:0%; height:auto; }
 }
 
 @keyframes page-slide-in-from-left-animation {
-    0% { left:-100%; }
-    100% { left:0%; }
+    0% { left:-100%; height:auto; }
+    100% { left:0%; height:auto; }
 }
 
 
 .page-slide-in-from-right{
     left:0;
     top:0;
-    -webkit-transition: visibility 0.5s step-end;
-    -moz-transition: visibility 0.5s step-end;
-    -o-transition: visibility 0.5s step-end;
-    -ms-transition: visibility 0.5s step-end;
-    transition: visibility 0.5s step-end;
     -webkit-animation: page-slide-in-from-right-animation 0.5s linear;
     -moz-animation: page-slide-in-from-right-animation 0.5s linear;
     -ms-animation: page-slide-in-from-right-animation 0.5s linear;
@@ -283,17 +277,17 @@ p {
 
 @-ms-keyframes page-slide-in-from-right-animation {
      0% { left:100%; }
-    100% { left:0%; }
+    100% { left:0%;  }
 }
 
 @-o-keyframes page-slide-in-from-right-animation {
-    0% { left:100%; }
-    100% { left:0%; }
+    0% { left:100%;  }
+    100% { left:0%;  }
 }
 
 @keyframes page-slide-in-from-right-animation {
-    0% { left:100%; }
-    100% { left:0%; }
+    0% { left:100%;  }
+    100% { left:0%;  }
 }
 
 
@@ -314,28 +308,28 @@ p {
 
 
 @-webkit-keyframes page-slide-out-to-left-animation {
-    0% { left:0%; }
-    100% { left: -100%; }
+    0% { left:0%; height: auto;  }
+    100% { left: -100%; height: auto; }
 }
 
 @-moz-keyframes page-slide-out-to-left-animation {
-    0% { left:0%; }
-    100% { left: -100%; }
+    0% { left:0%; height: auto;  }
+    100% { left: -100%; height: auto; }
 }
 
 @-ms-keyframes page-slide-out-to-left-animation {
-    0% { left:0%; }
-    100% { left: -100%; }
+    0% { left:0%; height: auto;  }
+    100% { left: -100%; height: auto; }
 }
 
 @-o-keyframes page-slide-out-to-left-animation {
-    0% { left:0%; }
-    100% { left: -100%; }
+    0% { left:0%; height: auto;  }
+    100% { left: -100%; height: auto; }
 }
 
 @keyframes page-slide-out-to-left-animation {
-    0% { left:0%; }
-    100% { left: -100%; }
+    0% { left:0%; height: auto; }
+    100% { left: -100%; height: auto; }
 }
 
 .page-slide-out-to-right-and-hide {
@@ -353,28 +347,28 @@ p {
 }
 
 @-webkit-keyframes page-slide-out-to-right-animation {
-    0% { left:0%; }
-    100% { left:100%; }
+    0% { left:0%; height:auto; }
+    100% { left:100%; height:auto; }
 }
 
 @-moz-keyframes page-slide-out-to-right-animation {
-    0% { left:0%; }
-    100% { left:100%; }
+    0% { left:0%; height:auto; }
+    100% { left:100%; height:auto; }
 }
 
 @-ms-keyframes page-slide-out-to-right-animation {
-    0% { left:0%; }
-    100% { left:100%; }
+    0% { left:0%; height:auto; }
+    100% { left:100%; height:auto; }
 }
 
 @-o-keyframes page-slide-out-to-right-animation {
-    0% { left:0%; }
-    100% { left:100%; }
+    0% { left:0%; height:auto; }
+    100% { left:100%; height:auto; }
 }
 
 @keyframes page-slide-out-to-right-animation {
-    0% { left:0%; }
-    100% { left:100%; }
+    0% { left:0%; height:auto; }
+    100% { left:100%; height:auto; }
 }
 
 .page-slide-out-to-top-and-hide {
@@ -392,28 +386,28 @@ p {
 }
 
 @-webkit-keyframes page-slide-out-to-top-animation {
-    0% { top:0; }
-    100% { top: -100%; }
+    0% { top:0; height:auto; }
+    100% { top: -100%; height:auto; }
 }
 
 @-moz-keyframes page-slide-out-to-top-animation {
-    0% { top:0; }
-    100% { top: -100%; }
+    0% { top:0; height:auto; }
+    100% { top: -100%; height:auto; }
 }
 
 @-ms-keyframes page-slide-out-to-top-animation {
-     0% { top:0; }
-    100% { top: -100%; }
+     0% { top:0; height:auto;  }
+    100% { top: -100%; height:auto; }
 }
 
 @-o-keyframes page-slide-out-to-top-animation {
-    0% { top:0; }
-    100% { top: -100%; }
+    0% { top:0; height:auto; }
+    100% { top: -100%; height:auto; }
 }
 
 @keyframes page-slide-out-to-top-animation {
-    0% { top:0; }
-    100% { top: -100%; }
+    0% { top:0; height:auto; }
+    100% { top: -100%; height:auto; }
 }
 
 .page-slide-out-to-bottom-and-hide {
@@ -431,28 +425,28 @@ p {
 }
 
 @-webkit-keyframes page-slide-out-to-bottom-animation {
-    0% { top:0; }
-    100% { top:100%; }
+    0% { top:0; height:auto; }
+    100% { top:100%; height:auto; }
 }
 
 @-moz-keyframes page-slide-out-to-bottom-animation {
-    0% { top:0; }
-    100% { top:100%; }
+    0% { top:0; height:auto; }
+    100% { top:100%; height:auto; }
 }
 
 @-ms-keyframes page-slide-out-to-bottom-animation {
-     0% { top:0; }
-    100% { top:100%; }
+     0% { top:0; height:auto; }
+    100% { top:100%; height:auto; }
 }
 
 @-o-keyframes page-slide-out-to-bottom-animation {
-    0% { top:0; }
-    100% { top:100%; }
+    0% { top:0; height:auto; }
+    100% { top:100%; height:auto; }
 }
 
 @keyframes page-slide-out-to-bottom-animation {
-    0% { top:0; }
-    100% { top:100%; }
+    0% { top:0; height:auto; }
+    100% { top:100%; height:auto; }
 }
 
 .page-slide-in-from-top {
@@ -465,28 +459,28 @@ p {
 }
 
 @-webkit-keyframes page-slide-in-from-top-animation {
-    0% { top: -100%; }
-    100% { top: 0; }
+    0% { top: -100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 @-moz-keyframes page-slide-in-from-top-animation {
-    0% { top: -100%; }
-    100% { top: 0; }
+    0% { top: -100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 @-ms-keyframes page-slide-in-from-top-animation {
-     0% { top: -100%; }
-    100% { top: 0; }
+     0% { top: -100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 @-o-keyframes page-slide-in-from-top-animation {
-    0% { top: -100%; }
-    100% { top: 0; }
+    0% { top: -100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 @keyframes page-slide-in-from-top-animation {
-    0% { top: -100%; }
-    100% { top: 0; }
+    0% { top: -100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 .page-slide-in-from-bottom {
@@ -499,28 +493,28 @@ p {
 }
 
 @-webkit-keyframes page-slide-in-from-bottom-animation {
-    0% { top: 100%; }
-    100% { top: 0; }
+    0% { top: 100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 @-moz-keyframes page-slide-in-from-bottom-animation {
-    0% { top: 100%; }
-    100% { top: 0; }
+    0% { top: 100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 @-ms-keyframes page-slide-in-from-bottom-animation {
-     0% { top: 100%; }
-    100% { top: 0; }
+     0% { top: 100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 @-o-keyframes page-slide-in-from-bottom-animation {
-    0% { top: 100%; }
-    100% { top: 0; }
+    0% { top: 100%; height:auto; }
+    100% { top: 0; height:auto; }
 }
 
 @keyframes page-slide-in-from-bottom-animation {
-    0% { top: 100%; }
-    100% { top: 0; }
+    0% { top: 100%; height:auto;}
+    100% { top: 0; height:auto; }
 }
 
 
@@ -835,6 +829,11 @@ p {
     transition: opacity 0.5s linear;
 }
 
+.controls {
+    font-size: .875em;
+    margin-top: 4px;
+    margin-left: 4px;
+}
 
 /* Loading Page
 ********************************************/
@@ -1061,7 +1060,6 @@ p {
 
 #beta-sign-up-page {
    border-top: 1px;
-   margin-top: 100px;
 }
 
 /* Beta Sign Up Page Navigation
@@ -1138,7 +1136,7 @@ p {
 
 #nav-pull-down-tab:hover,
 #nav-pull-down-tab:focus {
-    background-position: 0 3px;
+    background-position: -3px 0px;
     -webkit-transition: background-position 0.1s linear;
     -moz-transition: background-position 0.1s linear;
     -o-transition: background-position 0.1s linear;
@@ -1151,6 +1149,7 @@ p {
     margin-left: auto;
     margin-right: auto;
     width: 724px;
+    height:800px;
 }
 
 #instructions-container {
@@ -1376,6 +1375,7 @@ p {
 #other-airbug-form-container.with-buttons {
     width: 199px;
 }
+
 
 #other-airbug-form-container input {
     width: 160px;

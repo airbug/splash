@@ -8,6 +8,7 @@
 
 //@Require('Class')
 //@Require('Obj')
+//@Require('jquery.JQuery')
 
 
 //-------------------------------------------------------------------------------
@@ -21,8 +22,9 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class = bugpack.require('Class');
-var Obj =   bugpack.require('Obj');
+var Class =     bugpack.require('Class');
+var Obj =       bugpack.require('Obj');
+var JQuery =    bugpack.require('jquery.JQuery');
 
 
 //-------------------------------------------------------------------------------
@@ -116,6 +118,9 @@ var Page = Class.extend(Obj, {
             this.element.addClass("page-slide-in-from-left")
         }
         this.element.css("visibility", "visible");
+        this.element.css("height", "auto");
+        JQuery('#app-container').scrollTop(0);
+
     },
 
     /**
@@ -141,6 +146,7 @@ var Page = Class.extend(Obj, {
             this.element.addClass("page-slide-out-to-right-and-hide")
         }
         this.element.css("visibility", "hidden");
+        this.element.css("height", "0");
     },
 
     /**
