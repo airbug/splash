@@ -49,8 +49,8 @@ block content
                     form(class="form-inline", role="form")
                       div(id="capture-content-chat-input", class="form-group chat-input")
                         input(type="text", class="form-control", id="chat-message", placeholder="")
-                      button(id="capture-content-camera-button", type="button", class="btn btn-default")
-                        div(class="glyphicon glyphicon-camera")
+                      button(id="capture-content-camera-button", type="button", class="airbug-button")
+                        div(class="glyphicon glyphicon-camera glyph-icon-light")
                 h5(class="feature") Content capture
                 p(class="feature-description") Capture and share content with one click. Easily grab web clippings, take screenshots and transfer code into the conversation.
             div(class="col-md-4")
@@ -174,40 +174,41 @@ block content
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="default-inactive-mode-feature",class="feature-example")
-                  div(class="input-text-layout") 
-                      div(class="grey-box")
-                        div(id="inactive-button")
-                      div(class="buzz-mode-text") Brian Niesler
-                      div(class="left-buzz-feature")
-                        span(class="glyphicon glyphicon-volume-up")
+                  div(class="input-text-layout top-text-layout")  
+                    div(class="inactive-buzz-button")
+                    div(class="message-sent-at") 6:20PM
+                    div(class="buzz-mode-text") Your Name
+                    div(class="left-buzz-feature")
+                  div(id="heads-down-content-message", class="message-wrapper")
+                      div(class="message-sent-by") Michelle
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") Why does everything happen?
                   div(class="input-group input-group")
-                    input(type="text",id="default-inactive-mode-feature-form", class="form-control input-group", placeholder="type your message here")
+                    input(type="text",id="default-inactive-mode-feature-form", class="form-control input-group green-font", placeholder="type your message here")
                 h5(class="feature") &quot;Heads Down &quot; mode
                 p(class="feature-description") shield yourself from unnecessary distractions by defaulting to &quot;heads down &quot mode unless you are active in the client. Now your team members know when you are available to chat and when you are coding away.
             div(class="col-md-4")
               div(class="feature-container")
                 div(class="feature-example")
                   div(id="buzz-mode-feature-one")
-                    div(class="input-text-layout") 
-                      div(class="grey-box")
-                        div(class="inactive-buzz-button")
+                    div(class="input-text-layout top-text-layout") 
+                      div(class="inactive-buzz-button")
                       div(class="buzz-mode-text") Brian Neisler
                       div(class="left-buzz-feature")
-                        span(class="glyphicon glyphicon-volume-up")
+                        span(class="glyphicon glyphicon-bell glyph-icon-light")
                   div(id="buzz-mode-feature-two")
                     div(class="input-text-layout") 
-                      div(class="grey-box")
-                        div(class="inactive-buzz-button")
+                      div(class="inactive-buzz-button")
                       div(class="buzz-mode-text") Sung Choi
                       div(class="left-buzz-feature")
-                        span(class="glyphicon glyphicon-volume-up")
+                        span(class="glyphicon glyphicon-bell glyph-icon-light")
                   div(id="buzz-mode-feature-three")
-                    div(class="input-text-layout") 
+                    div(class="input-text-layout bottom-text-layout") 
                       div(class="grey-box")
                         div(class="inactive-buzz-button")
                       div(class="buzz-mode-text") Michelle Wegenstein
                       div(class="left-buzz-feature")
-                        span(class="glyphicon glyphicon-volume-up")
+                        span(class="glyphicon glyphicon-bell glyph-icon-light")
                 h5(class="feature") Buzz feature 
                 p(class="feature-description") While it is important for you to keep focused,  there will always be times when it is necessary for your team to get a hold of you. Grab attention using the buzz feature.
             div(class="col-md-4")
