@@ -50,12 +50,6 @@ var ExplainerPage = Class.extend(Page, {
 
         /**
          * @private
-         * @type {ImageMarkupEditor}
-         */
-        this.imageMarkupEditor  = null;
-
-        /**
-         * @private
          * @type {PageManager}
          */
         this.pageManager = null;
@@ -262,7 +256,6 @@ var ExplainerPage = Class.extend(Page, {
         markupButton.on("click", function(event) {
             //TODO BRN
         });
-        this.imageMarkupEditor.initialize();
     }
 });
 
