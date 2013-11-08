@@ -25,6 +25,7 @@
 //@Require('splash.ExplainerPage')
 //@Require('splash.FeedbackPanel')
 //@Require('splash.Four04Page')
+//@Require('splash.ImageMarkupEditor')
 //@Require('splash.OtherAirbugForm')
 //@Require('splash.PageManager')
 //@Require('splash.SplashApi')
@@ -63,6 +64,7 @@ var DragManager             = bugpack.require('splash.DragManager');
 var ExplainerPage           = bugpack.require('splash.ExplainerPage');
 var FeedbackPanel           = bugpack.require('splash.FeedbackPanel');
 var Four04Page              = bugpack.require('splash.Four04Page');
+var ImageMarkupEditor       = bugpack.require('splash.ImageMarkupEditor');
 var OtherAirbugForm         = bugpack.require('splash.OtherAirbugForm');
 var PageManager             = bugpack.require('splash.PageManager');
 var SplashApi               = bugpack.require('splash.SplashApi');
@@ -190,6 +192,13 @@ var SplashConfiguration = Class.extend(Obj, {
     },
 
     /**
+     * @return {ImageMarkupEditor}
+     */
+    imageMarkupEditor: function() {
+        return new ImageMarkupEditor();
+    },
+
+    /**
      * @return {OtherAirbugForm}
      */
     otherAirbugForm: function() {
@@ -290,6 +299,7 @@ bugmeta.annotate(SplashConfiguration).with(
         module("dragManager"),
         module("explainerPage")
             .properties([
+                property("imageMarkupEditor").ref("imageMarkupEditor"),
                 property("pageManager").ref("pageManager"),
                 property("splitbug").ref("splitbug")
             ]),
@@ -300,6 +310,7 @@ bugmeta.annotate(SplashConfiguration).with(
                 property("tracker").ref("tracker")
             ]),
         module("four04Page"),
+        module("imageMarkupEditor"),
         module("otherAirbugForm")
             .properties([
                 property("airbugJar").ref("airbugJar")

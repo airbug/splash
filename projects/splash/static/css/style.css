@@ -1054,6 +1054,14 @@ p {
     display: none;
 }
 
+#image-markup-canvas {
+    width: 400px;
+    height: 300px;
+}
+
+#image-markup-loader-wrapper {
+    display: none;
+}
 
 /* Beta Sign Up Page
 ********************************************/

@@ -10,25 +10,24 @@
 //@Require('jquery.JQuery')
 //@Require('splash.Page')
 //@Require('splash.PageManager')
-//@Require('splitbug.Splitbug')
-
 
 
 //-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
-var bugpack = require('bugpack').context();
+var bugpack         = require('bugpack').context();
 
 
 //-------------------------------------------------------------------------------
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =         bugpack.require('Class');
-var JQuery =        bugpack.require('jquery.JQuery');
-var Page =          bugpack.require('splash.Page');
-var PageManager=    bugpack.require('splash.PageManager');
+var Class           = bugpack.require('Class');
+var JQuery          = bugpack.require('jquery.JQuery');
+var Page            = bugpack.require('splash.Page');
+var PageManager     = bugpack.require('splash.PageManager');
+
 
 //-------------------------------------------------------------------------------
 // Declare Class
@@ -48,6 +47,12 @@ var ExplainerPage = Class.extend(Page, {
         //-------------------------------------------------------------------------------
         // Declare Variables
         //-------------------------------------------------------------------------------
+
+        /**
+         * @private
+         * @type {ImageMarkupEditor}
+         */
+        this.imageMarkupEditor  = null;
 
         /**
          * @private
@@ -123,6 +128,11 @@ var ExplainerPage = Class.extend(Page, {
     //-------------------------------------------------------------------------------
     // Private Methods
     //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     * @param {Event} event
+     */
     hearGoToPageEvent: function(event){
         console.log("Hearing go to page event");
         var currentPage = event.getData().currentPage.name;
@@ -133,6 +143,8 @@ var ExplainerPage = Class.extend(Page, {
             JQuery('#beta-sign-up-button-one').show();
         }
     },
+
+
     // Capture Content
     //-------------------------------------------------------------------------------
 
@@ -184,13 +196,10 @@ var ExplainerPage = Class.extend(Page, {
         if (this.timerID) {
             clearTimeout(this.timerID);
         }
-        
         this.timerID = setTimeout(function() {
             _this.timerID = null;
             _this.runChangeToInactiveMode();
         }, 1000);
-
-
     },
 
     /**
@@ -232,12 +241,21 @@ var ExplainerPage = Class.extend(Page, {
     /**
      * @private
      */
+    activateImageMarkupEditor: function() {
+        this.imageMarkupEditor.loadImage("http://placekitten.com/600/400");
+        this.imageMarkupEditor.activate();
+    },
+
+    /**
+     * @private
+     */
     initializeImageMarkup: function() {
         var _this = this;
         var markupButton = JQuery("#image-markup-markup-button");
         markupButton.on("click", function(event) {
             _this.showImageMarkupPopup();
         });
+        this.imageMarkupEditor.initialize();
     },
 
     /**
@@ -253,7 +271,8 @@ var ExplainerPage = Class.extend(Page, {
      * @private
      */
     showImageMarkupPopup: function() {
-        //TODO BRN: Show the image markup popup
+        JQuery("#image-markup-modal").modal("show");
+        this.activateImageMarkupEditor();
     }
 });
 
