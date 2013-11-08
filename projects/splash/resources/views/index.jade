@@ -76,7 +76,25 @@ block content
                 p(class="feature-description") Elaborate on ideas by adding text directly to an image, point out what's important with arrows, and markup specifics with the draw tool.
             div(class="col-md-4")
               div(class="feature-container")
-                div(class="feature-example")
+                div(id="code-markup-feature-example", class="feature-example")
+                  div(id="code-markup-messages-container", class="messages-container")
+                    div(id="code-markup-start-message", class="message-wrapper")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") What's wrong with this code?
+                      div(class="message-code-wrapper")
+                        p if(false) {
+                            doSomething();
+                          }
+                        div(class="message-code-markup-icon")
+                          button(id="code-markup-markup-button", type="button", class="btn btn-default")
+                            div(class="glyphicon glyphicon-pencil")
+                    div(id="code-markup-reply-message", class="message-wrapper reply-message")
+                      div(class="message-sent-by") You
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") Found the problems!
+                      div(class="message-code-wrapper")
+                        p if (false) {
                 h5(class="feature") Code annotations 
                 p(class="feature-description") Discuss code, provide feedback, and solve problems directly in the chat window by annotating code with comments and highlights.
       div(class="row row4")
@@ -87,12 +105,37 @@ block content
           div(class="row")
             div(class="col-md-4")
               div(class="feature-container")
-                div(class="feature-example")
+                div(id="threaded-feature-example", class="feature-example")
+                  div(id="threaded-messages-container", class="messages-container")
+                    div(id="threaded-start-message", class="message-wrapper")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body") Did you just break the server?
+                        div(class="message-reply-icon")
+                          button(id="reply-button", type="button", class="btn btn-default")
+                            div(class="glyphicon glyphicon-share-alt")
+                      div(id="threaded-reply-message", class="message-wrapper reply-message")
+                        div(class="message-sent-by") You
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") Yep! My bad...
                 h5(class="feature") Threaded conversations
                 p(class="feature-description") Many chat clients require you to have a chronological conversation. airbug offers threaded conversations to organize your chat by topic making collaboration simple and keeping responses relevant no matter where the conversation picks up. 
             div(class="col-md-4")
               div(class="feature-container")
-                div(class="feature-example")
+                div(id="embedded-content-feature-example", class="feature-example")
+                  div(id="embedded-content-messages-container", class="messages-container")
+                    div(id="embedded-content-image-message", class="message-wrapper")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-image-wrapper")
+                        img(src="http://placekitten.com/600/400", class="message-image")
+                    div(id="embedded-content-code-message", class="message-wrapper")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-code-wrapper")
+                        p if(false) {
+                            doSomething();
+                          }
                 h5(class="feature") Embedded content 
                 p(class="feature-description") Keep everyone on the same page by embedding content directly into the conversation. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
             div(class="col-md-4")
@@ -122,7 +165,7 @@ block content
                     div(class="input-text-layout") 
                       div(class="grey-box")
                         div(class="inactive-buzz-button")
-                      div(class="buzz-mode-text") Brian Niesler
+                      div(class="buzz-mode-text") Brian Neisler
                       button(type="button", class="btn btn-default left-buzz-feature")
                         span(class="glyphicon glyphicon-volume-up")
                   div(id="buzz-mode-feature-two")
@@ -164,8 +207,6 @@ block content
                       div(class="message-sent-by") Sung
                       div(class="message-sent-at") 2:25PM  
                       div(class="gist-body") THIS IS WHERE GIST SNIPPET BE
-
-
                 h5(class="feature") Everything at your fingertips
                 p(class="feature-description") Quickly access all your content in one place. Collaborate on images, code, and content from your other favorite tools - all while staying in the chat client. 
       div(class="footer")
@@ -175,7 +216,6 @@ block content
             p(class="about-description") airbug is a new type of collaborative chat client designed specifically with developers in mind. We believe in a very simple principle: help developers collaborate without breaking their concentration.
             p(class="about-description") Questions? Want to chat? Drop us a line at 
               a(href="mailto:info@airbug.com", target="_blank") info@airbug.com
-
             form(class="form-inline", role="form")
               div(class="form-group")
               button(type="button", class="btn btn-default button-font", id="beta-sign-up-button-two") sign up for beta - free!
@@ -189,22 +229,6 @@ block content
               div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false") 
             p(class="social-text") Like us on 
               a(href="https://www.facebook.com/integrate.airbug", target="_blank") Facebook
-      div(id="image-markup-modal", class="modal fade")
-        div(class="modal-dialog")
-          div(class="modal-content")
-            button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
-            div(class="image-markup-editor-wrapper")
-              div(id="image-markup-loader-wrapper")
-                img(id="image-markup-loader", src="/img/ajax-loader.gif", alt="loading...")
-              div(class="image-markup-canvas-wrapper")
-                canvas(id="image-markup-canvas")
-              div(class="image-markup-toolbar-wrapper")
-                div
-                  button(id="image-markup-arrow-button", type="button", class="btn btn-default")
-                    div(class="glyphicon glyphicon-circle-arrow-down")
-                div
-                  button(id="image-markup-text-button", type="button", class="btn btn-default")
-                    div(class="glyphicon glyphicon-font")
     div(id="beta-sign-up-page", class="page")
       nav
         div(class="nav-pull-down-tab-container")

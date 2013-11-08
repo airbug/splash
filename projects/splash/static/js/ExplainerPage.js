@@ -66,7 +66,6 @@ var ExplainerPage = Class.extend(Page, {
          */
         this.splitbug = null;
 
-
         /**
          * @private
          * @type {number}
@@ -155,7 +154,7 @@ var ExplainerPage = Class.extend(Page, {
         var _this = this;
         var captureContentChatForm = JQuery("#capture-content-chat-form");
         captureContentChatForm.mouseover(function(event) {
-            _this.showFirstMessage();
+            _this.showFirstCaptureContentMessage();
         });
         var captureContentCameraButton = JQuery("#capture-content-camera-button");
         captureContentCameraButton.on("click", function(event) {
@@ -170,13 +169,9 @@ var ExplainerPage = Class.extend(Page, {
      * @param {function()} callback
      */
     runCaptureContent: function(callback) {
-        var replyMessage        = JQuery("#capture-content-reply-message");
-        var messagesContainer   = JQuery("#capture-content-messages-container");
+        var _this = this;
         this.runFakeScreenShot(function() {
-            replyMessage.show();
-            messagesContainer.animate({
-                scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
-            }, 1000);
+            _this.showReplyCaptureContentMessage();
         });
     },
 
@@ -229,9 +224,21 @@ var ExplainerPage = Class.extend(Page, {
     /**
      * @private
      */
-    showFirstMessage: function() {
+    showFirstCaptureContentMessage: function() {
         var startMessage        = JQuery("#capture-content-start-message");
         startMessage.show();
+    },
+
+    /**
+     * @private
+     */
+    showReplyCaptureContentMessage: function() {
+        var replyMessage        = JQuery("#capture-content-reply-message");
+        var messagesContainer   = JQuery("#capture-content-messages-container");
+        replyMessage.show();
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
+        }, 1000);
     },
 
 
@@ -253,26 +260,9 @@ var ExplainerPage = Class.extend(Page, {
         var _this = this;
         var markupButton = JQuery("#image-markup-markup-button");
         markupButton.on("click", function(event) {
-            _this.showImageMarkupPopup();
+            //TODO BRN
         });
         this.imageMarkupEditor.initialize();
-    },
-
-    /**
-     * @private
-     */
-    embedImageMarkupInMessage: function() {
-        /*var image = new Image();
-        img.id = "pic"
-        img.src = canvas.toDataURL();*/
-    },
-
-    /**
-     * @private
-     */
-    showImageMarkupPopup: function() {
-        JQuery("#image-markup-modal").modal("show");
-        this.activateImageMarkupEditor();
     }
 });
 
