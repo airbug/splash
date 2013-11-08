@@ -118,11 +118,54 @@ block content
             div(class="col-md-4")
               div(class="feature-container")
                 div(class="feature-example")
+                  div(id="buzz-mode-feature-one")
+                    div(class="input-text-layout") 
+                      div(class="grey-box")
+                        div(class="inactive-buzz-button")
+                      div(class="buzz-mode-text") Brian Niesler
+                      button(type="button", class="btn btn-default left-buzz-feature")
+                        span(class="glyphicon glyphicon-volume-up")
+                  div(id="buzz-mode-feature-two")
+                    div(class="input-text-layout") 
+                      div(class="grey-box")
+                        div(class="inactive-buzz-button")
+                      div(class="buzz-mode-text") Sung Choi
+                      button(type="button", class="btn btn-default left-buzz-feature")
+                        span(class="glyphicon glyphicon-volume-up")
+                  div(id="buzz-mode-feature-three")
+                    div(class="input-text-layout") 
+                      div(class="grey-box")
+                        div(class="inactive-buzz-button")
+                      div(class="buzz-mode-text") Michelle Wegenstein
+                      button(type="button", class="btn btn-default left-buzz-feature")
+                        span(class="glyphicon glyphicon-volume-up")
                 h5(class="feature") Buzz feature 
                 p(class="feature-description") While it is important for you to keep focused,  there will always be times when it is necessary for your team to get a hold of you. Grab attention using the buzz feature.
             div(class="col-md-4")
               div(class="feature-container")
-                div(class="feature-example")
+                div(id="fingertips-feature-example",class="feature-example")
+                  div(id="fingertips-toolbar")
+                      div(id="fingertips-camera-button", type="button", class="btn btn-default")
+                        div(class="glyphicon glyphicon-camera")
+                      div(id="fingertips-code-button", type="button", class="btn btn-default")
+                        div(class="glyphicon glyphicon-chevron-left") C
+                        div(class="glyphicon glyphicon-chevron-right")
+                      div(id="fingertips-code-button", type="button", class="btn btn-default") Github
+                  div(id="fingertips-content-container", class="fingertips-messages-container")
+                    div(id="fingertips-content-image", class="fingertips-wrapper fingertips-image-message")
+                      div(class="message-sent-by") Dustin
+                      div(class="message-sent-at") 2:25PM
+                      div(class="fingertip-image-body") HERE IS IMAGE
+                    div(id="fingertips-content-code", class="fingertips-wrapper code-message")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 2:25PM  
+                      div(class="code-body") THIS IS WHERE CODE SNIPPETS GO
+                    div(id="fingertips-content-gist", class="fingertips-wrapper code-message")
+                      div(class="message-sent-by") Sung
+                      div(class="message-sent-at") 2:25PM  
+                      div(class="gist-body") THIS IS WHERE GIST SNIPPET BE
+
+
                 h5(class="feature") Everything at your fingertips
                 p(class="feature-description") Quickly access all your content in one place. Collaborate on images, code, and content from your other favorite tools - all while staying in the chat client. 
       div(class="footer")
@@ -209,51 +252,53 @@ block content
               div(id="airbug-jar-hotspot-1", class="airbug-jar-hotspot")
               div(id="airbug-jar-hotspot-2", class="airbug-jar-hotspot")
               div(id="airbug-jar-hotspot-3", class="airbug-jar-hotspot")
-      div(id="beta-sign-up-modal", class="modal hide fade")
-        div(class="modal-header")
-          button(type="button", class="close", data-dismiss="modal", aria-hidden="true")&times;
-          h3 Beta sign up
-        div(class="modal-body")
-          div(class="beta-sign-up-form-container")
-            form(method="post", action="beta-sign-up", id="beta-sign-up-form", class="form-horizontal")
-              div(class="control-group")
-                label(class="control-label", for="name") Name
-                div(class="controls")
-                  input(type="text", id="name", name="name", placeholder="Name")
-                  div(class="validation required") * required
-              div(class="control-group")
-                label(class="control-label", for="email") Email
-                div(class="controls")
-                  input(type="text", id="email", name="email", placeholder="Email")
-                  div(class="validation required") * required
-              div(class="control-group")
-                label(class="control-label", for="company") Company
-                div(class="controls")
-                  input(type="text", id="company", name="company", placeholder="Company")
-                  div(class="validation")
-              div(class="control-group")
-                label(class="control-label", for="phoneNumber") Phone Number
-                div(class="controls")
-                  input(type="text", id="phoneNumber", name="phoneNumber", placeholder="Phone Number")
-                  div(class="validation")
-              div(class="control-group")
-                label(class="control-label", for="companySize") CompanySize
-                div(class="controls")
-                  select(id="companySize", name="companySize")
-                    option 1 person
-                    option 2 - 5 people
-                    option 6 - 20 people
-                    option 20+ people
-                  div(class="validation")
-              div(class="control-group")
-                label(class="control-label", for="position") Position in Company
-                div(class="controls")
-                  input(type="text", id="position", name="position", placeholder="Position in Company")
-                  div(class="validation")
-              div(class="control-group")
-                div(class="controls")
-                  button(id="beta-sign-up-form-submit-button", class="btn btn-info", type="button") Submit
-                  button(id="beta-sign-up-form-cancel-button", class="btn", type="button") Cancel
+      div(id="beta-sign-up-modal", class="modal fade")
+        div(class="modal-dialog")
+          div(class="modal-content")
+            div(class="modal-header")
+              button(type="button", class="close", data-dismiss="modal", aria-hidden="true")&times;
+              h3 Beta sign up
+            div(class="modal-body")
+              div(class="beta-sign-up-form-container")
+                form(method="post", action="beta-sign-up", id="beta-sign-up-form", class="form-horizontal")
+                  div(class="control-group")
+                    label(class="control-label", for="name") Name
+                    div(class="controls")
+                      input(type="text", id="name", name="name", placeholder="Name")
+                      div(class="validation required") * required
+                  div(class="control-group")
+                    label(class="control-label", for="email") Email
+                    div(class="controls")
+                      input(type="text", id="email", name="email", placeholder="Email")
+                      div(class="validation required") * required
+                  div(class="control-group")
+                    label(class="control-label", for="company") Company
+                    div(class="controls")
+                      input(type="text", id="company", name="company", placeholder="Company")
+                      div(class="validation")
+                  div(class="control-group")
+                    label(class="control-label", for="phoneNumber") Phone Number
+                    div(class="controls")
+                      input(type="text", id="phoneNumber", name="phoneNumber", placeholder="Phone Number")
+                      div(class="validation")
+                  div(class="control-group")
+                    label(class="control-label", for="companySize") Company Size
+                    div(class="controls")
+                      select(id="companySize", name="companySize")
+                        option 1 person
+                        option 2 - 5 people
+                        option 6 - 20 people
+                        option 20+ people
+                      div(class="validation")
+                  div(class="control-group")
+                    label(class="control-label", for="position") Position in Company
+                    div(class="controls")
+                      input(type="text", id="position", name="position", placeholder="Position in Company")
+                      div(class="validation")
+                  div(class="control-group")
+                    div(class="controls")
+                      button(id="beta-sign-up-form-submit-button", class="btn btn-info", type="button") Submit
+                      button(id="beta-sign-up-form-cancel-button", class="btn", type="button") Cancel
     div(id="thank-you-page", class="page")
       div(class="row-fluid")
         div(class="span12")
