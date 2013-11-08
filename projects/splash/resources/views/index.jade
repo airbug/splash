@@ -140,7 +140,27 @@ block content
                 p(class="feature-description") Keep everyone on the same page by embedding content directly into the conversation. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
             div(class="col-md-4")
               div(class="feature-container")
-                div(class="feature-example")
+                div(id="fingertips-feature-example",class="feature-example")
+                  div(id="snapshot-toolbar")
+                    div(id="snapshot-code-button", type="button", class="btn btn-default") Snapshot
+                  div(id="snapshot-content-container", class="fingertips-messages-container")
+                    div(id="snapshot-content-one", class="fingertips-wrapper fingertips-image-message")
+                      div(class="message-sent-by") Sung
+                      div(class="message-sent-at") 2:25PM
+                      div(class="fingertip-image-body") yo can you get at me with that bug report?
+                    div(id="snapshot-content-two", class="fingertips-wrapper code-message")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 2:25PM  
+                      div(class="code-body") here is the bug report #werk IMAGE OF REPORT
+                    div(id="snapshot-content-three", class="fingertips-wrapper code-message")
+                      div(class="message-sent-by") Sung
+                      div(class="message-sent-at") 2:25PM  
+                      div(class="gist-body") THIS IS BUR REPORT OPEN
+                    div(id="snapshot-content-four", class="fingertips-wrapper code-message")
+                      div(class="message-sent-by") Brian
+                      div(class="message-sent-at") 2:25PM  
+                      div(class="gist-body") THIS IS BUG REPORT CLOSED
+
                 h5(class="feature") Snapshots of content
                 p(class="feature-description") Establish a frame of reference for future conversations by capturing snapshots of content in the moment.
       div(class="row row5")
@@ -152,9 +172,13 @@ block content
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="default-inactive-mode-feature",class="feature-example")
+                  div(class="input-text-layout") 
+                      div(class="grey-box")
+                        div(id="inactive-button")
+                      div(class="buzz-mode-text") Brian Niesler
+                      div(class="left-buzz-feature")
+                        span(class="glyphicon glyphicon-volume-up")
                   div(class="input-group input-group")
-                    span(class="input-group-addon", id="inactive-button-wrapper")
-                      div(id="inactive-button")
                     input(type="text",id="default-inactive-mode-feature-form", class="form-control input-group", placeholder="type your message here")
                 h5(class="feature") &quot;Heads Down &quot; mode
                 p(class="feature-description") shield yourself from unnecessary distractions by defaulting to &quot;heads down &quot mode unless you are active in the client. Now your team members know when you are available to chat and when you are coding away.
@@ -166,21 +190,21 @@ block content
                       div(class="grey-box")
                         div(class="inactive-buzz-button")
                       div(class="buzz-mode-text") Brian Neisler
-                      button(type="button", class="btn btn-default left-buzz-feature")
+                      div(class="left-buzz-feature")
                         span(class="glyphicon glyphicon-volume-up")
                   div(id="buzz-mode-feature-two")
                     div(class="input-text-layout") 
                       div(class="grey-box")
                         div(class="inactive-buzz-button")
                       div(class="buzz-mode-text") Sung Choi
-                      button(type="button", class="btn btn-default left-buzz-feature")
+                      div(class="left-buzz-feature")
                         span(class="glyphicon glyphicon-volume-up")
                   div(id="buzz-mode-feature-three")
                     div(class="input-text-layout") 
                       div(class="grey-box")
                         div(class="inactive-buzz-button")
                       div(class="buzz-mode-text") Michelle Wegenstein
-                      button(type="button", class="btn btn-default left-buzz-feature")
+                      div(class="left-buzz-feature")
                         span(class="glyphicon glyphicon-volume-up")
                 h5(class="feature") Buzz feature 
                 p(class="feature-description") While it is important for you to keep focused,  there will always be times when it is necessary for your team to get a hold of you. Grab attention using the buzz feature.
