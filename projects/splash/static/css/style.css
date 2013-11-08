@@ -1079,6 +1079,26 @@ width: 49px;
     top: 0px;
 }
 
+.message-code-wrapper {
+    background-color: rgb(245, 253, 255);
+}
+
+.message-code{
+    font-size: 15px;
+    font-weight: 200;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.message-gist {
+    font-size: 15px;
+    font-weight: 200;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
 .chat-input {
     width: 280px;
 }
@@ -1125,63 +1145,14 @@ width: 49px;
     display: none;
 }
 
-.code-message {
-    background-color: rgb(245, 253, 255);
-}
 
-.code-body{
-    font-size: 15px;
-    font-weight: 200;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    text-align: left;
-}
+/* Fingertips
+********************************************/
 
-.gist-body {
-    font-size: 15px;
-    font-weight: 200;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    text-align: left;
-}
-.fingertips-wrapper {
-    width: 100%;
-    position: relative;
-    margin-bottom: 5px;
-    padding: 5px;
-    background-color: rgb(89, 98, 95);
-    border-color: rgb(196, 196, 196);
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 10px;
-}
-
-#fingertips-toolbar{
+#fingertips-toolbar {
     width: 20%;
     position: absolute;
     right: 35px;
-}
-
-.fingertips-messages-container{
-    position: relative;
-    width: 80%;
-    max-height: 150px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    -moz-transition:height 1s;
-    -webkit-transition:height 1s;
-    -o-transition:height 1s;
-    transition:height 1s;
-}
-
-/* Everything at Fingertips
-********************************************/
-.fingertip-image-body {
-    font-size: 15px;
-    font-weight: 200;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    text-align: left;
 }
 
 

@@ -39,12 +39,12 @@ block content
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Can you send me a screen shot?
-                    div(id="capture-content-reply-message", class="message-wrapper reply-message")
+                    div(id="capture-content-reply-message", class="message-wrapper")
                       div(class="message-sent-by") You
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Here ya go
                       div(class="message-image-wrapper")
-                        img(src="http://placekitten.com/600/400", class="message-image")
+                        img(src="/img/image-message.png", class="message-image")
                   div(id="capture-content-chat-form", class="chat-form")
                     form(class="form-inline", role="form")
                       div(id="capture-content-chat-input", class="form-group chat-input")
@@ -62,16 +62,16 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") What's wrong with this image?
                       div(class="message-image-wrapper")
-                        img(src="http://placekitten.com/600/400", class="message-image")
+                        img(src="/img/image-message.png", class="message-image")
                         div(class="message-image-markup-icon")
                           button(id="image-markup-markup-button", type="button", class="btn btn-default")
                             div(class="glyphicon glyphicon-pencil")
-                    div(id="image-markup-reply-message", class="message-wrapper reply-message")
+                    div(id="image-markup-reply-message", class="message-wrapper")
                       div(class="message-sent-by") You
                       div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Found the problems!
+                      div(class="message-body") It's missing an airbug!
                       div(class="message-image-wrapper")
-                        img(class="message-image")
+                        img(src="/img/image-message.png", class="message-image")
                 h5(class="feature") Image markup
                 p(class="feature-description") Elaborate on ideas by adding text directly to an image, point out what's important with arrows, and markup specifics with the draw tool.
             div(class="col-md-4")
@@ -83,18 +83,18 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") What's wrong with this code?
                       div(class="message-code-wrapper")
-                        p if(false) {
+                        div(class="message-code") if(false) {
                             doSomething();
                           }
                         div(class="message-code-markup-icon")
                           button(id="code-markup-markup-button", type="button", class="btn btn-default")
                             div(class="glyphicon glyphicon-pencil")
-                    div(id="code-markup-reply-message", class="message-wrapper reply-message")
+                    div(id="code-markup-reply-message", class="message-wrapper")
                       div(class="message-sent-by") You
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Found the problems!
                       div(class="message-code-wrapper")
-                        p if (false) {
+                        div(class="message-code") if (false) {
                 h5(class="feature") Code annotations 
                 p(class="feature-description") Discuss code, provide feedback, and solve problems directly in the chat window by annotating code with comments and highlights.
       div(class="row row4")
@@ -128,14 +128,14 @@ block content
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 8:40PM
                       div(class="message-image-wrapper")
-                        img(src="http://placekitten.com/600/400", class="message-image")
+                        img(src="/img/image-message.png", class="message-image")
                     div(id="embedded-content-code-message", class="message-wrapper")
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 8:40PM
                       div(class="message-code-wrapper")
-                        p if(false) {
-                            doSomething();
-                          }
+                        div(class="message-code") if(false) {
+                              doSomething();
+                            }
                 h5(class="feature") Embedded content 
                 p(class="feature-description") Keep everyone on the same page by embedding content directly into the conversation. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
             div(class="col-md-4")
@@ -143,24 +143,26 @@ block content
                 div(id="fingertips-feature-example",class="feature-example")
                   div(id="snapshot-toolbar")
                     div(id="snapshot-code-button", type="button", class="btn btn-default") Snapshot
-                  div(id="snapshot-content-container", class="fingertips-messages-container")
-                    div(id="snapshot-content-one", class="fingertips-wrapper fingertips-image-message")
+                  div(id="snapshot-content-container", class="messages-container")
+                    div(id="snapshot-content-message-one", class="message-wrapper")
                       div(class="message-sent-by") Sung
                       div(class="message-sent-at") 2:25PM
-                      div(class="fingertip-image-body") yo can you get at me with that bug report?
-                    div(id="snapshot-content-two", class="fingertips-wrapper code-message")
+                      div(class="message-body") yo can you get at me with that bug report?
+                    div(id="snapshot-content-message-two", class="message-wrapper")
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 2:25PM  
-                      div(class="code-body") here is the bug report #werk IMAGE OF REPORT
-                    div(id="snapshot-content-three", class="fingertips-wrapper code-message")
+                      div(class="message-body") here is the bug report
+                      div(class="message-image-wrapper")
+                        img(src="/img/image-message.png", class="message-image")
+                    div(id="snapshot-content-message-three", class="message-wrapper")
                       div(class="message-sent-by") Sung
                       div(class="message-sent-at") 2:25PM  
-                      div(class="gist-body") THIS IS BUR REPORT OPEN
-                    div(id="snapshot-content-four", class="fingertips-wrapper code-message")
-                      div(class="message-sent-by") Brian
-                      div(class="message-sent-at") 2:25PM  
-                      div(class="gist-body") THIS IS BUG REPORT CLOSED
-
+                      div(class="message-body") Cool, looks good now. I'll close it up.
+                    div(id="snapshot-content-message-four", class="message-wrapper")
+                      div(class="message-sent-by") Sung
+                      div(class="message-sent-at") 2:25PM
+                      div(class="message-image-wrapper")
+                        img(src="/img/image-message.png", class="message-image")
                 h5(class="feature") Snapshots of content
                 p(class="feature-description") Establish a frame of reference for future conversations by capturing snapshots of content in the moment.
       div(class="row row5")
@@ -218,19 +220,22 @@ block content
                         div(class="glyphicon glyphicon-chevron-left") C
                         div(class="glyphicon glyphicon-chevron-right")
                       div(id="fingertips-code-button", type="button", class="btn btn-default") Github
-                  div(id="fingertips-content-container", class="fingertips-messages-container")
-                    div(id="fingertips-content-image", class="fingertips-wrapper fingertips-image-message")
+                  div(id="fingertips-content-container", class="messages-container")
+                    div(id="fingertips-content-image", class="message-wrapper")
                       div(class="message-sent-by") Dustin
                       div(class="message-sent-at") 2:25PM
-                      div(class="fingertip-image-body") HERE IS IMAGE
-                    div(id="fingertips-content-code", class="fingertips-wrapper code-message")
+                      div(class="message-image-wrapper")
+                        img(src="/img/image-message.png", class="message-image")
+                    div(id="fingertips-content-code", class="message-wrapper")
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 2:25PM  
-                      div(class="code-body") THIS IS WHERE CODE SNIPPETS GO
-                    div(id="fingertips-content-gist", class="fingertips-wrapper code-message")
+                      div(class="message-code-wrapper")
+                        div(class="message-code") THIS IS WHERE CODE SNIPPETS GO
+                    div(id="fingertips-content-gist", class="message-wrapper")
                       div(class="message-sent-by") Sung
                       div(class="message-sent-at") 2:25PM  
-                      div(class="gist-body") THIS IS WHERE GIST SNIPPET BE
+                      div(class="message-gist-wrapper")
+                        div(class="message-gist") THIS IS WHERE GIST SNIPPET BE
                 h5(class="feature") Everything at your fingertips
                 p(class="feature-description") Quickly access all your content in one place. Collaborate on images, code, and content from your other favorite tools - all while staying in the chat client. 
       div(class="footer")
