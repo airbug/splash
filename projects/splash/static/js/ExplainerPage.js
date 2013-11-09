@@ -78,32 +78,12 @@ var ExplainerPage = Class.extend(Page, {
     initialize: function() {
         this._super();
 
-        var _this = this;
-        var marketingTaglineHeader = JQuery("#marketing-tagline-header");
-        this.splitbug.splitTest({
-            name: "alternate-tag-line",
-            controlFunction: function() {
-                marketingTaglineHeader.html("Unite and motivate your team's cross-platform collaboration");
-            },
-            testFunction: function() {
-                marketingTaglineHeader.html("Collaborative chat for developers");
-            }
-        });
-
-        var betaSignUpButtons = JQuery("#beta-sign-up-button-one, #beta-sign-up-button-two, #beta-sign-up-button-three");
-        betaSignUpButtons.on("click", function(event) {
-            _this.pageManager.goToPage("betaSignUpPage", "slideleft");
-        });
-
+        this.initializeBetaSignupButtons();
         this.initializeCaptureContent();
         this.initializeImageMarkup();
-
-        var defaultInactiveForm = JQuery("#default-inactive-mode-feature-form");
-        defaultInactiveForm.keyup(function(){
-            _this.runChangeToActiveMode();
-            _this.startTimerForInactiveMode();
-        });
-
+        this.initializeCodeMarkup();
+        this.initializeThreadedMessages();
+        this.initializeHeadsDown();
 
         this.pageManager.addEventListener(PageManager.EventTypes.GOTOPAGE, this.hearGoToPageEvent, this);
     },
@@ -138,6 +118,21 @@ var ExplainerPage = Class.extend(Page, {
     },
 
 
+    // Beta Signup Buttons
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeBetaSignupButtons: function() {
+        var _this = this;
+        var betaSignUpButtons = JQuery("#beta-sign-up-button-one, #beta-sign-up-button-two, #beta-sign-up-button-three");
+        betaSignUpButtons.on("click", function(event) {
+            _this.pageManager.goToPage("betaSignUpPage", "slideleft");
+        });
+    },
+
+
     // Capture Content
     //-------------------------------------------------------------------------------
 
@@ -146,10 +141,6 @@ var ExplainerPage = Class.extend(Page, {
      */
     initializeCaptureContent: function() {
         var _this = this;
-        var captureContentChatForm = JQuery("#capture-content-chat-form");
-        captureContentChatForm.mouseover(function(event) {
-            _this.showFirstCaptureContentMessage();
-        });
         var captureContentCameraButton = JQuery("#capture-content-camera-button");
         captureContentCameraButton.on("click", function(event) {
             _this.runCaptureContent(function() {
@@ -172,36 +163,6 @@ var ExplainerPage = Class.extend(Page, {
     /**
      * @private
      */
-    runChangeToActiveMode: function() {
-        var inactiveButton = JQuery("#inactive-button");
-        inactiveButton.css("background-color", "green");
-    },
-
-    /**
-     * @private
-     */
-    startTimerForInactiveMode: function() {
-        var _this = this;
-        if (this.timerID) {
-            clearTimeout(this.timerID);
-        }
-        this.timerID = setTimeout(function() {
-            _this.timerID = null;
-            _this.runChangeToInactiveMode();
-        }, 1000);
-    },
-
-    /**
-     * @private
-     */
-    runChangeToInactiveMode: function() {
-        var inactiveButton = JQuery("#inactive-button");
-        inactiveButton.css("background-color", "red");  
-    },
-
-    /**
-     * @private
-     */
     runFakeScreenShot: function(callback) {
         var fakeScreenShotContainer = JQuery("#fake-screen-shot-container");
         fakeScreenShotContainer.show();
@@ -213,14 +174,6 @@ var ExplainerPage = Class.extend(Page, {
                 callback();
             }, 600);
         }, 0);
-    },
-
-    /**
-     * @private
-     */
-    showFirstCaptureContentMessage: function() {
-        var startMessage        = JQuery("#capture-content-start-message");
-        startMessage.show();
     },
 
     /**
@@ -242,22 +195,127 @@ var ExplainerPage = Class.extend(Page, {
     /**
      * @private
      */
-    activateImageMarkupEditor: function() {
-        this.imageMarkupEditor.loadImage("http://placekitten.com/600/400");
-        this.imageMarkupEditor.activate();
+    initializeImageMarkup: function() {
+        var _this = this;
+        var markupButton = JQuery("#image-markup-markup-button");
+        markupButton.on("click", function(event) {
+            _this.showReplyImageMarkupMessage();
+        });
     },
 
     /**
      * @private
      */
-    initializeImageMarkup: function() {
+    showReplyImageMarkupMessage: function() {
+        var replyMessage        = JQuery("#image-markup-reply-message");
+        var messagesContainer   = JQuery("#image-markup-messages-container");
+        replyMessage.show();
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
+        }, 1000);
+    },
+
+
+    // Code Markup
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeCodeMarkup: function() {
         var _this = this;
-        var markupButton = JQuery("#image-markup-markup-button");
+        var markupButton = JQuery("#code-markup-markup-button");
         markupButton.on("click", function(event) {
-            //TODO BRN
+            _this.showReplyCodeMarkupMessage();
         });
+    },
+
+    /**
+     * @private
+     */
+    showReplyCodeMarkupMessage: function() {
+        var replyMessage        = JQuery("#code-markup-reply-message");
+        var messagesContainer   = JQuery("#code-markup-messages-container");
+        replyMessage.show();
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
+        }, 1000);
+    },
+
+
+    // Threaded Messages
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeThreadedMessages: function() {
+        var _this = this;
+        var replyButton = JQuery("#threaded-messages-reply-button");
+        replyButton.on("click", function(event) {
+            _this.showReplyThreadedMessagesMessage();
+        });
+    },
+
+    /**
+     * @private
+     */
+    showReplyThreadedMessagesMessage: function() {
+        var replyMessage        = JQuery("#threaded-messages-reply-message");
+        var messagesContainer   = JQuery("#threaded-messages-messages-container");
+        replyMessage.show();
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
+        }, 1000);
+    },
+
+
+    // Heads Down
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeHeadsDown: function() {
+        var _this = this;
+        var headsDownInput = JQuery("#heads-down-input");
+        headsDownInput.keyup(function() {
+            _this.runChangeToActiveMode();
+            _this.startTimerForInactiveMode();
+        });
+    },
+
+    /**
+     * @private
+     */
+    runChangeToActiveMode: function() {
+        var inactiveButton = JQuery("#heads-down-status-indicator");
+        inactiveButton.css("background-color", "rgb(204, 230, 204)");
+    },
+
+    /**
+     * @private
+     */
+    startTimerForInactiveMode: function() {
+        var _this = this;
+        if (this.timerID) {
+            clearTimeout(this.timerID);
+        }
+        this.timerID = setTimeout(function() {
+            _this.timerID = null;
+            _this.runChangeToInactiveMode();
+        }, 1000);
+    },
+
+    /**
+     * @private
+     */
+    runChangeToInactiveMode: function() {
+        var inactiveButton = JQuery("#heads-down-status-indicator");
+        inactiveButton.css("background-color", "rgb(226,158,165)");
     }
 });
+
 
 //-------------------------------------------------------------------------------
 // Exports

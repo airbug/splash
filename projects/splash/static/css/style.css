@@ -61,19 +61,12 @@ p {
     height: 32px;
     font-size: 1.375em;
 }
-/* Stay in flow
+
+
+/* Heads Down
 ********************************************/
-/*#inactive-button{
-    height: 24px;
-    width: 24px;
-    border-radius: 12px;
-    background-color: rgb(226,158,165);
-    display: inline-block;
-    position: relative;
-}*/
 
-
-#default-inactive-mode-feature-form {
+#heads-down-input {
     height: 40px;
     width: 200px;
     background-color: rgb(89, 98, 95);
@@ -81,15 +74,21 @@ p {
     border-radius: 10px;
 }
 
+
+/* Snapshot
+********************************************/
+
 #snapshot-toolbar {
     width: 20%;
     position: absolute;
     right: 35px;  
 }
 
+
 /* Buzz Feature
 ********************************************/
-.inactive-buzz-button{
+
+.status-indicator {
     height: 20px;
     width: 20px;
     border-radius: 10px;
@@ -99,7 +98,7 @@ p {
     margin: 10px;
 }
 
-.input-text-layout{
+.input-text-layout {
     width: 100%;
     height: 40px;
     background-color: rgb(89, 98, 95);
@@ -127,18 +126,17 @@ width: 49px;
 }*/
 
 
-.left-buzz-feature{
+.left-buzz-feature {
     right: 0;
     position: absolute;
     padding: 6px 10px;
     font-size: 1.25em;
     margin: 0px;
     top: 0;
-    font-size: 1.375em;
     margin-top: 3px;
 }
 
-.buzz-mode-text{
+.buzz-mode-text {
     position: absolute;
     text-align: left;
     z-index: 100;
@@ -198,17 +196,25 @@ width: 49px;
   margin-bottom: 30px;
 }
 
-.airbug-screenshot{
+.airbug-screenshot {
     margin-top: 35px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
 }
 .row3{
-    background-color:   #abcecb;
+    background-color: #abcecb;
 }
 
 .row5{
-    background-color:   #abcecb;
+    background-color: #abcecb;
 }
 
+#beta-sign-up-button-two {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
 
 
 /* Features
@@ -1120,7 +1126,6 @@ width: 49px;
     top: 0px;
 }
 
-<<<<<<< Updated upstream
 .message-code-wrapper {
     background-color: rgb(245, 253, 255);
 }
@@ -1145,8 +1150,6 @@ width: 49px;
     width: 280px;
 }
 
-=======
->>>>>>> Stashed changes
 .chat-form {
    /* padding-top: 10px;*/
 }
@@ -1160,10 +1163,6 @@ width: 49px;
 
 /* Capture Content
 ********************************************/
-
-#capture-content-start-message {
-    display: none;
-}
 
 #capture-content-reply-message {
     display: none;
@@ -1186,46 +1185,25 @@ width: 49px;
     display: none;
 }
 
-#image-markup-canvas {
-    width: 400px;
-    height: 300px;
-}
 
-#image-markup-loader-wrapper {
+/* Code Markup
+********************************************/
+
+#code-markup-reply-message {
     display: none;
 }
 
 
-<<<<<<< Updated upstream
-/* Fingertips
+/* Code Markup
 ********************************************/
-=======
-.code-body{
-    font-size: 15px;
-    font-weight: 200;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    text-align: left;
+
+#threaded-messages-reply-message {
+    display: none;
 }
 
-.gist-body {
-    font-size: 15px;
-    font-weight: 200;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    text-align: left;
-}
-.fingertips-wrapper {
-    width: 100%;
-    position: relative;
-    margin-bottom: 5px;
-    padding: 5px;
-    background-color: rgb(89, 98, 95);
-    border-color: rgb(89, 98, 95);
-    border-width: 1px;
-    border-radius: 10px;
-}
->>>>>>> Stashed changes
+
+/* Fingertips
+********************************************/
 
 #fingertips-toolbar {
     width: 20%;

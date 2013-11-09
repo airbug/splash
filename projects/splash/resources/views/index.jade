@@ -17,14 +17,12 @@ block content
       div(class="tagline")
         h1(class="header-tagline") Collaborative chat for developers
       div(class="row row1")
-        div(class="col-sm-2 col-sm-offset-5")
-          form(class="form-inline", role="form")
-            div(class="form-group")
-            button(type="button", class="btn btn-default button-font", id="beta-sign-up-button-two") sign up for beta - free!
+        div(class="col-md-12")
+          button(type="button", class="btn btn-default button-font", id="beta-sign-up-button-two") sign up for beta - free!
       div(class="row row2")
-        div(class="col-sm-6 col-sm-offset-3")
+        div(class="col-md-12")
           div(class="airbug-screenshot")
-            img(src="http://placekitten.com/600/400" alt="product image")
+            img(src="http://placekitten.com/600/400", alt="product image")
       div(class="row row3")
         div(class="col-sm-10 col-sm-offset-1")
           div(class="benefit-container")
@@ -84,15 +82,15 @@ block content
                       div(class="message-body") What's wrong with this code?
                       div(class="message-code-wrapper")
                         div(class="message-code") if(false) {
-                            doSomething();
-                          }
+                          |   doSomething();
+                          | }
                         div(class="message-code-markup-icon")
                           button(id="code-markup-markup-button", type="button", class="btn btn-default")
                             div(class="glyphicon glyphicon-pencil")
                     div(id="code-markup-reply-message", class="message-wrapper")
                       div(class="message-sent-by") You
                       div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Found the problems!
+                      div(class="message-body") WAT?
                       div(class="message-code-wrapper")
                         div(class="message-code") if (false) {
                 h5(class="feature") Code annotations 
@@ -105,16 +103,16 @@ block content
           div(class="row")
             div(class="col-md-4")
               div(class="feature-container")
-                div(id="threaded-feature-example", class="feature-example")
-                  div(id="threaded-messages-container", class="messages-container")
+                div(id="threaded-messages-feature-example", class="feature-example")
+                  div(id="threaded-messages-messages-container", class="messages-container")
                     div(id="threaded-start-message", class="message-wrapper")
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Did you just break the server?
                         div(class="message-reply-icon")
-                          button(id="reply-button", type="button", class="btn btn-default")
+                          button(id="threaded-messages-reply-button", type="button", class="btn btn-default")
                             div(class="glyphicon glyphicon-share-alt")
-                      div(id="threaded-reply-message", class="message-wrapper reply-message")
+                      div(id="threaded-messages-reply-message", class="message-wrapper reply-message")
                         div(class="message-sent-by") You
                         div(class="message-sent-at") 8:40PM
                         div(class="message-body") Yep! My bad...
@@ -134,8 +132,8 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-code-wrapper")
                         div(class="message-code") if(false) {
-                              doSomething();
-                            }
+                          |    doSomething();
+                          | }
                 h5(class="feature") Embedded content 
                 p(class="feature-description") Keep everyone on the same page by embedding content directly into the conversation. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
             div(class="col-md-4")
@@ -173,9 +171,9 @@ block content
           div(class="row")
             div(class="col-md-4")
               div(class="feature-container")
-                div(id="default-inactive-mode-feature",class="feature-example")
+                div(id="heads-down-feature-example", class="feature-example")
                   div(class="input-text-layout top-text-layout")  
-                    div(class="inactive-buzz-button")
+                    div(id="heads-down-status-indicator", class="status-indicator")
                     div(class="message-sent-at") 6:20PM
                     div(class="buzz-mode-text") Your Name
                     div(class="left-buzz-feature")
@@ -184,7 +182,7 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Why does everything happen?
                   div(class="input-group input-group")
-                    input(type="text",id="default-inactive-mode-feature-form", class="form-control input-group green-font", placeholder="type your message here")
+                    input(type="text", id="heads-down-input", class="form-control input-group green-font", placeholder="type your message here")
                 h5(class="feature") &quot;Heads Down &quot; mode
                 p(class="feature-description") shield yourself from unnecessary distractions by defaulting to &quot;heads down &quot mode unless you are active in the client. Now your team members know when you are available to chat and when you are coding away.
             div(class="col-md-4")
@@ -192,20 +190,20 @@ block content
                 div(class="feature-example")
                   div(id="buzz-mode-feature-one")
                     div(class="input-text-layout top-text-layout") 
-                      div(class="inactive-buzz-button")
+                      div(class="status-indicator")
                       div(class="buzz-mode-text") Brian Neisler
                       div(class="left-buzz-feature")
                         span(class="glyphicon glyphicon-bell glyph-icon-light")
                   div(id="buzz-mode-feature-two")
                     div(class="input-text-layout") 
-                      div(class="inactive-buzz-button")
+                      div(class="status-indicator")
                       div(class="buzz-mode-text") Sung Choi
                       div(class="left-buzz-feature")
                         span(class="glyphicon glyphicon-bell glyph-icon-light")
                   div(id="buzz-mode-feature-three")
                     div(class="input-text-layout bottom-text-layout") 
                       div(class="grey-box")
-                        div(class="inactive-buzz-button")
+                        div(class="status-indicator")
                       div(class="buzz-mode-text") Michelle Wegenstein
                       div(class="left-buzz-feature")
                         span(class="glyphicon glyphicon-bell glyph-icon-light")
