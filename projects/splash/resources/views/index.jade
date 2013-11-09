@@ -44,11 +44,9 @@ block content
                       div(class="message-image-wrapper")
                         img(src="/img/image-message.png", class="message-image")
                   div(id="capture-content-chat-form", class="chat-form")
-                    form(class="form-inline", role="form")
-                      div(id="capture-content-chat-input", class="form-group chat-input")
-                        input(type="text", class="form-control", id="chat-message", placeholder="")
-                      button(id="capture-content-camera-button", type="button", class="airbug-button")
-                        div(class="glyphicon glyphicon-camera glyph-icon-light")
+                    input(type="text", class="form-control", id="chat-message", placeholder="")
+                    button(id="capture-content-camera-button", type="button", class="airbug-button")
+                      div(class="glyphicon glyphicon-camera glyph-icon-light")
                 h5(class="feature") Content capture
                 p(class="feature-description") Capture and share content with one click. Easily grab web clippings, take screenshots and transfer code into the conversation.
             div(class="col-md-4")
@@ -62,8 +60,8 @@ block content
                       div(class="message-image-wrapper")
                         img(src="/img/image-message.png", class="message-image")
                         div(class="message-image-markup-icon")
-                          button(id="image-markup-markup-button", type="button", class="btn btn-default")
-                            div(class="glyphicon glyphicon-pencil")
+                          button(id="image-markup-markup-button", type="button" class="airbug-button-invert")
+                            div(class="glyphicon glyphicon-pencil glyph-icon-dark")
                     div(id="image-markup-reply-message", class="message-wrapper")
                       div(class="message-sent-by") You
                       div(class="message-sent-at") 8:40PM
@@ -181,8 +179,10 @@ block content
                       div(class="message-sent-by") Michelle
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Why does everything happen?
-                  div(class="input-group input-group")
-                    input(type="text", id="heads-down-input", class="form-control input-group green-font", placeholder="type your message here")
+                  div(class="chat-form")
+                    input(type="text",id="heads-down-input", class="green-font", placeholder="type message here")
+                    button(id="heads-down-arrow-button", type="button", class="airbug-button")
+                      div(class="glyphicon glyphicon-arrow-right glyph-icon-light")
                 h5(class="feature") &quot;Heads Down &quot; mode
                 p(class="feature-description") shield yourself from unnecessary distractions by defaulting to &quot;heads down &quot mode unless you are active in the client. Now your team members know when you are available to chat and when you are coding away.
             div(class="col-md-4")
