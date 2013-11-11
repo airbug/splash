@@ -89,6 +89,7 @@ var ExplainerPage = Class.extend(Page, {
         this.initializeImageMarkup();
         this.initializeCodeMarkup();
         this.initializeThreadedMessages();
+        this.initializeSnapshotContent();
         this.initializeHeadsDown();
         this.initializeBuzz();
 
@@ -274,6 +275,90 @@ var ExplainerPage = Class.extend(Page, {
         messagesContainer.animate({
             scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
         }, 1000);
+    },
+
+
+    // Snapshots
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeSnapshotContent: function() {
+        var _this = this;
+        var snapshotButton = JQuery("#snapshot-content-button");
+        var run = false;
+        snapshotButton.on("click", function() {
+            if (!run) {
+                run = true;
+                _this.showSnapshotContentMessageTwo(function() {
+                    setTimeout(function() {
+                        _this.showSnapshotContentMessageThree(function() {
+                            setTimeout(function() {
+                                _this.showSnapshotContentMessageFour();
+                            }, 1000);
+                        });
+                    }, 1000);
+                });
+            }
+        });
+    },
+
+    /**
+     * @private
+     * @param {function()} callback
+     */
+    showSnapshotContentMessageTwo: function(callback) {
+
+        var messageTwo          = JQuery("#snapshot-content-message-two");
+        var messagesContainer   = JQuery("#snapshot-content-messages-container");
+        messageTwo.show();
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + messageTwo.position().top
+        }, {
+            duration: 1000,
+            complete: function() {
+                callback();
+            },
+            fail: function() {
+                callback();
+            }
+        });
+    },
+
+    /**
+     * @private
+     * @param {function()} callback
+     */
+    showSnapshotContentMessageThree: function(callback) {
+        var messageThree          = JQuery("#snapshot-content-message-three");
+        var messagesContainer   = JQuery("#snapshot-content-messages-container");
+        messageThree.show();
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + messageThree.position().top
+        }, {
+            duration: 1000,
+            complete: function() {
+                callback();
+            },
+            fail: function() {
+                callback();
+            }
+        });
+    },
+
+    /**
+     * @private
+     */
+    showSnapshotContentMessageFour: function() {
+        var messageFour          = JQuery("#snapshot-content-message-four");
+        var messagesContainer   = JQuery("#snapshot-content-messages-container");
+        messageFour.show();
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + messageFour.position().top
+        }, {
+            duration: 1000
+        });
     },
 
 

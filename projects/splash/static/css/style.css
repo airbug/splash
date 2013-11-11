@@ -1229,6 +1229,22 @@ width: 49px;
 }
 
 
+/* Snapshot Content
+********************************************/
+
+#snapshot-content-message-two {
+     display: none;
+}
+
+#snapshot-content-message-three {
+    display: none;
+}
+
+#snapshot-content-message-four {
+    display: none;
+}
+
+
 /* Fingertips
 ********************************************/
 
