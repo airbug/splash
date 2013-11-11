@@ -92,6 +92,7 @@ var ExplainerPage = Class.extend(Page, {
         this.initializeSnapshotContent();
         this.initializeHeadsDown();
         this.initializeBuzz();
+        this.initializeFingertips();
 
         this.pageManager.addEventListener(PageManager.EventTypes.GOTOPAGE, this.hearGoToPageEvent, this);
     },
@@ -463,6 +464,92 @@ var ExplainerPage = Class.extend(Page, {
             _this.runBuzzToInactiveMode(name);
         }, 1000);
         this.buzzTimerIds[name] = timerID;
+    },
+
+
+    // Fingertips
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeFingertips: function() {
+        var _this                   = this;
+        var imageButton             = JQuery("#fingertips-image-button");
+        var codeButton              = JQuery("#fingertips-code-button");
+        var githubButton            = JQuery("#fingertips-github-button");
+        imageButton.on("click", function(event) {
+            _this.addFingertipsImageMessage();
+        });
+        codeButton.on("click", function(event) {
+            _this.addFingertipsCodeMessage();
+        });
+        githubButton.on("click", function(event) {
+            _this.addFingertipsGithubMessage();
+        });
+    },
+
+    /**
+     * @private
+     */
+    addFingertipsImageMessage: function() {
+        var messagesContainer = $("#fingertips-messages-container");
+        var imageMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">Dustin' + "</div>" +
+            '<div class="message-sent-at">8:40 PM' + "</div>" +
+            '<div class="message-image-wrapper">' +
+                '<img src="/img/image-message.png" class="message-image" />' +
+            "</div>" +
+        '</div>');
+        messagesContainer.append(imageMessage);
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + imageMessage.position().top
+        }, {
+            duration: 1000
+        });
+    },
+
+    /**
+     * @private
+     */
+    addFingertipsGithubMessage: function() {
+        var messagesContainer = $("#fingertips-messages-container");
+        var githubMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">Sung' + "</div>" +
+            '<div class="message-sent-at">8:40 PM' + "</div>" +
+            '<div class="message-gist-wrapper">' +
+                '<div class="message-gist">THIS IS WHERE GIST SNIPPET BE</div>' +
+            '</div>' +
+        '</div>');
+        messagesContainer.append(githubMessage);
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + githubMessage.position().top
+        }, {
+            duration: 1000
+        });
+    },
+
+    /**
+     * @private
+     */
+    addFingertipsCodeMessage: function() {
+        var messagesContainer = $("#fingertips-messages-container");
+        var codeMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">Sung' + "</div>" +
+            '<div class="message-sent-at">8:40 PM' + "</div>" +
+            '<div class="message-code-wrapper">' +
+                '<div class="message-code">if(false) { <br/>' +
+                    '    doSomething(); <br/>' +
+                    '} <br/>' +
+                '</div>' +
+            '</div>' +
+        '</div>');
+        messagesContainer.append(codeMessage);
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + codeMessage.position().top
+        }, {
+            duration: 1000
+        });
     }
 });
 
