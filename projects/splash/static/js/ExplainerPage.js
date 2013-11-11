@@ -65,6 +65,12 @@ var ExplainerPage = Class.extend(Page, {
          * @type {number}
          */
         this.timerID = null;
+
+        /**
+         * @private
+         * @type {Object}
+         */
+        this.buzzTimerIds = {};
     },
 
 
@@ -84,6 +90,7 @@ var ExplainerPage = Class.extend(Page, {
         this.initializeCodeMarkup();
         this.initializeThreadedMessages();
         this.initializeHeadsDown();
+        this.initializeBuzz();
 
         this.pageManager.addEventListener(PageManager.EventTypes.GOTOPAGE, this.hearGoToPageEvent, this);
     },
@@ -313,6 +320,64 @@ var ExplainerPage = Class.extend(Page, {
     runChangeToInactiveMode: function() {
         var inactiveButton = JQuery("#heads-down-status-indicator");
         inactiveButton.css("background-color", "rgb(226,158,165)");
+    },
+
+
+    // Buzz
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeBuzz: function() {
+        var _this                   = this;
+        var buzzBrianButton         = JQuery("#buzz-brian-button");
+        var buzzMichelleButton      = JQuery("#buzz-michelle-button");
+        var buzzSungButton          = JQuery("#buzz-sung-button");
+        buzzBrianButton.on("click", function(event) {
+            _this.runBuzzToActiveMode("brian");
+        });
+        buzzMichelleButton.on("click", function(event) {
+            _this.runBuzzToActiveMode("michelle");
+        });
+        buzzSungButton.on("click", function(event) {
+            _this.runBuzzToActiveMode("sung");
+        });
+    },
+
+    /**
+     * @private
+     * @param {string} name
+     */
+    runBuzzToActiveMode: function(name) {
+        var inactiveButton = JQuery("#" + name +"-status-indicator");
+        inactiveButton.css("background-color", "rgb(204, 230, 204)");
+        this.startTimerForInactiveBuzzMode(name);
+    },
+
+    /**
+     * @private
+     * @param {string} name
+     */
+    runBuzzToInactiveMode: function(name) {
+        var inactiveButton = JQuery("#" + name +"-status-indicator");
+        inactiveButton.css("background-color", "rgb(226,158,165)");
+    },
+
+    /**
+     * @private
+     */
+    startTimerForInactiveBuzzMode: function(name) {
+        var _this = this;
+        var timerID = this.buzzTimerIds[name];
+        if (timerID) {
+            clearTimeout(timerID);
+        }
+        timerID = setTimeout(function() {
+            _this.buzzTimerIds[name] = null;
+            _this.runBuzzToInactiveMode(name);
+        }, 1000);
+        this.buzzTimerIds[name] = timerID;
     }
 });
 

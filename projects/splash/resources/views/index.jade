@@ -174,7 +174,6 @@ block content
                     div(id="heads-down-status-indicator", class="status-indicator")
                     div(class="message-sent-at") 6:20PM
                     div(class="buzz-mode-text") Your Name
-                    div(class="left-buzz-feature")
                   div(id="heads-down-content-message", class="message-wrapper")
                       div(class="message-sent-by") Michelle
                       div(class="message-sent-at") 8:40PM
@@ -183,30 +182,29 @@ block content
                     input(type="text",id="heads-down-input", class="green-font", placeholder="type message here")
                     button(id="heads-down-arrow-button", type="button", class="airbug-button")
                       div(class="glyphicon glyphicon-arrow-right glyph-icon-light")
-                h5(class="feature") &quot;Heads Down &quot; mode
+                h5(class="feature") &quot;Heads Down&quot; mode
                 p(class="feature-description") shield yourself from unnecessary distractions by defaulting to &quot;heads down &quot mode unless you are active in the client. Now your team members know when you are available to chat and when you are coding away.
             div(class="col-md-4")
               div(class="feature-container")
                 div(class="feature-example")
                   div(id="buzz-mode-feature-one")
                     div(class="input-text-layout top-text-layout") 
-                      div(class="status-indicator")
+                      div(id="brian-status-indicator", class="status-indicator")
                       div(class="buzz-mode-text") Brian Neisler
                       div(class="left-buzz-feature")
-                        span(class="glyphicon glyphicon-bell glyph-icon-light")
+                        span(id="buzz-brian-button", class="glyphicon glyphicon-bell glyph-icon-light")
                   div(id="buzz-mode-feature-two")
                     div(class="input-text-layout") 
-                      div(class="status-indicator")
+                      div(id="sung-status-indicator", class="status-indicator")
                       div(class="buzz-mode-text") Sung Choi
                       div(class="left-buzz-feature")
-                        span(class="glyphicon glyphicon-bell glyph-icon-light")
+                        span(id="buzz-sung-button", class="glyphicon glyphicon-bell glyph-icon-light")
                   div(id="buzz-mode-feature-three")
                     div(class="input-text-layout bottom-text-layout") 
-                      div(class="grey-box")
-                        div(class="status-indicator")
+                      div(id="michelle-status-indicator", class="status-indicator")
                       div(class="buzz-mode-text") Michelle Wegenstein
                       div(class="left-buzz-feature")
-                        span(class="glyphicon glyphicon-bell glyph-icon-light")
+                        span(id="buzz-michelle-button", class="glyphicon glyphicon-bell glyph-icon-light")
                 h5(class="feature") Buzz feature 
                 p(class="feature-description") While it is important for you to keep focused,  there will always be times when it is necessary for your team to get a hold of you. Grab attention using the buzz feature.
             div(class="col-md-4")

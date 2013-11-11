@@ -146,6 +146,7 @@ width: 49px;
     margin: 0px;
     top: 0;
     margin-top: 3px;
+    cursor: pointer;
 }
 
 .buzz-mode-text {
