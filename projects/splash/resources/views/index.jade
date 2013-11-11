@@ -43,10 +43,10 @@ block content
                       div(class="message-body") Here ya go
                       div(class="message-image-wrapper")
                         img(src="/img/image-message.png", class="message-image")
-                  div(id="capture-content-chat-form", class="chat-form")
-                    input(type="text", class="form-control", id="chat-message", placeholder="")
-                    button(id="capture-content-camera-button", type="button", class="airbug-button")
-                      div(class="glyphicon glyphicon-camera glyph-icon-light")
+                    div(id="capture-content-chat-form", class="chat-form")
+                      input(type="text", class="form-control", id="chat-message", placeholder="")
+                      button(id="capture-content-camera-button", type="button", class="airbug-button")
+                        div(class="glyphicon glyphicon-camera glyph-icon-light")
                 h5(class="feature") Content capture
                 p(class="feature-description") Capture and share content with one click. Easily grab web clippings, take screenshots and transfer code into the conversation.
             div(class="col-md-4")
@@ -77,18 +77,18 @@ block content
                     div(id="code-markup-start-message", class="message-wrapper")
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 8:40PM
-                      div(class="message-body") What's wrong with this code?
+                      div(class="message-body") Hey can you help me out with ths code?
                       div(class="message-code-wrapper")
                         div(class="message-code") if(false) {
                           |   doSomething();
                           | }
                         div(class="message-code-markup-icon")
-                          button(id="code-markup-markup-button", type="button", class="btn btn-default")
-                            div(class="glyphicon glyphicon-pencil")
+                          button(id="code-markup-markup-button", type="button", class="airbug-button-invert")
+                            div(class="glyphicon glyphicon-pencil glyph-icon-dark")
                     div(id="code-markup-reply-message", class="message-wrapper")
                       div(class="message-sent-by") You
                       div(class="message-sent-at") 8:40PM
-                      div(class="message-body") WAT?
+                      div(class="message-body") Think I found the error. Check this out:
                       div(class="message-code-wrapper")
                         div(class="message-code") if (false) {
                 h5(class="feature") Code annotations 
@@ -121,7 +121,7 @@ block content
                 div(id="embedded-content-feature-example", class="feature-example")
                   div(id="embedded-content-messages-container", class="messages-container")
                     div(id="embedded-content-image-message", class="message-wrapper")
-                      div(class="message-sent-by") Brian
+                      div(class="message-sent-by") Tim
                       div(class="message-sent-at") 8:40PM
                       div(class="message-image-wrapper")
                         img(src="/img/image-message.png", class="message-image")
@@ -136,9 +136,10 @@ block content
                 p(class="feature-description") Keep everyone on the same page by embedding content directly into the conversation. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
             div(class="col-md-4")
               div(class="feature-container")
-                div(id="fingertips-feature-example",class="feature-example")
+                div(id="snapshot-content-feature-example",class="feature-example")
                   div(id="snapshot-toolbar")
-                    div(id="snapshot-content-button", type="button", class="btn btn-default") Snapshot
+                    div(class="bug-report-text") Bug Report
+                    button(id="snapshot-content-button", type="button", class="airbug-button-invert")
                   div(id="snapshot-content-messages-container", class="messages-container")
                     div(id="snapshot-content-message-one", class="message-wrapper")
                       div(class="message-sent-by") Sung

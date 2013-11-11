@@ -69,21 +69,22 @@ p {
 .airbug-button-invert{
     background-color: rgb(205,231,205);
     border: 0px;
-    width: 45px;
+    width: 40px;
     border-radius: 7px;
-    height: 34px;
+    height: 30px;
     font-size: 1.375em; 
 }
 
 #heads-down-input{
     height: 34px;
-    width: 173px;
+    width: 195px;
     background-color: rgb(89, 98, 95);
     color: rgb(204, 230, 204);
     border-radius: 7px;
     font-size: 0.938em;
     border: 0px;
-    text-align: center;
+    text-align: left;
+    padding-left: 15px;
 }
 
 
@@ -96,7 +97,9 @@ p {
     right: 35px;  
 }
 
-
+#snapshot-content-messages-container {
+    width: 158px;
+}
 /* Buzz Feature
 ********************************************/
 
@@ -173,7 +176,7 @@ width: 49px;
 ********************************************/
 
 .green-font::-webkit-input-placeholder { /* WebKit browsers */
-    color: rgb(205,231,205); 
+    color: rgb(205,231,205);
 }
 .green-font:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color: rgb(205,231,205); 
@@ -182,7 +185,7 @@ width: 49px;
     color: rgb(205,231,205); 
 }
 .green-font:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color: rgb(205,231,205); 
+    color: rgb(205,231,205);
 }
 
 #heads-down-arrow-button{
@@ -191,6 +194,10 @@ width: 49px;
     position: absolute;
     right: 0px;
     top: 0px; 
+}
+
+#heads-down-content-message {
+    max-height: 64px;
 }
 
 
@@ -1069,7 +1076,7 @@ width: 49px;
     height: 220px;
     margin-left: auto;
     margin-right: auto;
-    padding: 10px;
+    padding: 0px
 }
 
 
@@ -1086,12 +1093,13 @@ width: 49px;
     -webkit-transition:height 1s;
     -o-transition:height 1s;
     transition:height 1s;
+    min-height: 130px;
 }
 
 .message-wrapper {
     width: 100%;
     position: relative;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     padding: 5px;
     background-color: rgb(89, 98, 95);
     border-radius: 7px;
@@ -1104,18 +1112,18 @@ width: 49px;
 
 .message-image-wrapper {
     position: relative;
-    margin-left: auto;
+    margin-left: 26px;
     margin-right: auto;
-    width: 150px;
-    height: 75px;
+    width: 167px;
+    height: 66px;
+    margin-bottom: 9px;
 }
 
 .message-image {
     position: absolute;
     top: 0px;
-    left: 25px;
-    width: 100px;
-    height: 75px;
+    width: 167px;;
+    height: 66px;
 }
 
 .message-sent-by {
@@ -1131,14 +1139,15 @@ width: 49px;
 .message-sent-at {
     color: rgb(204, 230, 204);
     text-align:right;
-    line-height: 30px;
+    line-height: 25px;
     font-size: .938em;
+    padding-right: 5px;
 }
 
 .message-body {
     font-size: .938em;
     font-weight: 200;
-    margin-left: 20px;
+    margin-left: 10px;
     margin-bottom: 10px;
     text-align: left;
     color:rgb(204, 230, 204);
@@ -1146,20 +1155,26 @@ width: 49px;
 
 .message-image-markup-icon {
     position: absolute;
-    left: 137px;
-    bottom: 33px;
+    right: -50px;
+    bottom: 0px;
 }
 
 .message-code-wrapper {
-    background-color: rgb(245, 253, 255);
+    background-color: rgb(204, 230, 204);
+    color: rgb(89, 98, 95);
+    border-radius: 7px;
+    width: 167px;
+    margin-left: 26px;
+
 }
 
 .message-code{
-    font-size: 15px;
+    font-size: .938em;
     font-weight: 200;
     margin-left: 20px;
     margin-bottom: 10px;
     text-align: left;
+    height: 66px;
 }
 
 .message-gist {
@@ -1182,7 +1197,7 @@ width: 49px;
     background-color:rgb(89, 98, 95); 
     border-radius: 7px;
     border: 0px;
-    width: 173px; 
+    width: 197px; 
 }
 
 /* Capture Content
@@ -1204,6 +1219,10 @@ width: 49px;
     display: none;
 }
 
+#capture-content-start-message {
+    height: 91px;
+}
+
 
 /* Image Markup
 ********************************************/
@@ -1220,6 +1239,21 @@ width: 49px;
     display: none;
 }
 
+.message-code-annotations-image {
+    position: absolute;
+    right: 6px;
+    bottom: 11px;
+}
+
+.message-code-markup-icon {
+    position: absolute;
+    right: 8px;
+    bottom: 15px;
+}
+
+#code-markup-start-message {
+    height: 135px;
+}
 
 /* Threaded Messages
 ********************************************/
