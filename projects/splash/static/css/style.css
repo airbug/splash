@@ -21,10 +21,26 @@ p {
 button:focus{
     outline: 0;
 }
+
+.social-thankyou-wrap {
+    position: relative;
+    width: 244px;
+}
+
 .social-feed-container{
     float: left;
     width: 135px;
     margin-top: 10px;
+}
+
+.twitter-thankyou {
+    left:20px;
+    position: absolute;
+}
+
+.facebook-thankyou {
+    right:20px;
+    position: absolute;
 }
 
 .social-text{
@@ -1912,7 +1928,7 @@ button:focus{
     display: block;
     top: 97px;
     width: 250px;
-    height: 130px;
+    height: 190px;
     border-left: solid 3px #000000;
     border-right: solid 3px #000000;
     border-top: solid 5px #000000;
