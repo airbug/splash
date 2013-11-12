@@ -372,7 +372,12 @@ var ExplainerPage = Class.extend(Page, {
     initializeHeadsDown: function() {
         var _this = this;
         var headsDownInput = JQuery("#heads-down-input");
+        var headsDownButton = JQuery("#heads-down-arrow-button");
         headsDownInput.keyup(function() {
+            _this.runChangeToActiveMode();
+            _this.startTimerForInactiveMode();
+        });
+        headsDownButton.on("click", function() {
             _this.runChangeToActiveMode();
             _this.startTimerForInactiveMode();
         });
