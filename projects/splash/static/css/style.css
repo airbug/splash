@@ -72,6 +72,25 @@ button:focus{
     border: 1px solid rgb(89, 98, 95);
 }
 
+.left-scroll {
+    position: absolute;
+    left: -73px;
+    bottom: -2px;
+    width: 73px;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+.right-scroll {
+    position: absolute;
+    right: -73px;
+    bottom: -2px;
+    width: 73px;
+}
 
 /* Heads Down
 ********************************************/
@@ -1157,6 +1176,11 @@ button:focus{
 /* Messages
 ********************************************/
 
+.messages-container-wrapper {
+    position: relative;
+    border-bottom: solid 2px rgb(89, 98, 95);
+}
+
 .messages-container {
     position: relative;
     width: 100%;
@@ -1264,7 +1288,8 @@ button:focus{
 }
 
 .chat-form {
-   position: relative;
+    position: relative;
+    margin-top: 10px;
 }
 
 #chat-message {

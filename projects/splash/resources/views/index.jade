@@ -57,16 +57,19 @@ block content
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="capture-content-feature-example", class="feature-example")
-                  div(id="capture-content-messages-container", class="messages-container")
-                    div(id="capture-content-start-message", class="message-wrapper")
-                      div(class="message-sent-by") Brian
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Can you send me a screen shot?
-                    div(id="capture-content-reply-message", class="message-wrapper")
-                      div(class="message-sent-by") You
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-image-wrapper")
-                        img(src="/img/image-message.png", class="message-image")
+                  div(class="messages-container-wrapper")
+                    img(src="/img/line-fade.png", class="left-scroll")
+                    img(src="/img/line-fade.png", class="right-scroll")
+                    div(id="capture-content-messages-container", class="messages-container")
+                      div(id="capture-content-start-message", class="message-wrapper")
+                        div(class="message-sent-by") Brian
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") Can you send me a screen shot?
+                      div(id="capture-content-reply-message", class="message-wrapper")
+                        div(class="message-sent-by") You
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-image-wrapper")
+                          img(src="/img/image-message.png", class="message-image")
                   div(id="capture-content-chat-form", class="chat-form")
                     input(type="text", class="form-control", id="chat-message", placeholder="")
                     button(id="capture-content-camera-button", type="button", class="airbug-button")
