@@ -24,7 +24,7 @@ button:focus{
 
 .social-thankyou-wrap {
     position: relative;
-    width: 244px;
+    width: 313px;
 }
 
 .social-feed-container{
@@ -34,12 +34,12 @@ button:focus{
 }
 
 .twitter-thankyou {
-    left:20px;
+    left:51px;
     position: absolute;
 }
 
 .facebook-thankyou {
-    right:20px;
+    right:45px;
     position: absolute;
 }
 
@@ -139,6 +139,10 @@ button:focus{
     padding-left: 15px;
 }
 
+#heads-down-message {
+    margin-top: -4px;
+}
+
 
 /* Snapshot
 ********************************************/
@@ -177,16 +181,20 @@ button:focus{
 ********************************************/
 
 .green-font::-webkit-input-placeholder { /* WebKit browsers */
-    color: rgb(205,231,205);
+    color: rgb(224, 240, 224);
+    font-style: italic;
 }
 .green-font:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: rgb(205,231,205); 
+    color: rgb(224, 240, 224);
+    font-style: italic; 
 }
 .green-font::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: rgb(205,231,205); 
+    color: rgb(224, 240, 224);
+    font-style: italic; 
 }
 .green-font:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color: rgb(205,231,205);
+    color: rgb(224, 240, 224);
+    font-style: italic;
 }
 
 #heads-down-arrow-button{
@@ -249,7 +257,7 @@ button:focus{
 ********************************************/
 .feature-container{
     max-width: 258px;
-    margin: 0 auto;
+    margin: 0 auto 30px auto;
 }
 
 .benefit-container{
@@ -309,12 +317,12 @@ button:focus{
     border-left: solid 1px #CCCCCC;
     border-right: solid 1px #CCCCCC;
     background: #f4f5f5;
-    background: -moz-linear-gradient(top,  #f4f5f5 0%, #f4f5f5 70%, #abcecb 100%);
+    /*background: -moz-linear-gradient(top,  #f4f5f5 0%, #f4f5f5 70%, #abcecb 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f5f5), color-stop(70%,#f4f5f5), color-stop(100%,#abcecb));
     background: -webkit-linear-gradient(top,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
     background: -o-linear-gradient(top,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
     background: -ms-linear-gradient(top,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
-    background: linear-gradient(to bottom,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
+    background: linear-gradient(to bottom,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);*/
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f5f5', endColorstr='#abcecb',GradientType=0 );
 }
 
@@ -1349,6 +1357,7 @@ button:focus{
 #image-markup-reply-message {
     display: none;
     margin-bottom: 0px;
+
 }
 
 
@@ -1358,6 +1367,7 @@ button:focus{
 #code-markup-reply-message {
     display: none;
     margin-bottom: 0px;
+
 }
 
 .message-code-annotations-image {
@@ -1381,9 +1391,50 @@ button:focus{
 
 #threaded-messages-reply-message {
     display: none;
+    background-color: rgb(205,231,205);
+    width: 215px;
+    margin-left: 25px;
 }
 
+#reply-arrow{
+    height: 30px;
+    width: 43px;
+    background-image: url(/img/reply-arrow-icon-inverse.png);
+    background-size: 20px 15px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
 
+#reply-arrow:hover{
+    background-image: url(/img/reply-arrow-icon.png);
+}
+
+#threaded-messages-reply-button{
+    position: absolute;
+    right: 13px;
+    top: 30px;   
+}   
+
+#threaded-message-body {
+    margin-bottom: 20px;
+    padding-top: 7px;
+}
+
+.threaded-text {
+    color:rgb(89, 98, 95);
+}
+
+#threaded-messages-reply-button {
+    padding: 0px;
+    width: 42px;
+    height: 30px;
+    margin: 0px;
+}
+
+.message-threaded-response {
+    font-size: .750em;
+    margin-left: 137px;
+}
 /* Snapshot Content
 ********************************************/
 
@@ -1402,7 +1453,8 @@ button:focus{
 .bug-report-image {
     margin:0 auto;
     width: 40px;
-    height: 60px
+    height: 60px;
+    position: relative;
 }
 
 #snapshot-content-button {
@@ -1412,6 +1464,11 @@ button:focus{
 
 #snapshot-content-message-one {
     height: 135px;
+}
+#bug-report {
+    width: 40px;
+    height: 60px;
+    position: absolute;
 }
 
 /* Fingertips
@@ -1899,8 +1956,8 @@ button:focus{
 .thank-you-container {
     display: block;
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 150px;
@@ -1909,8 +1966,8 @@ button:focus{
 #thank-you-airbug {
     display: block;
     position: relative;
-    width: 256px;
-    height: 240px;
+    width: 325px;
+    height: 309px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -1920,15 +1977,15 @@ button:focus{
     display: block;
     width: 82px;
     height: 98px;
-    left: 87px;
+    left: 120px;
 }
 
 #thank-you-message {
     position: absolute;
     display: block;
     top: 97px;
-    width: 250px;
-    height: 190px;
+    width: 325px;
+    height: 309px;
     border-left: solid 3px #000000;
     border-right: solid 3px #000000;
     border-top: solid 5px #000000;
@@ -1938,7 +1995,7 @@ button:focus{
     text-align: center;
     line-height: 38px;
     color: #333333;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 /* 404 Page

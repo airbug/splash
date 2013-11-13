@@ -500,7 +500,7 @@ var ExplainerPage = Class.extend(Page, {
     addFingertipsImageMessage: function() {
         var messagesContainer = $("#fingertips-messages-container");
         var imageMessage = $('<div class="message-wrapper">' +
-            '<div class="message-sent-by">Dustin' + "</div>" +
+            '<div class="message-sent-by">You' + "</div>" +
             '<div class="message-sent-at">8:40 PM' + "</div>" +
             '<div class="message-image-wrapper">' +
                 '<img src="/img/image-message.png" class="message-image" />' +
@@ -520,7 +520,7 @@ var ExplainerPage = Class.extend(Page, {
     addFingertipsGithubMessage: function() {
         var messagesContainer = $("#fingertips-messages-container");
         var githubMessage = $('<div class="message-wrapper">' +
-            '<div class="message-sent-by">Sung' + "</div>" +
+            '<div class="message-sent-by">You' + "</div>" +
             '<div class="message-sent-at">8:40 PM' + "</div>" +
             '<div class="message-gist-wrapper">' +
                 '<div class="message-gist">THIS IS WHERE GIST SNIPPET BE</div>' +
@@ -540,7 +540,7 @@ var ExplainerPage = Class.extend(Page, {
     addFingertipsCodeMessage: function() {
         var messagesContainer = $("#fingertips-messages-container");
         var codeMessage = $('<div class="message-wrapper">' +
-            '<div class="message-sent-by">Sung' + "</div>" +
+            '<div class="message-sent-by">You' + "</div>" +
             '<div class="message-sent-at">8:40 PM' + "</div>" +
             '<div class="message-code-wrapper">' +
                 '<div class="message-code">if(false) { <br/>' +
