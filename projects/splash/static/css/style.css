@@ -1114,12 +1114,12 @@ button:focus{
     top: 0px;
 }
 
-.list-panel {
+.airbug-list-panel {
     width: 100%;
     height: 100%
 }
 
-.list-item {
+.airbug-list-item {
     width: 100%;
     height: 40px;
     background-color: rgb(89, 98, 95);
@@ -1128,16 +1128,20 @@ button:focus{
     color: rgb(205,231,205);
 }
 
-.list-top {
+.airbug-list-top {
     border-radius: 7px 7px 0px 0px
 }
 
-.list-bottom {
+.airbug-list-bottom {
     border-radius: 0px 0px 10px 10px
 }
 
 .glyph-light{
     color:rgb(205,231,205);
+}
+
+.user-list-header h3 {
+    margin: 0;
 }
 
 .user-list-item {
@@ -1180,12 +1184,18 @@ button:focus{
     top: 5px;
     right: 7px;
     border-radius: 7px;
-
 }
 
-.panel {
+.airbug-panel {
+    padding: 0;
+    margin: 0;
     color: rgb(205,231,205);
     background-color: rgb(89, 98, 95);
+    border-radius: 7px;
+}
+
+.room-info h2 {
+    margin: 0;
 }
 
 #room-info-panel {
@@ -1193,7 +1203,49 @@ button:focus{
     left: 230px;
     top: 0px;
     width: 470px;
-    height: 80px;
+    height: 40px;
+    margin: 0;
+}
+
+#airbug-messages-container-wrapper {
+    position: absolute;
+    left: 230px;
+    top: 50px;
+    width: 495px;
+    height: 280px;
+}
+
+#airbug-messages-container {
+    position: absolute;
+    bottom: 0px;
+    max-height: 280px;
+}
+
+#airbug-chat-form {
+    position: absolute;
+    left: 230px;
+    top: 340px;
+    height: 40px;
+    width: 495px;
+}
+
+#airbug-chat-input {
+    width:430px;
+}
+
+#airbug-chat-send-button {
+    margin-left: 10px;
+    margin-right: 0;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+#airbug-toolbar {
+    width: 65px;
+    position: absolute;
+    right: 0px;
+    height: 390px;
 }
 
 
@@ -1318,7 +1370,7 @@ button:focus{
 
 }
 
-.message-code{
+.message-code {
     font-size: .938em;
     font-weight: 200;
     margin-left: 20px;
@@ -1327,20 +1379,15 @@ button:focus{
     height: 66px;
 }
 
-.chat-input {
-    width: 280px;
-}
-
 .chat-form {
     position: relative;
     margin-top: 10px;
 }
 
-#chat-message {
+.chat-input {
     background-color:rgb(89, 98, 95); 
     border-radius: 7px;
     border: 0px;
-    width: 197px; 
 }
 
 .fingertips-image-wrapper {
@@ -1356,7 +1403,6 @@ button:focus{
 }
 
 #capture-content-camera-button {
-    margin-left: 10px;
     margin-right: 0;
     position: absolute;
     right: 0px;
@@ -1374,6 +1420,10 @@ button:focus{
 #capture-content-messages-container{
     min-height: 96px;
     max-height: 116px;
+}
+
+#capture-content-chat-input {
+    width: 195px;
 }
 
 /* Image Markup
@@ -1558,7 +1608,7 @@ button:focus{
     margin-bottom: 13px;
 }
 
-#github-image {
+.github-image {
     height: 30px;
     width: 42px;
     background-image: url(/img/github-icon-inverse.png);
@@ -1567,7 +1617,7 @@ button:focus{
     background-position: center center;
 }
 
-#github-image:hover {
+.github-image:hover {
     background-image: url(/img/github-icon.png);
 }
 
