@@ -1228,6 +1228,25 @@ button:focus{
     font-size: .938em;
 }
 
+.message-gist-list {
+    font-size: .813em;
+    color: rgb(89, 98, 95);
+    position: absolute;
+    top: 32px;
+    width: 153px;
+    left: 32px;
+}
+
+.gist-list-bottom {
+    font-size: .875em;
+    color: rgb(89, 98, 95);
+    margin-left: 16px;
+    border-top: 1px solid rgb(89, 98, 95);
+    padding-bottom: 3px;
+    padding-top: 1px;
+    padding-left: 13px;
+}
+
 .reply-message {
     background-color: rgb(245, 253, 255);
 }
@@ -1246,6 +1265,15 @@ button:focus{
     top: 0px;
     width: 167px;;
     height: 66px;
+}
+
+.circle-image {
+    position: absolute;
+    top: -5px;
+    width: 167px;;
+    height: 66px;
+    right: -6px;
+
 }
 
 .message-sent-by {
@@ -1299,14 +1327,6 @@ button:focus{
     height: 66px;
 }
 
-.message-gist {
-    font-size: 15px;
-    font-weight: 200;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
 .chat-input {
     width: 280px;
 }
@@ -1321,6 +1341,11 @@ button:focus{
     border-radius: 7px;
     border: 0px;
     width: 197px; 
+}
+
+.fingertips-image-wrapper {
+    width: 167px;
+    margin-left: -16px;
 }
 
 /* Capture Content
@@ -1434,6 +1459,8 @@ button:focus{
 .message-threaded-response {
     font-size: .750em;
     margin-left: 137px;
+    color:rgb(89, 98, 95);
+    font-style: italic;
 }
 /* Snapshot Content
 ********************************************/
@@ -1471,6 +1498,28 @@ button:focus{
     position: absolute;
 }
 
+.bug-report-open {
+    font-size: .875em;
+    font-weight: 200;
+    text-align: left;
+    color: rgb(89, 98, 95);
+    position: absolute;
+    z-index: 100;
+    top: 25px;
+    left: 5px;
+}
+
+#bug-report-closed {
+    font-size: 0.750em;
+    font-weight: 100;
+    text-align: left;
+    color: rgb(89, 98, 95);
+    position: absolute;
+    z-index: 100;
+    top: 25px;
+    left: .5px;
+}
+
 /* Fingertips
 ********************************************/
 
@@ -1505,10 +1554,50 @@ button:focus{
 }
 
 #fingertips-github-button {
-    margin-left: 10px;
+    margin-left: 13px;
+    margin-bottom: 13px;
 }
 
+#github-image {
+    height: 30px;
+    width: 42px;
+    background-image: url(/img/github-icon-inverse.png);
+    background-size: 20px 15px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
 
+#github-image:hover {
+    background-image: url(/img/github-icon.png);
+}
+
+.number-list {
+    display: block;
+    margin-left: 2px;
+    margin-right: -2px;
+    border-right: 1px solid rgb(89, 98, 95);
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.message-gist-wrapper {
+    background-color: rgb(204, 230, 204);
+    color: rgb(89, 98, 95);
+    border-radius: 7px;
+    width: 165px;
+    margin-left: 8px;
+}
+.message-code-finger-wrapper {
+    background-color: rgb(204, 230, 204);
+    color: rgb(89, 98, 95);
+    border-radius: 7px;
+    width: 165px;
+    margin-left: 8px;
+}
+
+.number-wrap {
+    width: 12px;
+}
 /* Beta Sign Up Page
 ********************************************/
 

@@ -95,6 +95,7 @@ block content
                       div(class="message-body") Alright, see it now?
                       div(class="message-image-wrapper")
                         img(src="/img/image-message.png", class="message-image")
+                        img(src="/img/airbug-Bug-c.png" class="circle-image")
                 h5(class="feature") Image markup
                 p(class="feature-description") Elaborate on ideas by adding text directly to an image, point out what's important with arrows, and markup specifics with the draw tool.
             div(class="col-md-4")
@@ -140,7 +141,7 @@ block content
                       div(id="threaded-messages-reply-message", class="message-wrapper reply-message")
                         div(class="message-sent-by threaded-text") You
                         div(class="message-sent-at threaded-text") 8:40PM
-                        div(class="message-body threaded-text") Yep, My bad working on it now
+                        div(class="message-body threaded-text") Yep, my bad, working on it now
                         div(class="message-threaded-response") 3 more replies
                 h5(class="feature") Threaded conversations
                 p(class="feature-description") Many chat clients require you to have a chronological conversation. airbug offers threaded conversations to organize your chat by topic making collaboration simple and keeping responses relevant no matter where the conversation picks up. 
@@ -153,7 +154,7 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Noticed the server flat-lined...
                       div(class="message-image-wrapper")
-                        img(src="/img/image-message.png", class="message-image")
+                        img(src="/img/server-flatline.png", class="message-image")
                     div(id="embedded-content-code-message", class="message-wrapper")
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 8:40PM
@@ -170,6 +171,8 @@ block content
                   div(id="snapshot-toolbar")
                     div(class="bug-report-text") Bug Report
                     div(class="bug-report-image")
+                      div(class="bug-report-open") OPEN
+                      //- div(id="bug-report-closed", class="bug-report-open") CLOSED
                       img(id="bug-report", src="/img/report-icon.png")
                     button(id="snapshot-content-button", type="button", class="airbug-button-invert")
                       div(class="glyphicon glyphicon-arrow-left")
@@ -183,6 +186,7 @@ block content
                       div(class="message-sent-at") 2:25PM  
                       div(class="message-body") here's the bug report
                       div(class="message-image-wrapper")
+                        div(class="bug-report-open") OPEN
                         img(id="bug-report", src="/img/report-icon.png", class="message-image")
                     div(id="snapshot-content-message-three", class="message-wrapper")
                       div(class="message-sent-by") Sung
@@ -192,6 +196,7 @@ block content
                       div(class="message-sent-by") Sung
                       div(class="message-sent-at") 2:25PM
                       div(class="message-image-wrapper")
+                        div(id="bug-report-closed", class="bug-report-open") CLOSED
                         img(id="bug-report", src="/img/report-icon.png", class="message-image")
                 h5(class="feature") Snapshots of content
                 p(class="feature-description") Establish a frame of reference for future conversations by capturing snapshots of content in the moment.
@@ -248,8 +253,8 @@ block content
                         div(class="glyphicon glyphicon-picture")
                       button(id="fingertips-code-button", type="button", class="airbug-button-invert")
                         div(class="code-button") &lt;C/&gt;
-                      div(id="fingertips-github-button" type="button")
-                        img(src="/img/githubicon.png")
+                      div(id="fingertips-github-button" type="button", class="airbug-button-invert")
+                        div(id="github-image")
                   div(id="fingertips-messages-container", class="messages-container")
                     div(id="fingertips-message", class="message-wrapper")
                       div(class="message-sent-by") Dustin

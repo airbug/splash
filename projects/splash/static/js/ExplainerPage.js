@@ -503,7 +503,7 @@ var ExplainerPage = Class.extend(Page, {
             '<div class="message-sent-by">You' + "</div>" +
             '<div class="message-sent-at">8:40 PM' + "</div>" +
             '<div class="message-image-wrapper">' +
-                '<img src="/img/image-message.png" class="message-image" />' +
+                '<img src="/img/image-message.png" class="fingertips-image-wrapper"/>' +
             "</div>" +
         '</div>');
         messagesContainer.append(imageMessage);
@@ -520,10 +520,19 @@ var ExplainerPage = Class.extend(Page, {
     addFingertipsGithubMessage: function() {
         var messagesContainer = $("#fingertips-messages-container");
         var githubMessage = $('<div class="message-wrapper">' +
-            '<div class="message-sent-by">You' + "</div>" +
-            '<div class="message-sent-at">8:40 PM' + "</div>" +
+            '<div class="message-sent-by">You </div>' +
+            '<div class="message-sent-at">8:40 PM </div>' +
             '<div class="message-gist-wrapper">' +
-                '<div class="message-gist">THIS IS WHERE GIST SNIPPET BE</div>' +
+                '<div class="number-wrap">' +
+                    '<span class="number-list">1</span>' +
+                    '<span class="number-list">2</span>' +
+                    '<span class="number-list">3</span>' +
+                    '<span class="number-list">4</span>' +
+                '</div>' +
+                '<div class="message-gist-list">java.lang. AssertionError: Expected a string containing "&lt;!DOCTYPE html&gt"' +
+                    'but: </br>' +
+                    'was &lt;html&gt;&lt;head&gt;&lt;title&gt;...</div>' +
+                '<div class="gist-list-bottom">gistfile1.txt by GitHub</div>' +
             '</div>' +
         '</div>');
         messagesContainer.append(githubMessage);
@@ -542,7 +551,7 @@ var ExplainerPage = Class.extend(Page, {
         var codeMessage = $('<div class="message-wrapper">' +
             '<div class="message-sent-by">You' + "</div>" +
             '<div class="message-sent-at">8:40 PM' + "</div>" +
-            '<div class="message-code-wrapper">' +
+            '<div class="message-code-finger-wrapper">' +
                 '<div class="message-code">if(false) { <br/>' +
                     '    doSomething(); <br/>' +
                     '} <br/>' +
