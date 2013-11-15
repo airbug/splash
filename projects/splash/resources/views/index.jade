@@ -39,7 +39,7 @@ block content
                     div(class="user-name-text") Sung Choi
                     div(class="user-buzz")
                       span(class="glyphicon glyphicon-bell glyph-light")
-                div(class="airbug-list-item list-bottom")
+                div(class="airbug-list-item airbug-list-bottom")
                   div(class="user-airbug-list-item")
                     div(class="user-status-indicator")
                     div(class="user-name-text") Michelle Wegenstein
@@ -70,7 +70,7 @@ block content
                   div(class="glyphicon glyphicon-picture")
                 button(id="airbug-toolbar-code-button", type="button", class="airbug-button-invert")
                   div(class="code-button") &lt;C/&gt;
-                div(id="airbug-toolbar-github-button" type="button")
+                button(id="airbug-toolbar-github-button" type="button", class="airbug-button-invert")
                   div(class="github-image")
       div(class="row row3")
         div(class="col-sm-10 col-sm-offset-1")
@@ -241,7 +241,7 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body" id="heads-down-message") Hey we have a fire, can you buzz one of the devs?
                   div(class="chat-form")
-                    input(type="text",id="heads-down-input", class="green-font", placeholder="type message here")
+                    input(type="text",id="heads-down-input", class="chat-input", placeholder="type message here")
                     button(id="heads-down-arrow-button", type="button", class="airbug-button")
                       div(class="glyphicon glyphicon-arrow-right")
                 h5(class="feature") &quot;Heads Down&quot; mode
@@ -262,7 +262,7 @@ block content
                       div(id="buzz-sung-button", class="user-buzz")
                         span(class="glyphicon glyphicon-bell glyph-light")
                   div(id="buzz-mode-feature-three")
-                    div(class="airbug-list-item list-bottom")
+                    div(class="airbug-list-item airbug-list-bottom")
                       div(id="michelle-status-indicator", class="user-status-indicator")
                       div(class="user-name-text") Michelle Wegenstein
                       div(id="buzz-michelle-button", class="user-buzz")

@@ -80,6 +80,7 @@ button:focus{
     border-radius: 7px;
     height: 34px;
     font-size: 1.375em;
+    position: relative;
 }
 
 .airbug-button:hover {
@@ -117,8 +118,9 @@ button:focus{
     border: 0px;
     width: 42px;
     border-radius: 7px;
-    height: 30px;
-    font-size: 1.375em; 
+    height: 32px;
+    font-size: 1.375em;
+    position: relative;
 }
 
 .airbug-button-invert:hover{
@@ -179,23 +181,6 @@ button:focus{
 
 /* Heads Down Mode
 ********************************************/
-
-.green-font::-webkit-input-placeholder { /* WebKit browsers */
-    color: rgb(224, 240, 224);
-    font-style: italic;
-}
-.green-font:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: rgb(224, 240, 224);
-    font-style: italic; 
-}
-.green-font::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: rgb(224, 240, 224);
-    font-style: italic; 
-}
-.green-font:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color: rgb(224, 240, 224);
-    font-style: italic;
-}
 
 #heads-down-arrow-button{
    margin-left: 10px;
@@ -262,7 +247,7 @@ button:focus{
 
 .benefit-container{
     max-width: 834px;
-    margin: 0 auto;
+    margin: 0 auto 70px auto;
 }
 
 .benefit-title {
@@ -1077,7 +1062,7 @@ button:focus{
 
 .feature-example {
     width: 258px;
-    height: 220px;
+    height: 180px;
     margin-left: auto;
     margin-right: auto;
     padding: 0px
@@ -1140,6 +1125,11 @@ button:focus{
     color:rgb(205,231,205);
 }
 
+.user-list-header {
+    padding-top: 6px;
+    padding-left: 10px;
+}
+
 .user-list-header h3 {
     margin: 0;
 }
@@ -1194,6 +1184,11 @@ button:focus{
     border-radius: 7px;
 }
 
+.room-info {
+    padding-top: 3px;
+    padding-left: 10px;
+}
+
 .room-info h2 {
     margin: 0;
 }
@@ -1202,7 +1197,7 @@ button:focus{
     position: absolute;
     left: 230px;
     top: 0px;
-    width: 470px;
+    width: 495px;
     height: 40px;
     margin: 0;
 }
@@ -1224,7 +1219,7 @@ button:focus{
 #airbug-chat-form {
     position: absolute;
     left: 230px;
-    top: 340px;
+    top: 330px;
     height: 40px;
     width: 495px;
 }
@@ -1245,7 +1240,25 @@ button:focus{
     width: 65px;
     position: absolute;
     right: 0px;
-    height: 390px;
+    height: 320px;
+}
+
+#airbug-toolbar-image-button{
+    margin-right: 13px;
+    margin-left: 13px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#airbug-toolbar-code-button{
+    margin-left: 13px;
+    margin-bottom: 13px;
+    font-size: .813em;
+}
+
+#airbug-toolbar-github-button {
+    margin-left: 13px;
+    margin-bottom: 13px;
 }
 
 
@@ -1388,6 +1401,24 @@ button:focus{
     background-color:rgb(89, 98, 95); 
     border-radius: 7px;
     border: 0px;
+    color: rgb(224, 240, 224);
+}
+
+.chat-input::-webkit-input-placeholder { /* WebKit browsers */
+    color: rgb(224, 240, 224);
+    font-style: italic;
+}
+.chat-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: rgb(224, 240, 224);
+    font-style: italic;
+}
+.chat-input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: rgb(224, 240, 224);
+    font-style: italic;
+}
+.chat-input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: rgb(224, 240, 224);
+    font-style: italic;
 }
 
 .fingertips-image-wrapper {
