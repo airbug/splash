@@ -29,21 +29,33 @@ block content
                     h3 Room Members
                 div(class="airbug-list-item")
                   div(class="user-airbug-list-item")
-                    div(class="user-status-indicator")
+                    div(id="brian2-status-indicator", class="user-status-indicator")
                     div(class="user-name-text") Brian Neisler
-                    div(class="user-buzz")
+                    div(id="buzz-brian2-button", class="user-buzz")
                       span(class="glyphicon glyphicon-bell glyph-light")
                 div(class="airbug-list-item")
                   div(class="user-airbug-list-item")
-                    div(class="user-status-indicator")
+                    div(id="sung2-status-indicator", class="user-status-indicator")
                     div(class="user-name-text") Sung Choi
-                    div(class="user-buzz")
+                    div(id="buzz-sung2-button", class="user-buzz")
                       span(class="glyphicon glyphicon-bell glyph-light")
-                div(class="airbug-list-item list-bottom")
+                div(class="airbug-list-item")
                   div(class="user-airbug-list-item")
-                    div(class="user-status-indicator")
+                    div(id="dustin2-status-indicator", class="user-status-indicator")
+                    div(class="user-name-text") Dustin Kanske
+                    div(id="buzz-dustin2-button", class="user-buzz")
+                      span(class="glyphicon glyphicon-bell glyph-light")
+                div(class="airbug-list-item")
+                  div(class="user-airbug-list-item")
+                    div(id="tim2-status-indicator", class="user-status-indicator")
+                    div(class="user-name-text") Tim Pote
+                    div(id="buzz-tim2-button", class="user-buzz")
+                      span(class="glyphicon glyphicon-bell glyph-light")
+                div(class="airbug-list-item airbug-list-bottom")
+                  div(class="user-airbug-list-item")
+                    div(id="michelle2-status-indicator", class="user-status-indicator")
                     div(class="user-name-text") Michelle Wegenstein
-                    div(class="user-buzz")
+                    div(id="buzz-michelle2-button", class="user-buzz")
                       span(class="glyphicon glyphicon-bell glyph-light")
               div(id="room-info-panel", class="airbug-panel")
                 div(class="room-info")
@@ -55,22 +67,29 @@ block content
                   div(id="airbug-start-message", class="message-wrapper")
                     div(class="message-sent-by") Brian
                     div(class="message-sent-at") 8:40PM
-                    div(class="message-body") Welcome to airbug!
+                    div(class="message-body")
+                      span Welcome to airbug!<br/>
+                      span <br/>
+                      span This is a simple parody of our actual product. If you want to see the real thing in action, request a beta invite or get one from your friends! It's free :)
                   div(id="airbug-reply-message", class="message-wrapper")
-                    div(class="message-sent-by") You
+                    div(class="message-sent-by") Dustin
                     div(class="message-sent-at") 8:40PM
+                    div(class="message-body") Try out our nifty image markup feature!
                     div(class="message-image-wrapper")
                       img(src="/img/image-message.png", class="message-image")
+                      div(class="message-image-markup-icon")
+                        button(id="airbug-image-markup-button", type="button" class="airbug-button-invert")
+                          div(class="glyphicon glyphicon-pencil")
               div(id="airbug-chat-form", class="chat-form")
                 input(type="text", class="form-control chat-input", id="airbug-chat-input", placeholder="")
                 button(id="airbug-chat-send-button", type="button", class="airbug-button")
                   div(class="glyphicon glyphicon-arrow-right")
               div(id="airbug-toolbar", class="airbug-panel")
-                button(id="airbug-toolbar-image-button", type="button", class="airbug-button-invert")
+                button(id="airbug-toolbar-image-button", type="button", class="airbug-button-invert airbug-toolbar-button")
                   div(class="glyphicon glyphicon-picture")
-                button(id="airbug-toolbar-code-button", type="button", class="airbug-button-invert")
+                button(id="airbug-toolbar-code-button", type="button", class="airbug-button-invert airbug-toolbar-button")
                   div(class="code-button") &lt;C/&gt;
-                div(id="airbug-toolbar-github-button" type="button")
+                button(id="airbug-toolbar-github-button" type="button", class="airbug-button-invert airbug-toolbar-button")
                   div(class="github-image")
       div(class="row row3")
         div(class="col-sm-10 col-sm-offset-1")
@@ -93,7 +112,7 @@ block content
                         div(class="message-sent-by") You
                         div(class="message-sent-at") 8:40PM
                         div(class="message-image-wrapper")
-                          img(src="/img/image-message.png", class="message-image")
+                          img(src="/img/image-message-upsidedown.png", class="message-image")
                   div(id="capture-content-chat-form", class="chat-form")
                     input(type="text", class="form-control chat-input", id="capture-content-chat-input", placeholder="")
                     button(id="capture-content-camera-button", type="button", class="airbug-button")
@@ -109,7 +128,7 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Still not clear on the bug...
                       div(class="message-image-wrapper")
-                        img(src="/img/image-message.png", class="message-image")
+                        img(src="/img/image-message-upsidedown.png", class="message-image")
                         div(class="message-image-markup-icon")
                           button(id="image-markup-markup-button", type="button" class="airbug-button-invert")
                             div(class="glyphicon glyphicon-pencil")
@@ -118,7 +137,7 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") I think the clouds are upside down...
                       div(class="message-image-wrapper")
-                        img(src="/img/image-message.png", class="message-image")
+                        img(src="/img/image-message-upsidedown.png", class="message-image")
                         img(src="/img/airbug-circle.png" class="circle-image")
                 h5(class="feature") Image markup
                 p(class="feature-description") Elaborate on ideas by adding text directly to an image, point out what's important with arrows, and markup specifics with the draw tool.
@@ -244,7 +263,7 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body" id="heads-down-message") Hey we have a fire, can you buzz one of the devs?
                   div(class="chat-form")
-                    input(type="text",id="heads-down-input", class="green-font", placeholder="type message here")
+                    input(type="text",id="heads-down-input", class="chat-input", placeholder="type message here")
                     button(id="heads-down-arrow-button", type="button", class="airbug-button")
                       div(class="glyphicon glyphicon-arrow-right")
                 h5(class="feature") &quot;Heads Down&quot; mode
@@ -265,7 +284,7 @@ block content
                       div(id="buzz-sung-button", class="user-buzz")
                         span(class="glyphicon glyphicon-bell glyph-light")
                   div(id="buzz-mode-feature-three")
-                    div(class="airbug-list-item list-bottom")
+                    div(class="airbug-list-item airbug-list-bottom")
                       div(id="michelle-status-indicator", class="user-status-indicator")
                       div(class="user-name-text") Michelle Wegenstein
                       div(id="buzz-michelle-button", class="user-buzz")
@@ -276,11 +295,11 @@ block content
               div(class="feature-container")
                 div(id="fingertips-feature-example",class="feature-example")
                   div(id="fingertips-toolbar")
-                    button(id="fingertips-image-button", type="button", class="airbug-button-invert")
+                    button(id="fingertips-image-button", type="button", class="airbug-button-invert airbug-toolbar-button")
                       div(class="glyphicon glyphicon-picture")
-                    button(id="fingertips-code-button", type="button", class="airbug-button-invert")
+                    button(id="fingertips-code-button", type="button", class="airbug-button-invert airbug-toolbar-button")
                       div(class="code-button") &lt;C/&gt;
-                    div(id="fingertips-github-button" type="button", class="airbug-button-invert")
+                    div(id="fingertips-github-button" type="button", class="airbug-button-invert airbug-toolbar-button")
                       div(class="github-image")
                   div(id="fingertips-messages-container", class="messages-container")
                     div(id="fingertips-message", class="message-wrapper")
@@ -298,7 +317,7 @@ block content
               a(href="mailto:info@airbug.com", target="_blank") info@airbug.com
             form(class="form-inline", role="form")
               div(class="form-group")
-              button(type="button", class="btn btn-default button-font", id="beta-sign-up-button-thre") request beta invite - free!
+              button(type="button", class="btn btn-default button-font", id="beta-sign-up-button-three") request beta invite - free!
           div(class="col-sm-5 col-sm-offset-1")
             h5(class="feature") Connect with airbug
             div(class="social-feed-container")

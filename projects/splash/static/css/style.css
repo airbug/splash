@@ -1243,22 +1243,14 @@ button:focus{
     height: 320px;
 }
 
-#airbug-toolbar-image-button{
-    margin-right: 13px;
-    margin-left: 13px;
+.airbug-toolbar-button{
+    margin-left: 12px;
     margin-top: 15px;
-    margin-bottom: 15px;
+    position: relative;
 }
 
 #airbug-toolbar-code-button{
-    margin-left: 13px;
-    margin-bottom: 13px;
     font-size: .813em;
-}
-
-#airbug-toolbar-github-button {
-    margin-left: 13px;
-    margin-bottom: 13px;
 }
 
 
@@ -1638,23 +1630,8 @@ button:focus{
     position: relative;
 }
 
-#fingertips-image-button{
-    margin-right: 13px;
-    margin-left: 13px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
 #fingertips-code-button{
-    margin-left: 13px;
-    margin-bottom: 13px;
     font-size: .813em;
-}
-
-#fingertips-github-button {
-    margin-left: 13px;
-    margin-bottom: 13px;
-    position: relative;
 }
 
 .github-image {

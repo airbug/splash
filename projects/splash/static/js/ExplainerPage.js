@@ -84,6 +84,7 @@ var ExplainerPage = Class.extend(Page, {
     initialize: function() {
         this._super();
 
+        this.initializeAirbugExample();
         this.initializeBetaSignupButtons();
         this.initializeCaptureContent();
         this.initializeImageMarkup();
@@ -139,6 +140,17 @@ var ExplainerPage = Class.extend(Page, {
         betaSignUpButtons.on("click", function(event) {
             _this.pageManager.goToPage("betaSignUpPage", "slideleft");
         });
+    },
+
+
+    // airbug example
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeAirbugExample: function() {
+        //TODO
     },
 
 
@@ -446,6 +458,29 @@ var ExplainerPage = Class.extend(Page, {
         buzzSungButton.on("click", function(event) {
             _this.runBuzzToActiveMode("sung");
         });
+
+        //airbug example
+        var buzzBrian2Button        = JQuery("#buzz-brian2-button");
+        var buzzDustin2Button       = JQuery("#buzz-dustin2-button");
+        var buzzMichelle2Button     = JQuery("#buzz-michelle2-button");
+        var buzzSung2Button         = JQuery("#buzz-sung2-button");
+        var buzzTim2Button          = JQuery("#buzz-tim2-button");
+
+        buzzBrian2Button.on("click", function(event) {
+            _this.runBuzzToActiveMode("brian2");
+        });
+        buzzDustin2Button.on("click", function(event) {
+            _this.runBuzzToActiveMode("dustin2");
+        });
+        buzzMichelle2Button.on("click", function(event) {
+            _this.runBuzzToActiveMode("michelle2");
+        });
+        buzzSung2Button.on("click", function(event) {
+            _this.runBuzzToActiveMode("sung2");
+        });
+        buzzTim2Button.on("click", function(event) {
+            _this.runBuzzToActiveMode("tim2");
+        });
     },
 
     /**
@@ -541,8 +576,8 @@ var ExplainerPage = Class.extend(Page, {
                     '<span class="number-list">3</span>' +
                     '<span class="number-list">4</span>' +
                 '</div>' +
-                '<div class="message-gist-list"> while(i&lt;tooMuchAdvice)</br>' + 
-                'pointers ++ </br>' +
+                '<div class="message-gist-list"> while(!tooMuchAdvice)</br>' +
+                '&nbsp;&nbsp;pointers++;</br>' +
                 '</br>' +
                 '</br>' +
                 '<div class="gist-list-bottom">gistfile1.txt by GitHub</div>' +
