@@ -116,7 +116,7 @@ block content
                     div(id="image-markup-reply-message", class="message-wrapper")
                       div(class="message-sent-by") You
                       div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Alright, see it now?
+                      div(class="message-body") I think the clouds are upside down...
                       div(class="message-image-wrapper")
                         img(src="/img/image-message.png", class="message-image")
                         img(src="/img/airbug-circle.png" class="circle-image")
@@ -129,20 +129,22 @@ block content
                     div(id="code-markup-start-message", class="message-wrapper")
                       div(class="message-sent-by") Brian
                       div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Can you help me out with this code?
+                      div(class="message-body") Might be this bit?
                       div(class="message-code-wrapper")
-                        div(class="message-code") if(false) {
-                          |   doSomething();
-                          | }
+                        div(class="message-code")$('html').css({
+                          |&nbsp;&nbsp;'transform':'rotate(-180deg)'
+                          |});
                         div(class="message-code-markup-icon")
                           button(id="code-markup-markup-button", type="button", class="airbug-button-invert")
                             div(class="glyphicon glyphicon-pencil")
                     div(id="code-markup-reply-message", class="message-wrapper")
                       div(class="message-sent-by") You
                       div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Yup! I found the error. Check this out:
+                      div(class="message-body") Yea this line would do it.
                       div(class="message-code-wrapper")
-                        div(class="message-code") if (false) {
+                        div(class="message-code") $('html').css({
+                          |&nbsp;&nbsp;'transform':<span class="highlight-code">'rotate(-180deg)'</span>
+                          |});
                 h5(class="feature") Code annotations 
                 p(class="feature-description") Discuss code, provide feedback, and solve problems directly in the chat window by annotating code with comments and highlights.
       div(class="row row4")
@@ -184,9 +186,10 @@ block content
                       div(class="message-sent-at") 8:40PM
                       div(class="message-body") Working on it, think it's this code
                       div(class="message-code-wrapper")
-                        div(class="message-code") if(false) {
-                          |    doSomething();
-                          | }
+                        div(class="message-code") while (true) {
+                          |&nbsp;&nbsp;Array(16).join(&quot;wat&quot; - 1) + </br>
+                          |&nbsp;&nbsp;&nbsp;&nbsp;&quot;Batman!&quot;;</br>
+                          |} 
                 h5(class="feature") Embedded content 
                 p(class="feature-description") Keep everyone on the same page by embedding content directly into the conversation. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
             div(class="col-md-4")
@@ -283,7 +286,7 @@ block content
                     div(id="fingertips-message", class="message-wrapper")
                       div(class="message-sent-by") Dustin
                       div(class="message-sent-at") 8:40PM
-                      div(class="message-body") I can jump on the issue, will you just send me everything?
+                      div(class="message-body") I can jump on the issue, will you send me some pointers??
                 h5(class="feature") Everything at your fingertips
                 p(class="feature-description") Quickly access all your content in one place. Collaborate on images, code, and content from your other favorite tools - all while staying in the chat client. 
       div(class="footer")

@@ -541,9 +541,10 @@ var ExplainerPage = Class.extend(Page, {
                     '<span class="number-list">3</span>' +
                     '<span class="number-list">4</span>' +
                 '</div>' +
-                '<div class="message-gist-list">java.lang. AssertionError: Expected a string containing "&lt;!DOCTYPE html&gt"' +
-                    'but: </br>' +
-                    'was &lt;html&gt;&lt;head&gt;&lt;title&gt;...</div>' +
+                '<div class="message-gist-list"> while(i&lt;tooMuchAdvice)</br>' + 
+                'pointers ++ </br>' +
+                '</br>' +
+                '</br>' +
                 '<div class="gist-list-bottom">gistfile1.txt by GitHub</div>' +
             '</div>' +
         '</div>');
@@ -564,9 +565,9 @@ var ExplainerPage = Class.extend(Page, {
             '<div class="message-sent-by">You' + "</div>" +
             '<div class="message-sent-at">8:40 PM' + "</div>" +
             '<div class="message-code-finger-wrapper">' +
-                '<div class="message-code">if(false) { <br/>' +
-                    '    doSomething(); <br/>' +
-                    '} <br/>' +
+                '<div class="message-code"> 0x3A28213A</br>' +
+                    '0x6339392C<br/>' +
+                    '0x7363682E' +
                 '</div>' +
             '</div>' +
         '</div>');
