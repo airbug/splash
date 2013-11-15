@@ -297,7 +297,9 @@ var ExplainerPage = Class.extend(Page, {
                         _this.showSnapshotContentMessageThree(function() {
                             setTimeout(function() {
                                 _this.showSnapshotContentMessageFour();
+                                _this.closeBugReport();
                             }, 1000);
+
                         });
                     }, 1000);
                 });
@@ -360,6 +362,16 @@ var ExplainerPage = Class.extend(Page, {
         }, {
             duration: 1000
         });
+    },
+
+    /**
+     * @private
+     */
+    closeBugReport: function(){
+        var bugReportClosed = JQuery("#report-closed");
+        var bugReportOpenChange = JQuery("#report-open");
+        bugReportClosed.show();
+        bugReportOpenChange.hide();
     },
 
 

@@ -1292,7 +1292,7 @@ button:focus{
 .gist-list-bottom {
     font-size: .875em;
     color: rgb(89, 98, 95);
-    margin-left: 16px;
+    margin-left: 13px;
     border-top: 1px solid rgb(89, 98, 95);
     padding-bottom: 3px;
     padding-top: 1px;
@@ -1570,6 +1570,18 @@ button:focus{
     left: .5px;
 }
 
+#report-closed {
+    display: none;
+    font-size: 0.750em;
+    font-weight: 100;
+    text-align: left;
+    color: rgb(89, 98, 95);
+    position: absolute;
+    z-index: 100;
+    top: 25px;
+    left: .5px;
+}
+
 /* Fingertips
 ********************************************/
 
@@ -1606,15 +1618,19 @@ button:focus{
 #fingertips-github-button {
     margin-left: 13px;
     margin-bottom: 13px;
+    position: relative;
 }
 
 .github-image {
     height: 30px;
     width: 42px;
     background-image: url(/img/github-icon-inverse.png);
-    background-size: 20px 15px;
+    background-size: 20px 19px;
     background-repeat: no-repeat;
     background-position: center center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
 }
 
 .github-image:hover {
