@@ -109,9 +109,6 @@ button:focus{
     width: 73px;
 }
 
-/* Heads Down
-********************************************/
-
 .airbug-button-invert{
     background-color: rgb(205,231,205);
     color:rgb(89, 98, 95);
@@ -146,33 +143,6 @@ button:focus{
 }
 
 
-/* Snapshot
-********************************************/
-
-#snapshot-toolbar {
-    width: 85px;
-    position: absolute;
-    right: 19px;
-    margin-bottom: 10px;
-    padding: 5px;
-    background-color: rgb(89, 98, 95);
-    border-radius: 0px 7px 7px 0px;
-    font-size: .938em; 
-    height: 140px; 
-}
-
-#snapshot-content-messages-container {
-    width: 146px;
-}
-
-.bug-report-text {
-    color: rgb(205,231,205);
-    padding-bottom: 9px;
-}
-
-#snapshot-content-feature-example {
-    position: relative;
-}
 
 /* Buzz Feature
 ********************************************/
@@ -1065,7 +1035,8 @@ button:focus{
     height: 180px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0px
+    padding: 0px;
+    position: relative;
 }
 
 
@@ -1240,12 +1211,12 @@ button:focus{
     width: 65px;
     position: absolute;
     right: 0px;
-    height: 320px;
+    height: 318px;
 }
 
 .airbug-toolbar-button{
     margin-left: 12px;
-    margin-top: 15px;
+    margin-top: 13px;
     position: relative;
 }
 
@@ -1258,21 +1229,25 @@ button:focus{
 ********************************************/
 
 .messages-container-wrapper {
-    position: relative;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    width: 258px;
+    height: 150px;
     border-bottom: solid 2px rgb(89, 98, 95);
 }
 
 .messages-container {
-    position: relative;
+    position: absolute;
+    bottom: 0px;
     width: 100%;
-    max-height: 150px;
     overflow-y: scroll;
     overflow-x: hidden;
     -moz-transition:height 1s;
     -webkit-transition:height 1s;
     -o-transition:height 1s;
     transition:height 1s;
-    min-height: 130px;
+    max-height: 148px;
 }
 
 .message-wrapper {
@@ -1286,12 +1261,13 @@ button:focus{
 }
 
 .message-gist-list {
+    line-height: 1.4em;
     font-size: .813em;
     color: rgb(89, 98, 95);
     position: absolute;
-    top: 32px;
+    top: 0px;
     width: 153px;
-    left: 32px;
+    left: 18px;
 }
 
 .gist-list-bottom {
@@ -1326,10 +1302,10 @@ button:focus{
 
 .circle-image {
     position: absolute;
-    top: -5px;
+    top: 9px;
     width: 167px;;
     height: 66px;
-    right: -6px;
+    left: 30px;
 
 }
 
@@ -1386,6 +1362,7 @@ button:focus{
 }
 
 .chat-form {
+    width: 100%;
     position: relative;
     margin-top: 10px;
 }
@@ -1422,6 +1399,13 @@ button:focus{
 /* Capture Content
 ********************************************/
 
+#capture-content-chat-form {
+    position: absolute;
+    margin: 0;
+    top: 126px;
+    left: 0px;
+}
+
 #capture-content-reply-message {
     display: none;
 }
@@ -1441,6 +1425,10 @@ button:focus{
     height: 91px;
 }
 
+#capture-content-messages-container-wrapper {
+    height: 116px;
+}
+
 #capture-content-messages-container{
     min-height: 96px;
     max-height: 116px;
@@ -1455,8 +1443,6 @@ button:focus{
 
 #image-markup-reply-message {
     display: none;
-    margin-bottom: 0px;
-
 }
 
 
@@ -1465,8 +1451,6 @@ button:focus{
 
 #code-markup-reply-message {
     display: none;
-    margin-bottom: 0px;
-
 }
 
 .message-code-annotations-image {
@@ -1540,8 +1524,38 @@ button:focus{
     color:rgb(89, 98, 95);
     font-style: italic;
 }
+
+
 /* Snapshot Content
 ********************************************/
+
+#snapshot-toolbar {
+    width: 85px;
+    position: absolute;
+    right: 19px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: rgb(89, 98, 95);
+    border-radius: 0px 7px 7px 0px;
+    font-size: .938em;
+    height: 138px;
+}
+
+#snapshot-content-messages-container {
+    width: 146px;
+}
+
+.bug-report-text {
+    color: rgb(205,231,205);
+    padding-bottom: 9px;
+}
+
+#snapshot-content-feature-example {
+    position: relative;
+}
+#snapshot-content-messages-container-wrapper {
+    width: 146px;
+}
 
 #snapshot-content-message-two {
      display: none;
@@ -1568,7 +1582,7 @@ button:focus{
 }
 
 #snapshot-content-message-one {
-    height: 135px;
+    height: 138px;
 }
 #bug-report {
     width: 40px;
@@ -1622,8 +1636,14 @@ button:focus{
     border-radius: 7px; 
 }
 
+#fingertips-messages-container-wrapper {
+    width: 185px;
+    height: 162px;
+}
+
 #fingertips-messages-container {
     width: 185px;
+    max-height: 160px;
 }
 
 #fingertips-feature-example {
@@ -1655,8 +1675,7 @@ button:focus{
     margin-left: 2px;
     margin-right: -2px;
     border-right: 1px solid rgb(89, 98, 95);
-    padding-top: 1px;
-    padding-bottom: 1px;
+    padding: 0;
 }
 
 .message-gist-wrapper {
@@ -1665,7 +1684,9 @@ button:focus{
     border-radius: 7px;
     width: 165px;
     margin-left: 8px;
+    position: relative;
 }
+
 .message-code-finger-wrapper {
     background-color: rgb(204, 230, 204);
     color: rgb(89, 98, 95);
@@ -1676,6 +1697,9 @@ button:focus{
 
 .number-wrap {
     width: 12px;
+    font-size: .813em;
+    line-height: 1.4em;
+
 }
 /* Beta Sign Up Page
 ********************************************/

@@ -52,25 +52,31 @@ var ExplainerPage = Class.extend(Page, {
          * @private
          * @type {PageManager}
          */
-        this.pageManager = null;
+        this.pageManager    = null;
 
         /**
          * @private
          * @type {Splitbug}
          */
-        this.splitbug = null;
+        this.splitbug       = null;
 
         /**
          * @private
          * @type {number}
          */
-        this.timerID = null;
+        this.timerID        = null;
 
         /**
          * @private
          * @type {Object}
          */
-        this.buzzTimerIds = {};
+        this.buzzTimerIds   = {};
+
+        /**
+         * @private
+         * @type {number}
+         */
+        this.counter        = 0;
     },
 
 
@@ -150,8 +156,161 @@ var ExplainerPage = Class.extend(Page, {
      * @private
      */
     initializeAirbugExample: function() {
-        //TODO
+        var _this               = this;
+        var imageMarkupButton   = JQuery("#airbug-image-markup-button");
+        var chatForm            = JQuery("#airbug-chat-form");
+        var chatSendButton      = JQuery("#airbug-chat-send-button");
+        var toolbarImageButton  = JQuery("#airbug-toolbar-image-button");
+        var toolbarCodeButton   = JQuery("#airbug-toolbar-code-button");
+        var toolbarGithubButton = JQuery("#airbug-toolbar-github-button");
+        imageMarkupButton.on("click", function(event) {
+            _this.addAirbugImageMarkupMessage();
+        });
+        chatForm.on('keypress', function(event){
+            _this.handleAirbugChatFormKeyPress(event);
+        });
+        chatSendButton.on("click", function(event) {
+            _this.handleAirbugChatSendButtonClick(event);
+        });
+        toolbarImageButton.on("click", function(event) {
+            _this.addAirbugImageMessage();
+        });
+        toolbarCodeButton.on("click", function(event) {
+            _this.addAirbugCodeMessage();
+        });
+        toolbarGithubButton.on("click", function(event) {
+            _this.addAirbugGithubMessage();
+        });
     },
+
+    /**
+     * @private
+     */
+    addAirbugTextMessage: function(text) {
+        var messagesContainer = $("#airbug-messages-container");
+        var imageMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
+            '<div class="message-body">' +
+                '<span>' + text + '</span>' +
+            '</div>' +
+        '</div>');
+        messagesContainer.append(imageMessage);
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + imageMessage.position().top
+        }, {
+            duration: 1000
+        });
+    },
+
+    /**
+     * @private
+     */
+    addAirbugImageMarkupMessage: function() {
+        var messagesContainer = $("#airbug-messages-container");
+        var imageMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
+            '<div class="message-image-wrapper">' +
+                '<img src="/img/image-message.png" class="message-image"/>' +
+                '<img src="/img/airbug-circle.png" class="circle-image"/>' +
+            '</div>' +
+        '</div>');
+        messagesContainer.append(imageMessage);
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + imageMessage.position().top
+        }, {
+            duration: 1000
+        });
+    },
+
+    /**
+     * @private
+     */
+    addAirbugImageMessage: function() {
+        var _this = this;
+        this.counter++;
+        var newId = "airbug-image-markup-button-" + this.counter;
+        var messagesContainer = $("#airbug-messages-container");
+        var imageMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
+            '<div class="message-image-wrapper">' +
+                '<img src="/img/image-message.png" class="message-image"/>' +
+                '<div class="message-image-markup-icon">' +
+                    '<button id="' + newId + '" type="button" class="airbug-button-invert">' +
+                        '<div class="glyphicon glyphicon-pencil"></div>' +
+                    '</button>' +
+                '</div>' +
+            '</div>' +
+        '</div>');
+        messagesContainer.append(imageMessage);
+        $("#" + newId).on("click", function(event) {
+            _this.addAirbugImageMarkupMessage();
+        });
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + imageMessage.position().top
+        }, {
+            duration: 1000
+        });
+    },
+
+    /**
+     * @private
+     */
+    addAirbugGithubMessage: function() {
+        var messagesContainer = $("#airbug-messages-container");
+        var githubMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
+            '<div class="message-gist-wrapper">' +
+                '<div class="number-wrap">' +
+                    '<span class="number-list">1</span>' +
+                    '<span class="number-list">2</span>' +
+                    '<span class="number-list">3</span>' +
+                    '<span class="number-list">4</span>' +
+                '</div>' +
+                '<div class="message-gist-list"> ' +
+                    '<span>Array(16).join(&quot;wat&quot; - 1)&nbsp;+</span></br>' +
+                    '<span>&nbsp;&nbsp;&quot;Batman!&quot;</span></br>' +
+                    '<span></br></span>' +
+                    '<span></span></br>' +
+                '</div>' +
+                '<div class="gist-list-bottom">gist by GitHub</div>' +
+            '</div>' +
+        '</div>');
+        messagesContainer.append(githubMessage);
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + githubMessage.position().top
+        }, {
+            duration: 1000
+        });
+    },
+
+    /**
+     * @private
+     */
+    addAirbugCodeMessage: function() {
+        var messagesContainer = $("#airbug-messages-container");
+        var codeMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
+            '<div class="message-code-finger-wrapper">' +
+                '<div class="message-code">' +
+                    '<span>0x3A28213A</span><br/>' +
+                    '<span>0x6339392C</span><br/>' +
+                    '<span>0x7363682E</span><br/>' +
+                '</div>' +
+            '</div>' +
+        '</div>');
+        messagesContainer.append(codeMessage);
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + codeMessage.position().top
+        }, {
+            duration: 1000
+        });
+    },
+
 
 
     // Capture Content
@@ -547,8 +706,8 @@ var ExplainerPage = Class.extend(Page, {
     addFingertipsImageMessage: function() {
         var messagesContainer = $("#fingertips-messages-container");
         var imageMessage = $('<div class="message-wrapper">' +
-            '<div class="message-sent-by">You' + "</div>" +
-            '<div class="message-sent-at">8:40 PM' + "</div>" +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
             '<div class="message-image-wrapper">' +
                 '<img src="/img/image-message.png" class="fingertips-image-wrapper"/>' +
             "</div>" +
@@ -576,10 +735,12 @@ var ExplainerPage = Class.extend(Page, {
                     '<span class="number-list">3</span>' +
                     '<span class="number-list">4</span>' +
                 '</div>' +
-                '<div class="message-gist-list"> while(!tooMuchAdvice)</br>' +
-                '&nbsp;&nbsp;pointers++;</br>' +
-                '</br>' +
-                '</br>' +
+                '<div class="message-gist-list"> ' +
+                    '<span>while (!tooMuchAdvice) {</span></br>' +
+                    '<span>&nbsp;&nbsp;pointers++;</span></br>' +
+                    '<span>}</span></br>' +
+                    '<span></span></br>' +
+                '</div>' +
                 '<div class="gist-list-bottom">gistfile1.txt by GitHub</div>' +
             '</div>' +
         '</div>');
@@ -597,8 +758,8 @@ var ExplainerPage = Class.extend(Page, {
     addFingertipsCodeMessage: function() {
         var messagesContainer = $("#fingertips-messages-container");
         var codeMessage = $('<div class="message-wrapper">' +
-            '<div class="message-sent-by">You' + "</div>" +
-            '<div class="message-sent-at">8:40 PM' + "</div>" +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
             '<div class="message-code-finger-wrapper">' +
                 '<div class="message-code"> 0x3A28213A</br>' +
                     '0x6339392C<br/>' +
@@ -612,6 +773,63 @@ var ExplainerPage = Class.extend(Page, {
         }, {
             duration: 1000
         });
+    },
+
+
+    //-------------------------------------------------------------------------------
+    // Protected Methods
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @protected
+     * @param {string} jqueryId
+     * @return {Object}
+     */
+    getInputData: function(jqueryId) {
+        return JQuery(jqueryId).val();
+    },
+
+    /**
+     * @protected
+     */
+    submitFormChatForm: function() {
+        var inputData = this.getInputData("#airbug-chat-input");
+        JQuery("#airbug-chat-input").val("");
+        this.addAirbugTextMessage(inputData);
+    },
+
+
+    //-------------------------------------------------------------------------------
+    // View Event Handlers
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @param {jQuery.Event} event
+     */
+    handleAirbugChatFormEnterKeyPress: function(event) {
+        this.submitFormChatForm();
+        event.preventDefault();
+        event.stopPropagation();
+        return false;
+    },
+
+    /**
+     * @param {jQuery.Event} event
+     */
+    handleAirbugChatFormKeyPress: function(event) {
+        var key = event.which;
+        var ctl = event.ctrlKey;
+        if(key === 13 && !ctl){
+            this.handleAirbugChatFormEnterKeyPress(event);
+        }
+    },
+
+    /**
+     * @private
+     * @param {jQuery.Event} event
+     */
+    handleAirbugChatSendButtonClick: function(event) {
+        this.submitFormChatForm();
     }
 });
 

@@ -1,10 +1,9 @@
 extends layout
 
 block content
-  script
+  script.
       var firstPage="explainerPage";
       Loader.numExpectedLoadedItems = 5;
-  script
   div(id="page-container")
     div(id="loading-page", class="page")
       div(class="row-fluid")
@@ -78,7 +77,7 @@ block content
                     div(class="message-image-wrapper")
                       img(src="/img/image-message.png", class="message-image")
                       div(class="message-image-markup-icon")
-                        button(id="airbug-image-markup-button", type="button" class="airbug-button-invert")
+                        button(id="airbug-image-markup-button", type="button", class="airbug-button-invert")
                           div(class="glyphicon glyphicon-pencil")
               div(id="airbug-chat-form", class="chat-form")
                 input(type="text", class="form-control chat-input", id="airbug-chat-input", placeholder="")
@@ -100,7 +99,7 @@ block content
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="capture-content-feature-example", class="feature-example")
-                  div(class="messages-container-wrapper")
+                  div(id="capture-content-messages-container-wrapper", class="messages-container-wrapper")
                     img(src="/img/line-fade.png", class="left-scroll")
                     img(src="/img/line-fade.png", class="right-scroll")
                     div(id="capture-content-messages-container", class="messages-container")
@@ -122,48 +121,56 @@ block content
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="image-markup-feature-example", class="feature-example")
-                  div(id="image-markup-messages-container", class="messages-container")
-                    div(id="image-markup-start-message", class="message-wrapper")
-                      div(class="message-sent-by") Brian
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Still not clear on the bug...
-                      div(class="message-image-wrapper")
-                        img(src="/img/image-message-upsidedown.png", class="message-image")
-                        div(class="message-image-markup-icon")
-                          button(id="image-markup-markup-button", type="button" class="airbug-button-invert")
-                            div(class="glyphicon glyphicon-pencil")
-                    div(id="image-markup-reply-message", class="message-wrapper")
-                      div(class="message-sent-by") You
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body") I think the clouds are upside down...
-                      div(class="message-image-wrapper")
-                        img(src="/img/image-message-upsidedown.png", class="message-image")
-                        img(src="/img/airbug-circle.png" class="circle-image")
+                  div(class="messages-container-wrapper")
+                    img(src="/img/line-fade.png", class="left-scroll")
+                    img(src="/img/line-fade.png", class="right-scroll")
+                    div(id="image-markup-messages-container", class="messages-container")
+                      div(id="image-markup-start-message", class="message-wrapper")
+                        div(class="message-sent-by") Brian
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") Still not clear on the bug...
+                        div(class="message-image-wrapper")
+                          img(src="/img/image-message-upsidedown.png", class="message-image")
+                          div(class="message-image-markup-icon")
+                            button(id="image-markup-markup-button", type="button" class="airbug-button-invert")
+                              div(class="glyphicon glyphicon-pencil")
+                      div(id="image-markup-reply-message", class="message-wrapper")
+                        div(class="message-sent-by") You
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") I think the clouds are upside down...
+                        div(class="message-image-wrapper")
+                          img(src="/img/image-message-upsidedown.png", class="message-image")
+                          img(src="/img/airbug-circle.png" class="circle-image")
                 h5(class="feature") Image markup
                 p(class="feature-description") Elaborate on ideas by adding text directly to an image, point out what's important with arrows, and markup specifics with the draw tool.
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="code-markup-feature-example", class="feature-example")
-                  div(id="code-markup-messages-container", class="messages-container")
-                    div(id="code-markup-start-message", class="message-wrapper")
-                      div(class="message-sent-by") Brian
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Might be this bit?
-                      div(class="message-code-wrapper")
-                        div(class="message-code")$('html').css({
-                          |&nbsp;&nbsp;'transform':'rotate(-180deg)'
-                          |});
-                        div(class="message-code-markup-icon")
-                          button(id="code-markup-markup-button", type="button", class="airbug-button-invert")
-                            div(class="glyphicon glyphicon-pencil")
-                    div(id="code-markup-reply-message", class="message-wrapper")
-                      div(class="message-sent-by") You
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Yea this line would do it.
-                      div(class="message-code-wrapper")
-                        div(class="message-code") $('html').css({
-                          |&nbsp;&nbsp;'transform':<span class="highlight-code">'rotate(-180deg)'</span>
-                          |});
+                  div(class="messages-container-wrapper")
+                    img(src="/img/line-fade.png", class="left-scroll")
+                    img(src="/img/line-fade.png", class="right-scroll")
+                    div(id="code-markup-messages-container", class="messages-container")
+                      div(id="code-markup-start-message", class="message-wrapper")
+                        div(class="message-sent-by") Brian
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") Might be this bit?
+                        div(class="message-code-wrapper")
+                          div(class="message-code")
+                            span $('html').css({ <br/>
+                            span &nbsp;&nbsp;'transform':'rotate(-180deg)' <br/>
+                            span }); <br/>
+                          div(class="message-code-markup-icon")
+                            button(id="code-markup-markup-button", type="button", class="airbug-button-invert")
+                              div(class="glyphicon glyphicon-pencil")
+                      div(id="code-markup-reply-message", class="message-wrapper")
+                        div(class="message-sent-by") You
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") Yea this line would do it.
+                        div(class="message-code-wrapper")
+                          div(class="message-code")
+                            span $('html').css({ <br/>
+                            span &nbsp;&nbsp;'transform':<span class="highlight-code">'rotate(-180deg)'</span> <br/>
+                            span }); <br/>
                 h5(class="feature") Code annotations 
                 p(class="feature-description") Discuss code, provide feedback, and solve problems directly in the chat window by annotating code with comments and highlights.
       div(class="row row4")
@@ -175,45 +182,76 @@ block content
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="threaded-messages-feature-example", class="feature-example")
-                  div(id="threaded-messages-messages-container", class="messages-container")
-                    div(id="threaded-start-message", class="message-wrapper")
-                      div(class="message-sent-by") Brian
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body" id="threaded-message-body") Did you just break the server?
-                        div(class="message-reply-icon")
-                          button(id="threaded-messages-reply-button", type="button", class="airbug-button-invert")
-                            div(id="reply-arrow")
-                      div(id="threaded-messages-reply-message", class="message-wrapper reply-message")
-                        div(class="message-sent-by threaded-text") You
-                        div(class="message-sent-at threaded-text") 8:40PM
-                        div(class="message-body threaded-text") Yep, my bad, working on it now
-                        div(class="message-threaded-response") 3 more replies
+                  div(class="messages-container-wrapper")
+                    img(src="/img/line-fade.png", class="left-scroll")
+                    img(src="/img/line-fade.png", class="right-scroll")
+                    div(id="threaded-messages-messages-container", class="messages-container")
+                      div(id="threaded-start-message", class="message-wrapper")
+                        div(class="message-sent-by") Brian
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body" id="threaded-message-body") Did you just break the server?
+                          div(class="message-reply-icon")
+                            button(id="threaded-messages-reply-button", type="button", class="airbug-button-invert")
+                              div(id="reply-arrow")
+                        div(id="threaded-messages-reply-message", class="message-wrapper reply-message")
+                          div(class="message-sent-by threaded-text") You
+                          div(class="message-sent-at threaded-text") 8:40PM
+                          div(class="message-body threaded-text") Yep, my bad, working on it now
+                          div(class="message-threaded-response") 3 more replies
                 h5(class="feature") Threaded conversations
                 p(class="feature-description") Many chat clients require you to have a chronological conversation. airbug offers threaded conversations to organize your chat by topic making collaboration simple and keeping responses relevant no matter where the conversation picks up. 
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="embedded-content-feature-example", class="feature-example")
-                  div(id="embedded-content-messages-container", class="messages-container")
-                    div(id="embedded-content-image-message", class="message-wrapper")
-                      div(class="message-sent-by") Tim
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Noticed the server flat-lined...
-                      div(class="message-image-wrapper")
-                        img(src="/img/server-flatline.png", class="message-image")
-                    div(id="embedded-content-code-message", class="message-wrapper")
-                      div(class="message-sent-by") Brian
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body") Working on it, think it's this code
-                      div(class="message-code-wrapper")
-                        div(class="message-code") while (true) {
-                          |&nbsp;&nbsp;Array(16).join(&quot;wat&quot; - 1) + </br>
-                          |&nbsp;&nbsp;&nbsp;&nbsp;&quot;Batman!&quot;;</br>
-                          |} 
+                  div(class="messages-container-wrapper")
+                    img(src="/img/line-fade.png", class="left-scroll")
+                    img(src="/img/line-fade.png", class="right-scroll")
+                    div(id="embedded-content-messages-container", class="messages-container")
+                      div(id="embedded-content-image-message", class="message-wrapper")
+                        div(class="message-sent-by") Tim
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") Noticed the server flat-lined...
+                        div(class="message-image-wrapper")
+                          img(src="/img/server-flatline.png", class="message-image")
+                      div(id="embedded-content-code-message", class="message-wrapper")
+                        div(class="message-sent-by") Brian
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") Working on it, think it's this code
+                        div(class="message-code-wrapper")
+                          div(class="message-code")
+                            span while (true) { <br/>
+                            span &nbsp;&nbsp;cookieMonster.eatMemory();
+                            span }
                 h5(class="feature") Embedded content 
                 p(class="feature-description") Keep everyone on the same page by embedding content directly into the conversation. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="snapshot-content-feature-example",class="feature-example")
+                  div(id="snapshot-content-messages-container-wrapper", class="messages-container-wrapper")
+                    img(src="/img/line-fade.png", class="left-scroll")
+                    img(src="/img/line-fade.png", class="right-scroll")
+                    div(id="snapshot-content-messages-container", class="messages-container")
+                      div(id="snapshot-content-message-one", class="message-wrapper")
+                        div(class="message-sent-by") Sung
+                        div(class="message-sent-at") 2:25PM
+                        div(class="message-body") Hey! Can you send me the bug report for the server crash?
+                      div(id="snapshot-content-message-two", class="message-wrapper")
+                        div(class="message-sent-by") You
+                        div(class="message-sent-at") 2:25PM
+                        div(class="message-body") here's the bug report
+                        div(class="message-image-wrapper")
+                          div(class="bug-report-open") OPEN
+                          img(id="bug-report", src="/img/report-icon.png", class="message-image")
+                      div(id="snapshot-content-message-three", class="message-wrapper")
+                        div(class="message-sent-by") Sung
+                        div(class="message-sent-at") 2:25PM
+                        div(class="message-body") Cool, looks good, I think we can close it up.
+                      div(id="snapshot-content-message-four", class="message-wrapper")
+                        div(class="message-sent-by") Sung
+                        div(class="message-sent-at") 2:25PM
+                        div(class="message-image-wrapper")
+                          div(id="bug-report-closed", class="bug-report-open") CLOSED
+                          img(id="bug-report", src="/img/report-icon.png", class="message-image")
                   div(id="snapshot-toolbar")
                     div(class="bug-report-text") Bug Report
                     div(class="bug-report-image")
@@ -222,28 +260,6 @@ block content
                       img(id="bug-report", src="/img/report-icon.png")
                     button(id="snapshot-content-button", type="button", class="airbug-button-invert")
                       div(class="glyphicon glyphicon-arrow-left")
-                  div(id="snapshot-content-messages-container", class="messages-container")
-                    div(id="snapshot-content-message-one", class="message-wrapper")
-                      div(class="message-sent-by") Sung
-                      div(class="message-sent-at") 2:25PM
-                      div(class="message-body") Hey! Can you send me the bug report for the server crash?
-                    div(id="snapshot-content-message-two", class="message-wrapper")
-                      div(class="message-sent-by") You
-                      div(class="message-sent-at") 2:25PM  
-                      div(class="message-body") here's the bug report
-                      div(class="message-image-wrapper")
-                        div(class="bug-report-open") OPEN
-                        img(id="bug-report", src="/img/report-icon.png", class="message-image")
-                    div(id="snapshot-content-message-three", class="message-wrapper")
-                      div(class="message-sent-by") Sung
-                      div(class="message-sent-at") 2:25PM  
-                      div(class="message-body") Cool, looks good, I think we can close it up.
-                    div(id="snapshot-content-message-four", class="message-wrapper")
-                      div(class="message-sent-by") Sung
-                      div(class="message-sent-at") 2:25PM
-                      div(class="message-image-wrapper")
-                        div(id="bug-report-closed", class="bug-report-open") CLOSED
-                        img(id="bug-report", src="/img/report-icon.png", class="message-image")
                 h5(class="feature") Snapshots of content
                 p(class="feature-description") Establish a frame of reference for future conversations by capturing snapshots of content in the moment.
       div(class="row row5")
@@ -299,13 +315,16 @@ block content
                       div(class="glyphicon glyphicon-picture")
                     button(id="fingertips-code-button", type="button", class="airbug-button-invert airbug-toolbar-button")
                       div(class="code-button") &lt;C/&gt;
-                    div(id="fingertips-github-button" type="button", class="airbug-button-invert airbug-toolbar-button")
+                    button(id="fingertips-github-button", type="button", class="airbug-button-invert airbug-toolbar-button")
                       div(class="github-image")
-                  div(id="fingertips-messages-container", class="messages-container")
-                    div(id="fingertips-message", class="message-wrapper")
-                      div(class="message-sent-by") Dustin
-                      div(class="message-sent-at") 8:40PM
-                      div(class="message-body") I can jump on the issue, will you send me some pointers??
+                  div(id="fingertips-messages-container-wrapper", class="messages-container-wrapper")
+                    img(src="/img/line-fade.png", class="left-scroll")
+                    img(src="/img/line-fade.png", class="right-scroll")
+                    div(id="fingertips-messages-container", class="messages-container")
+                      div(id="fingertips-message", class="message-wrapper")
+                        div(class="message-sent-by") Dustin
+                        div(class="message-sent-at") 8:40PM
+                        div(class="message-body") I can jump on the issue, will you send me some pointers??
                 h5(class="feature") Everything at your fingertips
                 p(class="feature-description") Quickly access all your content in one place. Collaborate on images, code, and content from your other favorite tools - all while staying in the chat client. 
       div(class="footer")
@@ -430,13 +449,13 @@ block content
               img(id="thank-you-airbug-image", class="thankyou-airbug-image", src="/img/airbug-carry.png")
               div(id="thank-you-message")
                 p(style='white-space:pre;')
-                    | Thank you for signing up!
+                  span Thank you for requesting an invite!
                 p(style='white-space:pre;')
-                    | Interested in being an alpha tester? 
-                    | Contact us at <a href="mailto:alpha@airbug.com", target="_blank">alpha@airbug.com</a> 
-                    | Otherwise hold-tight 
-                    | We'll reach out when 
-                    | we start our public beta.
+                  span Interested in being an alpha tester?
+                  span Contact us at <a href="mailto:alpha@airbug.com", target="_blank">alpha@airbug.com</a>
+                  span Otherwise hold-tight
+                  span We'll reach out when
+                  span more beta invites are available.
                 div(class="social-feed-container")
                   div(class="social-thankyou-wrap")
                     div(class="twitter-thankyou")

@@ -6,7 +6,7 @@ html
     link(rel="stylesheet", href="/css/bootstrap.min.css")
     link(rel="stylesheet", href="/css/bootstrap-theme.min.css")
     link(rel="stylesheet", href="/css/style.css")
-    script
+    script.
         var _appConfig = {
             production: "#{production}"
         };
@@ -98,7 +98,7 @@ html
             button(id="feedback-form-submit-button", class="btn btn-info feedback-label", type="button") Submit
             button(id="feedback-form-cancel-button", class="btn feedback-label", type="button") Cancel
     div(id="fb-root")
-    script
+    script.
         (function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) return;
@@ -106,7 +106,7 @@ html
           js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    script
+    script.
         !function(d,s,id){
           var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
           if(!d.getElementById(id)){
