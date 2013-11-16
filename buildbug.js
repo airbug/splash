@@ -37,17 +37,17 @@ buildProperties({
     splash: {
         packageJson: {
             name: "splash",
-            version: "0.0.6",
+            version: "1.0.0",
             private: true,
             scripts: {
-                start: "node ./lib/app"
+                start: "node ./scripts/splash-server-start.js"
             },
             dependencies: {
                 bugpack: "https://s3.amazonaws.com/airbug/bugpack-0.0.5.tgz",
-                express: "3.1.0",
+                express: "3.1.x",
                 jade: "*",
                 mongodb: ">=1.2.11",
-                mongoose: ">=3.5.6"
+                mongoose: "3.8.x"
             }
         },
         sourcePaths: [
@@ -61,7 +61,8 @@ buildProperties({
             "./projects/splash/js/src"
         ],
         scriptPaths: [
-            "../bugunit/projects/bugunit/js/scripts"
+            "../bugunit/projects/bugunit/js/scripts",
+            "./projects/splash/js/scripts"
         ],
         testPaths: [
             "../bugjs/projects/bugflow/js/test",
