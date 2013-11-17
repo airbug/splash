@@ -43,7 +43,7 @@ var ThankYouPage = Class.extend(Page, {
 
 
         //-------------------------------------------------------------------------------
-        // Declare Variables
+        // Private Properties
         //-------------------------------------------------------------------------------
 
         this.betaSignUpPage = null;

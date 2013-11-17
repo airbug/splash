@@ -47,7 +47,7 @@ var DragManager = Class.extend(Obj, {
 
 
         //-------------------------------------------------------------------------------
-        // Declare Variables
+        // Private Properties
         //-------------------------------------------------------------------------------
 
         this.draggingObject = null;
