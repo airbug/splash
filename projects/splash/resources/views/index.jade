@@ -1,6 +1,5 @@
 extends layout
-
-block content
+  block content
   script.
       var firstPage="explainerPage";
       Loader.numExpectedLoadedItems = 5;
@@ -94,8 +93,8 @@ block content
         div(class="col-sm-10 col-sm-offset-1")
           div(class="benefit-container")
             h1(class="benefit-title") Powerful Collaboration...
-            h4(class="benefit-description") Questions on code and features, while important, do not always require immediate attention. airbug allows you to efficiently collaborate on your own time with tools for various content types. All you need to do is say it once, then get back to work.
-          div(class="row")
+            h4(class="benefit-description") airbug is more than just chat. Enhance and direct your conversations with our dynamic collaboration tools. Share content, markup images and work through code all within the client window.
+              div(class="row")
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="capture-content-feature-example", class="feature-example")
@@ -171,13 +170,13 @@ block content
                             span $('html').css({ <br/>
                             span &nbsp;&nbsp;'transform':<span class="highlight-code">'rotate(-180deg)'</span> <br/>
                             span }); <br/>
-                h5(class="feature") Code annotations 
+                h5(class="feature") Code annotations
                 p(class="feature-description") Discuss code, provide feedback, and solve problems directly in the chat window by annotating code with comments and highlights.
       div(class="row row4")
         div(class="col-sm-10 col-sm-offset-1")
           div(class="benefit-container")
             h1(class="benefit-title") ...while staying focused...
-            h4(class="benefit-description") We know it’s important for developers to minimize distractions and reduce noise during the day. airbug establishes an environment that allows you to keep your head down and turn bits.
+            h4(class="benefit-description") It’s important for developers to minimize distractions and reduce noise during the day. airbug creates an environment that lets you collaborate with your team <em>on your own time</em> so you can keep your head down and turn bits.
           div(class="row")
             div(class="col-md-4")
               div(class="feature-container")
@@ -242,7 +241,7 @@ block content
         div(class="col-sm-10 col-sm-offset-1")
           div(class="benefit-container")
             h1(class="benefit-title") ...and keeping pace.
-            h4(class="benefit-description") Your time is valuable. Don't waste it getting up to speed or reconstructing your previous discussion. airbug allows you to maintain a frame of reference in each conversation, past or present, letting you pick up right where you left off.  
+            h4(class="benefit-description") Your time is valuable. Don't waste it getting up to speed or reconstructing your previous discussion. airbug allows you to maintain a frame of reference in each conversation, past or present, so you can easily pick up right where you left off.
           div(class="row")
             div(class="col-md-4")
               div(class="feature-container")
@@ -264,7 +263,7 @@ block content
                           div(class="message-body threaded-text") Yep, my bad, working on it now
                           div(class="message-threaded-response") 3 more replies
                 h5(class="feature") Threaded conversations
-                p(class="feature-description") Many chat clients require you to have a chronological conversation. airbug offers threaded conversations to organize your chat by topic making collaboration simple and keeping responses relevant no matter where the conversation picks up. 
+                p(class="feature-description") Many chat clients require you to have a chronological conversation. airbug offers threaded conversations to organize your chat by topic making collaboration simple and keeping responses relevant no matter where the conversation picks up.
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="embedded-content-feature-example", class="feature-example")
@@ -287,8 +286,8 @@ block content
                             span while (true) { <br/>
                             span &nbsp;&nbsp;cookieMonster.eatMemory();
                             span }
-                h5(class="feature") Embedded content 
-                p(class="feature-description") Keep everyone on the same page with embedded content. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links. 
+                h5(class="feature") Embedded content
+                p(class="feature-description") Keep everyone on the same page with embedded content. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links.
             div(class="col-md-4")
               div(class="feature-container")
                 div(id="snapshot-content-feature-example",class="feature-example")
@@ -329,10 +328,10 @@ block content
                 p(class="feature-description") Establish a frame of reference for future conversations by capturing snapshots of content in the moment with one click.
       div(class="footer")
         div(class="row")
-          div(class="col-sm-5 col-sm-offset-1 ") 
+          div(class="col-sm-5 col-sm-offset-1 ")
             h5(class="feature") About airbug
             p(class="about-description") airbug is a new type of collaborative chat client designed specifically with developers in mind. We believe in a very simple principle: help developers collaborate without breaking their concentration.
-            p(class="about-description") Questions? Want to chat? Drop us a line at 
+            p(class="about-description") Questions? Want to chat? Drop us a line at
               a(href="mailto:info@airbug.com", target="_blank") info@airbug.com
             form(class="form-inline", role="form")
               div(class="form-group")
@@ -341,12 +340,12 @@ block content
             h5(class="feature") Connect with airbug
             div(class="social-feed-container")
               a(href="https://twitter.com/airbug", target="_blank", class="twitter-follow-button", data-show-count="false")
-            p(class="social-text") Follow us on 
+            p(class="social-text") Follow us on
               a(href="https://twitter.com/airbug", target="_blank") Twitter
             div(class="social-feed-container")
-              div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false") 
-            p(class="social-text") Like us on 
-                a(href="https://www.facebook.com/integrate.airbug", target="_blank") Facebook
+              div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false")
+            p(class="social-text") Like us on
+              a(href="https://www.facebook.com/integrate.airbug", target="_blank") Facebook
     div(id="beta-sign-up-page", class="page")
       nav
         div(class="nav-pull-down-tab-container")
@@ -461,5 +460,5 @@ block content
                     div(class="twitter-thankyou")
                       a(href="https://twitter.com/airbug", target="_blank", class="twitter-follow-button", data-show-count="false")
                     div(class="facebook-thankyou")
-                      div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false") 
-                
+                      div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false")
+                          
