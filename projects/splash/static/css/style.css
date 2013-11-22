@@ -143,6 +143,20 @@ button:focus{
 }
 
 
+.call-out {
+    text-shadow: 0 1px 0 #fff;
+    background-image: -webkit-gradient(linear,left 0,left 100%,from(#fefefe),to rgb(226,158,165));
+    background-image: -webkit-linear-gradient(top,#fefefe,0%, rgb(226,158,165),100%);
+    background-image: -moz-linear-gradient(top,#fefefe 0, rgb(226,158,165) 100%);
+    background-image: linear-gradient(to bottom,#fefefe, rgb(226,158,165) 100%);
+    background-repeat: repeat-x;
+    border-color: #e0e0e0;
+    border-color: #ccc;
+}
+
+.green-header {
+    background: linear-gradient(to bottom,#f4f5f5 0,#abcecb 100%)
+}
 
 /* Buzz Feature
 ********************************************/
@@ -1056,8 +1070,12 @@ button:focus{
     margin-left: auto;
     margin-right: auto;
     width: 820px;
-    height: 400px;
+    height:441px;
     border: 1px solid #59625f;
+    background-color: #f4f5f5;
+    background-image: url(/img/blank_browser.png);
+    background-size: cover;
+    background-repeat:no-repeat;
 }
 
 .airbug-wrapper {
@@ -1065,7 +1083,7 @@ button:focus{
     margin: 0px;
     padding: 0px;
     left: 10px;
-    top: 10px;
+    top: 51px;
     width: 800px;
     height: 400px;
 }
