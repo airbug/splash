@@ -278,6 +278,7 @@ button:focus{
     border-left: solid 1px #CCCCCC;
     border-right: solid 1px #CCCCCC;
     background: #f4f5f5;
+    -webkit-overflow-scrolling: touch;
     /*background: -moz-linear-gradient(top,  #f4f5f5 0%, #f4f5f5 70%, #abcecb 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f5f5), color-stop(70%,#f4f5f5), color-stop(100%,#abcecb));
     background: -webkit-linear-gradient(top,  #f4f5f5 0%,#f4f5f5 70%,#abcecb 100%);
@@ -954,7 +955,7 @@ button:focus{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    margin-top: 200px;
 }
 
 
@@ -1250,6 +1251,7 @@ button:focus{
     width: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     -moz-transition:height 1s;
     -webkit-transition:height 1s;
     -o-transition:height 1s;
@@ -1750,9 +1752,9 @@ button:focus{
     display: block;
     position: fixed;
     z-index: 1;
-    height: 50px;
+    height: 200px;
     left: 0px;
-    top: 200px;
+    top: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     color: black;
 }
