@@ -2,11 +2,11 @@ extends layout
 block content
   script.
       var firstPage="explainerPage";
-      Loader.numExpectedLoadedItems = 5;
+      Loader.numExpectedLoadedItems = 6;
   div(id="page-container")
     div(id="loading-page", class="page")
-      div(class="row-fluid")
-        div(class="span8 offset2")
+      div(class="row")
+        div(class="col-sm-8 col-sm-offset-2")
           div(class="airbug-loader-container")
             img(class="loader", src="/img/ajax-loader.gif", alt="loading...")
     div(id="explainer-page", class="page")
@@ -332,7 +332,7 @@ block content
             h5(class="feature") About airbug
             p(class="about-description") airbug is a new type of collaborative chat client designed specifically with developers in mind. We believe in a very simple principle: help developers collaborate without breaking their concentration.
             p(class="about-description") Questions? Want to chat? Drop us a line at
-              a(href="mailto:info@airbug.com", target="_blank") info@airbug.com
+              a(href="mailto:info@airbug.com", target="_blank")  info@airbug.com
             form(class="form-inline", role="form")
               div(class="form-group")
               button(type="button", class="btn btn-default button-font", id="beta-sign-up-button-three") request beta invite - free!
@@ -461,4 +461,3 @@ block content
                       a(href="https://twitter.com/airbug", target="_blank", class="twitter-follow-button", data-show-count="false")
                     div(class="facebook-thankyou")
                       div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false")
-                          
