@@ -37,7 +37,7 @@ buildProperties({
     splash: {
         packageJson: {
             name: "splash",
-            version: "1.0.0",
+            version: "1.0.1",
             private: true,
             scripts: {
                 start: "node ./scripts/splash-server-start.js"
