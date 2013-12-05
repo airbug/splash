@@ -15,6 +15,7 @@
 //@Require('bugioc.ModuleAnnotation')
 //@Require('bugioc.PropertyAnnotation')
 //@Require('bugmeta.BugMeta')
+//@Require('jquery.JQuery')
 //@Require('sonarbugclient.SonarbugClient')
 //@Require('splash.AirbugJar')
 //@Require('splash.Arrow')
@@ -118,6 +119,9 @@ var SplashConfiguration = Class.extend(Obj, {
      * @param {function(Error)}
      */
     initializeConfiguration: function(callback) {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            JQuery(".desktop").removeClass( "desktop" ).addClass( "mobile" );
+        }
         this._splashController.start(callback);
     },
 

@@ -22,6 +22,14 @@ button:focus{
     outline: 0;
 }
 
+.mobile {
+    position: absolute;
+}
+
+.desktop {
+    position: fixed;
+}
+
 .line-length {
     border-top: solid 2px rgb(89, 98, 95);
     width: 146px;
@@ -683,18 +691,8 @@ button:focus{
 ********************************************/
 
 
-/*.feedback-container {
-    display: block;
-    position: absolute;
-    top: 150px;
-    right: 0px;
-    width: 200px;
-    height: 200px;
-}*/
-
 #feedback-container {
     display: none;
-    position: fixed;
     width: 576px;
     height: 415px;
     top: 100px;
@@ -952,7 +950,6 @@ button:focus{
 
 #fake-screen-shot-container {
     z-index: 2000;
-    position: fixed;
     top: 0px;
     width: 100%;
     height: 100%;
@@ -1783,7 +1780,6 @@ button:focus{
 
 .nav-pull-down-tab-container {
     display: block;
-    position: fixed;
     z-index: 1;
     height: 50px;
     left: 0px;
