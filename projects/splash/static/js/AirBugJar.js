@@ -10,35 +10,44 @@
 //@Require('Event')
 //@Require('EventDispatcher')
 //@Require('jquery.JQuery')
+//@Require('splash.IDragTarget')
 
 
 //-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
-var bugpack = require('bugpack').context();
+var bugpack             = require('bugpack').context();
 
 
 //-------------------------------------------------------------------------------
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =             bugpack.require('Class');
-var Event =             bugpack.require('Event');
-var EventDispatcher =   bugpack.require('EventDispatcher');
-var JQuery =            bugpack.require('jquery.JQuery');
+var Class               = bugpack.require('Class');
+var Event               = bugpack.require('Event');
+var EventDispatcher     = bugpack.require('EventDispatcher');
+var JQuery              = bugpack.require('jquery.JQuery');
+var IDragTarget         = bugpack.require('splash.IDragTarget');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
+/**
+ * @constructor
+ * @extends {EventDispatcher}
+ */
 var AirbugJar = Class.extend(EventDispatcher, {
 
     //-------------------------------------------------------------------------------
     // Constructor
     //-------------------------------------------------------------------------------
 
+    /**
+     * @constructs
+     */
     _constructor: function() {
 
         this._super();
@@ -78,28 +87,46 @@ var AirbugJar = Class.extend(EventDispatcher, {
          */
         this.element = JQuery("#airbug-jar-container");
 
-
-        //-------------------------------------------------------------------------------
-        // JQuery Event Handlers
-        //-------------------------------------------------------------------------------
-
-        var _this = this;
-
-        this.handleDragReleaseOnTarget = function(event) {
-            if (_this.isNotFull()) {
-                var instructionsContainer = JQuery("#instructions-container");
-                instructionsContainer.addClass("hide-instructions");
-                event.stopPropagation();
-                var draggingObject = _this.dragManager.draggingObject;
-                _this.dragManager.releaseDrag();
-                _this.addAirbug(draggingObject);
-            }
-        };
+        /**
+         * @private
+         * @type {JQuery}
+         */
+        this.instructionsContainer = JQuery("#instructions-container")
     },
 
 
     //-------------------------------------------------------------------------------
-    // Class Methods
+    // IDragTarget Implementation
+    //-------------------------------------------------------------------------------
+
+    /**
+     *
+     */
+    startDrag: function() {
+        this.element.addClass("grabbing");
+    },
+
+    /**
+     *
+     */
+    releaseDrag: function() {
+        this.element.removeClass("grabbing");
+    },
+
+    /**
+     * @param {IDraggable} draggable
+     */
+    processTargetedDrop: function(draggable) {
+
+        //TEST
+        console.log("processTargetedDrop - draggable:", draggable);
+
+        this.addAirbug(draggable);
+    },
+
+
+    //-------------------------------------------------------------------------------
+    // Public Methods
     //-------------------------------------------------------------------------------
 
     /**
@@ -167,6 +194,7 @@ var AirbugJar = Class.extend(EventDispatcher, {
      */
     addAirbug: function(airbug) {
         if (this.isNotFull()) {
+            this.instructionsContainer.addClass("hide-instructions");
             this.containedAirbugs.push(airbug);
             this.renderAirbugs();
             this.dispatchEvent(new Event(AirbugJar.EventType.AIR_BUG_ADDED, {airbug: airbug}));
@@ -211,24 +239,16 @@ var AirbugJar = Class.extend(EventDispatcher, {
                 element.css("top", "540px");
             }
         }
-    },
-
-    /**
-     *
-     */
-    startDrag: function() {
-        this.element.on("touchend mouseup", this.handleDragReleaseOnTarget);
-        this.element.addClass("grabbing");
-    },
-
-    /**
-     *
-     */
-    releaseDrag: function() {
-        this.element.off("touchend mouseup", this.handleDragReleaseOnTarget);
-        this.element.removeClass("grabbing");
     }
 });
+
+
+//-------------------------------------------------------------------------------
+// Interfaces
+//-------------------------------------------------------------------------------
+
+Class.implement(AirbugJar, IDragTarget);
+
 
 
 //-------------------------------------------------------------------------------

@@ -35,7 +35,14 @@ var DragProxy = Class.extend(Obj, {
     // Constructor
     //-------------------------------------------------------------------------------
 
-    _constructor: function(name, element, draggableObject, dragManager) {
+    /**
+     * @param {string} name
+     * @param {Element} element
+     * @param {IDraggable} draggable
+     * @param {DragManager} dragManager
+     * @private
+     */
+    _constructor: function(name, element, draggable, dragManager) {
 
         this._super();
 
@@ -46,27 +53,27 @@ var DragProxy = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {*}
+         * @type {IDraggable}
          */
-        this.draggableObject = draggableObject;
+        this.draggable      = draggable;
 
         /**
          * @private
          * @type {DragManager}
          */
-        this.dragManager = dragManager;
+        this.dragManager    = dragManager;
 
         /**
          * @private
          * @type {Element}
          */
-        this.element = element;
+        this.element        = element;
 
         /**
          * @private
          * @type {string}
          */
-        this.name = name;
+        this.name           = name;
 
         var _this = this;
         this._handle = function(event) {
@@ -76,32 +83,70 @@ var DragProxy = Class.extend(Obj, {
 
 
     //-------------------------------------------------------------------------------
-    // Class Methods
+    // Public Methods
     //-------------------------------------------------------------------------------
 
+    /**
+     *
+     */
     setup: function() {
-        this.dragManager.registerDraggableObject(this);
+        this.dragManager.registerDraggable(this);
     },
+
+    /**
+     *
+     */
     initializeDragProxy: function() {
         this.element.on("touchstart mousedown", this._handle);
         this.element.addClass("grab");
     },
-    uninitializeDragProxy: function() {
+
+    /**
+     *
+     */
+    deinitializeDragProxy: function() {
         this.element.off("touchstart mousedown", this._handle);
         this.element.removeClass("grab");
         this.element.removeClass("grabbing");
     },
+
+    /**
+     *
+     */
     startDrag: function() {
         this.element.addClass("grabbing");
         this.element.removeClass("grab");
     },
+
+    /**
+     *
+     */
     releaseDrag: function() {
         this.element.addClass("grab");
         this.element.removeClass("grabbing");
     },
+
+
+    //-------------------------------------------------------------------------------
+    // Event Listeners
+    //-------------------------------------------------------------------------------
+
     handleInteractionStart: function(event) {
         event.preventDefault();
-        this.dragManager.startDrag(this.draggableObject, event.clientX, event.clientY);
+        var originalEvent = event.originalEvent;
+        var x = undefined;
+        var y = undefined;
+        if (originalEvent.type === "touchstart") {
+            x = originalEvent.touches[0].pageX;
+            y = originalEvent.touches[0].pageY;
+        } else {
+            y = event.clientY;
+            x = event.clientX
+        }
+
+        console.log("Start drag - x:", x, " y:", y, " event.type:", event.type);
+
+        this.dragManager.startDrag(this.draggable, x, y);
     }
 });
 

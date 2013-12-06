@@ -124,7 +124,6 @@ var OtherAirbugForm = Class.extend(Obj, {
         this.handleSubmitButtonClick = function(event) {
             if (_this.airbugJar.isNotFull()) {
                 var otherAirbug = _this.createOtherAirbug();
-                _this.elementInstructionsContainer.addClass("hide-instructions");
                 _this.airbugJar.addAirbug(otherAirbug);
                 _this.elementOtherAirbugFormContainerInput.val('');
             } else {
@@ -160,7 +159,6 @@ var OtherAirbugForm = Class.extend(Obj, {
      */
     initialize: function() {
         this.element = JQuery('#other-airbug-form-container');
-        this.elementInstructionsContainer = JQuery("#instructions-container");
         this.elementOtherAirbugFauxFormInput = JQuery('#other-airbug-faux-form input');
         this.elementOtherAirbugFormCancelButton = JQuery("#other-airbug-form-cancel-button");
         this.elementOtherAirbugFormContainerInput = JQuery('#other-airbug-form-container input');

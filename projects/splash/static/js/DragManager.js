@@ -6,29 +6,35 @@
 
 //@Export('DragManager')
 
+//@Require('ArgumentBug')
 //@Require('Class')
 //@Require('Obj')
-//@Require('List')
+//@Require('Set')
 //@Require('jquery.JQuery')
 //@Require('splash.DragProxy')
+//@Require('splash.IDraggable')
+//@Require('splash.IDragTarget')
 
 
 //-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
-var bugpack = require('bugpack').context();
+var bugpack         = require('bugpack').context();
 
 
 //-------------------------------------------------------------------------------
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class       = bugpack.require('Class');
-var List        = bugpack.require('List');
-var Obj         = bugpack.require('Obj');
-var JQuery      = bugpack.require('jquery.JQuery');
-var DragProxy   = bugpack.require('splash.DragProxy');
+var ArgumentBug     = bugpack.require('ArgumentBug');
+var Class           = bugpack.require('Class');
+var Obj             = bugpack.require('Obj');
+var Set             = bugpack.require('Set');
+var JQuery          = bugpack.require('jquery.JQuery');
+var DragProxy       = bugpack.require('splash.DragProxy');
+var IDraggable      = bugpack.require('splash.IDraggable');
+var IDragTarget     = bugpack.require('splash.IDragTarget');
 
 
 //-------------------------------------------------------------------------------
@@ -50,12 +56,45 @@ var DragManager = Class.extend(Obj, {
         // Private Properties
         //-------------------------------------------------------------------------------
 
-        this.draggingObject = null;
-        this.boundingOffsets = null;
-        this.dragStartOffsets = null;
-        this.draggableObjects = new List();
-        this.dragTargets = [];
-        this.dragProxies = [];
+        this.boundingOffsets    = null;
+
+        /**
+         * @private
+         * @type {IDraggable}
+         */
+        this.draggingDraggable  = null;
+
+        this.dragStartOffsets   = null;
+
+        /**
+         * @private
+         * @type {Set.<IDraggable>}
+         */
+        this.draggableSet       = new Set();
+
+        /**
+         * @private
+         * @type {Set.<DragProxy>}
+         */
+        this.dragProxySet       = new Set();
+
+        /**
+         * @private
+         * @type {Set.<IDragTarget>}
+         */
+        this.dragTargetSet      = new Set();
+
+        /**
+         * @private
+         * @type {number}
+         */
+        this.lastX              = undefined;
+
+        /**
+         * @private
+         * @type {number}
+         */
+        this.lastY              = undefined;
 
 
         //-------------------------------------------------------------------------------
@@ -65,40 +104,109 @@ var DragManager = Class.extend(Obj, {
         var _this = this;
 
         this.handleDragMove = function(event) {
-            _this.moveDrag(event.clientX, event.clientY);
+            var originalEvent = event.originalEvent;
+            var x = undefined;
+            var y = undefined;
+            if (originalEvent.type === "touchmove") {
+                x = originalEvent.touches[0].pageX;
+                y = originalEvent.touches[0].pageY;
+            } else {
+                y = event.clientY;
+                x = event.clientX;
+            }
+
+            console.log("Move drag - x:", x, " y:", y, " event.type:", event.type);
+            _this.moveDrag(x, y);
         };
 
-        this.handleDragRelease = function(event) {
+        this.handleDragRelease = function() {
             _this.releaseDrag();
         };
     },
 
+
     //-------------------------------------------------------------------------------
-    // Static Class Methods
+    // Public Methods
     //-------------------------------------------------------------------------------
 
-    createDragProxy: function(name, element, draggableObject) {
-        var dragProxy = new DragProxy(name, element, draggableObject, this);
+    /**
+     * @param {string} name
+     * @param {JQuery} element
+     * @param {IDraggable} draggable
+     */
+    createDragProxy: function(name, element, draggable) {
+        var dragProxy = new DragProxy(name, element, draggable, this);
         this.registerDragProxy(dragProxy);
     },
-    registerDraggableObject: function(draggableObject) {
-        this.draggableObjects.add(draggableObject);
-        draggableObject.initializeDraggableObject();
+
+    /**
+     * @param {IDraggable} draggable
+     */
+    registerDraggable: function(draggable) {
+        if (!Class.doesImplement(draggable, IDraggable)) {
+            throw new ArgumentBug(ArgumentBug.ILLEGAL, "draggable", draggable, "parameter must implement IDraggable");
+        }
+        if (!this.draggableSet.contains(draggable)) {
+            this.draggableSet.add(draggable);
+            draggable.initializeDraggable();
+        }
     },
-    deregisterDraggableObject: function(draggableObject) {
-        this.draggableObjects.remove(draggableObject);
-        draggableObject.deactivateDraggableObject();
+
+    /**
+     * @param {IDraggable} draggable
+     */
+    deregisterDraggable: function(draggable) {
+        if (this.draggableSet.contains(draggable)) {
+            this.draggableSet.remove(draggable);
+            draggable.deinitializeDraggable();
+        }
     },
+
+    /**
+     * @param {IDragTarget} dragTarget
+     */
     registerDragTarget: function(dragTarget) {
-        this.dragTargets.push(dragTarget);
+        if (!Class.doesImplement(dragTarget, IDragTarget)) {
+            throw new ArgumentBug(ArgumentBug.ILLEGAL, "dragTarget", dragTarget, "parameter must implement IDragTarget");
+        }
+        if (!this.dragTargetSet.contains(dragTarget)) {
+            this.dragTargetSet.add(dragTarget);
+        }
     },
+
+    /**
+     * @param {DragProxy} dragProxy
+     */
+    deregisterDragProxy: function(dragProxy) {
+        if (this.dragProxySet.contains(dragProxy)) {
+            this.dragProxySet.remove(dragProxy);
+            dragProxy.deinitializeDragProxy();
+        }
+    },
+
+    /**
+     * @param {DragProxy} dragProxy
+     */
     registerDragProxy: function(dragProxy) {
-        this.dragProxies.push(dragProxy);
-        dragProxy.initializeDragProxy();
+        if (!this.dragProxySet.contains(dragProxy)) {
+            this.dragProxySet.add(dragProxy);
+            dragProxy.initializeDragProxy();
+        }
     },
-    startDrag: function(draggableObject, startX, startY) {
-        this.draggingObject = draggableObject;
-        var draggableElement = draggableObject.element;
+
+    /**
+     * @param {IDraggable} draggable
+     * @param {number} startX
+     * @param {number} startY
+     */
+    startDrag: function(draggable, startX, startY) {
+        this.lastX = startX;
+        this.lastY = startY;
+        this.draggingDraggable = draggable;
+
+        //TODO BRN: This is a total hack here. To do this properly, IDraggable should extend IEventDispatcher and should emit an event
+
+        var draggableElement = draggable.element;
         var draggingElementOffsets = draggableElement.offset();
         this.dragStartOffsets = {
             left: startX - draggingElementOffsets.left,
@@ -109,18 +217,23 @@ var DragManager = Class.extend(Obj, {
         body.on("touchmove mousemove", this.handleDragMove);
         body.on("touchend mouseup", this.handleDragRelease);
 
-        this.dragTargets.forEach(function(dragTarget) {
+        this.dragTargetSet.forEach(function(dragTarget) {
             dragTarget.startDrag();
         });
-        this.dragProxies.forEach(function(dragProxy) {
+        this.dragProxySet.forEach(function(dragProxy) {
             dragProxy.startDrag();
         });
-        draggableObject.startDrag();
+        draggable.startDrag();
     },
     moveDrag: function(clientX, clientY) {
+        this.lastX = clientX;
+        this.lastY = clientY;
         var x = clientX - this.boundingOffsets.left - this.dragStartOffsets.left;
         var y = clientY - this.boundingOffsets.top - this.dragStartOffsets.top;
-        var element = this.draggingObject.element;
+
+        //TODO BRN: Another hack
+
+        var element = this.draggingDraggable.element;
         element.css("left", x + "px");
         element.css("top", y + "px");
     },
@@ -129,39 +242,74 @@ var DragManager = Class.extend(Obj, {
         body.off("touchmove mousemove", this.handleDragMove);
         body.off("touchend mouseup", this.handleDragRelease);
 
-        this.dragTargets.forEach(function(dragTarget) {
+        this.dragTargetSet.forEach(function(dragTarget) {
             dragTarget.releaseDrag();
         });
-        this.dragProxies.forEach(function(dragProxy) {
+        this.dragProxySet.forEach(function(dragProxy) {
             dragProxy.releaseDrag();
         });
 
-        this.draggingObject.releaseDrag();
+        this.draggingDraggable.releaseDrag();
+        this.calculateDrop(this.draggingDraggable, this.lastX, this.lastY);
+        this.dragStartOffsets   = null;
+        this.draggingDraggable  = null;
+        this.boundingOffsets    = null;
+        this.lastX              = undefined;
+        this.lastY              = undefined;
+    },
 
-        this.dragStartOffsets = null;
-        this.draggingObject = null;
-        this.boundingOffsets = null;
-    },
+    /**
+     *
+     */
     clearProxies: function() {
-        this.dragProxies.forEach(function(dragProxy) {
-            dragProxy.uninitializeDragProxy();
+        this.dragProxySet.forEach(function(dragProxy) {
+            dragProxy.deinitializeDragProxy();
         });
-        this.dragProxies = [];
+        this.dragProxySet.clear();
     },
-    indexOf: function(dragProxy) {
-        for (var i = 0, size = this.dragProxies.length; i < size; i++) {
-            var dragProxyAt = this.dragProxies[i];
-            if (dragProxyAt.name === dragProxy.name) {
-                return i;
+
+
+    //-------------------------------------------------------------------------------
+    // Private Methods
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     * @param {IDraggable} droppedDraggable
+     * @param {number} dropX
+     * @param {number} dropY
+     */
+    calculateDrop: function(droppedDraggable, dropX, dropY) {
+
+        //TEST
+        console.log("calculateDrop - dropX:", dropX, " dropY:", dropY);
+
+        var element = JQuery(document.elementFromPoint(dropX, dropY));
+        var target = this.findTargetWithElement(element);
+        if (target) {
+            target.processTargetedDrop(droppedDraggable);
+        }
+    },
+
+    /**
+     * @private
+     * @param {JQuery} element
+     * @return {IDragTarget}
+     */
+    findTargetWithElement: function(element) {
+        var iterator    = this.dragTargetSet.iterator();
+        while (iterator.hasNext()) {
+            var dragTarget  = iterator.next();
+            var result      = element.closest(dragTarget.element.get(0));
+
+            //TEST
+            console.log("result.length:", result.length, " result:", result);
+
+            if (result.length) {
+                return dragTarget;
             }
         }
-    },
-    removeProxy: function(dragProxy) {
-        var index = this.indexOf(dragProxy);
-        if (index > -1) {
-            this.dragProxies.splice(index, 1);
-            dragProxy.uninitializeDragProxy();
-        }
+        return undefined;
     }
 });
 

@@ -12,13 +12,14 @@
 //@Require('bugioc.AutowiredAnnotation')
 //@Require('bugioc.PropertyAnnotation')
 //@Require('bugmeta.BugMeta')
+//@Require('splash.IDraggable')
 
 
 //-------------------------------------------------------------------------------
 // Common Modules
 //-------------------------------------------------------------------------------
 
-var bugpack = require('bugpack').context();
+var bugpack             = require('bugpack').context();
 
 
 //-------------------------------------------------------------------------------
@@ -31,15 +32,16 @@ var TypeUtil            = bugpack.require('TypeUtil');
 var AutowiredAnnotation = bugpack.require('bugioc.AutowiredAnnotation');
 var PropertyAnnotation  = bugpack.require('bugioc.PropertyAnnotation');
 var BugMeta             = bugpack.require('bugmeta.BugMeta');
+var IDraggable          = bugpack.require('splash.IDraggable');
 
 
 //-------------------------------------------------------------------------------
 // Simplify References
 //-------------------------------------------------------------------------------
 
-var autowired   = AutowiredAnnotation.autowired;
-var bugmeta     = BugMeta.context();
-var property    = PropertyAnnotation.property;
+var autowired           = AutowiredAnnotation.autowired;
+var bugmeta             = BugMeta.context();
+var property            = PropertyAnnotation.property;
 
 
 //-------------------------------------------------------------------------------
@@ -65,50 +67,85 @@ var Airbug = Class.extend(Obj, {
          * @private
          * @type {AirbugJar}
          */
-        this.airbugJar = null;
+        this.airbugJar          = null;
 
         /**
          * @private
          * @type {DragManager}
          */
-        this.dragManager = null;
+        this.dragManager        = null;
 
         /**
          * @private
          * @type {JQuery}
          */
-        this.element = element;
+        this.element            = element;
 
         /**
          * @private
          * @type {string}
          */
-        this.name = name;
+        this.name               = name;
 
         /**
          * @private
          * @type {boolean}
          */
-        this.otherAirbug = TypeUtil.isBoolean(otherAirbug) ? otherAirbug : false;
+        this.otherAirbug        = TypeUtil.isBoolean(otherAirbug) ? otherAirbug : false;
     },
 
 
     //-------------------------------------------------------------------------------
-    // Class Methods
+    // IDraggable Implementation
     //-------------------------------------------------------------------------------
 
-    setup: function() {
-        this.dragManager.registerDraggableObject(this);
+    /**
+     *
+     */
+    deinitializeDraggable: function() {
+        this.deactivateDrag();
     },
 
-    teardown: function() {
-        this.dragManager.deregisterDraggableObject(this);
-    },
-
-    initializeDraggableObject: function() {
+    /**
+     *
+     */
+    initializeDraggable: function() {
         this.activateDrag();
     },
 
+    /**
+     *
+     */
+    releaseDrag: function() {
+        var element = this.element;
+        element.css("left", "");
+        element.css("top", "");
+        element.addClass("drag-released");
+        element.addClass("grab");
+        element.removeClass("grabbing");
+    },
+
+
+    //-------------------------------------------------------------------------------
+    // Public Methods
+    //-------------------------------------------------------------------------------
+
+    setup: function() {
+        this.dragManager.registerDraggable(this);
+    },
+
+    teardown: function() {
+        this.dragManager.deregisterDraggable(this);
+    },
+
+
+    //-------------------------------------------------------------------------------
+    // Private Methods
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
     activateDrag: function(){
         var _this = this;
         var element = this.element;
@@ -118,6 +155,9 @@ var Airbug = Class.extend(Obj, {
         element.addClass("grab");
     },
 
+    /**
+     * @private
+     */
     deactivateDrag: function(){
         var element = this.element;
         element.off("touchstart mousedown");
@@ -125,8 +165,20 @@ var Airbug = Class.extend(Obj, {
     },
 
     handleInteractionStart: function(event) {
-        event.preventDefault();
-        this.dragManager.startDrag(this, event.clientX, event.clientY);
+        event.preventDefault()
+        var originalEvent = event.originalEvent;
+        var x = undefined;
+        var y = undefined;
+        if (originalEvent.type === "touchstart") {
+            x = originalEvent.touches[0].pageX;
+            y = originalEvent.touches[0].pageY;
+        } else {
+            y = event.clientY;
+            x = event.clientX
+        }
+
+        console.log("Start drag - x:", x, " y:", y, " event.type:", event.type);
+        this.dragManager.startDrag(this, x, y);
     },
 
     startDrag: function() {
@@ -140,15 +192,6 @@ var Airbug = Class.extend(Obj, {
         element.addClass("grabbing");
     },
 
-    releaseDrag: function() {
-        var element = this.element;
-        element.css("left", "");
-        element.css("top", "");
-        element.addClass("drag-released");
-        element.addClass("grab");
-        element.removeClass("grabbing");
-    },
-
     /**
      * @return {boolean}
      */
@@ -156,6 +199,13 @@ var Airbug = Class.extend(Obj, {
         return this.otherAirbug;
     }
 });
+
+
+//-------------------------------------------------------------------------------
+// Interfaces
+//-------------------------------------------------------------------------------
+
+Class.implement(Airbug, IDraggable);
 
 
 //-------------------------------------------------------------------------------
