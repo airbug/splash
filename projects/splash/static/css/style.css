@@ -22,6 +22,9 @@ button:focus{
     outline: 0;
 }
 
+.conditional {
+    margin-top:200px;
+}
 .mobile {
     position: absolute;
 }

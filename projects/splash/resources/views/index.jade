@@ -7,7 +7,9 @@ block content
     div(id="loading-page", class="page")
       div(class="row")
         div(class="col-sm-8 col-sm-offset-2")
-          div(class="airbug-loader-container")
+          //if lte IE 10
+            p(class="conditional") Say whaaaaaaat?? Our site does not currently support IE 10 or below. Please update to the most recent version of IE or use one of the following browsers: <a href="https://www.mozilla.org/en-US/firefox/new/?utm_source=firefox-com&utm_medium=referral"> Firefox</a>, <a href="https://www.google.com/intl/en/chrome/browser/"> Chrome</a>, or <a href="http://www.opera.com"> Opera</a>.<script></script>
+          div(id="airbug-loader", class="airbug-loader-container")
             img(class="loader", src="/img/ajax-loader.gif", alt="loading...")
     div(id="explainer-page", class="page")
       div(class="row")
@@ -68,10 +70,10 @@ block content
                     div(class="message-sent-by") Brian
                     div(class="message-sent-at") 8:40PM
                     div(class="message-body")
-                      span Welcome to airbug!</br>
-                      span </br>
-                      span We are building a new type of collaborative chat client designed specifically with developers in mind.</br>
-                      span </br>
+                      span Welcome to airbug!<br/>
+                      span <br/>
+                      span We are building a new type of collaborative chat client designed specifically with developers in mind.<br/>
+                      span <br/>
                       span Check it out and click around on the features. If you want to see the real thing in action, request a beta invite or get one from your friends - it's free!
                   div(id="airbug-reply-message", class="message-wrapper")
                     div(class="message-sent-by") Dustin
@@ -300,7 +302,7 @@ block content
                         div(class="message-code-wrapper")
                           div(class="message-code")
                             span while (true) { <br/>
-                            span &nbsp;&nbsp;cookieMonster.eatMemory(); </br>
+                            span &nbsp;&nbsp;cookieMonster.eatMemory(); <br/>
                             span }
                 h5(class="feature") Embedded content
                 p(class="feature-description") Keep everyone on the same page with embedded content. Automatically view screenshots, github issues, code snippets and other types of content typically hidden behind links.
