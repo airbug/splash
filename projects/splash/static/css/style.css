@@ -7,6 +7,7 @@ body {
     height: 100%;
     padding-bottom: 0px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #f4f5f5;
 
 }
 
@@ -325,7 +326,6 @@ button:focus{
     overflow: hidden;
     border-left: solid 1px #CCCCCC;
     border-right: solid 1px #CCCCCC;
-    background: #f4f5f5;
     -webkit-overflow-scrolling: touch;
     /*background: -moz-linear-gradient(top,  #f4f5f5 0%, #f4f5f5 70%, #abcecb 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4f5f5), color-stop(70%,#f4f5f5), color-stop(100%,#abcecb));
@@ -340,7 +340,7 @@ button:focus{
     position: relative;
     display: block;
     height: 100%;
-    top: 100px;
+    margin-top: 100px;
     left: 0px;
     width: 100%;
 
@@ -369,7 +369,7 @@ button:focus{
     position: relative;
     width: 100%;
     height: 0;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
 .page-slide-in-from-left{
