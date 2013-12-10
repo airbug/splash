@@ -51,23 +51,15 @@ buildProperties({
             }
         },
         sourcePaths: [
-            "../bugjs/projects/bugmeta/js/src",
-            "../bugjs/projects/bugjs/js/src",
             "../bugjs/projects/bugflow/js/src",
             "../bugjs/projects/bugfs/js/src",
+            "../bugjs/projects/bugjs/js/src",
+            "../bugjs/projects/bugmeta/js/src",
             "../bugjs/projects/bugtrace/js/src",
-            "../bugunit/projects/bugdouble/js/src",
-            "../bugunit/projects/bugunit/js/src",
             "./projects/splash/js/src"
         ],
         scriptPaths: [
-            "../bugunit/projects/bugunit/js/scripts",
             "./projects/splash/js/scripts"
-        ],
-        testPaths: [
-            "../bugjs/projects/bugflow/js/test",
-            "../bugjs/projects/bugjs/js/test",
-            "../bugjs/projects/bugtrace/js/test"
         ],
         staticPaths: [
             "../bugjs/external/jquery/js/src",
@@ -88,6 +80,36 @@ buildProperties({
         ],
         resourcePaths: [
             "./projects/splash/resources"
+        ]
+    },
+    splashUnitTest: {
+        packageJson: {
+            name: "splash-test",
+            version: "1.0.2",
+            private: true,
+            scripts: {
+                start: "node ./scripts/splash-server-start.js"
+            },
+            dependencies: {
+                bugpack: "https://s3.amazonaws.com/airbug/bugpack-0.0.5.tgz",
+                express: "3.1.x",
+                jade: "*",
+                mongodb: ">=1.2.11",
+                mongoose: "3.8.x"
+            }
+        },
+        sourcePaths: [
+            "../bugunit/projects/bugdouble/js/src",
+            "../bugunit/projects/bugunit/js/src"
+        ],
+        scriptPaths: [
+            "../bugunit/projects/bugunit/js/scripts"
+        ],
+        testPaths: [
+            "../bugjs/projects/bugflow/js/test",
+            "../bugjs/projects/bugjs/js/test",
+            "../bugjs/projects/bugmeta/js/test",
+            "../bugjs/projects/bugtrace/js/test"
         ]
     }
 });
@@ -123,78 +145,92 @@ buildTarget('local').buildFlow(
         // old source files are removed. We should figure out a better way of doing that.
 
         targetTask('clean'),
-        targetTask('createNodePackage', {
-            properties: {
-                packageJson: buildProject.getProperty("splash.packageJson"),
-                scriptPaths: buildProject.getProperty("splash.scriptPaths"),
-                sourcePaths: buildProject.getProperty("splash.sourcePaths"),
-                staticPaths: buildProject.getProperty("splash.staticPaths"),
-                testPaths: buildProject.getProperty("splash.testPaths"),
-                resourcePaths: buildProject.getProperty("splash.resourcePaths")
-            }
-        }),
-        parallel([
-            targetTask('generateBugPackRegistry', {
+        series([
+            parallel([
+                targetTask("s3EnsureBucket", {
+                    properties: {
+                        bucket: "{{local-bucket}}"
+                    }
+                }),
+                series([
+                    targetTask('createNodePackage', {
+                        properties: {
+                            packageJson: buildProject.getProperty("splash.packageJson"),
+                            scriptPaths: buildProject.getProperty("splash.scriptPaths").concat(
+                                buildProject.getProperty("splashUnitTest.scriptPaths")
+                            ),
+                            sourcePaths: buildProject.getProperty("splash.sourcePaths").concat(
+                                buildProject.getProperty("splashUnitTest.sourcePaths")
+                            ),
+                            staticPaths: buildProject.getProperty("splash.staticPaths"),
+                            testPaths: buildProject.getProperty("splashUnitTest.testPaths"),
+                            resourcePaths: buildProject.getProperty("splash.resourcePaths")
+                        }
+                    }),
+                    parallel([
+                        targetTask('generateBugPackRegistry', {
+                            init: function(task, buildProject) {
+                                var nodePackage = nodejs.findNodePackage(
+                                    buildProject.getProperty("splash.packageJson.name"),
+                                    buildProject.getProperty("splash.packageJson.version")
+                                );
+                                task.updateProperties({
+                                    sourceRoot: nodePackage.getBuildPath(),
+                                    ignore: ["static"]
+                                });
+                            }
+                        }),
+                        targetTask('generateBugPackRegistry', {
+                            init: function(task, buildProject) {
+                                var nodePackage = nodejs.findNodePackage(
+                                    buildProject.getProperty("splash.packageJson.name"),
+                                    buildProject.getProperty("splash.packageJson.version")
+                                );
+                                task.updateProperties({
+                                    sourceRoot: nodePackage.getBuildPath().getAbsolutePath() + "/static"
+                                });
+                            }
+                        })
+                    ]),
+                    targetTask('packNodePackage', {
+                        properties: {
+                            packageName: "{{splash.packageJson.name}}",
+                            packageVersion: "{{splash.packageJson.version}}"
+                        }
+                    }),
+                    targetTask('startNodeModuleTests', {
+                        init: function(task, buildProject, properties) {
+                            var packedNodePackage = nodejs.findPackedNodePackage(
+                                buildProject.getProperty("splash.packageJson.name"),
+                                buildProject.getProperty("splash.packageJson.version")
+                            );
+                            task.updateProperties({
+                                modulePath: packedNodePackage.getFilePath()
+                            });
+                        }
+                    })
+                ])
+            ]),
+            targetTask("s3PutFile", {
                 init: function(task, buildProject, properties) {
-                    var nodePackage = nodejs.findNodePackage(
-                        buildProject.getProperty("splash.packageJson.name"),
-                        buildProject.getProperty("splash.packageJson.version")
-                    );
+                    var packedNodePackage = nodejs.findPackedNodePackage(buildProject.getProperty("splash.packageJson.name"),
+                        buildProject.getProperty("splash.packageJson.version"));
                     task.updateProperties({
-                        sourceRoot: nodePackage.getBuildPath(),
-                        ignore: ["static"]
+                        file: packedNodePackage.getFilePath(),
+                        options: {
+
+                            //TODO BRN: In order to protect this file we need to limit the access to this artifact and provide some sort of http auth access so that the artifacts are retrievable via npm install. This would need to be done in a server wrapper.
+
+                            acl: 'public-read',
+                            encrypt: true
+                        }
                     });
-                }
-            }),
-            targetTask('generateBugPackRegistry', {
-                init: function(task, buildProject, properties) {
-                    var nodePackage = nodejs.findNodePackage(
-                        buildProject.getProperty("splash.packageJson.name"),
-                        buildProject.getProperty("splash.packageJson.version")
-                    );
-                    task.updateProperties({
-                        sourceRoot: nodePackage.getBuildPath().getAbsolutePath() + "/static"
-                    });
+                },
+                properties: {
+                    bucket: "{{local-bucket}}"
                 }
             })
-        ]),
-        targetTask('packNodePackage', {
-            properties: {
-                packageName: "{{splash.packageJson.name}}",
-                packageVersion: "{{splash.packageJson.version}}"
-            }
-        }),
-        targetTask('startNodeModuleTests', {
-            init: function(task, buildProject, properties) {
-                var packedNodePackage = nodejs.findPackedNodePackage(
-                    buildProject.getProperty("splash.packageJson.name"),
-                    buildProject.getProperty("splash.packageJson.version")
-                );
-                task.updateProperties({
-                    modulePath: packedNodePackage.getFilePath()
-                });
-            }
-        }),
-        targetTask("s3EnsureBucket", {
-            properties: {
-                bucket: "{{local-bucket}}"
-            }
-        }),
-        targetTask("s3PutFile", {
-            init: function(task, buildProject, properties) {
-                var packedNodePackage = nodejs.findPackedNodePackage(buildProject.getProperty("splash.packageJson.name"),
-                    buildProject.getProperty("splash.packageJson.version"));
-                task.updateProperties({
-                    file: packedNodePackage.getFilePath(),
-                    options: {
-                        acl: 'public-read'
-                    }
-                });
-            },
-            properties: {
-                bucket: "{{local-bucket}}"
-            }
-        })
+        ])
     ])
 ).makeDefault();
 
@@ -209,78 +245,136 @@ buildTarget('prod').buildFlow(
         // old source files are removed. We should figure out a better way of doing that.
 
         targetTask('clean'),
-        targetTask('createNodePackage', {
-            properties: {
-                packageJson: buildProject.getProperty("splash.packageJson"),
-                scriptPaths: buildProject.getProperty("splash.scriptPaths"),
-                sourcePaths: buildProject.getProperty("splash.sourcePaths"),
-                staticPaths: buildProject.getProperty("splash.staticPaths"),
-                testPaths: buildProject.getProperty("splash.testPaths"),
-                resourcePaths: buildProject.getProperty("splash.resourcePaths")
-            }
-        }),
         parallel([
-            targetTask('generateBugPackRegistry', {
-                init: function(task, buildProject, properties) {
-                    var nodePackage = nodejs.findNodePackage(
-                        buildProject.getProperty("splash.packageJson.name"),
-                        buildProject.getProperty("splash.packageJson.version")
-                    );
-                    task.updateProperties({
-                        sourceRoot: nodePackage.getBuildPath(),
-                        ignore: ["static"]
-                    });
-                }
-            }),
-            targetTask('generateBugPackRegistry', {
-                init: function(task, buildProject, properties) {
-                    var nodePackage = nodejs.findNodePackage(
-                        buildProject.getProperty("splash.packageJson.name"),
-                        buildProject.getProperty("splash.packageJson.version")
-                    );
-                    task.updateProperties({
-                        sourceRoot: nodePackage.getBuildPath().getAbsolutePath() + "/static"
-                    });
-                }
-            })
-        ]),
-        targetTask('packNodePackage', {
-            properties: {
-                packageName: "{{splash.packageJson.name}}",
-                packageVersion: "{{splash.packageJson.version}}"
-            }
-        }),
-        targetTask('startNodeModuleTests', {
-            init: function(task, buildProject, properties) {
-                var packedNodePackage = nodejs.findPackedNodePackage(
-                    buildProject.getProperty("splash.packageJson.name"),
-                    buildProject.getProperty("splash.packageJson.version")
-                );
-                task.updateProperties({
-                    modulePath: packedNodePackage.getFilePath()
-                });
-            }
-        }),
-        targetTask("s3EnsureBucket", {
-            properties: {
-                bucket: "airbug"
-            }
-        }),
-        targetTask("s3PutFile", {
-            init: function(task, buildProject, properties) {
-                var packedNodePackage = nodejs.findPackedNodePackage(
-                    buildProject.getProperty("splash.packageJson.name"),
-                    buildProject.getProperty("splash.packageJson.version"));
-                task.updateProperties({
-                    file: packedNodePackage.getFilePath(),
-                    options: {
-                        acl: 'public-read'
+            series([
+                targetTask('createNodePackage', {
+                    properties: {
+                        packageJson: buildProject.getProperty("splash.packageJson"),
+                        scriptPaths: buildProject.getProperty("splash.scriptPaths").concat(
+                            buildProject.getProperty("splashUnitTest.scriptPaths")
+                        ),
+                        sourcePaths: buildProject.getProperty("splash.sourcePaths").concat(
+                            buildProject.getProperty("splashUnitTest.sourcePaths")
+                        ),
+                        staticPaths: buildProject.getProperty("splash.staticPaths"),
+                        testPaths: buildProject.getProperty("splashUnitTest.testPaths"),
+                        resourcePaths: buildProject.getProperty("splash.resourcePaths")
                     }
-                });
-            },
-            properties: {
-                bucket: "airbug"
-            }
-        })
+                }),
+                parallel([
+                    targetTask('generateBugPackRegistry', {
+                        init: function(task, buildProject, properties) {
+                            var nodePackage = nodejs.findNodePackage(
+                                buildProject.getProperty("splash.packageJson.name"),
+                                buildProject.getProperty("splash.packageJson.version")
+                            );
+                            task.updateProperties({
+                                sourceRoot: nodePackage.getBuildPath(),
+                                ignore: ["static"]
+                            });
+                        }
+                    }),
+                    targetTask('generateBugPackRegistry', {
+                        init: function(task, buildProject, properties) {
+                            var nodePackage = nodejs.findNodePackage(
+                                buildProject.getProperty("splash.packageJson.name"),
+                                buildProject.getProperty("splash.packageJson.version")
+                            );
+                            task.updateProperties({
+                                sourceRoot: nodePackage.getBuildPath().getAbsolutePath() + "/static"
+                            });
+                        }
+                    })
+                ]),
+                targetTask('packNodePackage', {
+                    properties: {
+                        packageName: "{{splash.packageJson.name}}",
+                        packageVersion: "{{splash.packageJson.version}}"
+                    }
+                }),
+                targetTask('startNodeModuleTests', {
+                    init: function(task, buildProject, properties) {
+                        var packedNodePackage = nodejs.findPackedNodePackage(
+                            buildProject.getProperty("splash.packageJson.name"),
+                            buildProject.getProperty("splash.packageJson.version")
+                        );
+                        task.updateProperties({
+                            modulePath: packedNodePackage.getFilePath()
+                        });
+                    }
+                })
+            ]),
+            series([
+                parallel([
+                    targetTask("s3EnsureBucket", {
+                        properties: {
+                            bucket: "airbug"
+                        }
+                    }),
+                    series([
+                        targetTask('createNodePackage', {
+                            properties: {
+                                packageJson: buildProject.getProperty("splash.packageJson"),
+                                scriptPaths: buildProject.getProperty("splash.scriptPaths"),
+                                sourcePaths: buildProject.getProperty("splash.sourcePaths"),
+                                staticPaths: buildProject.getProperty("splash.staticPaths"),
+                                resourcePaths: buildProject.getProperty("splash.resourcePaths")
+                            }
+                        }),
+                        parallel([
+                            targetTask('generateBugPackRegistry', {
+                                init: function(task, buildProject, properties) {
+                                    var nodePackage = nodejs.findNodePackage(
+                                        buildProject.getProperty("splash.packageJson.name"),
+                                        buildProject.getProperty("splash.packageJson.version")
+                                    );
+                                    task.updateProperties({
+                                        sourceRoot: nodePackage.getBuildPath(),
+                                        ignore: ["static"]
+                                    });
+                                }
+                            }),
+                            targetTask('generateBugPackRegistry', {
+                                init: function(task, buildProject, properties) {
+                                    var nodePackage = nodejs.findNodePackage(
+                                        buildProject.getProperty("splash.packageJson.name"),
+                                        buildProject.getProperty("splash.packageJson.version")
+                                    );
+                                    task.updateProperties({
+                                        sourceRoot: nodePackage.getBuildPath().getAbsolutePath() + "/static"
+                                    });
+                                }
+                            })
+                        ]),
+                        targetTask('packNodePackage', {
+                            properties: {
+                                packageName: "{{splash.packageJson.name}}",
+                                packageVersion: "{{splash.packageJson.version}}"
+                            }
+                        })
+                    ])
+                ]),
+                targetTask("s3PutFile", {
+                    init: function(task, buildProject, properties) {
+                        var packedNodePackage = nodejs.findPackedNodePackage(
+                            buildProject.getProperty("splash.packageJson.name"),
+                            buildProject.getProperty("splash.packageJson.version"));
+                        task.updateProperties({
+                            file: packedNodePackage.getFilePath(),
+                            options: {
+
+                                //TODO BRN: In order to protect this file we need to limit the access to this artifact and provide some sort of http auth access so that the artifacts are retrievable via npm install. This would need to be done in a server wrapper.
+
+                                acl: 'public-read',
+                                encrypt: true
+                            }
+                        });
+                    },
+                    properties: {
+                        bucket: "airbug"
+                    }
+                })
+            ])
+        ])
     ])
 );
