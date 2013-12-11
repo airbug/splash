@@ -146,7 +146,6 @@ var ExplainerPage = Class.extend(Page, {
         var betaSignUpButtons = JQuery("#beta-sign-up-button-one, #beta-sign-up-button-two, #beta-sign-up-button-three, #beta-sign-up-button-text");
         betaSignUpButtons.on("click", function(event) {
             _this.pageManager.goToPage("betaSignUpPage", "slideleft");
-            $(window).scrollTop( 0 );
         });
     },
 
