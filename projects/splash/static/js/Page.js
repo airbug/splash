@@ -119,7 +119,7 @@ var Page = Class.extend(Obj, {
         }
         this.element.css("visibility", "visible");
         this.element.css("height", "auto");
-        JQuery('#app-container').scrollTop(0);
+        JQuery(window).scrollTop(0);
 
     },
 
