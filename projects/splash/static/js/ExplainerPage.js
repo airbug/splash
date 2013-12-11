@@ -205,18 +205,18 @@ var ExplainerPage = Class.extend(Page, {
         var _this	            = this;
         var initialMessageContainer = $("#airbug-messages-container");
         var replyMessageContainer = $('<div id="airbug-reply-message" class="message-wrapper">' +
-            '<div class="message-sent-by">Dustin</div>' +
-            '<div class="message-sent-at">8:40PM</div>' +
-            '<div class="message-body">Check us out and click around on the site. Want to see the real thing in action? <a id="beta-sign-up-button-text" > Request a beta invite</a> or get one from your friends!</div>'  +
-            '<span class="message-body">Click on the pencil to try out our nifty image markup feature!</span><br/><br/>' +
-            '<div class="message-image-wrapper">' +
-            '<img src="/img/image-message.png" class="message-image"/>' +
-            '<div class="message-image-markup-icon">' +
-            '<button id="airbug-image-markup-button" type="button" class="airbug-button-invert">' +
-            '<div class="glyphicon glyphicon-pencil"></div>' +
-            '</button>' +
-            '</div>' +
-            '</div>' +
+                '<div class="message-sent-by">Dustin</div>' +
+                '<div class="message-sent-at">8:40PM</div>' +
+                '<div class="message-body">Check us out and click around on the site. Want to see the real thing in action? <a id="beta-sign-up-button-text" > Request a beta invite</a> or get one from your friends!</div>'  +
+                '<span class="message-body">Click on the pencil to try out our nifty image markup feature!</span><br/><br/>' +
+                '<div class="message-image-wrapper">' +
+                    '<img src="/img/image-message.png" class="message-image"/>' +
+                    '<div class="message-image-markup-icon">' +
+                        '<button id="airbug-image-markup-button" type="button" class="airbug-button-invert">' +
+                            '<div class="glyphicon glyphicon-pencil"></div>' +
+                    '</button>' +
+                    '</div>' +
+                '</div>' +
             '</div>');
         replyMessageContainer.hide().fadeIn(400);
         initialMessageContainer.append(replyMessageContainer);
@@ -243,11 +243,11 @@ var ExplainerPage = Class.extend(Page, {
     addAirbugTextMessage: function(text) {
         var messagesContainer = $("#airbug-messages-container");
         var imageMessage = $('<div class="message-wrapper">' +
-            '<div class="message-sent-by">You</div>' +
-            '<div class="message-sent-at">8:40 PM</div>' +
-            '<div class="message-body">' +
-            '<span>' + text + '</span>' +
-            '</div>' +
+                '<div class="message-sent-by">You</div>' +
+                '<div class="message-sent-at">8:40 PM</div>' +
+                '<div class="message-body">' +
+                '<span>' + text + '</span>' +
+                '</div>' +
             '</div>');
         imageMessage.hide().fadeIn(400);
         messagesContainer.append(imageMessage);
@@ -335,7 +335,7 @@ var ExplainerPage = Class.extend(Page, {
                 '</div>' +
                 '<div class="gist-list-bottom">gist by GitHub</div>' +
             '</div>' +
-            '</div>');
+        '</div>');
         githubMessage.hide().fadeIn(400);
         messagesContainer.append(githubMessage);
         messagesContainer.animate({
