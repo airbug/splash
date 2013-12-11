@@ -100,6 +100,7 @@ var ExplainerPage = Class.extend(Page, {
         this.initializeHeadsDown();
         this.initializeBuzz();
         this.initializeFingertips();
+        this.initializeReply();
 
         this.pageManager.addEventListener(PageManager.EventTypes.GOTOPAGE, this.hearGoToPageEvent, this);
     },
@@ -142,7 +143,7 @@ var ExplainerPage = Class.extend(Page, {
      */
     initializeBetaSignupButtons: function() {
         var _this = this;
-        var betaSignUpButtons = JQuery("#beta-sign-up-button-one, #beta-sign-up-button-two, #beta-sign-up-button-three");
+        var betaSignUpButtons = JQuery("#beta-sign-up-button-one, #beta-sign-up-button-two, #beta-sign-up-button-three, #beta-sign-up-button-text");
         betaSignUpButtons.on("click", function(event) {
             _this.pageManager.goToPage("betaSignUpPage", "slideleft");
         });
@@ -157,15 +158,12 @@ var ExplainerPage = Class.extend(Page, {
      */
     initializeAirbugExample: function() {
         var _this               = this;
-        var imageMarkupButton   = JQuery("#airbug-image-markup-button");
         var chatForm            = JQuery("#airbug-chat-form");
         var chatSendButton      = JQuery("#airbug-chat-send-button");
         var toolbarImageButton  = JQuery("#airbug-toolbar-image-button");
         var toolbarCodeButton   = JQuery("#airbug-toolbar-code-button");
         var toolbarGithubButton = JQuery("#airbug-toolbar-github-button");
-        imageMarkupButton.on("click", function(event) {
-            _this.addAirbugImageMarkupMessage();
-        });
+
         chatForm.on('keypress', function(event){
             _this.handleAirbugChatFormKeyPress(event);
         });
@@ -183,6 +181,62 @@ var ExplainerPage = Class.extend(Page, {
         });
     },
 
+
+//First Message
+    //-------------------------------------------------------------------------------
+
+    /**
+     * @private
+     */
+    initializeReply: function() {
+        var _this	            = this;
+
+        setTimeout(function() {
+            _this.addAirbugReplyMessage();
+
+        }, 1500);
+
+    },
+
+    /**
+     * @private
+     */
+    addAirbugReplyMessage: function() {
+        var _this	            = this;
+        var initialMessageContainer = $("#airbug-messages-container");
+        var replyMessageContainer = $('<div id="airbug-reply-message" class="message-wrapper">' +
+            '<div class="message-sent-by">Dustin</div>' +
+            '<div class="message-sent-at">8:40PM</div>' +
+            '<div class="message-body">Check us out and click around on the site. Want to see the real thing in action? <a id="beta-sign-up-button-text" > Request a beta invite</a> or get one from your friends!</div>'  +
+            '<span class="message-body">Click on the pencil to try out our nifty image markup feature!</span><br/><br/>' +
+            '<div class="message-image-wrapper">' +
+            '<img src="/img/image-message.png" class="message-image"/>' +
+            '<div class="message-image-markup-icon">' +
+            '<button id="airbug-image-markup-button" type="button" class="airbug-button-invert">' +
+            '<div class="glyphicon glyphicon-pencil"></div>' +
+            '</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+        replyMessageContainer.hide().fadeIn(400);
+        initialMessageContainer.append(replyMessageContainer);
+        initialMessageContainer.animate ({
+            scrollTop: initialMessageContainer.scrollTop() + replyMessageContainer.position().top
+        }, {
+            duration: 1000
+        });
+        var imageMarkupButton = replyMessageContainer.find("#airbug-image-markup-button");
+
+        imageMarkupButton.on("click", function(event) {
+            _this.addAirbugImageMarkupMessage();
+        });
+
+        var betaSignUpButtons = JQuery("#beta-sign-up-button-one, #beta-sign-up-button-two, #beta-sign-up-button-three, #beta-sign-up-button-text");
+        betaSignUpButtons.on("click", function(event) {
+            _this.pageManager.goToPage("betaSignUpPage", "slideleft");
+        });
+    },
+
     /**
      * @private
      */
@@ -192,9 +246,10 @@ var ExplainerPage = Class.extend(Page, {
             '<div class="message-sent-by">You</div>' +
             '<div class="message-sent-at">8:40 PM</div>' +
             '<div class="message-body">' +
-                '<span>' + text + '</span>' +
+            '<span>' + text + '</span>' +
             '</div>' +
-        '</div>');
+            '</div>');
+        imageMessage.hide().fadeIn(400);
         messagesContainer.append(imageMessage);
         messagesContainer.animate({
             scrollTop: messagesContainer.scrollTop() + imageMessage.position().top
@@ -209,13 +264,14 @@ var ExplainerPage = Class.extend(Page, {
     addAirbugImageMarkupMessage: function() {
         var messagesContainer = $("#airbug-messages-container");
         var imageMessage = $('<div class="message-wrapper">' +
-            '<div class="message-sent-by">You</div>' +
-            '<div class="message-sent-at">8:40 PM</div>' +
-            '<div class="message-image-wrapper">' +
-                '<img src="/img/image-message.png" class="message-image"/>' +
-                '<img src="/img/airbug-circle.png" class="circle-image"/>' +
-            '</div>' +
-        '</div>');
+                '<div class="message-sent-by">You</div>' +
+                '<div class="message-sent-at">8:40 PM</div>' +
+                '<div class="message-image-wrapper">' +
+                    '<img src="/img/image-message.png" class="message-image"/>' +
+                    '<img src="/img/airbug-circle.png" class="circle-image"/>' +
+                '</div>' +
+            '</div>');
+        imageMessage.hide().fadeIn(400);
         messagesContainer.append(imageMessage);
         messagesContainer.animate({
             scrollTop: messagesContainer.scrollTop() + imageMessage.position().top
@@ -239,11 +295,12 @@ var ExplainerPage = Class.extend(Page, {
                 '<img src="/img/image-message.png" class="message-image"/>' +
                 '<div class="message-image-markup-icon">' +
                     '<button id="' + newId + '" type="button" class="airbug-button-invert">' +
-                        '<div class="glyphicon glyphicon-pencil"></div>' +
+            '           <div class="glyphicon glyphicon-pencil"></div>' +
                     '</button>' +
                 '</div>' +
             '</div>' +
         '</div>');
+        imageMessage.hide().fadeIn(400);
         messagesContainer.append(imageMessage);
         $("#" + newId).on("click", function(event) {
             _this.addAirbugImageMarkupMessage();
@@ -278,7 +335,8 @@ var ExplainerPage = Class.extend(Page, {
                 '</div>' +
                 '<div class="gist-list-bottom">gist by GitHub</div>' +
             '</div>' +
-        '</div>');
+            '</div>');
+        githubMessage.hide().fadeIn(400);
         messagesContainer.append(githubMessage);
         messagesContainer.animate({
             scrollTop: messagesContainer.scrollTop() + githubMessage.position().top
@@ -303,6 +361,7 @@ var ExplainerPage = Class.extend(Page, {
                 '</div>' +
             '</div>' +
         '</div>');
+        codeMessage.hide().fadeIn(400);
         messagesContainer.append(codeMessage);
         messagesContainer.animate({
             scrollTop: messagesContainer.scrollTop() + codeMessage.position().top

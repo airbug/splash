@@ -263,6 +263,15 @@ button:focus{
     display: block;
 }
 
+#beta-sign-up-button-text {
+    color: rgb(226,158,165);
+}
+
+#beta-sign-up-button-text:hover {
+    color: rgb(226,158,165);
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 /* Features
 ********************************************/
@@ -1233,7 +1242,7 @@ button:focus{
 
 #airbug-messages-container {
     position: absolute;
-    bottom: 0px;
+    top: 0px;
     max-height: 280px;
 }
 
