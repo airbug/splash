@@ -382,6 +382,7 @@ var ExplainerPage = Class.extend(Page, {
         var _this = this;
         var captureContentCameraButton = JQuery("#capture-content-camera-button");
         captureContentCameraButton.on("click", function(event) {
+            _this.handleContentCaptureButtonClick();
             _this.runCaptureContent(function() {
 
             });
@@ -418,14 +419,62 @@ var ExplainerPage = Class.extend(Page, {
     /**
      * @private
      */
-    showReplyCaptureContentMessage: function() {
-        var replyMessage        = JQuery("#capture-content-reply-message");
-        var messagesContainer   = JQuery("#capture-content-messages-container");
-        replyMessage.show();
+    addCaptureContentText: function(text) {
+        var messagesContainer = $("#capture-content-messages-container");
+        var textMessage = $('<div id="capture-content-reply-message" class="message-wrapper">' +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
+            '<div class="message-body">' +
+            '<span>' + text + '</span>' +
+            '<div class="message-image-wrapper">' +
+                '<img src="/img/image-message-upsidedown.png" class="message-image">' +
+            '</div>' +
+        '</div>' +
+    '</div>');
+        textMessage.hide().fadeIn(400);
+        messagesContainer.append(textMessage);
         messagesContainer.animate({
-            scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
-        }, 1000);
+            scrollTop: messagesContainer.scrollTop() + textMessage.position().top
+        }, {
+            duration: 1000
+        }); console.log();
     },
+
+
+//    /**
+//     * @private
+//     */
+//    showReplyCaptureContentMessage: function() {
+//        var replyMessage        = JQuery("#capture-content-reply-message");
+//        var messagesContainer   = JQuery("#capture-content-messages-container");
+//        replyMessage.show();
+//        messagesContainer.animate({
+//            scrollTop: messagesContainer.scrollTop() + replyMessage.position().top
+//        }, 1000);
+//    },
+
+    /**
+     * @protected
+     * @param {string} jqueryId
+     * @return {Object}
+     */
+    getInputData: function(jqueryId) {
+        return JQuery(jqueryId).val();
+    },
+
+    /**
+     * @protected
+     */
+    submitContentCapture: function() {
+        var inputData = this.getInputData("#capture-content-chat-input");
+        JQuery("#capture-content-chat-input").val("");
+        this.addCaptureContentText(inputData);
+    },
+
+    handleContentCaptureButtonClick: function(event) {
+        this.submitContentCapture();
+    },
+
 
 
     // Image Markup
