@@ -453,14 +453,6 @@ var ExplainerPage = Class.extend(Page, {
 //        }, 1000);
 //    },
 
-    /**
-     * @protected
-     * @param {string} jqueryId
-     * @return {Object}
-     */
-    getInputData: function(jqueryId) {
-        return JQuery(jqueryId).val();
-    },
 
     /**
      * @protected
@@ -725,15 +717,6 @@ var ExplainerPage = Class.extend(Page, {
         }, {
             duration: 1000
         }); console.log();
-    },
-
-    /**
-     * @protected
-     * @param {string} jqueryId
-     * @return {Object}
-     */
-    getInputData: function(jqueryId) {
-        return JQuery(jqueryId).val();
     },
 
     /**

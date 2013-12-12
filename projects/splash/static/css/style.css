@@ -35,6 +35,11 @@ button:focus{
     position: fixed;
 }
 
+.copyright {
+    margin-top: 30px;
+    font-size: 10px;
+}
+
 .line-length {
     border-top: solid 2px rgb(89, 98, 95);
     width: 146px;
