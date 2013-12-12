@@ -186,11 +186,12 @@ block content
                   div(class="airbug-list-item airbug-list-top")
                     div(id="heads-down-status-indicator", class="user-status-indicator")
                     div(class="user-name-text") Your Name
-                  div(id="heads-down-content-message", class="message-wrapper")
-                    div(class="message-sent-by") Tim
-                    div(class="message-sent-at") 8:40PM
-                    div(class="message-body" id="heads-down-message") Hey we have a fire, can you buzz one of the devs?
-                  div(class="chat-form")
+                  div(id="heads-down-content-container", class="messages-container")
+                    div(id="heads-down-content-message", class="message-wrapper")
+                      div(class="message-sent-by") Tim
+                      div(class="message-sent-at") 8:40PM
+                      div(class="message-body" id="heads-down-message") Hey we have a fire, can you buzz one of the devs?
+                  div(id="heads-down-chat-form", class="chat-form")
                     input(type="text",id="heads-down-input", class="chat-input", placeholder="type message here")
                     button(id="heads-down-arrow-button", type="button", class="airbug-button")
                       div(class="glyphicon glyphicon-arrow-right")

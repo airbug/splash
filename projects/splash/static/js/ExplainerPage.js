@@ -619,9 +619,10 @@ var ExplainerPage = Class.extend(Page, {
             _this.runChangeToActiveMode();
             _this.startTimerForInactiveMode();
         });
-        headsDownButton.on("click", function() {
+        headsDownButton.on("click", function(event) {
             _this.runChangeToActiveMode();
             _this.startTimerForInactiveMode();
+            _this.handleHeadsDownSendButtonClick();
         });
     },
 
@@ -653,6 +654,50 @@ var ExplainerPage = Class.extend(Page, {
     runChangeToInactiveMode: function() {
         var inactiveButton = JQuery("#heads-down-status-indicator");
         inactiveButton.css("background-color", "rgb(226,158,165)");
+    },
+
+    /**
+     * @private
+     */
+
+    addHeadDownText: function(text) {
+        var messagesContainer = $("#heads-down-content-container");
+        var textMessage = $('<div class="message-wrapper">' +
+            '<div class="message-sent-by">You</div>' +
+            '<div class="message-sent-at">8:40 PM</div>' +
+            '<div class="message-body">' +
+            '<span>' + text + '</span>' +
+            '</div>' +
+        '</div>');
+        textMessage.hide().fadeIn(400);
+        messagesContainer.append(textMessage);
+        messagesContainer.animate({
+            scrollTop: messagesContainer.scrollTop() + textMessage.position().top
+        }, {
+            duration: 1000
+        }); console.log();
+    },
+
+    /**
+     * @protected
+     * @param {string} jqueryId
+     * @return {Object}
+     */
+    getInputData: function(jqueryId) {
+        return JQuery(jqueryId).val();
+    },
+
+    /**
+     * @protected
+     */
+    submitHeadsDownChat: function() {
+        var inputData = this.getInputData("#heads-down-input");
+        JQuery("#heads-down-input").val("");
+        this.addHeadDownText(inputData);
+    },
+
+    handleHeadsDownSendButtonClick: function(event) {
+        this.submitHeadsDownChat();
     },
 
 
