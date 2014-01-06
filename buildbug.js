@@ -45,7 +45,7 @@ buildProperties({
             dependencies: {
                 bugpack: "https://s3.amazonaws.com/airbug/bugpack-0.0.5.tgz",
                 express: "3.1.x",
-                jade: "*",
+                jade: "1.0.2",
                 mongodb: ">=1.2.11",
                 mongoose: "3.8.x"
             }
@@ -93,7 +93,7 @@ buildProperties({
             dependencies: {
                 bugpack: "https://s3.amazonaws.com/airbug/bugpack-0.0.5.tgz",
                 express: "3.1.x",
-                jade: "*",
+                jade: "1.0.2",
                 mongodb: ">=1.2.11",
                 mongoose: "3.8.x"
             }

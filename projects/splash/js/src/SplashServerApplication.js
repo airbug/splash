@@ -117,6 +117,13 @@ var SplashServerApplication = Class.extend(Obj, {
             });
             res.end();
         });
+        app.get('/terms', function(req, res){
+            res.render('terms', {
+                title: 'airbug',
+                production: config.production
+            });
+            res.end();
+        });
         app.post('/api/beta-sign-up', function(req, res){
             for(var property in req.body){
                 console.log(property + ' : ' + req.body[property]);
