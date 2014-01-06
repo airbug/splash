@@ -15,8 +15,12 @@ a {
     color: #00B7FF;
 }
 
-p {
+p, li {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+ol {
+    padding-left: 20px;
 }
 
 button:focus{
@@ -38,6 +42,7 @@ button:focus{
 .copyright {
     margin-top: 30px;
     font-size: 10px;
+    margin-bottom: 10px;
 }
 
 .line-length {
@@ -2298,4 +2303,45 @@ button:focus{
     width: 700px;
     height: 500px;
     top: 290px;
+}
+
+/* Terms Page
+********************************************/
+
+.term-description {
+    line-height: 1.2em;
+    font-size: 1.1em;
+    color: rgb(36,36,36);
+    /*padding-left: 15px;*/
+    text-align: left;
+}
+
+.intro-terms {
+    padding-top: 10px;
+    padding-bottom: 50px;
+}
+
+.list-feature {
+    line-height: 1.2em;
+    font-size: 1.1em;
+    color: rgb(36,36,36);
+    text-align: left;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.term-feature {
+    font-size:1.3em;
+    line-height: 1.3em;
+    color: rgb(42,42,42);
+    text-align:left;
+}
+
+.terms-title{
+    font-size:1.75em;
+    padding-top: 50px;
+}
+
+.terms-background {
+    background-color: #f8f8f8;
 }
