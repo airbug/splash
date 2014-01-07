@@ -1,0 +1,48 @@
+extends layout
+block content
+  script.
+      var firstPage="explainerPage";
+      Loader.numExpectedLoadedItems = 1;
+  div(id="page-container")
+    div(id="loading-page", class="page")
+      div(class="row")
+        div(class="col-sm-8 col-sm-offset-2")
+          //if lte IE 10
+            p(class="conditional") Say whaaaaaaat?? Our site does not currently support IE 10 or below. Please update to the most recent version of IE or use one of the following browsers: <a href="https://www.mozilla.org/en-US/firefox/new/?utm_source=firefox-com&utm_medium=referral"> Firefox</a>, <a href="https://www.google.com/intl/en/chrome/browser/"> Chrome</a>, or <a href="http://www.opera.com"> Opera</a>.<script></script>
+          div(id="airbug-loader", class="airbug-loader-container")
+            img(class="loader", src="/img/ajax-loader.gif", alt="loading...")
+    div(id="explainer-page", class="page terms-background")
+      div(class="row")
+        div(class="col-sm-8 col-sm-offset-1")
+          div
+            h5(class="terms-title") Copyright &copy; airbug Inc. - All Rights Reserved
+      div(class="row")
+        div(class="col-sm-7 col-sm-offset-1")
+          div(class="intro-terms")
+            p(class="term-description") This code is copyright airbug Inc. reuse or reproduction in whole or part without express written permission is strictly prohibited. Purchase product or subscription to product does not imply consent to use code. Use of this code does not imply any warranty or liability against incidental or consequential damages, lost profits, or lost productivity arising from the use of this software. Creators and owners of the code or any of their agents are not liable for any damages, user assumes all risk when using product.
+        div(class="footer")
+          div(class="row")
+            div(class="col-sm-5 col-sm-offset-1 ")
+              h5(class="feature") About airbug
+              p(class="about-description") airbug is a new type of collaborative chat client designed specifically with developers in mind. We believe in a very simple principle: help developers collaborate without breaking their concentration.
+              p(class="about-description") Questions? Want to chat? Drop us a line at
+                a(href="mailto:info@airbug.com", target="_blank")  info@airbug.com
+              form(class="form-inline", role="form")
+                div(class="form-group")
+                button(type="button", class="btn btn-default button-font call-out", id="beta-sign-up-button-three") request beta invite - free!
+                div(class="copyright") Copyright &copy; airbug Inc. 2013 - All Rights Reserved
+            div(class="col-sm-5 col-sm-offset-1")
+              h5(class="feature") Connect with airbug
+              div(class="social-feed-container")
+                div(class="g-plusone", data-annotation="none", data-href="https://plus.google.com/u/0/+Airbug/posts")
+              p(class="social-text") Add us on
+                a(href="https://plus.google.com/u/0/+Airbug/posts", target="_blank")  Google+
+              div(class="social-feed-container")
+                a(href="https://twitter.com/airbug", target="_blank", class="twitter-follow-button", data-show-count="false")
+              p(class="social-text") Follow us on
+                a(href="https://twitter.com/airbug", target="_blank")   Twitter
+              div(class="social-feed-container")
+                div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false")
+              p(class="social-text") Like us on
+                a(href="https://www.facebook.com/integrate.airbug", target="_blank")  Facebook
+    //-Copyright &copy; airbug Inc. 2013 - All Rights Reserved
