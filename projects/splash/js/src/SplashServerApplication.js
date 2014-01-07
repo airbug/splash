@@ -124,8 +124,8 @@ var SplashServerApplication = Class.extend(Obj, {
             });
             res.end();
         });
-        app.get('/copyright', function(req, res){
-            res.render('copyright', {
+        app.get('/privacy', function(req, res){
+            res.render('privacy', {
                 title: 'airbug',
                 production: config.production
             });

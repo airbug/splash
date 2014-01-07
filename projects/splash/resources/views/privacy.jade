@@ -1,0 +1,74 @@
+extends layout
+block content
+  script.
+      var firstPage="explainerPage";
+      Loader.numExpectedLoadedItems = 1;
+  div(id="page-container")
+    div(id="loading-page", class="page")
+      div(class="row")
+        div(class="col-sm-8 col-sm-offset-2")
+          //if lte IE 10
+            p(class="conditional") Say whaaaaaaat?? Our site does not currently support IE 10 or below. Please update to the most recent version of IE or use one of the following browsers: <a href="https://www.mozilla.org/en-US/firefox/new/?utm_source=firefox-com&utm_medium=referral"> Firefox</a>, <a href="https://www.google.com/intl/en/chrome/browser/"> Chrome</a>, or <a href="http://www.opera.com"> Opera</a>.<script></script>
+          div(id="airbug-loader", class="airbug-loader-container")
+            img(class="loader", src="/img/ajax-loader.gif", alt="loading...")
+    div(id="explainer-page", class="page terms-background")
+      div(class="row")
+        div(class="col-sm-8 col-sm-offset-1")
+          div
+            h5(class="terms-title") airbug Privacy Policybuildbug
+      
+      div(class="row")
+        div(class="col-sm-8 col-sm-offset-1")
+          div(class="intro-terms")
+            h5(class="term-feature") This Privacy Policy was last modified on December 14, 2013.
+            p(class="term-description") airbug Inc. a Delaware Corporation, (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;) operates http://airbug.com (the &quot;Site&quot;) and airbug communication service (the &quot;Service&quot;). This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the Site.
+            p(class="term-description") We use your Personal Information only for providing and improving the Site and Service. Your information is never shared with or sold to other organizations for commercial purposes, unless used to provide services you have requested by your permission. Exceptions to this policy occur in circumstances where it is necessary to share information to investigate, prevent or take action regarding illegal activities, suspected fraud, situations involving potential threats to the physical safety of any person, violations of Terms of Service, or as otherwise required by law. In the event airbug is acquired or merged with another company, airbug will notify you before your information is transferred or becomes subject to a different privacy policy. By using the Site and Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible on our <a href="http://airbug.com/terms"> terms page</a>
+              ol
+                li(class="list-feature") Information Collected
+                p(class="term-description") When you signup for airbug or while browsing our Site, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you. airbug uses collected information for the following general purposes: products and services provision, billing, identification and authentication, services improvement, contact, and research.  Personally identifiable information may include, but is not limited to, your name, email address, postal address, phone number, company name, company size, credit card information (&quot;Personal Information&quot).
+                li(class="list-feature") Security
+                p(class="term-description") The security of your Personal Information is very important to us, however, no method of transmission over the Internet, or method of electronic storage, is 100% secure. airbug transmits your information to secure servers using secure socket layer technology (SSL). Your information may not be encrypted when stored on our servers. While we strive to use the strongest commercially acceptable means to protect your Personal Information, we cannot guarantee its absolute security.
+                li(class="list-feature") Log Data
+                p(class="term-description") Like many site operators, we collect information that your browser sends whenever you visit our Site (&quotLog Data&quot). This Log Data may include information such as your computer's Internet Protocol (&quotIP&quot) address, browser type, browser version, the pages of our Site that you visit, the time and date of your visit, the time spent on those pages and other statistics.
+                li(class="list-feature") Communications
+                p(class="term-description") Periodically we may use personally identifiably information to communicate with you for the purposes of product updates, policy updates, marketing, and airbug news.
+                li(class="list-feature") Storage, Disclosure and Use of Your Communications
+                p(class="term-description") By using airbug for sending messages, images, programming code, files, and other data (&quot;Communications&quot; or &quot;Communicate&quot;) you consent to the storage of your Communications history on the airbug application as the default option. By using airbug to Communicate in rooms with other users, your chat history is saved as the default option. For more information about Communication history features and settings, please see airbug's support documentation.
+                li(class="list-feature") Data Storage
+                p(class="term-description") When you use the file transfer feature, image markup or transfer, or code markup or transfer of airbug, the file, image, or data you transfer is copied and retained on the servers of our third party service provider after the transfer. airbug may access or use these files to improve the use of the Site and Service, files will not be shared or sold to thrid parties, but you should be aware that these files are not encrypted and that they could be disclosed in legal proceedings or investigations.
+                li(class="list-feature") Cookies
+                p(class="term-description") Cookies are files with small amount of data, which may include an anonymous unique identifier. Cookies are sent to your browser from a web site and stored on your computer's hard drive. No personally identifiable information stored in the airbug cookies will be shared with outside companies without your knowledge and permission.
+                p(class="term-description") Like many sites, we use &quot;cookies&quot; to collect information. You can alter the settings in your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, some portions of the airbug Site and Service may not be available to use as cookies record session information.
+                li(class="list-feature") Links To Other Sites
+                p(class="term-description") Our Site may contain links to other sites that are not operated by us. If you click on a third party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit.
+                p(class="term-description") airbug Inc. has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party sites or services.
+                li(class="list-feature") Changes
+                p(class="term-description") airbug Inc. may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on the Site. You are advised to review this Privacy Policy periodically for any changes.
+                li(class="list-feature") Contact
+                p(class="term-description") If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@airbug.com", target="_blank">support@airbug.com</a>
+        div(class="footer")
+          div(class="row")
+            div(class="col-sm-5 col-sm-offset-1 ")
+              h5(class="feature") About airbug
+              p(class="about-description") airbug is a new type of collaborative chat client designed specifically with developers in mind. We believe in a very simple principle: help developers collaborate without breaking their concentration.
+              p(class="about-description") Questions? Want to chat? Drop us a line at
+                a(href="mailto:info@airbug.com", target="_blank")  info@airbug.com
+              form(class="form-inline", role="form")
+                div(class="form-group")
+                button(type="button", class="btn btn-default button-font call-out", id="beta-sign-up-button-three") request beta invite - free!
+                div(class="copyright") Copyright &copy; airbug Inc. 2013 - All Rights Reserved
+            div(class="col-sm-5 col-sm-offset-1")
+              h5(class="feature") Connect with airbug
+              div(class="social-feed-container")
+                div(class="g-plusone", data-annotation="none", data-href="https://plus.google.com/u/0/+Airbug/posts")
+              p(class="social-text") Add us on
+                a(href="https://plus.google.com/u/0/+Airbug/posts", target="_blank")  Google+
+              div(class="social-feed-container")
+                a(href="https://twitter.com/airbug", target="_blank", class="twitter-follow-button", data-show-count="false")
+              p(class="social-text") Follow us on
+                a(href="https://twitter.com/airbug", target="_blank")   Twitter
+              div(class="social-feed-container")
+                div(class="fb-like", data-href="http://www.facebook.com/integrate.airbug", data-width="50px", data-height="25px", data-colorscheme="light", data-layout="button_count", data-action="like", data-show-faces="true", data-send="false")
+              p(class="social-text") Like us on
+                a(href="https://www.facebook.com/integrate.airbug", target="_blank")  Facebook
+    //-Copyright &copy; airbug Inc. 2013 - All Rights Reserved
