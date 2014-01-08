@@ -27,6 +27,10 @@ button:focus{
     outline: 0;
 }
 
+.image-fit {
+    width: 100%;
+}
+
 .conditional {
     margin-top:200px;
 }
@@ -2275,13 +2279,14 @@ button:focus{
     width: 700px;
     margin-left: auto;
     margin-right: auto;
+    height: 700px;
 }
 
 #logo-404 {
     display: block;
     position: absolute;
-    width: 250px;
-    height: 150px;
+    width: 180px;
+    height: 108px;
     top: 40px;
     left: 225px;
 }
@@ -2291,7 +2296,7 @@ button:focus{
     display: block;
     text-align: center;
     line-height: 38px;
-    width:700px;
+    width: 660px;
     color: #333333;
     font-size: 20px;
     top: 180px;
@@ -2300,10 +2305,12 @@ button:focus{
 #jar-404 {
     display: block;
     position: absolute;
-    width: 700px;
-    height: 500px;
-    top: 290px;
+    width: 500px;
+    height: 357px;
+    top: 268px;
+    left: 198px;
 }
+
 
 /* Terms Page
 ********************************************/
