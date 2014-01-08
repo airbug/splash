@@ -37,7 +37,7 @@ buildProperties({
     splash: {
         packageJson: {
             name: "splash",
-            version: "1.0.4",
+            version: "1.0.5",
             private: true,
             scripts: {
                 start: "node ./scripts/splash-server-start.js"
@@ -85,7 +85,7 @@ buildProperties({
     splashUnitTest: {
         packageJson: {
             name: "splash-test",
-            version: "1.0.4",
+            version: "1.0.5",
             private: true,
             scripts: {
                 start: "node ./scripts/splash-server-start.js"
