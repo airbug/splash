@@ -4,11 +4,12 @@
 
 //@Package('splash')
 
-//@Export('Four04Page')
+//@Export('TermsPage')
 
 //@Require('Class')
 //@Require('jquery.JQuery')
 //@Require('splash.Page')
+//@Require('splash.PageManager')
 
 
 //-------------------------------------------------------------------------------
@@ -22,16 +23,17 @@ var bugpack = require('bugpack').context();
 // BugPack
 //-------------------------------------------------------------------------------
 
-var Class =         bugpack.require('Class');
-var JQuery =        bugpack.require('jquery.JQuery');
-var Page =          bugpack.require('splash.Page');
+var Class =     bugpack.require('Class');
+var JQuery =    bugpack.require('jquery.JQuery');
+var Airbug =    bugpack.require('splash.Airbug');
+var Page =      bugpack.require('splash.Page');
 
 
 //-------------------------------------------------------------------------------
 // Declare Class
 //-------------------------------------------------------------------------------
 
-var Four04Page = Class.extend(Page, {
+var TermsPage = Class.extend(Page, {
 
     //-------------------------------------------------------------------------------
     // Constructor
@@ -39,23 +41,11 @@ var Four04Page = Class.extend(Page, {
 
     _constructor: function() {
 
-        this._super("four04Page", JQuery("#four04-page"));
+        this._super("termsPage", JQuery(".terms-background"));
 
-
-        //-------------------------------------------------------------------------------
-        // Private Properties
-        //-------------------------------------------------------------------------------
 
     },
 
-
-    //-------------------------------------------------------------------------------
-    // Page Methods
-    //-------------------------------------------------------------------------------
-
-    /**
-     *
-     */
     activate: function(pageTransition) {
         this._super(pageTransition);
         JQuery('#loading-page').hide();
@@ -68,4 +58,4 @@ var Four04Page = Class.extend(Page, {
 // Exports
 //-------------------------------------------------------------------------------
 
-bugpack.export('splash.Four04Page', Four04Page);
+bugpack.export('splash.TermsPage', TermsPage);

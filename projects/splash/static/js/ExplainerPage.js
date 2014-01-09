@@ -102,7 +102,6 @@ var ExplainerPage = Class.extend(Page, {
         this.initializeFingertips();
         this.initializeReply();
 
-        this.pageManager.addEventListener(PageManager.EventTypes.GOTOPAGE, this.hearGoToPageEvent, this);
     },
 
     /**
@@ -112,6 +111,7 @@ var ExplainerPage = Class.extend(Page, {
         this._super(pageTransition);
         var loadingPage = JQuery("#loading-page");
         loadingPage.hide();
+        JQuery('#beta-sign-up-button-one').show();
     },
 
 
@@ -119,20 +119,6 @@ var ExplainerPage = Class.extend(Page, {
     // Private Methods
     //-------------------------------------------------------------------------------
 
-    /**
-     * @private
-     * @param {Event} event
-     */
-    hearGoToPageEvent: function(event){
-        console.log("Hearing go to page event");
-        var currentPage = event.getData().currentPage.name;
-        console.log(currentPage);
-        if (currentPage === "betaSignUpPage") {
-            JQuery('#beta-sign-up-button-one').hide();
-        } else {
-            JQuery('#beta-sign-up-button-one').show();
-        }
-    },
 
 
     // Beta Signup Buttons

@@ -87,9 +87,21 @@ var SplashController = Class.extend(Obj, {
 
         /**
          * @private
+         * @type {PrivacyPage}
+         */
+        this.privacyPage = null;
+
+        /**
+         * @private
          * @type {SonarbugClient}
          */
         this.sonarbugClient = null;
+
+        /**
+         * @private
+         * @type {TermsPage}
+         */
+        this.termsPage = null;
 
         /**
          * @private
@@ -183,6 +195,8 @@ var SplashController = Class.extend(Obj, {
                 _this.pageManager.registerPage(_this.betaSignUpPage);
                 _this.pageManager.registerPage(_this.explainerPage);
                 _this.pageManager.registerPage(_this.four04Page);
+                _this.pageManager.registerPage(_this.privacyPage);
+                _this.pageManager.registerPage(_this.termsPage);
                 _this.pageManager.registerPage(_this.thankYouPage);
 
                 //TODO BRN: This Loader is hacky. Figure out if there's a way to introduce this as a script tag.

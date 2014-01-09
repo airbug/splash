@@ -28,8 +28,10 @@
 //@Require('splash.Four04Page')
 //@Require('splash.OtherAirbugForm')
 //@Require('splash.PageManager')
+//@Require('splash.PrivacyPage')
 //@Require('splash.SplashApi')
 //@Require('splash.SplashController')
+//@Require('splash.TermsPage')
 //@Require('splash.ThankYouPage')
 //@Require('splash.Tracker')
 //@Require('splitbug.Splitbug')
@@ -71,6 +73,8 @@ var SplashController        = bugpack.require('splash.SplashController');
 var ThankYouPage            = bugpack.require('splash.ThankYouPage');
 var Tracker                 = bugpack.require('splash.Tracker');
 var Splitbug                = bugpack.require('splitbug.Splitbug');
+var TermsPage              = bugpack.require('splash.TermsPage');
+var PrivacyPage              = bugpack.require('splash.PrivacyPage');
 
 
 //-------------------------------------------------------------------------------
@@ -194,6 +198,20 @@ var SplashConfiguration = Class.extend(Obj, {
     },
 
     /**
+     * @return {TermsPage}
+     */
+    termsPage: function() {
+        return new TermsPage();
+    },
+
+    /**
+     * @return {PrivacyPage}
+     */
+    privacyPage: function() {
+        return new PrivacyPage();
+    },
+
+    /**
      * @return {OtherAirbugForm}
      */
     otherAirbugForm: function() {
@@ -312,6 +330,7 @@ bugmeta.annotate(SplashConfiguration).with(
             .properties([
                 property("tracker").ref("tracker")
             ]),
+        module("privacyPage"),
         module("sonarbugClient"),
         module("splashApi"),
         module("splashController")
@@ -321,12 +340,15 @@ bugmeta.annotate(SplashConfiguration).with(
                 property("feedbackPanel").ref("feedbackPanel"),
                 property("four04Page").ref("four04Page"),
                 property("pageManager").ref("pageManager"),
+                property("privacyPage").ref("privacyPage"),
                 property("sonarbugClient").ref("sonarbugClient"),
                 property("splitbug").ref("splitbug"),
+                property("termsPage").ref("termsPage"),
                 property("thankYouPage").ref("thankYouPage"),
                 property("tracker").ref("tracker")
             ]),
         module("splitbug"),
+        module("termsPage"),
         module("thankYouPage"),
         module("tracker")
             .properties([

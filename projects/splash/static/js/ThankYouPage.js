@@ -49,13 +49,16 @@ var ThankYouPage = Class.extend(Page, {
         this.betaSignUpPage = null;
 
         this.thankYouPage = null;
-    }
+    },
 
 
     //-------------------------------------------------------------------------------
     // Page Methods
     //-------------------------------------------------------------------------------
-
+    activate: function(pageTransition) {
+        this._super(pageTransition);
+        JQuery('#beta-sign-up-button-one').hide();
+    }
 });
 
 
