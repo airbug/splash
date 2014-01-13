@@ -33,7 +33,7 @@ var nodejs              = enableModule('nodejs');
 // Values
 //-------------------------------------------------------------------------------
 
-var version     = "1.0.8";
+var version     = "1.0.9";
 var name        = "splash";
 
 
