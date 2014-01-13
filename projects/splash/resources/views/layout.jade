@@ -4,9 +4,10 @@ html
     title= title
     meta(name="viewport", content="width=device-width, initial-scale=.1, maximum-scale=.65")
     meta(name="description", content="Collaborative chat for developers")
-    link(rel="stylesheet", href="/css/bootstrap.min.css")
-    link(rel="stylesheet", href="/css/bootstrap-theme.min.css")
-    link(rel="stylesheet", href="/css/style.css")
+    link(rel="stylesheet", href="#{staticUrl}/css/bootstrap.min.css")
+    link(rel="stylesheet", href="#{staticUrl}/css/bootstrap-theme.min.css")
+    link(rel="stylesheet", href="#{staticUrl}/css/style.css")
+    link(rel="shortcut icon", type="image/png", href="#{staticUrl}/airbug-icon.png")
     script.
         var _appConfig = {
             production: "#{production}",
@@ -58,7 +59,7 @@ html
                   span(class="icon-bar")
                   span(class="icon-bar")
                 a(class="navbar-brand", href="http://airbug.com", title="AirBug - airbug home")
-                  img(class="navbar-brand", id="logo" src="/img/airbug-logo-large.png", alt="AirBug - airbug logo", onload="Loader.loaded();")
+                  img(class="navbar-brand", id="logo" src="#{staticUrl}/img/airbug-logo-large.png", alt="AirBug - airbug logo", onload="Loader.loaded();")
               div(class="navbar-collapse collapse")
                 ul(class="nav navbar-nav navbar-right nav-font nav-position")
                   li
@@ -71,15 +72,15 @@ html
       div(id="feedback-container", class="feedback-container-collapse desktop")
         div(id="feedback-edge-container", class="feedback-edge-container")
           div(class="feedback-airbug-container")
-            img(id="feedback-airbug-pull-1", class="feedback-airbug-image feedback-airbug-show", src="/img/airbug-pull-1.png", onload="Loader.loaded();")
-            img(id="feedback-airbug-pull-2", class="feedback-airbug-image feedback-airbug-hide", src="/img/airbug-pull-2.png", onload="Loader.loaded();")
-            img(id="feedback-airbug-pull-3", class="feedback-airbug-image feedback-airbug-hide", src="/img/airbug-pull-3.png", onload="Loader.loaded();")
+            img(id="feedback-airbug-pull-1", class="feedback-airbug-image feedback-airbug-show", src="#{staticUrl}/img/airbug-pull-1.png", onload="Loader.loaded();")
+            img(id="feedback-airbug-pull-2", class="feedback-airbug-image feedback-airbug-hide", src="#{staticUrl}/img/airbug-pull-2.png", onload="Loader.loaded();")
+            img(id="feedback-airbug-pull-3", class="feedback-airbug-image feedback-airbug-hide", src="#{staticUrl}/img/airbug-pull-3.png", onload="Loader.loaded();")
             div(id="feedback-airbug-thankyou", class="feedback-airbug-hide")
-              img(id="feedback-airbug-thankyou-image", class="feedback-airbug-image", src="/img/airbug-carry.png", onload="Loader.loaded();")
+              img(id="feedback-airbug-thankyou-image", class="feedback-airbug-image", src="#{staticUrl}/img/airbug-carry.png", onload="Loader.loaded();")
               div(id="feedback-thankyou-message") Thank You
           div(class="feedback-tab-container")
             div(id="feedback-tab", class="btn btn-large")
-              img(class="feedback-tab-image", src="/img/feedback-tab.png", onload="Loader.loaded();")
+              img(class="feedback-tab-image", src="#{staticUrl}/img/feedback-tab.png", onload="Loader.loaded();")
         div(class="feedback-form-container")
           form(method="post", action="feedback", id="feedback-form")
             fieldset
@@ -119,8 +120,8 @@ html
           }
           }(document, 'script', 'twitter-wjs');
     if production
-      script(type="text/javascript", src="https://s3.amazonaws.com/airbug/bugpack-0.0.1.min.js")
+      script(type="text/javascript", src="https://s3.amazonaws.com/deploy-airbug/bugpack-0.0.1.min.js")
     else
-      script(type="text/javascript", src="https://s3.amazonaws.com/airbug/bugpack-0.0.1.js")
-    script(type="text/javascript", src="/js/splash-application-loader.js")
+      script(type="text/javascript", src="https://s3.amazonaws.com/deploy-airbug/bugpack-0.0.1.js")
+    script(type="text/javascript", src="#{staticUrl}/js/splash-application-loader.js")
       //Copyright &copy; airbug Inc. 2013 - All Rights Reserved

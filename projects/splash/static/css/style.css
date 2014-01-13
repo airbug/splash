@@ -1128,7 +1128,7 @@ button:focus{
     height:441px;
     border: 1px solid #59625f;
     background-color: #f4f5f5;
-    background-image: url(/img/blank_browser.png);
+    background-image: url(../img/blank_browser.png);
     background-size: cover;
     background-repeat:no-repeat;
 }
@@ -1565,17 +1565,17 @@ button:focus{
     margin-left: 25px;
 }
 
-#reply-arrow{
+#reply-arrow {
     height: 30px;
     width: 43px;
-    background-image: url(/img/reply-arrow-icon-inverse.png);
+    background-image: url(../img/reply-arrow-icon-inverse.png);
     background-size: 20px 15px;
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 #reply-arrow:hover{
-    background-image: url(/img/reply-arrow-icon.png);
+    background-image: url(../img/reply-arrow-icon.png);
 }
 
 #threaded-messages-reply-button{
@@ -1739,7 +1739,7 @@ button:focus{
 .github-image {
     height: 30px;
     width: 42px;
-    background-image: url(/img/github-icon-inverse.png);
+    background-image: url(../img/github-icon-inverse.png);
     background-size: 20px 19px;
     background-repeat: no-repeat;
     background-position: center center;
@@ -1749,7 +1749,7 @@ button:focus{
 }
 
 .github-image:hover {
-    background-image: url(/img/github-icon.png);
+    background-image: url(../img/github-icon.png);
 }
 
 .number-list {

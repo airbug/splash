@@ -10,15 +10,15 @@ block content
           //if lte IE 10
             p(class="conditional") Say whaaaaaaat?? Our site does not currently support IE 10 or below. Please update to the most recent version of IE or use one of the following browsers: <a href="https://www.mozilla.org/en-US/firefox/new/?utm_source=firefox-com&utm_medium=referral"> Firefox</a>, <a href="https://www.google.com/intl/en/chrome/browser/"> Chrome</a>, or <a href="http://www.opera.com"> Opera</a>.<script></script>
           div(id="airbug-loader", class="airbug-loader-container")
-            img(class="loader", src="/img/ajax-loader.gif", alt="loading...")
+            img(class="loader", src="#{staticUrl}/img/ajax-loader.gif", alt="loading...")
     div(id="four04-page", class="page")
       div(class="row")
         div(class="col-sm-12")
           div(class="wrapper-404")
             div(id="logo-404")
-              img(class="image-fit", src="/img/404_404.png", alt="404", onload="Loader.loaded();")
+              img(class="image-fit", src="#{staticUrl}/img/404_404.png", alt="404", onload="Loader.loaded();")
             div(id="message-404") Yikes, the page you are looking for got away!
             div(id="jar-404")
-              img(class="image-fit", src="/img/404_open-jar.png", alt="airbug Jar", onload="Loader.loaded();")
+              img(class="image-fit", src="#{staticUrl}/img/404_open-jar.png", alt="airbug Jar", onload="Loader.loaded();")
               //Copyright &copy; airbug Inc. 2013 - All Rights Reserved
             

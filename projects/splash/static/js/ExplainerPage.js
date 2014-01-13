@@ -196,7 +196,7 @@ var ExplainerPage = Class.extend(Page, {
                 '<div class="message-body">Check us out and click around on the site. Want to see the real thing in action? <a id="beta-sign-up-button-text" > Request a beta invite</a> or get one from your friends!</div>'  +
                 '<span class="message-body">Click on the pencil to try out our nifty image markup feature!</span><br/><br/>' +
                 '<div class="message-image-wrapper">' +
-                    '<img src="/img/image-message.png" class="message-image"/>' +
+                    '<img src="' + _appConfig.staticUrl + '/img/image-message.png" class="message-image"/>' +
                     '<div class="message-image-markup-icon">' +
                         '<button id="airbug-image-markup-button" type="button" class="airbug-button-invert">' +
                             '<div class="glyphicon glyphicon-pencil"></div>' +
@@ -253,8 +253,8 @@ var ExplainerPage = Class.extend(Page, {
                 '<div class="message-sent-by">You</div>' +
                 '<div class="message-sent-at">8:40 PM</div>' +
                 '<div class="message-image-wrapper">' +
-                    '<img src="/img/image-message.png" class="message-image"/>' +
-                    '<img src="/img/airbug-circle.png" class="circle-image"/>' +
+                    '<img src="' + _appConfig.staticUrl + '/img/image-message.png" class="message-image"/>' +
+                    '<img src="' + _appConfig.staticUrl + '/img/airbug-circle.png" class="circle-image"/>' +
                 '</div>' +
             '</div>');
         imageMessage.hide().fadeIn(400);
@@ -278,7 +278,7 @@ var ExplainerPage = Class.extend(Page, {
             '<div class="message-sent-by">You</div>' +
             '<div class="message-sent-at">8:40 PM</div>' +
             '<div class="message-image-wrapper">' +
-                '<img src="/img/image-message.png" class="message-image"/>' +
+                '<img src="' + _appConfig.staticUrl + '/img/image-message.png" class="message-image"/>' +
                 '<div class="message-image-markup-icon">' +
                     '<button id="' + newId + '" type="button" class="airbug-button-invert">' +
             '           <div class="glyphicon glyphicon-pencil"></div>' +
@@ -413,7 +413,7 @@ var ExplainerPage = Class.extend(Page, {
             '<div class="message-body">' +
             '<span>' + text + '</span>' +
             '<div class="message-image-wrapper">' +
-                '<img src="/img/image-message-upsidedown.png" class="message-image">' +
+                '<img src="' + _appConfig.staticUrl + '/img/image-message-upsidedown.png" class="message-image">' +
             '</div>' +
         '</div>' +
     '</div>');
@@ -831,7 +831,7 @@ var ExplainerPage = Class.extend(Page, {
             '<div class="message-sent-by">You</div>' +
             '<div class="message-sent-at">8:40 PM</div>' +
             '<div class="message-image-wrapper">' +
-                '<img src="/img/image-message.png" class="fingertips-image-wrapper"/>' +
+                '<img src="' + _appConfig.staticUrl + '/img/image-message.png" class="fingertips-image-wrapper"/>' +
             "</div>" +
         '</div>');
         messagesContainer.append(imageMessage);
