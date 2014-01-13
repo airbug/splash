@@ -19,7 +19,7 @@ if (internetExplorer !== -1) {
     betaHide.style.display = "none";
 } else {
     var bugpackApi = require('bugpack');
-    bugpackApi.loadContext("", function(error, bugpack) {
+    bugpackApi.loadContext(_appConfig.staticUrl, function(error, bugpack) {
         if (!error) {
             var SplashApplication = bugpack.require('splash.SplashApplication');
             var application = new SplashApplication();

@@ -75,10 +75,11 @@ var SplashServerApplication = Class.extend(Obj, {
         var configPath = path.resolve(__dirname, '../config.json');
         var config = {
             port: 8000,
-            mongoDbIp: "localhost"
+            mongoDbIp: "localhost",
+            staticUrl: ""
         };
         if (BugFs.existsSync(configPath)) {
-            config = JSON.parse(BugFs.readFileSync(configPath, 'utf8'));
+            config = Obj.merge(JSON.parse(BugFs.readFileSync(configPath, 'utf8')), config);
         }
 
         mongoose.connect('mongodb://' + config.mongoDbIp + '/airbug');
@@ -113,21 +114,24 @@ var SplashServerApplication = Class.extend(Obj, {
         app.get('/', function(req, res){
             res.render('index', {
                 title: 'airbug',
-                production: config.production
+                production: config.production,
+                staticUrl: config.staticUrl
             });
             res.end();
         });
         app.get('/terms', function(req, res){
             res.render('terms', {
                 title: 'airbug',
-                production: config.production
+                production: config.production,
+                staticUrl: config.staticUrl
             });
             res.end();
         });
         app.get('/privacy', function(req, res){
             res.render('privacy', {
                 title: 'airbug',
-                production: config.production
+                production: config.production,
+                staticUrl: config.staticUrl
             });
             res.end();
         });
@@ -179,7 +183,8 @@ var SplashServerApplication = Class.extend(Obj, {
             res.status(404);
             res.render('404', {
                 title: 'airbug 404',
-                production: config.production
+                production: config.production,
+                staticUrl: config.staticUrl
             });
             res.end();
         });
