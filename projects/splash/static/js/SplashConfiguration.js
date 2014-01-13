@@ -116,11 +116,18 @@ var SplashConfiguration = Class.extend(Obj, {
 
 
     //-------------------------------------------------------------------------------
-    // Configuration Lifecycle
+    // IConfiguration Implementation
     //-------------------------------------------------------------------------------
 
     /**
-     * @param {function(Error)}
+     * @param {function(Throwable=)} callback
+     */
+    deinitializeConfiguration: function(callback) {
+        callback();
+    },
+
+    /**
+     * @param {function(Throwable=)} callback
      */
     initializeConfiguration: function(callback) {
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -131,7 +138,7 @@ var SplashConfiguration = Class.extend(Obj, {
 
 
     //-------------------------------------------------------------------------------
-    // Configuration Methods
+    // Public Methods
     //-------------------------------------------------------------------------------
 
     /**
@@ -282,7 +289,7 @@ Class.implement(SplashConfiguration, IConfiguration);
 //-------------------------------------------------------------------------------
 
 bugmeta.annotate(SplashConfiguration).with(
-    configuration().modules([
+    configuration("splashConfiguration").modules([
         module("airbugJar")
             .properties([
                 property("arrow").ref("arrow"),
