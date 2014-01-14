@@ -294,6 +294,23 @@ button:focus{
     cursor: pointer;
 }
 
+#sign-in-link {
+    padding: 0px;
+}
+.sign-in-call-out {
+    text-shadow: 0 1px 0 #fff;
+    background-image: -webkit-gradient(linear, left 0%, left 100%,from(#fefefe),to rgb(224,224,224));
+    background-image: -webkit-linear-gradient(top, #fefefe 0%, rgb(224,224,224) 100%);
+    background-image: -moz-linear-gradient(top, #fefefe 0%, rgb(224,224,224) 100%);
+    background-image: -ms-linear-gradient(top, #fefefe 0%,rgb(224,224,224) 100%);
+    background-image: -o-linear-gradient(top, #fefefe 0%,rgb(224,224,224) 100%);
+    background-image: linear-gradient(to bottom, #fefefe 0%, rgb(224,224,224) 100%);
+    background-repeat: repeat-x;
+    border-color: #e0e0e0;
+    border-color: #ccc;
+}
+
+
 /* Features
 ********************************************/
 .feature-container{
