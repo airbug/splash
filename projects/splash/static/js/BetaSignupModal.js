@@ -204,7 +204,7 @@ var BetaSignUpModal = Class.extend(Obj, {
         formDataArray.forEach(function(formEntry){
             var name = formEntry.name;
             var value = formEntry.value;
-            if((name === 'name' && value === '') || (name === 'email' && value === '')){
+            if((name === 'name' && value === '') || (name === 'email' && value === '') || (name === 'company' && value === '') || (name === 'companySize' && value === '')  || (name === 'position' && value === '')){
                 JQuery('#' + name + '+.validation').addClass("invalid");
                 error = new Error("Required fields have not been filled in");
             }
