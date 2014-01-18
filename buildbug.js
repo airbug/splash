@@ -33,7 +33,7 @@ var nodejs              = enableModule('nodejs');
 // Values
 //-------------------------------------------------------------------------------
 
-var version             = "1.0.9";
+var version             = "1.0.10";
 var name                = "splash";
 
 
@@ -357,7 +357,7 @@ buildTarget('prod').buildFlow(
                         options: {
                             acl: 'public-read',
                             gzip: true,
-                            base: "airbug/" + version + "/static",
+                            base: "splash/" + version + "/static",
                             cacheControl: "max-age=31536000, public"
                         },
                         bucket: "{{prod-static-bucket}}"
