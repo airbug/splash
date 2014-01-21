@@ -44,6 +44,7 @@ var BetaSignUpApi = {
     createBetaSignUp: function(data, callback) {
         //TODO BRN: Add validation of params
 
+
         var betaSignUp = {
             company: data.company,
             companySize: data.companySize,
@@ -58,6 +59,27 @@ var BetaSignUpApi = {
             if(error){
                 callback(new Error('betaSignUp failed to save'));
             } else {
+
+                var firstLastObject = BetaSignUpApi.parseName(data.name);
+                var MailChimpAPI = require('mailchimp-api').Mailchimp;
+                var apiKey = '14beaa52ddae3fc5cd626d998cdf83b9-us3';
+                var listID = 'f3e9d861ec';
+
+                try {
+                    var mcApi = new MailChimpAPI(apiKey);
+                } catch (error) {
+                    console.log(error.message);
+                }
+
+                mcApi.lists.subscribe({id: listID, email:{email:data.email}, double_optin: false, merge_vars:{fname:firstLastObject.firstName,lname:firstLastObject.lastName}}, function (error, data) {
+                    if (error){
+                        console.log(error);
+                    }
+                    else {
+                        console.log(data);
+                    }
+                });
+
                 callback(null, result);
             }
         });
@@ -68,7 +90,25 @@ var BetaSignUpApi = {
         query.exec(function(error, betaSignUps) {
             callback(error, betaSignUps);
         });
+    },
+
+    parseName: function(fullName) {
+
+        var firstName = fullName.split(" ", 1);
+        firstName = firstName.join(" ");
+        console.log(firstName);
+
+        var lastNameParts = fullName.split(" ")
+        lastNameParts.shift();
+        var lastName = lastNameParts.join(" ");
+        console.log(lastName);
+
+        return {
+            firstName: firstName,
+            lastName: lastName
+        };
     }
+
 };
 
 

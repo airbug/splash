@@ -75,7 +75,8 @@ buildProperties({
                 express: "3.1.x",
                 jade: "1.0.2",
                 mongodb: ">=1.2.11",
-                mongoose: "3.8.x"
+                mongoose: "3.8.x",
+                "mailchimp-api": "2.0.4"
             }
         },
         sourcePaths: [
