@@ -134,7 +134,7 @@ var SplashServerApplication = Class.extend(Obj, {
             });
             res.end();
         });
-        app.post('/api/beta-sign-up', function(req, res){
+        app.post('/splash/api/beta-sign-up', function(req, res){
             for(var property in req.body){
                 console.log(property + ' : ' + req.body[property]);
             }
@@ -156,7 +156,7 @@ var SplashServerApplication = Class.extend(Obj, {
                 res.end();
             });
         });
-        app.post('/api/feedback', function(req, res) {
+        app.post('/splash/api/feedback', function(req, res) {
             for(var property in req.body){
                 console.log(property + ' : ' + req.body[property]);
             }

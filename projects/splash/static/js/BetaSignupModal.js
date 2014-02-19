@@ -193,7 +193,7 @@ var BetaSignUpModal = Class.extend(Obj, {
      */
     submitForm: function(formData) {
         this.tracker.trackGoalComplete("SignedUpForBeta");
-        this.splashApi.send("/api/beta-sign-up", formData, function(error, result) {
+        this.splashApi.send("/splash/api/beta-sign-up", formData, function(error, result) {
             //TODO BRN: Handle errors
         });
     },

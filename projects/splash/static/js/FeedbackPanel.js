@@ -287,7 +287,7 @@ var FeedbackPanel = Class.extend(Obj, {
      */
     submitFeedbackForm: function(feedbackFormData) {
         this.tracker.trackGoalComplete("FeedbackSubmitted");
-        this.splashApi.send("/api/feedback", feedbackFormData, function(error, result) {
+        this.splashApi.send("/splash/api/feedback", feedbackFormData, function(error, result) {
             //TODO BRN: Handle errors
         });
         this.feedbackSubmitted = true;

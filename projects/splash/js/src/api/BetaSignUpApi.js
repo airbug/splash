@@ -71,14 +71,13 @@ var BetaSignUpApi = {
                     console.log(error.message);
                 }
 
-                mcApi.lists.subscribe({id: listID, email:{email:data.email}, double_optin: false, merge_vars:{fname:firstLastObject.firstName,lname:firstLastObject.lastName}}, function (error, data) {
-                    if (error){
-                        console.log(error);
-                    }
-                    else {
-                        console.log(data);
-                    }
+
+                mcApi.lists.subscribe({id: listID, email:{email:data.email}, double_optin: false, merge_vars:{fname:firstLastObject.firstName,lname:firstLastObject.lastName}}, function (data) {
+                    console.log(data);
+                }, function(error) {
+                    console.log(error);
                 });
+
 
                 callback(null, result);
             }
