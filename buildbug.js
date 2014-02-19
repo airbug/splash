@@ -85,6 +85,7 @@ buildProperties({
             "../bugjs/projects/bugjs/js/src",
             "../bugjs/projects/bugmeta/js/src",
             "../bugjs/projects/bugtrace/js/src",
+            "../bugjs/projects/configbug/js/src",
             "./projects/splash/js/src"
         ],
         scriptPaths: [
