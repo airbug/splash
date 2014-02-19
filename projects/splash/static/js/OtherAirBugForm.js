@@ -218,7 +218,17 @@ var OtherAirbugForm = Class.extend(Obj, {
     createOtherAirbug: function(){
         this.count++;
         var inputValue              = JQuery('#other-airbug-form-container input').val();
-        var otherAirbugHtml         = "<div id='airbug-other-" + this.count + "-container', class='airbug-container airbug-other-container'><img id='airbug-other-image', class='airbug-image', src='/img/airbug-service-swarm-other.png', alt='Other'/><div class='other-airbug-faux-form'><div class='control-group'><label class='control-label', for='other'><div class='controls'><input type='text', id='other', name='other', placeholder='Other Tools' /></div></div></div></div>";
+        var otherAirbugHtml         =
+            '<div id="airbug-other-' + this.count + '-container", class="airbug-container airbug-other-container">' +
+                '<img id="airbug-other-image", class="airbug-image", src= "' + _appConfig.staticUrl + '/img/airbug-service-swarm-other.png", alt="Other"/>' +
+                '<div class="other-airbug-faux-form">' +
+                    '<div class="control-group">' +
+                        '<div class="controls">' +
+                            '<input type="text" id="other" name="other" placeholder="Other Tools" />' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
         JQuery('#bug-swarm-container').append(otherAirbugHtml);
         var otherAirbug             = new Airbug('other: ' + inputValue, JQuery("#airbug-other-" + this.count + "-container"), true);
         JQuery("#airbug-other-" + this.count + "-container .other-airbug-faux-form input").val(inputValue);
