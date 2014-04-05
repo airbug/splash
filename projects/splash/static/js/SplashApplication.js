@@ -16,6 +16,7 @@
 //@Require('bugioc.ModuleAnnotationProcessor')
 //@Require('bugioc.ModuleScan')
 //@Require('bugioc.IocContext')
+//@Require('bugmeta.BugMeta')
 
 
 //-------------------------------------------------------------------------------
@@ -38,6 +39,7 @@ var ConfigurationScan                   = bugpack.require('bugioc.ConfigurationS
 var ModuleAnnotationProcessor           = bugpack.require('bugioc.ModuleAnnotationProcessor');
 var ModuleScan                          = bugpack.require('bugioc.ModuleScan');
 var IocContext                          = bugpack.require('bugioc.IocContext');
+var BugMeta                             = bugpack.require('bugmeta.BugMeta');
 
 
 //-------------------------------------------------------------------------------
@@ -70,19 +72,19 @@ var SplashApplication = Class.extend(Obj, {
          * @type {AutowiredScan}
          * @type {ConfigurationScan}
          */
-        this.autowiredScan      = new AutowiredScan(new AutowiredAnnotationProcessor(this.iocContext));
+        this.autowiredScan      = new AutowiredScan(BugMeta.context(), new AutowiredAnnotationProcessor(this.iocContext));
 
         /**
          * @private
          * @type {ConfigurationScan}
          */
-        this.configurationScan  = new ConfigurationScan(new ConfigurationAnnotationProcessor(this.iocContext));
+        this.configurationScan  = new ConfigurationScan(BugMeta.context(), new ConfigurationAnnotationProcessor(this.iocContext));
 
         /**
          * @private
          * @type {ModuleScan}
          */
-        this.moduleScan         = new ModuleScan(new ModuleAnnotationProcessor(this.iocContext));
+        this.moduleScan         = new ModuleScan(BugMeta.context(), new ModuleAnnotationProcessor(this.iocContext));
     },
 
 
