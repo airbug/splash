@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('Page')
+//@Export('splash.Page')
 
 //@Require('Class')
 //@Require('Obj')

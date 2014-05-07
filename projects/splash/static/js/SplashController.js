@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('SplashController')
+//@Export('splash.SplashController')
 
 //@Require('Class')
 //@Require('Obj')

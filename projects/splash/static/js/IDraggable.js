@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('IDraggable')
+//@Export('splash.IDraggable')
 
 //@Require('Interface')
 

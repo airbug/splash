@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('Tracker')
+//@Export('splash.Tracker')
 
 //@Require('Class')
 //@Require('Obj')

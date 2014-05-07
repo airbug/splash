@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2014 airbug Inc. All rights reserved.
+ *
+ * All software, both binary and source contained in this work is the exclusive property
+ * of airbug Inc. Modification, decompilation, disassembly, or any other means of discovering
+ * the source code of this software is prohibited. This work is protected under the United
+ * States copyright law and other international copyright treaties and conventions.
+ */
+
+
 //-------------------------------------------------------------------------------
 // Requires
 //-------------------------------------------------------------------------------
@@ -11,6 +21,7 @@ var buildbug            = require('buildbug');
 
 var buildProject        = buildbug.buildProject;
 var buildProperties     = buildbug.buildProperties;
+var buildScript         = buildbug.buildScript;
 var buildTarget         = buildbug.buildTarget;
 var enableModule        = buildbug.enableModule;
 var parallel            = buildbug.parallel;
@@ -26,6 +37,7 @@ var aws                 = enableModule('aws');
 var bugpack             = enableModule('bugpack');
 var bugunit             = enableModule('bugunit');
 var core                = enableModule('core');
+var lintbug             = enableModule('lintbug');
 var nodejs              = enableModule('nodejs');
 
 
@@ -33,7 +45,7 @@ var nodejs              = enableModule('nodejs');
 // Values
 //-------------------------------------------------------------------------------
 
-var version             = "1.0.12";
+var version             = "1.1.0";
 var name                = "splash";
 
 
@@ -45,17 +57,17 @@ buildProperties({
     static: {
         outputPath: buildProject.getProperty("buildPath") + "/static",
         sourcePaths: [
+            "../bugcore/projects/bugcore/js/src",
+            "../bugflow/projects/bugflow/js/src",
             "../bugjs/external/jquery/js/src",
             "../bugjs/external/bootstrap3/js/src",
             "../bugjs/external/bootstrap3/static",
             "../bugjs/external/socket-io/js/src",
-            "../bugjs/projects/bugmeta/js/src",
-            "../bugjs/projects/bugflow/js/src",
             "../bugjs/projects/bugioc/js/src",
-            "../bugjs/projects/bugjs/js/src",
-            "../bugjs/projects/bugtrace/js/src",
             "../bugjs/projects/cookies/js/src",
             "../bugjs/projects/session/js/src",
+            "../bugmeta/projects/bugmeta/js/src",
+            "../bugtrace/projects/bugtrace/js/src",
             "../sonarbug/projects/sonarbugclient/js/src",
             "../splitbug/projects/splitbug/js/src",
             "../splitbug/projects/splitbugclient/js/src",
@@ -71,7 +83,7 @@ buildProperties({
                 start: "node ./scripts/splash-server-start.js"
             },
             dependencies: {
-                bugpack: "https://s3.amazonaws.com/deploy-airbug/bugpack-0.0.5.tgz",
+                bugpack: "0.1.12",
                 express: "3.1.x",
                 jade: "1.0.2",
                 mongodb: ">=1.2.11",
@@ -80,12 +92,13 @@ buildProperties({
             }
         },
         sourcePaths: [
-            "../bugjs/projects/bugflow/js/src",
-            "../bugjs/projects/bugfs/js/src",
-            "../bugjs/projects/bugjs/js/src",
-            "../bugjs/projects/bugmeta/js/src",
-            "../bugjs/projects/bugtrace/js/src",
+            "../bugcore/projects/bugcore/js/src",
+            "../bugflow/projects/bugflow/js/src",
+            "../bugfs/projects/bugfs/js/src",
+            "../bugjs/projects/bugioc/js/src",
             "../bugjs/projects/configbug/js/src",
+            "../bugmeta/projects/bugmeta/js/src",
+            "../bugtrace/projects/bugtrace/js/src",
             "./projects/splash/js/src"
         ],
         scriptPaths: [
@@ -112,32 +125,41 @@ buildProperties({
             }
         },
         sourcePaths: [
+            "../buganno/projects/buganno/js/src",
+            "../bugjs/projects/bugyarn/js/src",
             "../bugunit/projects/bugdouble/js/src",
             "../bugunit/projects/bugunit/js/src"
         ],
         scriptPaths: [
+            "../buganno/projects/buganno/js/scripts",
             "../bugunit/projects/bugunit/js/scripts"
         ],
         testPaths: [
-            "../bugjs/projects/bugflow/js/test",
-            "../bugjs/projects/bugjs/js/test",
-            "../bugjs/projects/bugmeta/js/test",
-            "../bugjs/projects/bugtrace/js/test"
+            "../bugcore/projects/bugcore/js/test",
+            "../bugflow/projects/bugflow/js/test",
+            "../bugmeta/projects/bugmeta/js/test",
+            "../bugtrace/projects/bugtrace/js/test"
+        ]
+    },
+    lint: {
+        targetPaths: [
+            "."
+        ],
+        ignorePatterns: [
+            ".*\\.buildbug$",
+            ".*\\.bugunit$",
+            ".*\\.git$",
+            ".*node_modules$"
         ]
     }
 });
 
 
 //-------------------------------------------------------------------------------
-// Declare Tasks
+// Declare BuildTargets
 //-------------------------------------------------------------------------------
 
-
-//-------------------------------------------------------------------------------
-// Declare Flows
-//-------------------------------------------------------------------------------
-
-// Clean Flow
+// Clean BuildTarget
 //-------------------------------------------------------------------------------
 
 buildTarget('clean').buildFlow(
@@ -145,11 +167,8 @@ buildTarget('clean').buildFlow(
 );
 
 
-// Local Flow
+// Local BuildTarget
 //-------------------------------------------------------------------------------
-
-//TODO BRN: Local development of node js and client side projects should "create" the packages and package them up but
-// the sources should be symlinked to instead
 
 buildTarget('local').buildFlow(
     series([
@@ -158,6 +177,15 @@ buildTarget('local').buildFlow(
         // old source files are removed. We should figure out a better way of doing that.
 
         targetTask('clean'),
+        targetTask('lint', {
+            properties: {
+                targetPaths: buildProject.getProperty("lint.targetPaths"),
+                ignores: buildProject.getProperty("lint.ignorePatterns"),
+                lintTasks: [
+                    "fixExportAndRemovePackageAnnotations"
+                ]
+            }
+        }),
         series([
             targetTask('copyContents', {
                 properties: {
@@ -235,6 +263,65 @@ buildTarget('local').buildFlow(
         ])
     ])
 ).makeDefault();
+
+
+// Short BuildTarget
+//-------------------------------------------------------------------------------
+
+buildTarget('short').buildFlow(
+    series([
+
+        // TODO BRN: This "clean" task is temporary until we're not modifying the build so much. This also ensures that
+        // old source files are removed. We should figure out a better way of doing that.
+
+        targetTask('clean'),
+        series([
+            targetTask('copyContents', {
+                properties: {
+                    fromPaths: buildProject.getProperty("static.sourcePaths"),
+                    intoPath: "{{static.outputPath}}"
+                }
+            }),
+            targetTask('generateBugPackRegistry', {
+                properties: {
+                    sourceRoot: "{{static.outputPath}}"
+                }
+            }),
+            targetTask('createNodePackage', {
+                properties: {
+                    packageJson: buildProject.getProperty("splash.packageJson"),
+                    scriptPaths: buildProject.getProperty("splash.scriptPaths").concat(
+                        buildProject.getProperty("splashUnitTest.scriptPaths")
+                    ),
+                    sourcePaths: buildProject.getProperty("splash.sourcePaths").concat(
+                        buildProject.getProperty("splashUnitTest.sourcePaths")
+                    ),
+                    staticPaths: ["{{static.outputPath}}"],
+                    testPaths: buildProject.getProperty("splashUnitTest.testPaths"),
+                    resourcePaths: buildProject.getProperty("splash.resourcePaths")
+                }
+            }),
+            targetTask('generateBugPackRegistry', {
+                init: function(task, buildProject) {
+                    var nodePackage = nodejs.findNodePackage(
+                        buildProject.getProperty("splash.packageJson.name"),
+                        buildProject.getProperty("splash.packageJson.version")
+                    );
+                    task.updateProperties({
+                        sourceRoot: nodePackage.getBuildPath(),
+                        ignore: ["static"]
+                    });
+                }
+            }),
+            targetTask('packNodePackage', {
+                properties: {
+                    packageName: "{{splash.packageJson.name}}",
+                    packageVersion: "{{splash.packageJson.version}}"
+                }
+            })
+        ])
+    ])
+);
 
 
 // Prod Flow
@@ -369,3 +456,16 @@ buildTarget('prod').buildFlow(
         ])
     ])
 );
+
+
+//-------------------------------------------------------------------------------
+// Build Scripts
+//-------------------------------------------------------------------------------
+
+buildScript({
+    dependencies: [
+        "bugcore",
+        "bugflow"
+    ],
+    script: "./lintbug.js"
+});

@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('AirbugJar')
+//@Export('splash.AirbugJar')
 
 //@Require('Class')
 //@Require('Event')

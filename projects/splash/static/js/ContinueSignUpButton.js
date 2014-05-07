@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('ContinueSignUpButton')
+//@Export('splash.ContinueSignUpButton')
 
 //@Require('Class')
 //@Require('Obj')

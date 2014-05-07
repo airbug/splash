@@ -2,39 +2,41 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('FeedbackModel')
-
-//@Require('splash.FeedbackModel')
+//@Export('splash.FeedbackModel')
 
 
 //-------------------------------------------------------------------------------
-// Common Modules
+// Context
 //-------------------------------------------------------------------------------
 
-var bugpack = require('bugpack').context();
-var mongoose = require('mongoose');
+require('bugpack').context("*", function(bugpack) {
+
+    //-------------------------------------------------------------------------------
+    // Common Modules
+    //-------------------------------------------------------------------------------
+
+    var mongoose = require('mongoose');
 
 
-//-------------------------------------------------------------------------------
-// Declare Class
-//-------------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------
+    // Declare Class
+    //-------------------------------------------------------------------------------
 
-var FeedbackSchema = new mongoose.Schema({
-    anythingConfusing: String,
-    biggestConcern: String,
-    currentPage: String,
-    helpSolve: String,
-    stoppingSignUp: String,
-    whatElse: String
+    var FeedbackSchema = new mongoose.Schema({
+        anythingConfusing: String,
+        biggestConcern: String,
+        currentPage: String,
+        helpSolve: String,
+        stoppingSignUp: String,
+        whatElse: String
+    });
+
+    var FeedbackModel = mongoose.model("Feedback", FeedbackSchema);
+
+
+    //-------------------------------------------------------------------------------
+    // Exports
+    //-------------------------------------------------------------------------------
+
+    bugpack.export('splash.FeedbackModel', FeedbackModel);
 });
-
-var FeedbackModel = mongoose.model("Feedback", FeedbackSchema);
-
-
-//-------------------------------------------------------------------------------
-// Exports
-//-------------------------------------------------------------------------------
-
-bugpack.export('splash.FeedbackModel', FeedbackModel);

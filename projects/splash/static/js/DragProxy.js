@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('DragProxy')
+//@Export('splash.DragProxy')
 
 //@Require('Class')
 //@Require('Obj')

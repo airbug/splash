@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('IDragTarget')
+//@Export('splash.IDragTarget')
 
 //@Require('Interface')
 

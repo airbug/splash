@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('DragManager')
+//@Export('splash.DragManager')
 
 //@Require('ArgumentBug')
 //@Require('Class')

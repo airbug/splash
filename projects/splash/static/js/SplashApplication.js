@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('SplashApplication')
+//@Export('splash.SplashApplication')
 //@Autoload
 
 //@Require('Class')

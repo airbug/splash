@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('BetaSignUpPage')
+//@Export('splash.BetaSignUpPage')
 
 //@Require('Class')
 //@Require('jquery.JQuery')

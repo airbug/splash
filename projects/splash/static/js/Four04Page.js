@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('Four04Page')
+//@Export('splash.Four04Page')
 
 //@Require('Class')
 //@Require('jquery.JQuery')

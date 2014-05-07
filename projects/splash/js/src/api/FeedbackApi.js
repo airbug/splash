@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('FeedbackApi')
+//@Export('splash.FeedbackApi')
 
 //@Require('Class')
 //@Require('Obj')
@@ -12,90 +10,103 @@
 
 
 //-------------------------------------------------------------------------------
-// Common Modules
+// Context
 //-------------------------------------------------------------------------------
 
-var bugpack         = require('bugpack').context();
-
-
-//-------------------------------------------------------------------------------
-// BugPack
-//-------------------------------------------------------------------------------
-
-var Class           = bugpack.require('Class');
-var Obj             = bugpack.require('Obj');
-var FeedbackModel   = bugpack.require('splash.FeedbackModel');
-
-
-//-------------------------------------------------------------------------------
-// Declare Class
-//-------------------------------------------------------------------------------
-
-var FeedbackApi = Class.extend(Obj, {
+require('bugpack').context("*", function(bugpack) {
 
     //-------------------------------------------------------------------------------
-    // Constructor
+    // BugPack
     //-------------------------------------------------------------------------------
 
-    _constructor: function() {
-
-        this._super();
-
-
-        //-------------------------------------------------------------------------------
-        // Private Properties
-        //-------------------------------------------------------------------------------
-
-    },
+    var Class           = bugpack.require('Class');
+    var Obj             = bugpack.require('Obj');
+    var FeedbackModel   = bugpack.require('splash.FeedbackModel');
 
 
     //-------------------------------------------------------------------------------
-    // Public Methods
+    // Declare Class
     //-------------------------------------------------------------------------------
 
     /**
-     * @param {{
-     *      anythingConfusing: string,
-     *      biggestConcern: string,
-     *      currentPage: string,
-     *      helpSolve: string,
-     *      stoppingSignUp: string,
-     *      whatElse: string
-     * }} data
-     * @param {function(Error, FeedbackModel)} callback
+     * @class
+     * @extends {Obj}
      */
-    createFeedback: function(data, callback) {
-        //TODO BRN: Add validation of params
+    var FeedbackApi = Class.extend(Obj, {
 
-        var feedback = {
-            anythingConfusing: data.anythingConfusing,
-            biggestConcern: data.biggestConcern,
-            currentPage: data.currentPage,
-            helpSolve: data.helpSolve,
-            stoppingSignUp: data.stoppingSignUp,
-            whatElse: data.whatElse
-        };
-        var feedbackModel = new FeedbackModel(feedback);
-        feedbackModel.save(function(error, result) {
-            if (error) {
-                callback(new Error('feedback failed to save'));
-            } else {
-                callback(null, result);
-            }
-        });
-    },
+        _name: "splash.FeedbackApi",
 
-    findAllFeedbacks: function(callback) {
-        var query = FeedbackModel.find();
-        query.exec(function(error, feedbacks) {
-            callback(error, feedbacks);
-        });
-    }
+
+        //-------------------------------------------------------------------------------
+        // Constructor
+        //-------------------------------------------------------------------------------
+
+        /**
+         * @constructs
+         */
+        _constructor: function() {
+
+            this._super();
+
+
+            //-------------------------------------------------------------------------------
+            // Private Properties
+            //-------------------------------------------------------------------------------
+
+        },
+
+
+        //-------------------------------------------------------------------------------
+        // Public Methods
+        //-------------------------------------------------------------------------------
+
+        /**
+         * @param {{
+         *      anythingConfusing: string,
+         *      biggestConcern: string,
+         *      currentPage: string,
+         *      helpSolve: string,
+         *      stoppingSignUp: string,
+         *      whatElse: string
+         * }} data
+         * @param {function(Error, FeedbackModel)} callback
+         */
+        createFeedback: function(data, callback) {
+            //TODO BRN: Add validation of params
+
+            var feedback = {
+                anythingConfusing: data.anythingConfusing,
+                biggestConcern: data.biggestConcern,
+                currentPage: data.currentPage,
+                helpSolve: data.helpSolve,
+                stoppingSignUp: data.stoppingSignUp,
+                whatElse: data.whatElse
+            };
+            var feedbackModel = new FeedbackModel(feedback);
+            feedbackModel.save(function(error, result) {
+                if (error) {
+                    callback(new Error('feedback failed to save'));
+                } else {
+                    callback(null, result);
+                }
+            });
+        },
+
+        /**
+         * @param {function(Error, Array.<FeedbackModel>)} callback
+         */
+        findAllFeedbacks: function(callback) {
+            var query = FeedbackModel.find();
+            query.exec(function(error, feedbacks) {
+                callback(error, feedbacks);
+            });
+        }
+    });
+
+
+    //-------------------------------------------------------------------------------
+    // Exports
+    //-------------------------------------------------------------------------------
+
+    bugpack.export('splash.FeedbackApi', FeedbackApi);
 });
-
-
-//-------------------------------------------------------------------------------
-// Exports
-//-------------------------------------------------------------------------------
-
-bugpack.export('splash.FeedbackApi', FeedbackApi);

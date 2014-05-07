@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('OtherAirbugForm')
+//@Export('splash.OtherAirbugForm')
 
 //@Require('Class')
 //@Require('Obj')

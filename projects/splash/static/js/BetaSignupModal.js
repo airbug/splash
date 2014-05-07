@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('BetaSignUpModal')
+//@Export('splash.BetaSignUpModal')
 
 //@Require('Class')
 //@Require('Obj')

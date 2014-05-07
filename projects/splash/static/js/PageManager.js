@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('PageManager')
+//@Export('splash.PageManager')
 
 //@Require('Class')
 //@Require('Map')

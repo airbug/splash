@@ -2,9 +2,7 @@
 // Annotations
 //-------------------------------------------------------------------------------
 
-//@Package('splash')
-
-//@Export('FeedbackPanel')
+//@Export('splash.FeedbackPanel')
 
 //@Require('Class')
 //@Require('Obj')
