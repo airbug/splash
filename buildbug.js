@@ -151,6 +151,9 @@ buildProperties({
             ".*\\.git$",
             ".*node_modules$"
         ]
+    },
+    deployLocal: {
+        tempPath: "../temp"
     }
 });
 
@@ -201,15 +204,17 @@ buildTarget('local').buildFlow(
             targetTask('createNodePackage', {
                 properties: {
                     packageJson: buildProject.getProperty("splash.packageJson"),
-                    scriptPaths: buildProject.getProperty("splash.scriptPaths").concat(
-                        buildProject.getProperty("splashUnitTest.scriptPaths")
-                    ),
-                    sourcePaths: buildProject.getProperty("splash.sourcePaths").concat(
-                        buildProject.getProperty("splashUnitTest.sourcePaths")
-                    ),
-                    staticPaths: ["{{static.outputPath}}"],
-                    testPaths: buildProject.getProperty("splashUnitTest.testPaths"),
-                    resourcePaths: buildProject.getProperty("splash.resourcePaths")
+                    packagePaths: {
+                        "./scripts": buildProject.getProperty("splash.scriptPaths").concat(
+                            buildProject.getProperty("splashUnitTest.scriptPaths")
+                        ),
+                        "./lib": buildProject.getProperty("splash.sourcePaths").concat(
+                            buildProject.getProperty("splashUnitTest.sourcePaths")
+                        ),
+                        "./static": ["{{static.outputPath}}"],
+                        "./test": buildProject.getProperty("splashUnitTest.testPaths"),
+                        "./resources": buildProject.getProperty("splash.resourcePaths")
+                    }
                 }
             }),
             targetTask('generateBugPackRegistry', {
@@ -290,15 +295,17 @@ buildTarget('short').buildFlow(
             targetTask('createNodePackage', {
                 properties: {
                     packageJson: buildProject.getProperty("splash.packageJson"),
-                    scriptPaths: buildProject.getProperty("splash.scriptPaths").concat(
-                        buildProject.getProperty("splashUnitTest.scriptPaths")
-                    ),
-                    sourcePaths: buildProject.getProperty("splash.sourcePaths").concat(
-                        buildProject.getProperty("splashUnitTest.sourcePaths")
-                    ),
-                    staticPaths: ["{{static.outputPath}}"],
-                    testPaths: buildProject.getProperty("splashUnitTest.testPaths"),
-                    resourcePaths: buildProject.getProperty("splash.resourcePaths")
+                    packagePaths: {
+                        "./scripts": buildProject.getProperty("splash.scriptPaths").concat(
+                            buildProject.getProperty("splashUnitTest.scriptPaths")
+                        ),
+                        "./lib": buildProject.getProperty("splash.sourcePaths").concat(
+                            buildProject.getProperty("splashUnitTest.sourcePaths")
+                        ),
+                        "./static": ["{{static.outputPath}}"],
+                        "./test": buildProject.getProperty("splashUnitTest.testPaths"),
+                        "./resources": buildProject.getProperty("splash.resourcePaths")
+                    }
                 }
             }),
             targetTask('generateBugPackRegistry', {
@@ -339,15 +346,16 @@ buildTarget('prod').buildFlow(
                 targetTask('createNodePackage', {
                     properties: {
                         packageJson: buildProject.getProperty("splash.packageJson"),
-                        scriptPaths: buildProject.getProperty("splash.scriptPaths").concat(
-                            buildProject.getProperty("splashUnitTest.scriptPaths")
-                        ),
-                        sourcePaths: buildProject.getProperty("splash.sourcePaths").concat(
-                            buildProject.getProperty("splashUnitTest.sourcePaths")
-                        ),
-
-                        testPaths: buildProject.getProperty("splashUnitTest.testPaths"),
-                        resourcePaths: buildProject.getProperty("splash.resourcePaths")
+                        packagePaths: {
+                            "./scripts": buildProject.getProperty("splash.scriptPaths").concat(
+                                buildProject.getProperty("splashUnitTest.scriptPaths")
+                            ),
+                            "./lib": buildProject.getProperty("splash.sourcePaths").concat(
+                                buildProject.getProperty("splashUnitTest.sourcePaths")
+                            ),
+                            "./test": buildProject.getProperty("splashUnitTest.testPaths"),
+                            "./resources": buildProject.getProperty("splash.resourcePaths")
+                        }
                     }
                 }),
                 targetTask('generateBugPackRegistry', {
@@ -384,9 +392,11 @@ buildTarget('prod').buildFlow(
                 targetTask('createNodePackage', {
                     properties: {
                         packageJson: buildProject.getProperty("splash.packageJson"),
-                        scriptPaths: buildProject.getProperty("splash.scriptPaths"),
-                        sourcePaths: buildProject.getProperty("splash.sourcePaths"),
-                        resourcePaths: buildProject.getProperty("splash.resourcePaths")
+                        packagePaths: {
+                            "./scripts": buildProject.getProperty("splash.scriptPaths"),
+                            "./lib": buildProject.getProperty("splash.sourcePaths"),
+                            "./resources": buildProject.getProperty("splash.resourcePaths")
+                        }
                     }
                 }),
                 targetTask('generateBugPackRegistry', {
@@ -456,6 +466,29 @@ buildTarget('prod').buildFlow(
         ])
     ])
 );
+
+
+// Deploy Local Flow
+//-------------------------------------------------------------------------------
+
+buildTarget('deploy-local').buildFlow(
+    series([
+        targetTask('npmInstall', {
+            init: function(task, buildProject, properties) {
+                var packedNodePackage = nodejs.findPackedNodePackage(
+                    buildProject.getProperty("splash.packageJson.name"),
+                    buildProject.getProperty("splash.packageJson.version"));
+                task.updateProperties({
+                    module: packedNodePackage.getFilePath().getAbsolutePath()
+                });
+            },
+            properties: {
+                installPath: "{{deployLocal.tempPath}}"
+            }
+        })
+    ])
+);
+
 
 
 //-------------------------------------------------------------------------------
