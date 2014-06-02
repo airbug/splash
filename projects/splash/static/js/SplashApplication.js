@@ -7,12 +7,12 @@
 
 //@Require('Class')
 //@Require('Obj')
-//@Require('bugioc.AutowiredAnnotationProcessor')
-//@Require('bugioc.AutowiredScan')
-//@Require('bugioc.ConfigurationAnnotationProcessor')
-//@Require('bugioc.ConfigurationScan')
-//@Require('bugioc.ModuleAnnotationProcessor')
-//@Require('bugioc.ModuleScan')
+//@Require('bugioc.AutowiredTagProcessor')
+//@Require('bugioc.AutowiredTagScan')
+//@Require('bugioc.ConfigurationTagProcessor')
+//@Require('bugioc.ConfigurationTagScan')
+//@Require('bugioc.ModuleTagProcessor')
+//@Require('bugioc.ModuleTagScan')
 //@Require('bugioc.IocContext')
 //@Require('bugmeta.BugMeta')
 
@@ -30,12 +30,12 @@ var bugpack = require('bugpack').context();
 
 var Class                               = bugpack.require('Class');
 var Obj                                 = bugpack.require('Obj');
-var AutowiredAnnotationProcessor        = bugpack.require('bugioc.AutowiredAnnotationProcessor');
-var AutowiredScan                       = bugpack.require('bugioc.AutowiredScan');
-var ConfigurationAnnotationProcessor    = bugpack.require('bugioc.ConfigurationAnnotationProcessor');
-var ConfigurationScan                   = bugpack.require('bugioc.ConfigurationScan');
-var ModuleAnnotationProcessor           = bugpack.require('bugioc.ModuleAnnotationProcessor');
-var ModuleScan                          = bugpack.require('bugioc.ModuleScan');
+var AutowiredTagProcessor        = bugpack.require('bugioc.AutowiredTagProcessor');
+var AutowiredTagScan                       = bugpack.require('bugioc.AutowiredTagScan');
+var ConfigurationTagProcessor    = bugpack.require('bugioc.ConfigurationTagProcessor');
+var ConfigurationTagScan                   = bugpack.require('bugioc.ConfigurationTagScan');
+var ModuleTagProcessor           = bugpack.require('bugioc.ModuleTagProcessor');
+var ModuleTagScan                          = bugpack.require('bugioc.ModuleTagScan');
 var IocContext                          = bugpack.require('bugioc.IocContext');
 var BugMeta                             = bugpack.require('bugmeta.BugMeta');
 
@@ -67,22 +67,22 @@ var SplashApplication = Class.extend(Obj, {
 
         /**
          * @private
-         * @type {AutowiredScan}
-         * @type {ConfigurationScan}
+         * @type {AutowiredTagScan}
+         * @type {ConfigurationTagScan}
          */
-        this.autowiredScan      = new AutowiredScan(BugMeta.context(), new AutowiredAnnotationProcessor(this.iocContext));
+        this.autowiredScan      = new AutowiredTagScan(BugMeta.context(), new AutowiredTagProcessor(this.iocContext));
 
         /**
          * @private
-         * @type {ConfigurationScan}
+         * @type {ConfigurationTagScan}
          */
-        this.configurationScan  = new ConfigurationScan(BugMeta.context(), new ConfigurationAnnotationProcessor(this.iocContext));
+        this.configurationTagScan  = new ConfigurationTagScan(BugMeta.context(), new ConfigurationTagProcessor(this.iocContext));
 
         /**
          * @private
-         * @type {ModuleScan}
+         * @type {ModuleTagScan}
          */
-        this.moduleScan         = new ModuleScan(BugMeta.context(), new ModuleAnnotationProcessor(this.iocContext));
+        this.moduleTagScan         = new ModuleTagScan(BugMeta.context(), new ModuleTagProcessor(this.iocContext));
     },
 
 
@@ -96,8 +96,8 @@ var SplashApplication = Class.extend(Obj, {
     start: function(callback) {
         this.autowiredScan.scanAll();
         this.autowiredScan.scanContinuous();
-        this.configurationScan.scanAll();
-        this.moduleScan.scanAll();
+        this.configurationTagScan.scanAll();
+        this.moduleTagScan.scanAll();
         this.iocContext.process();
         this.iocContext.initialize(callback);
     }

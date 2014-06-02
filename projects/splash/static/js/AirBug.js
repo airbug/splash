@@ -7,8 +7,8 @@
 //@Require('Class')
 //@Require('Obj')
 //@Require('TypeUtil')
-//@Require('bugioc.AutowiredAnnotation')
-//@Require('bugioc.PropertyAnnotation')
+//@Require('bugioc.AutowiredTag')
+//@Require('bugioc.PropertyTag')
 //@Require('bugmeta.BugMeta')
 //@Require('splash.IDraggable')
 
@@ -27,8 +27,8 @@ var bugpack             = require('bugpack').context();
 var Class               = bugpack.require('Class');
 var Obj                 = bugpack.require('Obj');
 var TypeUtil            = bugpack.require('TypeUtil');
-var AutowiredAnnotation = bugpack.require('bugioc.AutowiredAnnotation');
-var PropertyAnnotation  = bugpack.require('bugioc.PropertyAnnotation');
+var AutowiredTag = bugpack.require('bugioc.AutowiredTag');
+var PropertyTag  = bugpack.require('bugioc.PropertyTag');
 var BugMeta             = bugpack.require('bugmeta.BugMeta');
 var IDraggable          = bugpack.require('splash.IDraggable');
 
@@ -37,9 +37,9 @@ var IDraggable          = bugpack.require('splash.IDraggable');
 // Simplify References
 //-------------------------------------------------------------------------------
 
-var autowired           = AutowiredAnnotation.autowired;
+var autowired           = AutowiredTag.autowired;
 var bugmeta             = BugMeta.context();
-var property            = PropertyAnnotation.property;
+var property            = PropertyTag.property;
 
 
 //-------------------------------------------------------------------------------
@@ -210,7 +210,7 @@ Class.implement(Airbug, IDraggable);
 // BugMeta
 //-------------------------------------------------------------------------------
 
-bugmeta.annotate(Airbug).with(
+bugmeta.tag(Airbug).with(
     autowired().properties([
         property("airbugJar").ref("airbugJar"),
         property("dragManager").ref("dragManager")

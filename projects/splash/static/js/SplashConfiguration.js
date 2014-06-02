@@ -7,11 +7,11 @@
 
 //@Require('Class')
 //@Require('Obj')
-//@Require('bugioc.ArgAnnotation')
-//@Require('bugioc.ConfigurationAnnotation')
+//@Require('bugioc.ArgTag')
+//@Require('bugioc.ConfigurationTag')
 //@Require('bugioc.IConfiguration')
-//@Require('bugioc.ModuleAnnotation')
-//@Require('bugioc.PropertyAnnotation')
+//@Require('bugioc.ModuleTag')
+//@Require('bugioc.PropertyTag')
 //@Require('bugmeta.BugMeta')
 //@Require('jquery.JQuery')
 //@Require('sonarbugclient.SonarbugClient')
@@ -48,11 +48,11 @@ var bugpack = require('bugpack').context();
 
 var Class                   = bugpack.require('Class');
 var Obj                     = bugpack.require('Obj');
-var ArgAnnotation           = bugpack.require('bugioc.ArgAnnotation');
-var ConfigurationAnnotation = bugpack.require('bugioc.ConfigurationAnnotation');
+var ArgTag           = bugpack.require('bugioc.ArgTag');
+var ConfigurationTag = bugpack.require('bugioc.ConfigurationTag');
 var IConfiguration          = bugpack.require('bugioc.IConfiguration');
-var ModuleAnnotation        = bugpack.require('bugioc.ModuleAnnotation');
-var PropertyAnnotation      = bugpack.require('bugioc.PropertyAnnotation');
+var ModuleTag        = bugpack.require('bugioc.ModuleTag');
+var PropertyTag      = bugpack.require('bugioc.PropertyTag');
 var BugMeta                 = bugpack.require('bugmeta.BugMeta');
 var SonarbugClient          = bugpack.require('sonarbugclient.SonarbugClient');
 var AirbugJar               = bugpack.require('splash.AirbugJar');
@@ -79,11 +79,11 @@ var PrivacyPage              = bugpack.require('splash.PrivacyPage');
 // Simplify References
 //-------------------------------------------------------------------------------
 
-var arg             = ArgAnnotation.arg;
+var arg             = ArgTag.arg;
 var bugmeta         = BugMeta.context();
-var configuration   = ConfigurationAnnotation.configuration;
-var module          = ModuleAnnotation.module;
-var property        = PropertyAnnotation.property;
+var configuration   = ConfigurationTag.configuration;
+var module          = ModuleTag.module;
+var property        = PropertyTag.property;
 
 
 //-------------------------------------------------------------------------------
@@ -286,7 +286,7 @@ Class.implement(SplashConfiguration, IConfiguration);
 // BugMeta
 //-------------------------------------------------------------------------------
 
-bugmeta.annotate(SplashConfiguration).with(
+bugmeta.tag(SplashConfiguration).with(
     configuration("splashConfiguration").modules([
         module("airbugJar")
             .properties([
