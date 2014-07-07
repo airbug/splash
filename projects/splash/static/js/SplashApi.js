@@ -32,7 +32,7 @@ var JQuery =    bugpack.require('jquery.JQuery');
 var SplashApi = Class.extend(Obj, {
 
     //-------------------------------------------------------------------------------
-    // Class Methods
+    // Public Methods
     //-------------------------------------------------------------------------------
 
     send: function(endpoint, dataObject, callback) {
