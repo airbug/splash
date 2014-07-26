@@ -39,14 +39,23 @@ var bugunit             = enableModule('bugunit');
 var core                = enableModule('core');
 var lintbug             = enableModule('lintbug');
 var nodejs              = enableModule('nodejs');
+var uglifyjs            = enableModule("uglifyjs");
 
 
 //-------------------------------------------------------------------------------
 // Values
 //-------------------------------------------------------------------------------
 
-var version             = "1.1.0";
 var name                = "splash";
+var version             = "1.1.2";
+var dependencies        = {
+    bugpack: "0.1.14",
+    express: "3.1.x",
+    jade: "1.5.0",
+    mongodb: "1.4.7",
+    mongoose: "3.8.13",
+    "mailchimp-api": "2.0.6"
+};
 
 
 //-------------------------------------------------------------------------------
@@ -54,92 +63,90 @@ var name                = "splash";
 //-------------------------------------------------------------------------------
 
 buildProperties({
-    static: {
-        outputPath: buildProject.getProperty("buildPath") + "/static",
+    name: name,
+    version: version
+});
+
+buildProperties({
+    client: {
+        buildPath: "{{buildPath}}/{{client.name}}/{{client.version}}",
+        jsBuildPath: "{{client.buildPath}}/js",
+        staticBuildPath: "{{client.buildPath}}/static",
+        name: "{{name}}client",
+        version: "{{version}}",
+        outputFile: "{{distPath}}/{{client.name}}.js",
+        outputMinFile: "{{distPath}}/{{client.name}}.min.js",
         sourcePaths: [
+            "./projects/splashclient/js/src",
             "../bugcore/projects/bugcore/js/src",
-            "../bugflow/projects/bugflow/js/src",
             "../bugjs/external/jquery/js/src",
             "../bugjs/external/bootstrap3/js/src",
-            "../bugjs/external/bootstrap3/static",
             "../bugjs/external/socket-io/js/src",
+            "../bugjs/projects/bugapp/js/src",
             "../bugjs/projects/bugioc/js/src",
             "../bugjs/projects/cookies/js/src",
             "../bugjs/projects/session/js/src",
-            "../bugmeta/projects/bugmeta/js/src",
-            "../bugtrace/projects/bugtrace/js/src",
-            "../sonarbug/projects/sonarbugclient/js/src",
-            "../splitbug/projects/splitbug/js/src",
-            "../splitbug/projects/splitbugclient/js/src",
-            "./projects/splash/static"
-        ]
+            "../bugmeta/projects/bugmeta/js/src"
+        ],
+        staticPaths: [
+            "./projects/splashclient/static",
+            "../bugjs/external/bootstrap3/static"
+        ],
+        loader: {
+            source: "./projects/splashclient/js/scripts/splashclient-application-loader.js",
+            outputFile: "{{distPath}}/splashclient-application-loader.js",
+            outputMinFile: "{{distPath}}/splashclient-application-loader.min.js"
+        }
     },
-    splash: {
+    server: {
         packageJson: {
-            name: "splash",
-            version: version,
+            name: "{{name}}server",
+            version: "{{version}}",
+            dependencies: dependencies,
             private: true,
             scripts: {
-                start: "node ./scripts/splash-server-start.js"
-            },
-            dependencies: {
-                bugpack: "0.1.12",
-                express: "3.1.x",
-                jade: "1.0.2",
-                mongodb: ">=1.2.11",
-                mongoose: "3.8.x",
-                "mailchimp-api": "2.0.4"
+                start: "node ./scripts/splashserver-application-start.js"
             }
         },
         sourcePaths: [
             "../bugcore/projects/bugcore/js/src",
-            "../bugflow/projects/bugflow/js/src",
             "../bugfs/projects/bugfs/js/src",
             "../bugjs/projects/bugioc/js/src",
             "../bugjs/projects/configbug/js/src",
             "../bugmeta/projects/bugmeta/js/src",
-            "../bugtrace/projects/bugtrace/js/src",
-            "./projects/splash/js/src"
+            "./projects/splashserver/js/src"
         ],
         scriptPaths: [
-            "./projects/splash/js/scripts"
+            "./projects/splashserver/js/scripts"
         ],
         resourcePaths: [
-            "./projects/splash/resources"
-        ]
-    },
-    splashUnitTest: {
-        packageJson: {
-            name: "splash-test",
-            version: version,
-            private: true,
-            scripts: {
-                start: "node ./scripts/splash-server-start.js"
+            "./projects/splashserver/resources"
+        ],
+        unitTest: {
+            packageJson: {
+                name: "{{name}}server-test",
+                version: "{{version}}",
+                dependencies: dependencies,
+                private: true,
+                scripts: {
+                    start: "node ./scripts/splashserver-application-start.js"
+                }
             },
-            dependencies: {
-                bugpack: "https://s3.amazonaws.com/deploy-airbug/bugpack-0.0.5.tgz",
-                express: "3.1.x",
-                jade: "1.0.2",
-                mongodb: ">=1.2.11",
-                mongoose: "3.8.x"
-            }
-        },
-        sourcePaths: [
-            "../buganno/projects/buganno/js/src",
-            "../bugjs/projects/bugyarn/js/src",
-            "../bugunit/projects/bugdouble/js/src",
-            "../bugunit/projects/bugunit/js/src"
-        ],
-        scriptPaths: [
-            "../buganno/projects/buganno/js/scripts",
-            "../bugunit/projects/bugunit/js/scripts"
-        ],
-        testPaths: [
-            "../bugcore/projects/bugcore/js/test",
-            "../bugflow/projects/bugflow/js/test",
-            "../bugmeta/projects/bugmeta/js/test",
-            "../bugtrace/projects/bugtrace/js/test"
-        ]
+            sourcePaths: [
+                "../buganno/projects/buganno/js/src",
+                "../bugjs/projects/bugyarn/js/src",
+                "../bugunit/projects/bugdouble/js/src",
+                "../bugunit/projects/bugunit/js/src"
+            ],
+            scriptPaths: [
+                "../buganno/projects/buganno/js/scripts",
+                "../bugunit/projects/bugunit/js/scripts"
+            ],
+            testPaths: [
+                "../bugcore/projects/bugcore/js/test",
+                "../bugmeta/projects/bugmeta/js/test"
+            ]
+        }
     },
     lint: {
         targetPaths: [
@@ -185,43 +192,112 @@ buildTarget('local').buildFlow(
                 targetPaths: buildProject.getProperty("lint.targetPaths"),
                 ignores: buildProject.getProperty("lint.ignorePatterns"),
                 lintTasks: [
-                    "fixExportAndRemovePackageAnnotations"
+                    "cleanupExtraSpacingAtEndOfLines",
+                    "ensureNewLineEnding",
+                    "indentEqualSignsForPreClassVars",
+                    "orderBugpackRequires",
+                    "orderRequireAnnotations",
+                    "updateCopyright"
                 ]
             }
         }),
+        parallel([
+            series([
+                targetTask('copy', {
+                    properties: {
+                        fromPaths: ["{{client.loader.source}}"],
+                        intoPath: "{{distPath}}"
+                    }
+                }),
+                targetTask("uglifyjsMinify", {
+                    properties: {
+                        sources: ["{{client.loader.outputFile}}"],
+                        outputFile: "{{client.loader.outputMinFile}}"
+                    }
+                })
+            ]),
+            series([
+                targetTask('copyContents', {
+                    properties: {
+                        fromPaths: buildProject.getProperty("client.staticPaths"),
+                        intoPath: "{{client.staticBuildPath}}"
+                    }
+                })
+            ]),
+            series([
+                targetTask('copyContents', {
+                    properties: {
+                        fromPaths: buildProject.getProperty("client.sourcePaths"),
+                        intoPath: "{{client.jsBuildPath}}"
+                    }
+                }),
+                targetTask('generateBugPackRegistry', {
+                    properties: {
+                        name: "{{client.name}}",
+                        sourceRoot: "{{client.jsBuildPath}}"
+                    }
+                }),
+                targetTask("concat", {
+                    init: function(task, buildProject, properties) {
+                        var bugpackRegistry = bugpack.findBugPackRegistry(buildProject.getProperty("client.name"));
+                        var sources         = [];
+                        var registryEntries = bugpackRegistry.getRegistryEntriesInDependentOrder();
+
+                        registryEntries.forEach(function(bugPackRegistryEntry) {
+                            sources.push(bugPackRegistryEntry.getResolvedPath().getAbsolutePath());
+                        });
+                        task.updateProperties({
+                            sources: sources
+                        });
+                    },
+                    properties: {
+                        outputFile: "{{client.outputFile}}"
+                    }
+                }),
+                targetTask("uglifyjsMinify", {
+                    properties: {
+                        sources: ["{{client.outputFile}}"],
+                        outputFile: "{{client.outputMinFile}}"
+                    }
+                })
+            ])
+        ]),
         series([
-            targetTask('copyContents', {
-                properties: {
-                    fromPaths: buildProject.getProperty("static.sourcePaths"),
-                    intoPath: "{{static.outputPath}}"
-                }
-            }),
-            targetTask('generateBugPackRegistry', {
-                properties: {
-                    sourceRoot: "{{static.outputPath}}"
-                }
-            }),
             targetTask('createNodePackage', {
                 properties: {
-                    packageJson: buildProject.getProperty("splash.packageJson"),
+                    packageJson: buildProject.getProperty("server.packageJson"),
                     packagePaths: {
-                        "./scripts": buildProject.getProperty("splash.scriptPaths").concat(
-                            buildProject.getProperty("splashUnitTest.scriptPaths")
+                        "./scripts": buildProject.getProperty("server.scriptPaths").concat(
+                            buildProject.getProperty("server.unitTest.scriptPaths")
                         ),
-                        "./lib": buildProject.getProperty("splash.sourcePaths").concat(
-                            buildProject.getProperty("splashUnitTest.sourcePaths")
+                        "./lib": buildProject.getProperty("server.sourcePaths").concat(
+                            buildProject.getProperty("server.unitTest.sourcePaths")
                         ),
-                        "./static": ["{{static.outputPath}}"],
-                        "./test": buildProject.getProperty("splashUnitTest.testPaths"),
-                        "./resources": buildProject.getProperty("splash.resourcePaths")
+                        "./static": ["{{client.staticBuildPath}}"],
+                        "./test": buildProject.getProperty("server.unitTest.testPaths"),
+                        "./resources": buildProject.getProperty("server.resourcePaths"),
+                        "./static/js/client": [
+                            "{{client.jsBuildPath}}",
+                            buildProject.getProperty("client.outputFile"),
+                            buildProject.getProperty("client.outputMinFile"),
+                            buildProject.getProperty("client.loader.outputFile"),
+                            buildProject.getProperty("client.loader.outputMinFile")
+                        ]
                     }
+                }
+            }),
+            targetTask('replaceTokens', {
+                properties: {
+                    tokenObjects: [
+                        {token: "{{BUILD_VERSION}}", replacementValue: version, filePaths: ["{{buildPath}}/splashserver/{{version}}/resources/config"]}
+                    ]
                 }
             }),
             targetTask('generateBugPackRegistry', {
                 init: function(task, buildProject) {
                     var nodePackage = nodejs.findNodePackage(
-                        buildProject.getProperty("splash.packageJson.name"),
-                        buildProject.getProperty("splash.packageJson.version")
+                        buildProject.getProperty("server.packageJson.name"),
+                        buildProject.getProperty("server.packageJson.version")
                     );
                     task.updateProperties({
                         sourceRoot: nodePackage.getBuildPath(),
@@ -231,15 +307,15 @@ buildTarget('local').buildFlow(
             }),
             targetTask('packNodePackage', {
                 properties: {
-                    packageName: "{{splash.packageJson.name}}",
-                    packageVersion: "{{splash.packageJson.version}}"
+                    packageName: "{{server.packageJson.name}}",
+                    packageVersion: "{{server.packageJson.version}}"
                 }
             }),
             targetTask('startNodeModuleTests', {
                 init: function(task, buildProject, properties) {
                     var packedNodePackage = nodejs.findPackedNodePackage(
-                        buildProject.getProperty("splash.packageJson.name"),
-                        buildProject.getProperty("splash.packageJson.version")
+                        buildProject.getProperty("server.packageJson.name"),
+                        buildProject.getProperty("server.packageJson.version")
                     );
                     task.updateProperties({
                         modulePath: packedNodePackage.getFilePath()
@@ -248,8 +324,8 @@ buildTarget('local').buildFlow(
             }),
             targetTask("s3PutFile", {
                 init: function(task, buildProject, properties) {
-                    var packedNodePackage = nodejs.findPackedNodePackage(buildProject.getProperty("splash.packageJson.name"),
-                        buildProject.getProperty("splash.packageJson.version"));
+                    var packedNodePackage = nodejs.findPackedNodePackage(buildProject.getProperty("server.packageJson.name"),
+                        buildProject.getProperty("server.packageJson.version"));
                     task.updateProperties({
                         file: packedNodePackage.getFilePath(),
                         options: {
@@ -281,38 +357,88 @@ buildTarget('short').buildFlow(
 
         targetTask('clean'),
         series([
-            targetTask('copyContents', {
-                properties: {
-                    fromPaths: buildProject.getProperty("static.sourcePaths"),
-                    intoPath: "{{static.outputPath}}"
-                }
-            }),
-            targetTask('generateBugPackRegistry', {
-                properties: {
-                    sourceRoot: "{{static.outputPath}}"
-                }
-            }),
+            parallel([
+                series([
+                    targetTask('copy', {
+                        properties: {
+                            fromPaths: ["{{client.loader.source}}"],
+                            intoPath: "{{distPath}}"
+                        }
+                    })
+                ]),
+                series([
+                    targetTask('copyContents', {
+                        properties: {
+                            fromPaths: buildProject.getProperty("client.staticPaths"),
+                            intoPath: "{{client.staticBuildPath}}"
+                        }
+                    })
+                ]),
+                series([
+                    targetTask('copyContents', {
+                        properties: {
+                            fromPaths: buildProject.getProperty("client.sourcePaths"),
+                            intoPath: "{{client.jsBuildPath}}"
+                        }
+                    }),
+                    targetTask('generateBugPackRegistry', {
+                        properties: {
+                            name: "{{client.name}}",
+                            sourceRoot: "{{client.jsBuildPath}}"
+                        }
+                    }),
+                    targetTask("concat", {
+                        init: function(task, buildProject, properties) {
+                            var bugpackRegistry = bugpack.findBugPackRegistry(buildProject.getProperty("client.name"));
+                            var sources         = [];
+                            var registryEntries = bugpackRegistry.getRegistryEntriesInDependentOrder();
+
+                            registryEntries.forEach(function(bugPackRegistryEntry) {
+                                sources.push(bugPackRegistryEntry.getResolvedPath().getAbsolutePath());
+                            });
+                            task.updateProperties({
+                                sources: sources
+                            });
+                        },
+                        properties: {
+                            outputFile: "{{client.outputFile}}"
+                        }
+                    })
+                ])
+            ]),
             targetTask('createNodePackage', {
                 properties: {
-                    packageJson: buildProject.getProperty("splash.packageJson"),
+                    packageJson: buildProject.getProperty("server.packageJson"),
                     packagePaths: {
-                        "./scripts": buildProject.getProperty("splash.scriptPaths").concat(
-                            buildProject.getProperty("splashUnitTest.scriptPaths")
+                        "./scripts": buildProject.getProperty("server.scriptPaths").concat(
+                            buildProject.getProperty("server.unitTest.scriptPaths")
                         ),
-                        "./lib": buildProject.getProperty("splash.sourcePaths").concat(
-                            buildProject.getProperty("splashUnitTest.sourcePaths")
+                        "./lib": buildProject.getProperty("server.sourcePaths").concat(
+                            buildProject.getProperty("server.unitTest.sourcePaths")
                         ),
-                        "./static": ["{{static.outputPath}}"],
-                        "./test": buildProject.getProperty("splashUnitTest.testPaths"),
-                        "./resources": buildProject.getProperty("splash.resourcePaths")
+                        "./static": ["{{client.staticBuildPath}}"],
+                        "./test": buildProject.getProperty("server.unitTest.testPaths"),
+                        "./resources": buildProject.getProperty("server.resourcePaths"),
+                        "./static/js/client": [
+                            "{{client.jsBuildPath}}",
+                            buildProject.getProperty("client.outputFile"),
+                            buildProject.getProperty("client.loader.outputFile")
+                        ]
                     }
+                }
+            }),
+            targetTask('replaceTokens', {
+                properties: {
+                    tokenObjects: [
+                        {token: "{{BUILD_VERSION}}", replacementValue: version, filePaths: ["{{buildPath}}/splashserver/{{version}}/resources/config"]}
+                    ]
                 }
             }),
             targetTask('generateBugPackRegistry', {
                 init: function(task, buildProject) {
                     var nodePackage = nodejs.findNodePackage(
-                        buildProject.getProperty("splash.packageJson.name"),
-                        buildProject.getProperty("splash.packageJson.version")
+                        buildProject.getProperty("server.packageJson.name"),
+                        buildProject.getProperty("server.packageJson.version")
                     );
                     task.updateProperties({
                         sourceRoot: nodePackage.getBuildPath(),
@@ -322,8 +448,8 @@ buildTarget('short').buildFlow(
             }),
             targetTask('packNodePackage', {
                 properties: {
-                    packageName: "{{splash.packageJson.name}}",
-                    packageVersion: "{{splash.packageJson.version}}"
+                    packageName: "{{server.packageJson.name}}",
+                    packageVersion: "{{server.packageJson.version}}"
                 }
             })
         ])
@@ -341,28 +467,42 @@ buildTarget('prod').buildFlow(
         // old source files are removed. We should figure out a better way of doing that.
 
         targetTask('clean'),
+        targetTask('lint', {
+            properties: {
+                targetPaths: buildProject.getProperty("lint.targetPaths"),
+                ignores: buildProject.getProperty("lint.ignorePatterns"),
+                lintTasks: [
+                    "cleanupExtraSpacingAtEndOfLines",
+                    "ensureNewLineEnding",
+                    "indentEqualSignsForPreClassVars",
+                    "orderBugpackRequires",
+                    "orderRequireAnnotations",
+                    "updateCopyright"
+                ]
+            }
+        }),
         parallel([
             series([
                 targetTask('createNodePackage', {
                     properties: {
-                        packageJson: buildProject.getProperty("splash.packageJson"),
+                        packageJson: buildProject.getProperty("server.unitTest.packageJson"),
                         packagePaths: {
-                            "./scripts": buildProject.getProperty("splash.scriptPaths").concat(
-                                buildProject.getProperty("splashUnitTest.scriptPaths")
+                            "./scripts": buildProject.getProperty("server.scriptPaths").concat(
+                                buildProject.getProperty("server.unitTest.scriptPaths")
                             ),
-                            "./lib": buildProject.getProperty("splash.sourcePaths").concat(
-                                buildProject.getProperty("splashUnitTest.sourcePaths")
+                            "./lib": buildProject.getProperty("server.sourcePaths").concat(
+                                buildProject.getProperty("server.unitTest.sourcePaths")
                             ),
-                            "./test": buildProject.getProperty("splashUnitTest.testPaths"),
-                            "./resources": buildProject.getProperty("splash.resourcePaths")
+                            "./test": buildProject.getProperty("server.unitTest.testPaths"),
+                            "./resources": buildProject.getProperty("server.resourcePaths")
                         }
                     }
                 }),
                 targetTask('generateBugPackRegistry', {
                     init: function(task, buildProject, properties) {
                         var nodePackage = nodejs.findNodePackage(
-                            buildProject.getProperty("splash.packageJson.name"),
-                            buildProject.getProperty("splash.packageJson.version")
+                            buildProject.getProperty("server.unitTest.packageJson.name"),
+                            buildProject.getProperty("server.unitTest.packageJson.version")
                         );
                         task.updateProperties({
                             sourceRoot: nodePackage.getBuildPath(),
@@ -372,15 +512,15 @@ buildTarget('prod').buildFlow(
                 }),
                 targetTask('packNodePackage', {
                     properties: {
-                        packageName: "{{splash.packageJson.name}}",
-                        packageVersion: "{{splash.packageJson.version}}"
+                        packageName: "{{server.unitTest.packageJson.name}}",
+                        packageVersion: "{{server.unitTest.packageJson.version}}"
                     }
                 }),
                 targetTask('startNodeModuleTests', {
                     init: function(task, buildProject, properties) {
                         var packedNodePackage = nodejs.findPackedNodePackage(
-                            buildProject.getProperty("splash.packageJson.name"),
-                            buildProject.getProperty("splash.packageJson.version")
+                            buildProject.getProperty("server.unitTest.packageJson.name"),
+                            buildProject.getProperty("server.unitTest.packageJson.version")
                         );
                         task.updateProperties({
                             modulePath: packedNodePackage.getFilePath()
@@ -391,19 +531,26 @@ buildTarget('prod').buildFlow(
             series([
                 targetTask('createNodePackage', {
                     properties: {
-                        packageJson: buildProject.getProperty("splash.packageJson"),
+                        packageJson: buildProject.getProperty("server.packageJson"),
                         packagePaths: {
-                            "./scripts": buildProject.getProperty("splash.scriptPaths"),
-                            "./lib": buildProject.getProperty("splash.sourcePaths"),
-                            "./resources": buildProject.getProperty("splash.resourcePaths")
+                            "./scripts": buildProject.getProperty("server.scriptPaths"),
+                            "./lib": buildProject.getProperty("server.sourcePaths"),
+                            "./resources": buildProject.getProperty("server.resourcePaths")
                         }
+                    }
+                }),
+                targetTask('replaceTokens', {
+                    properties: {
+                        tokenObjects: [
+                            {token: "{{BUILD_VERSION}}", replacementValue: version, filePaths: ["{{buildPath}}/splashserver/{{version}}/resources/config"]}
+                        ]
                     }
                 }),
                 targetTask('generateBugPackRegistry', {
                     init: function(task, buildProject, properties) {
                         var nodePackage = nodejs.findNodePackage(
-                            buildProject.getProperty("splash.packageJson.name"),
-                            buildProject.getProperty("splash.packageJson.version")
+                            buildProject.getProperty("server.packageJson.name"),
+                            buildProject.getProperty("server.packageJson.version")
                         );
                         task.updateProperties({
                             sourceRoot: nodePackage.getBuildPath(),
@@ -413,15 +560,15 @@ buildTarget('prod').buildFlow(
                 }),
                 targetTask('packNodePackage', {
                     properties: {
-                        packageName: "{{splash.packageJson.name}}",
-                        packageVersion: "{{splash.packageJson.version}}"
+                        packageName: "{{server.packageJson.name}}",
+                        packageVersion: "{{server.packageJson.version}}"
                     }
                 }),
                 targetTask("s3PutFile", {
                     init: function(task, buildProject, properties) {
                         var packedNodePackage = nodejs.findPackedNodePackage(
-                            buildProject.getProperty("splash.packageJson.name"),
-                            buildProject.getProperty("splash.packageJson.version"));
+                            buildProject.getProperty("server.packageJson.name"),
+                            buildProject.getProperty("server.packageJson.version"));
                         task.updateProperties({
                             file: packedNodePackage.getFilePath(),
                             options: {
@@ -439,29 +586,99 @@ buildTarget('prod').buildFlow(
                 })
             ]),
             series([
-                targetTask('copyContents', {
-                    properties: {
-                        fromPaths: buildProject.getProperty("static.sourcePaths"),
-                        intoPath: "{{static.outputPath}}"
-                    }
-                }),
-                targetTask('generateBugPackRegistry', {
-                    properties: {
-                        sourceRoot: "{{static.outputPath}}"
-                    }
-                }),
-                targetTask("s3PutDirectoryContents", {
-                    properties: {
-                        directory: "{{static.outputPath}}",
-                        options: {
-                            acl: 'public-read',
-                            gzip: true,
-                            base: "splash/" + version + "/static",
-                            cacheControl: "max-age=31536000, public"
-                        },
-                        bucket: "{{prod-static-bucket}}"
-                    }
-                })
+                parallel([
+                    series([
+                        targetTask("uglifyjsMinify", {
+                            properties: {
+                                sources: ["{{client.loader.source}}"],
+                                outputFile: "{{client.loader.outputMinFile}}"
+                            }
+                        })
+                    ]),
+                    series([
+                        targetTask('copyContents', {
+                            properties: {
+                                fromPaths: buildProject.getProperty("client.staticPaths"),
+                                intoPath: "{{client.staticBuildPath}}"
+                            }
+                        })
+                    ]),
+                    series([
+                        targetTask('copyContents', {
+                            properties: {
+                                fromPaths: buildProject.getProperty("client.sourcePaths"),
+                                intoPath: "{{client.jsBuildPath}}"
+                            }
+                        }),
+                        targetTask('generateBugPackRegistry', {
+                            properties: {
+                                name: "{{client.name}}",
+                                sourceRoot: "{{client.jsBuildPath}}"
+                            }
+                        }),
+                        targetTask("concat", {
+                            init: function(task, buildProject, properties) {
+                                var bugpackRegistry = bugpack.findBugPackRegistry(buildProject.getProperty("client.name"));
+                                var sources         = [];
+                                var registryEntries = bugpackRegistry.getRegistryEntriesInDependentOrder();
+
+                                registryEntries.forEach(function(bugPackRegistryEntry) {
+                                    sources.push(bugPackRegistryEntry.getResolvedPath().getAbsolutePath());
+                                });
+                                task.updateProperties({
+                                    sources: sources
+                                });
+                            },
+                            properties: {
+                                outputFile: "{{client.outputFile}}"
+                            }
+                        }),
+                        targetTask("uglifyjsMinify", {
+                            properties: {
+                                sources: ["{{client.outputFile}}"],
+                                outputFile: "{{client.outputMinFile}}"
+                            }
+                        })
+                    ])
+                ]),
+                parallel([
+                    targetTask("s3PutFile", {
+                        properties: {
+                            file: "{{client.outputMinFile}}",
+                            options: {
+                                acl: 'public-read',
+                                gzip: true,
+                                base: "splash/" + version + "/static/js/client",
+                                cacheControl: "max-age=31536000, public"
+                            },
+                            bucket: "{{prod-static-bucket}}"
+                        }
+                    }),
+                    targetTask("s3PutFile", {
+                        properties: {
+                            file: "{{client.loader.outputMinFile}}",
+                            options: {
+                                acl: 'public-read',
+                                gzip: true,
+                                base: "splash/" + version + "/static/js/client",
+                                cacheControl: "max-age=31536000, public"
+                            },
+                            bucket: "{{prod-static-bucket}}"
+                        }
+                    }),
+                    targetTask("s3PutDirectoryContents", {
+                        properties: {
+                            directory: "{{client.staticBuildPath}}",
+                            options: {
+                                acl: 'public-read',
+                                gzip: true,
+                                base: "splash/" + version + "/static",
+                                cacheControl: "max-age=31536000, public"
+                            },
+                            bucket: "{{prod-static-bucket}}"
+                        }
+                    })
+                ])
             ])
         ])
     ])
@@ -476,8 +693,8 @@ buildTarget('deploy-local').buildFlow(
         targetTask('npmInstall', {
             init: function(task, buildProject, properties) {
                 var packedNodePackage = nodejs.findPackedNodePackage(
-                    buildProject.getProperty("splash.packageJson.name"),
-                    buildProject.getProperty("splash.packageJson.version"));
+                    buildProject.getProperty("server.packageJson.name"),
+                    buildProject.getProperty("server.packageJson.version"));
                 task.updateProperties({
                     module: packedNodePackage.getFilePath().getAbsolutePath()
                 });
@@ -498,7 +715,8 @@ buildTarget('deploy-local').buildFlow(
 buildScript({
     dependencies: [
         "bugcore",
-        "bugflow"
+        "bugflow",
+        "bugfs"
     ],
     script: "./lintbug.js"
 });

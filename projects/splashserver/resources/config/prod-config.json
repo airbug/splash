@@ -1,0 +1,14 @@
+{
+    "js" : {
+        "concat" : true,
+        "minify" : true
+    },
+    "mailchimp": {
+        "apiKey": "14beaa52ddae3fc5cd626d998cdf83b9-us3",
+        "listId": "f3e9d861ec"
+    },
+    "mongoDbIp": "10.209.21.90",
+    "port": 8000,
+    "production": true,
+    "staticUrl": "//d1jply0oquv2ju.cloudfront.net/splash/{{BUILD_VERSION}}/static"
+}

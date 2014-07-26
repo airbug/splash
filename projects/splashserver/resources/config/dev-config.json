@@ -1,0 +1,6 @@
+{
+    "js" : {
+        "concat" : true,
+        "minify" : false
+    }
+}
