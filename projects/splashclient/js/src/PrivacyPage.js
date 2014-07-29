@@ -17,7 +17,6 @@
 //@Require('Class')
 //@Require('jquery.JQuery')
 //@Require('splash.Page')
-//@Require('splash.PageManager')
 
 
 //-------------------------------------------------------------------------------
@@ -32,7 +31,6 @@ require('bugpack').context("*", function(bugpack) {
 
     var Class   = bugpack.require('Class');
     var JQuery  = bugpack.require('jquery.JQuery');
-    var Airbug  = bugpack.require('splash.Airbug');
     var Page    = bugpack.require('splash.Page');
 
 
@@ -40,19 +38,34 @@ require('bugpack').context("*", function(bugpack) {
     // Declare Class
     //-------------------------------------------------------------------------------
 
+    /**
+     * @class
+     * @extends {Page}
+     */
     var PrivacyPage = Class.extend(Page, {
+
+        _name: "splash.PrivacyPage",
+
 
         //-------------------------------------------------------------------------------
         // Constructor
         //-------------------------------------------------------------------------------
 
+        /**
+         * @constructs
+         */
         _constructor: function() {
-
             this._super("privacyPage", JQuery(".terms-background"));
-
-
         },
 
+
+        //-------------------------------------------------------------------------------
+        // Page Methods
+        //-------------------------------------------------------------------------------
+
+        /**
+         * @param {string} pageTransition
+         */
         activate: function(pageTransition) {
             this._super(pageTransition);
             JQuery('#loading-page').hide();

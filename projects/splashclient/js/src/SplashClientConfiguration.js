@@ -61,6 +61,7 @@ require('bugpack').context("*", function(bugpack) {
     var ModuleTag               = bugpack.require('bugioc.ModuleTag');
     var PropertyTag             = bugpack.require('bugioc.PropertyTag');
     var BugMeta                 = bugpack.require('bugmeta.BugMeta');
+    var JQuery                  = bugpack.require('jquery.JQuery');
     var AirbugJar               = bugpack.require('splash.AirbugJar');
     var Arrow                   = bugpack.require('splash.Arrow');
     var BetaSignUpModal         = bugpack.require('splash.BetaSignUpModal');

@@ -47,7 +47,7 @@ var uglifyjs            = enableModule("uglifyjs");
 //-------------------------------------------------------------------------------
 
 var name                = "splash";
-var version             = "1.1.2";
+var version             = "1.1.3";
 var dependencies        = {
     bugpack: "0.1.14",
     express: "3.1.x",
