@@ -78,12 +78,12 @@ buildProperties({
         outputMinFile: "{{distPath}}/{{client.name}}.min.js",
         sourcePaths: [
             "./projects/splashclient/js/src",
-            "../bugcore/projects/bugcore/js/src",
+            "../bugcore/libraries/bugcore/js/src",
             "../bugjs/external/jquery/js/src",
             "../bugjs/external/bootstrap3/js/src",
             "../bugjs/external/socket-io/js/src",
             "../bugjs/projects/bugapp/js/src",
-            "../bugjs/projects/bugioc/js/src",
+            "../bugioc/libraries/bugioc/js/src",
             "../bugjs/projects/cookies/js/src",
             "../bugjs/projects/session/js/src",
             "../bugmeta/projects/bugmeta/js/src"
@@ -109,9 +109,9 @@ buildProperties({
             }
         },
         sourcePaths: [
-            "../bugcore/projects/bugcore/js/src",
+            "../bugcore/libraries/bugcore/js/src",
             "../bugfs/projects/bugfs/js/src",
-            "../bugjs/projects/bugioc/js/src",
+            "../bugioc/libraries/bugioc/js/src",
             "../bugjs/projects/configbug/js/src",
             "../bugmeta/projects/bugmeta/js/src",
             "./projects/splashserver/js/src"
@@ -134,16 +134,16 @@ buildProperties({
             },
             sourcePaths: [
                 "../buganno/projects/buganno/js/src",
-                "../bugjs/projects/bugyarn/js/src",
                 "../bugunit/projects/bugdouble/js/src",
-                "../bugunit/projects/bugunit/js/src"
+                "../bugunit/projects/bugunit/js/src",
+                "../bugyarn/libraries/bugyarn/js/src"
             ],
             scriptPaths: [
                 "../buganno/projects/buganno/js/scripts",
                 "../bugunit/projects/bugunit/js/scripts"
             ],
             testPaths: [
-                "../bugcore/projects/bugcore/js/test",
+                "../bugcore/libraries/bugcore/js/test",
                 "../bugmeta/projects/bugmeta/js/test"
             ]
         }
