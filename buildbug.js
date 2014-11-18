@@ -47,9 +47,9 @@ var uglifyjs            = enableModule("uglifyjs");
 //-------------------------------------------------------------------------------
 
 var name                = "splash";
-var version             = "1.1.3";
+var version             = "1.1.4";
 var dependencies        = {
-    bugpack: "0.1.14",
+    bugpack: "0.2.0",
     express: "3.1.x",
     jade: "1.5.0",
     mongodb: "1.4.7",
@@ -78,15 +78,15 @@ buildProperties({
         outputMinFile: "{{distPath}}/{{client.name}}.min.js",
         sourcePaths: [
             "./projects/splashclient/js/src",
+            "../bugapp/libraries/bugapp/js/src",
             "../bugcore/libraries/bugcore/js/src",
+            "../bugioc/libraries/bugioc/js/src",
             "../bugjs/external/jquery/js/src",
             "../bugjs/external/bootstrap3/js/src",
             "../bugjs/external/socket-io/js/src",
-            "../bugjs/projects/bugapp/js/src",
-            "../bugioc/libraries/bugioc/js/src",
             "../bugjs/projects/cookies/js/src",
             "../bugjs/projects/session/js/src",
-            "../bugmeta/projects/bugmeta/js/src"
+            "../bugmeta/libraries/bugmeta/js/src"
         ],
         staticPaths: [
             "./projects/splashclient/static",
@@ -110,10 +110,10 @@ buildProperties({
         },
         sourcePaths: [
             "../bugcore/libraries/bugcore/js/src",
-            "../bugfs/projects/bugfs/js/src",
+            "../bugfs/libraries/bugfs/js/src",
             "../bugioc/libraries/bugioc/js/src",
             "../bugjs/projects/configbug/js/src",
-            "../bugmeta/projects/bugmeta/js/src",
+            "../bugmeta/libraries/bugmeta/js/src",
             "./projects/splashserver/js/src"
         ],
         scriptPaths: [
@@ -133,18 +133,18 @@ buildProperties({
                 }
             },
             sourcePaths: [
-                "../buganno/projects/buganno/js/src",
-                "../bugunit/projects/bugdouble/js/src",
-                "../bugunit/projects/bugunit/js/src",
+                "../buganno/libraries/buganno/js/src",
+                "../bugdouble/libraries/bugdouble/js/src",
+                "../bugunit/libraries/bugunit/js/src",
                 "../bugyarn/libraries/bugyarn/js/src"
             ],
             scriptPaths: [
-                "../buganno/projects/buganno/js/scripts",
-                "../bugunit/projects/bugunit/js/scripts"
+                "../buganno/libraries/buganno/js/scripts",
+                "../bugunit/libraries/bugunit/js/scripts"
             ],
             testPaths: [
                 "../bugcore/libraries/bugcore/js/test",
-                "../bugmeta/projects/bugmeta/js/test"
+                "../bugmeta/libraries/bugmeta/js/test"
             ]
         }
     },
@@ -267,22 +267,20 @@ buildTarget('local').buildFlow(
                 properties: {
                     packageJson: buildProject.getProperty("server.packageJson"),
                     packagePaths: {
-                        "./scripts": buildProject.getProperty("server.scriptPaths").concat(
-                            buildProject.getProperty("server.unitTest.scriptPaths")
-                        ),
-                        "./lib": buildProject.getProperty("server.sourcePaths").concat(
-                            buildProject.getProperty("server.unitTest.sourcePaths")
-                        ),
-                        "./static": ["{{client.staticBuildPath}}"],
-                        "./test": buildProject.getProperty("server.unitTest.testPaths"),
+                        "./lib": buildProject.getProperty("server.sourcePaths"),
                         "./resources": buildProject.getProperty("server.resourcePaths"),
+                        "./scripts": buildProject.getProperty("server.scriptPaths"),
+                        "./static": ["{{client.staticBuildPath}}"],
                         "./static/js/client": [
                             "{{client.jsBuildPath}}",
                             buildProject.getProperty("client.outputFile"),
                             buildProject.getProperty("client.outputMinFile"),
                             buildProject.getProperty("client.loader.outputFile"),
                             buildProject.getProperty("client.loader.outputMinFile")
-                        ]
+                        ],
+                        "./test": buildProject.getProperty("server.unitTest.testPaths"),
+                        "./test/lib": buildProject.getProperty("server.unitTest.sourcePaths"),
+                        "./test/scripts": buildProject.getProperty("server.unitTest.scriptPaths")
                     }
                 }
             }),
@@ -410,20 +408,18 @@ buildTarget('short').buildFlow(
                 properties: {
                     packageJson: buildProject.getProperty("server.packageJson"),
                     packagePaths: {
-                        "./scripts": buildProject.getProperty("server.scriptPaths").concat(
-                            buildProject.getProperty("server.unitTest.scriptPaths")
-                        ),
-                        "./lib": buildProject.getProperty("server.sourcePaths").concat(
-                            buildProject.getProperty("server.unitTest.sourcePaths")
-                        ),
-                        "./static": ["{{client.staticBuildPath}}"],
-                        "./test": buildProject.getProperty("server.unitTest.testPaths"),
+                        "./lib": buildProject.getProperty("server.sourcePaths"),
                         "./resources": buildProject.getProperty("server.resourcePaths"),
+                        "./scripts": buildProject.getProperty("server.scriptPaths"),
+                        "./static": ["{{client.staticBuildPath}}"],
                         "./static/js/client": [
                             "{{client.jsBuildPath}}",
                             buildProject.getProperty("client.outputFile"),
                             buildProject.getProperty("client.loader.outputFile")
-                        ]
+                        ],
+                        "./test": buildProject.getProperty("server.unitTest.testPaths"),
+                        "./test/lib": buildProject.getProperty("server.unitTest.sourcePaths"),
+                        "./test/scripts": buildProject.getProperty("server.unitTest.scriptPaths")
                     }
                 }
             }),
@@ -487,14 +483,12 @@ buildTarget('prod').buildFlow(
                     properties: {
                         packageJson: buildProject.getProperty("server.unitTest.packageJson"),
                         packagePaths: {
-                            "./scripts": buildProject.getProperty("server.scriptPaths").concat(
-                                buildProject.getProperty("server.unitTest.scriptPaths")
-                            ),
-                            "./lib": buildProject.getProperty("server.sourcePaths").concat(
-                                buildProject.getProperty("server.unitTest.sourcePaths")
-                            ),
+                            "./lib": buildProject.getProperty("server.sourcePaths"),
+                            "./resources": buildProject.getProperty("server.resourcePaths"),
+                            "./scripts": buildProject.getProperty("server.scriptPaths"),
                             "./test": buildProject.getProperty("server.unitTest.testPaths"),
-                            "./resources": buildProject.getProperty("server.resourcePaths")
+                            "./test/lib": buildProject.getProperty("server.unitTest.sourcePaths"),
+                            "./test/scripts": buildProject.getProperty("server.unitTest.scriptPaths")
                         }
                     }
                 }),
@@ -533,9 +527,9 @@ buildTarget('prod').buildFlow(
                     properties: {
                         packageJson: buildProject.getProperty("server.packageJson"),
                         packagePaths: {
-                            "./scripts": buildProject.getProperty("server.scriptPaths"),
                             "./lib": buildProject.getProperty("server.sourcePaths"),
-                            "./resources": buildProject.getProperty("server.resourcePaths")
+                            "./resources": buildProject.getProperty("server.resourcePaths"),
+                            "./scripts": buildProject.getProperty("server.scriptPaths")
                         }
                     }
                 }),
