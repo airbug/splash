@@ -188,7 +188,7 @@ require('bugpack').context("*", function(bugpack) {
         /**
          * @private
          * @param {string} fullName
-         * @returns {{firstName: (Array|*), lastName: string}}
+         * @return {{firstName: (Array|*), lastName: string}}
          */
         parseName: function(fullName) {
 
